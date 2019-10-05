@@ -6,3 +6,5 @@ function set_introduce_butotn_position() {
 }
 $(window).ready(function() {set_introduce_butotn_position();});
 $(window).resize(function() {set_introduce_butotn_position();});
+
+
