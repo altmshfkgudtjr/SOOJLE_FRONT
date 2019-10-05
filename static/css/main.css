@@ -1,17 +1,17 @@
-/*나눔고딕*/
+/*NanumGothic Font*/
 @font-face { 
 	font-family: 'NanumGothic';
 	src: url('../fonts/NanumBarunGothic/NanumGothic.eot') format('embedded-opentype'),
 	url('../fonts/NanumBarunGothic/NanumGothic.woff') format('woff');
 }
-/*나눔바른고딕*/
+/*NanumvBarunGothic Font*/
 @font-face { 
 	font-family: 'NanumBarunGothic';
 	src: url('../fonts/NanumBarunGothic.eot');
 	src: url('../fonts/NanumBarunGothic.eot') format('embedded-opentype'),
 	url('../fonts/NanumBarunGothic.woff') format('woff');
 }
-/*애플산들네오*/
+/*AppleSandleNeo Font*/
 @font-face { 
 	font-family: 'AppleSdNeo';
 	src: url('../fonts/AppleSdNeo/AppleSDGothicNeoR.ttf') format('truetype'),
@@ -35,6 +35,7 @@ input:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder { /* Int
 
 * {
 	-webkit-overflow-scrolling: touch;
+	z-index: inherit;
 }
 html, body {
 	width: 100%;
@@ -51,18 +52,19 @@ body {
 }
 
 /*Main CSS*/
-.SJ_main_page1 {
+.SJ_main_page1 {	/*z-index 10 ~ 20*/
 	position: relative;
 	background-color: none;
 	height: 100%;
 	width: 100%;
-	z-index: 0;
-	overflow-x:  hidden;
+	overflow-x: hidden;
+	z-index: 15;
 }
 .SJ_main_page1_c1_container {
 	position: relative;
 	width: 100%;
 	height: 100%;
+	z-index: 10;
 }
 .SJ_main_page1_c1 {
 	position: relative;
@@ -76,26 +78,26 @@ body {
 	box-shadow: 0 0 15px #121212;
 	background-color: #0C0C0C;
 	background-image:
-		radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-		radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 30px);
+		radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 20px),
+		radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 15px);
 	-ms-background-image:
-		-ms-radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-		-ms-radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 30px);
+		-ms-radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 20px),
+		-ms-radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 15px);
 	background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
 	background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
 }
 @media screen and (max-width: 750px) {
 	.SJ_main_page1_c1 {
 		background-image:
-			radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-			radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-			radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-			radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 30px);
+			radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 15px),
+			radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 10px),
+			radial-gradient(white, rgba(255,255,255,.05) 2px, transparent 15px),
+			radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 10px);
 		-ms-background-image:
-			radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-			radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-			-ms-radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-			-ms-radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 30px);
+			radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 15px),
+			radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 10px),
+			-ms-radial-gradient(white, rgba(255,255,255,.05) 2px, transparent 15px),
+			-ms-radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 10px);
 	}
 }
 .SJ_main_page1_c2 {
@@ -117,7 +119,11 @@ body {
 @media screen and (max-width: 400px) {
 	.SJ_main_page1_c2 {
 		top: 18%;
-		left: 10px;
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
 	}
 }
 @media screen and (min-width: 1000px) {
@@ -126,11 +132,28 @@ body {
 		left: 10%;
 	}
 }
+.SJ_main_page1_c2_title {
+	position: relative;
+	width: 300px;
+	height: 80px;
+	font-size: 80px;
+	font-weight: bold;
+	line-height: 80px;
+	color: #E0E0E0;
+	margin: 0;
+}
+@media screen and (min-width: 2500px) {
+	.SJ_main_page1_c2_title {
+		width: 400px;
+		height: 100px;
+		font-size: 100px;
+	}
+}
 .SJ_main_page1_c2_sub {
 	position: relative;
-	font-size: 20px;
+	font-size: 24px;
 	line-height: 30px;
-	color: #A4A4A4;
+	color: #676767;
 	margin: 0;
 	margin-top: 5px;
 }
@@ -255,10 +278,33 @@ body {
 	}
 }
 
-.SJ_main_page2 {
+.SJ_main_introduce_button {
+	position: absolute;
+	background-color: rgba(0,0,0,0);
+	border: none;
+	margin-bottom: 10px;
+	width: 50px;
+	height: 40px;
+	text-align: center;
+	font-size: 30px;
+	line-height: 40px;
+	color: #c30e2e;
+	opacity: 0.6;
+	transition: .2 ease;
+	-webkit-transition: .2s ease;
+	cursor: pointer;
+}
+.SJ_main_introduce_button:hover {
+	opacity: 1;
+}
+.SJ_main_introduce_button:focus,.SJ_main_introduce_button:active {
+	outline: none !important;
+}
+
+.SJ_main_page2 {		/*z-index : 0 ~ 10*/
 	position: relative;
 	background-color: #E0E0E0;
 	height: 100%;
 	width: 100%;
-	z-index: 10;
+	z-index: 0;
 }
