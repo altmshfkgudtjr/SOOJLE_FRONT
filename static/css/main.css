@@ -1,0 +1,264 @@
+/*나눔고딕*/
+@font-face { 
+	font-family: 'NanumGothic';
+	src: url('../fonts/NanumBarunGothic/NanumGothic.eot') format('embedded-opentype'),
+	url('../fonts/NanumBarunGothic/NanumGothic.woff') format('woff');
+}
+/*나눔바른고딕*/
+@font-face { 
+	font-family: 'NanumBarunGothic';
+	src: url('../fonts/NanumBarunGothic.eot');
+	src: url('../fonts/NanumBarunGothic.eot') format('embedded-opentype'),
+	url('../fonts/NanumBarunGothic.woff') format('woff');
+}
+/*애플산들네오*/
+@font-face { 
+	font-family: 'AppleSdNeo';
+	src: url('../fonts/AppleSdNeo/AppleSDGothicNeoR.ttf') format('truetype'),
+	url('../fonts/AppleSdNeo/AppleSDGothicNeoM.ttf') format('truetype');
+}
+
+/*All control CSS*/
+:root {
+	--sj_deepdark_color: #2A2A2A;
+	--sj_litedark_color: #E0E0E0;
+	--sj_accentdark_color: #050505;
+	--sj_deepred_color: #c30e2e;
+	--sj_litered_color: #DF0101;
+}
+
+/*input focus placeholder hide*/
+input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder { /* WebKit browsers */ color:transparent }
+input:focus:-moz-placeholder, textarea:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ color:transparent }
+input:focus::-moz-placeholder, textarea:focus::-moz-placeholder { /* Mozilla Firefox 19+ */ color:transparent }
+input:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder { /* Internet Explorer 10+ */ color:transparent }
+
+* {
+	-webkit-overflow-scrolling: touch;
+}
+html, body {
+	width: 100%;
+	height: 100%;
+}
+html {
+	background-color: #E0E0E0;
+}
+body {
+	font-family: 'AppleSdNeo', 'sans-serif';
+	margin: 0;
+	position: relative;
+	overflow-x: hidden;
+}
+
+/*Main CSS*/
+.SJ_main_page1 {
+	position: relative;
+	background-color: none;
+	height: 100%;
+	width: 100%;
+	z-index: 0;
+	overflow-x:  hidden;
+}
+.SJ_main_page1_c1_container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.SJ_main_page1_c1 {
+	position: relative;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	height: 150%;
+	width: 350%;
+	transform: translate(-36%, -36%) rotate(-30deg);
+	box-shadow: 0 0 15px #121212;
+	background-color: #0C0C0C;
+	background-image:
+		radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+		radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 30px);
+	-ms-background-image:
+		-ms-radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+		-ms-radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 30px);
+	background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+	background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+}
+@media screen and (max-width: 750px) {
+	.SJ_main_page1_c1 {
+		background-image:
+			radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+			radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+			radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+			radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 30px);
+		-ms-background-image:
+			radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+			radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+			-ms-radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+			-ms-radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 30px);
+	}
+}
+.SJ_main_page1_c2 {
+	position: absolute;
+	top: 26%;
+	left: 10%;
+}
+@media screen and (max-height: 600px) {
+	.SJ_main_page1_c2 {
+		top: 5%;
+		left: 10%;
+	}
+}
+@media screen and (max-width: 450px) {
+	.SJ_main_page1_c2 {
+		top: 20%;
+	}
+}
+@media screen and (max-width: 400px) {
+	.SJ_main_page1_c2 {
+		top: 18%;
+		left: 10px;
+	}
+}
+@media screen and (min-width: 1000px) {
+	.SJ_main_page1_c2 {
+		top: 20%;
+		left: 10%;
+	}
+}
+.SJ_main_page1_c2_sub {
+	position: relative;
+	font-size: 20px;
+	line-height: 30px;
+	color: #A4A4A4;
+	margin: 0;
+	margin-top: 5px;
+}
+@media screen and (min-width: 2500px) {
+	.SJ_main_page1_c2_sub {
+		font-size: 40px;
+		line-height: 50px;
+	}
+}
+.SJ_main_page1_c3 {
+	position: absolute;
+	top: 45%;
+	left: 10%;
+	height: 40px;
+	width: 60%;
+}
+@media screen and (max-width: 450px) {
+	.SJ_main_page1_c3 { width: 90% }	
+}
+@media screen and (max-width: 400px) {
+	.SJ_main_page1_c3 {
+		left: 50%;
+		transform: translate(-50%, 0);
+		width: 100%;
+	}	
+}
+@media screen and (min-width: 2500px) {
+	.SJ_main_page1_c3 {
+		top: 40%;
+		left: 10%;
+		height: 80px;
+		width: 70%;
+	}	
+}
+@media screen and (max-height: 600px) and (min-width: 450px) {
+	.SJ_main_page1_c3 {
+		top: 60%;
+	}
+}
+.SJ_main_page1_c3:focus-within .SJ_main_page1_c3_bar { 
+	opacity: 1;
+	box-shadow: 0 0 5px #DF0101;
+}
+.SJ_main_page1_c3_bar {
+	position: relative;
+	float: left;
+	margin-right: 15px;
+	background-color: #DF0101;
+	height: 100%;
+	width: 10px;
+	opacity: 0.6;
+	transition: .5s;
+	-webkit-transition: .5s;
+}
+@media screen and (max-width: 400px) {
+	.SJ_main_page1_c3_bar {
+		margin-left: 10px;
+		margin-right: 5px;
+	}	
+}
+.SJ_main_page1_c3_searchbar_container {
+	position: relative;
+	float: left;
+	height: 90%;
+	width: 73%;
+	padding: 0;
+	border: none;
+	border-radius: 50px;
+	background-color: #E0E0E0;
+	line-height: 40px;
+	font-size: 15px;
+	font-weight: bold;
+	transition: .5s;
+	-webkit-transition: .5s;
+}
+@media screen and (max-width: 800px) {
+	.SJ_main_page1_c3_searchbar_container { width: 90% }
+}
+@media screen and (min-width: 2500px) {
+	.SJ_main_page1_c3_searchbar_container {
+		width: 65%;
+		padding: 4px 0;
+		font-size: 30px;
+	}
+}
+.SJ_main_page1_c3_searchbar {
+	position: relative;
+	float: left;
+	height: 90%;
+	width: 80%;
+	padding: 2px 20px;
+	padding-right: 0;
+	border: none;
+	background-color: rgba(0,0,0,0);
+}
+.SJ_main_page1_c3_searchbar:focus {
+	outline: none;
+}
+.SJ_main_page1_c3_searchicon {
+	position: relative;
+	float: right;
+	height: 90%;
+	width: 10%;
+	padding: 2px 0;
+	border: none;
+	
+	font-size: 20px;
+	line-height: 35px;
+	text-align: center;
+	border-radius: 0 50px 50px 0;
+	cursor: pointer;
+}
+@media screen and (min-width: 2500px) {
+	.SJ_main_page1_c3_searchbar {
+		font-size: 30px;
+		padding: 2px 40px;
+		padding-right: 0;
+	}
+	.SJ_main_page1_c3_searchicon {
+		font-size: 35px;
+		line-height: 75px;
+	}
+}
+
+.SJ_main_page2 {
+	position: relative;
+	background-color: #E0E0E0;
+	height: 100%;
+	width: 100%;
+	z-index: 10;
+}

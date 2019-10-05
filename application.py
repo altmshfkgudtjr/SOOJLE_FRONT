@@ -36,7 +36,7 @@ jwt = JWTManager(application)
 
 def main_app(test_config = None):
 	#백그라운드 작업
-	schedule_init()
+	#다시제거해줄것#schedule_init()
 	#페이지들
 	application.register_blueprint(main.BP)
 	application.register_blueprint(auth.BP)
@@ -54,6 +54,4 @@ def teardown_request(exception):
 main_app()
 
 if __name__ == '__main__':
-    application.run(host='0.0.0.0', debug=True)
-
-    
+	application.run(host='0.0.0.0', debug=True, port="8080")
