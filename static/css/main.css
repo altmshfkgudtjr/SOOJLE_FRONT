@@ -1,3 +1,12 @@
+/*
+// Animation kit
+    -webkit-transform: ;
+       -moz-transform: ;
+       	-ms-transform: ;
+    	 -o-transform: ;
+    	    transform: ;
+*/
+
 /*NanumGothic Font*/
 @font-face { 
 	font-family: 'NanumGothic';
@@ -59,6 +68,8 @@ input:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder { /* Int
 html, body {
 	width: 100%;
 	height: 100%;
+	/*parallax*/
+	 overflow: hidden;
 }
 html {
 	background-color: #E0E0E0;
@@ -68,6 +79,10 @@ body {
 	margin: 0;
 	position: relative;
 	overflow-x: hidden;
+	/*parallax*/
+	height: 100%;
+	overflow-y: scroll;
+	perspective: 1px;
 }
 
 /*Main CSS*/
@@ -76,7 +91,7 @@ body {
 	background-color: none;
 	height: 100%;
 	width: 100%;
-	overflow-x: hidden;
+	/*overflow-x: hidden;*/
 	z-index: 15;
 }
 .SJ_main_page1_c1_container {
@@ -93,7 +108,11 @@ body {
 	bottom: 0;
 	height: 160%;
 	width: 350%;
-	transform: translate(-36%, -36%) rotate(-30deg);
+	-webkit-transform: translate(-36%, -36%) rotate(-30deg);
+	   -moz-transform: translate(-36%, -36%) rotate(-30deg);
+	    -ms-transform: translate(-36%, -36%) rotate(-30deg);
+       	 -o-transform: translate(-36%, -36%) rotate(-30deg);
+       	    transform: translate(-36%, -36%) rotate(-30deg);
 	box-shadow: 0 0 15px #121212;
 	background-color: #0C0C0C;
 	background-image:
@@ -109,41 +128,55 @@ body {
 	.SJ_main_page1_c1 {
 		background-image:
 			radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 15px),
-			radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 10px),
-			radial-gradient(white, rgba(255,255,255,.05) 2px, transparent 15px),
-			radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 10px);
+			radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 10px),
+			radial-gradient(white, rgba(255,255,255,.15) 2px, transparent 15px),
+			radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.2) 2px, transparent 10px);
 		-ms-background-image:
 			radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 15px),
-			radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 10px),
-			-ms-radial-gradient(white, rgba(255,255,255,.05) 2px, transparent 15px),
-			-ms-radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.1) 2px, transparent 10px);
+			radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 10px),
+			-ms-radial-gradient(white, rgba(255,255,255,.15) 2px, transparent 15px),
+			-ms-radial-gradient(rgba(255,255,255,.2), rgba(255,255,255,.2) 2px, transparent 10px);
 	}
 }
 .SJ_main_page1_c2 {
 	position: absolute;
-	top: 20%;
-	left: 10%;
+	top: 15%;
+	left: 5%;
+	/*parallax*/
+	-webkit-transform: translateZ(-0.5px) scale(1.5);
+	   -moz-transform: translateZ(-0.5px) scale(1.5);
+	    -ms-transform: translateZ(-0.5px) scale(1.5);
+   		 -o-transform: translateZ(-0.5px) scale(1.5);
+   		    transform: translateZ(-0.5px) scale(1.5);
+	transition: .4s ease;
+	-webkit-transition: .4s ease;
 }
 @media screen and (max-height: 500px) {
 	.SJ_main_page1_c2 {
-		top: 15%;
+		top: 10%;
 		left: 10%;
 	}
 }
 @media screen and (max-height: 450px) {
 	.SJ_main_page1_c2 {
-		top: 25%;
-		left: 30px;
+		top: 20%;
+		left: -50px;
 	}
 }
 @media screen and (max-width: 500px) {
 	.SJ_main_page1_c2 {
+		top: 15%;
+	}
+}
+@media screen and (max-width: 500px) and (max-height: 450px){
+	.SJ_main_page1_c2 {
 		top: 20%;
+		left: 5%;
 	}
 }
 @media screen and (max-width: 400px) {
 	.SJ_main_page1_c2 {
-		top: 18%;
+		top: 10%;
 		left: 0;
 		right: 0;
 		margin-left: auto;
@@ -153,8 +186,18 @@ body {
 }
 @media screen and (min-width: 1000px) {
 	.SJ_main_page1_c2 {
-		top: 20%;
-		left: 10%;
+		top: 10%;
+		left: 0%;
+	}
+}
+@media screen and (min-width: 1200px) {
+	.SJ_main_page1_c2 {
+		left: -3%;
+	}
+}
+@media screen and (min-width: 2500px) {
+	.SJ_main_page1_c2 {
+		left: -6%;
 	}
 }
 .SJ_main_page1_c2_title {
@@ -195,6 +238,11 @@ body {
 	margin: 0;
 	margin-top: 5px;
 }
+@media screen and (min-width: 400px) {
+	.SJ_main_page1_c2_sub {
+		margin-left: 5px;
+	}
+}
 @media screen and (min-width: 2500px) {
 	.SJ_main_page1_c2_sub {
 		font-size: 40px;
@@ -203,10 +251,15 @@ body {
 }
 .SJ_main_page1_c3 {
 	position: absolute;
-	top: 45%;
+	top: 50%;
 	left: 10%;
 	height: 44px;
 	width: 60%;
+	-webkit-transform: translateZ(0);
+       -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+    	 -o-transform: translateZ(0);
+    	    transform: translateZ(0);
 }
 @media screen and (max-width: 450px) {
 	.SJ_main_page1_c3 { width: 90% }	
@@ -214,7 +267,11 @@ body {
 @media screen and (max-width: 400px) {
 	.SJ_main_page1_c3 {
 		left: 50%;
-		transform: translate(-50%, 0);
+		-webkit-transform: translate(-50%, 0) translateZ(0);
+		   -moz-transform: translate(-50%, 0) translateZ(0);
+		    -ms-transform: translate(-50%, 0) translateZ(0);
+       		 -o-transform: translate(-50%, 0) translateZ(0);
+       		    transform: translate(-50%, 0) translateZ(0);
 		width: 100%;
 	}	
 }
@@ -323,7 +380,7 @@ body {
 }
 
 .SJ_main_introduce_button {
-	position: absolute;
+	position: fixed;
 	background-color: rgba(0,0,0,0);
 	border: none;
 	margin-bottom: 10px;
