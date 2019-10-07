@@ -17,27 +17,32 @@
 	<!-- Custom CSS -->
 	<link href="/static/css/main.css" rel="stylesheet">
 </head>
-<body>
-	<div class="SJ_main_page1">
+<body class="SJ_main_page_container">
+	<div class="SJ_main_background"></div>
+	<div class="page_section">
 		<img src="/static/image/LOGO_test.png" class="logo">
-		<div class="SJ_main_page1_c1_container">
-			<img class="SJ_main_page1_c1">
+		<div class="SJ_main_page1_introduce_container">
+			<h1 class="SJ_main_page1_introduce_title noselect">Everything<span class="c_red">!</span></h1>
+			<p class="SJ_main_page1_introduce_sub noselect"><span style="color: #c30e2e">세종인</span>을 위한 모든 것</p>
+			<p class="SJ_main_page1_introduce_sub noselect"><span style="color: #c30e2e">당신</span>을 위한 모든 것</p>
 		</div>
-		<div class="SJ_main_page1_c2">
-			<p class="SJ_main_page1_c2_title noselect">Everything<span style="color: #DF0101">!</span></p>
-			<p class="SJ_main_page1_c2_sub noselect">남다른 정보</p>
-			<p class="SJ_main_page1_c2_sub noselect">남다른 접근성</p>
-		</div>
-		<div class="SJ_main_page1_c3">
-			<div class="SJ_main_page1_c3_bar"></div>
-			<div class="SJ_main_page1_c3_searchbar_container">
-				<input type="text" placeholder="세종대학교의 모든 것" class="SJ_main_page1_c3_searchbar">
-				<div class="SJ_main_page1_c3_searchicon"><i class="fas fa-search"></i></div>
+		<div class="SJ_main_page1_search_container_box">
+			<div class="SJ_main_page1_search_container">
+				<div id="SJ_main_page1_search_bar" class="SJ_main_page1_search_bar"></div>
+				<div class="SJ_main_page1_search_box">
+					<input type="text" id="SJ_main_page1_search_input" class="SJ_main_page1_search_input" onfocus="search_focus()" onblur="search_blur()">
+					<div class="SJ_main_page1_search_icon_box">
+						<object type="image/svg+xml" data="/static/icons/search.svg" class="SJ_main_page1_search_icon"></object>
+						<div class="SJ_main_page1_search_icon_button"></div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<button id="SJ_main_introduce_button" class="SJ_main_introduce_button"><i class="far fa-caret-square-down"></i></button>
 	</div>
-	<div class="SJ_main_page2"></div>
+	<div class="page_section">
+	</div>
+	<div class="page_section">
+	</div>
 </body>
 
 <!-- JQuery JS -->

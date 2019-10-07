@@ -6,5 +6,10 @@ function set_introduce_butotn_position() {
 }
 $(window).ready(function() {set_introduce_butotn_position();});
 $(window).resize(function() {set_introduce_butotn_position();});
-
-
+// 메인페이지 검색 focus 함수
+function search_focus() {
+	$("#SJ_main_page1_search_bar").addClass("SJ_main_page1_search_bar_checked");
+}
+function search_blur() {
+	$("#SJ_main_page1_search_bar").removeClass("SJ_main_page1_search_bar_checked");
+}
