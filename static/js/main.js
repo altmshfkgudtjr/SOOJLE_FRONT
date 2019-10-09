@@ -8,25 +8,26 @@ window.mobilecheck = function() {
     return isMobile;
 };
 
-
-// 메인페이지 화면 이동 버튼 위치 setting
-function set_introduce_butotn_position() {
-	let browser_height = $(window).height();
-	let browser_width = $(window).width();
-	$("#SJ_main_introduce_button").css({"top": browser_height - 50, "left": browser_width / 2 - 25});	
+function fixed_size() {
+	if (mobilecheck()) {
+		let target1 = $("#SJ_main_background");
+		let width1 = target1.width();
+		let height1 = target1.height();
+		let top1 = target1.css("top");
+		target1.css({"width": width1, "height": height1, "top": top1});
+	}
 }
-$(window).ready(function() {set_introduce_butotn_position();});
-$(window).resize(function() {set_introduce_butotn_position();});
+fixed_size();
+
 // 메인페이지 검색 focus 함수
 function search_focus() {
 	$("#SJ_main_page1_search_bar").addClass("SJ_main_page1_search_bar_checked");
 	$("#SJ_main_page1_search_list_box").css({"width": $("#SJ_main_page1_search_box").width()});
 	$("#SJ_main_page1_search_list_box").removeClass("display_none");
-	if (mobilecheck() && $(window).width() <= 650) {
-		$("#SJ_main_page1_search_box").css({"border-radius": "0 0 0 0"});
-		let top = $("#SJ_main_page1_search_container").offset().top;
-		$("body").css({"scroll-snap-type": "none"});
-		$("html, body").animate({ scrollTop: top }, "fast");
+	if (mobilecheck()) {
+		$("#SJ_main_page1_search_box").css({"border-radius": "0 25px 0 0"});
+		let top = $("#SJ_main_page1_search_container").position().top;
+		$("html, body").scrollTop(top);
 	} else {
 		$("#SJ_main_page1_search_box").css({"border-radius": "0 25px 0 0"});
 	}
@@ -35,10 +36,7 @@ function search_blur() {
 	$("#SJ_main_page1_search_bar").removeClass("SJ_main_page1_search_bar_checked");
 	$("#SJ_main_page1_search_list_box").addClass("display_none");
 	$("#SJ_main_page1_search_box").css({"border-radius": "0 50px 50px 0"});
-	if (mobilecheck() && $(window).width() <= 650) {
-		setTimeout(function() {
-			$("body").removeAttr("style");
-		}, 400);
-		$("html, body").animate({ scrollTop: 0 }, "fast");
+	if (mobilecheck()) {
+		$("html, body").scrollTop(0);
 	} 
 }
