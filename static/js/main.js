@@ -7,17 +7,30 @@ window.mobilecheck = function() {
 	}
     return isMobile;
 };
-
-function fixed_size() {
+var before_width = $(window).width();
+function fixed_size(width) {
 	if (mobilecheck()) {
 		let target1 = $("#SJ_main_background");
+		let target2 = $("#SJ_main_page1_hyper_button_box");
 		let width1 = target1.width();
+		if (width <= 1400) {
+			width1 = width = $(window).width();
+		}
 		let height1 = target1.height();
 		let top1 = target1.css("top");
+		let top2 = target2.css("top");
 		target1.css({"width": width1, "height": height1, "top": top1});
+		target2.css({"top": top2});
 	}
 }
-fixed_size();
+fixed_size(before_width);
+$(window).resize(function() {
+	let after_width = $(window).width();
+	if (Math.abs(after_width - before_width) >= 200) {
+		before_width = after_width;
+		fixed_size(before_width);
+	}
+});
 
 // 메인페이지 검색 focus 함수
 function search_focus() {
