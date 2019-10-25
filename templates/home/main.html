@@ -3,10 +3,11 @@
 <head>
 	<title>SOOJLE</title>
 	<meta name="author" content="Team IML">
+	<meta name="keywords" content="세종,세종대학교,세종정보,세종검색,세종커뮤니티">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 	<!-- 모바일 브라우저 상태바 컬러 -->
-    <meta name="theme-color" content="#050505">
+    <meta name="theme-color" content="##232833">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<!-- shortcut 아이콘 -->
@@ -17,10 +18,10 @@
 	<!-- Custom CSS -->
 	<link href="/static/css/main.css" rel="stylesheet">
 </head>
-<body>
+<body style="overflow-y: hidden; overflow-x: hidden;">
 	<div id="SJ_main_background" class="SJ_main_background"></div>
 	<div class="page_section">
-		<img src="/static/image/SOOJLE_LOGO.png" class="logo pointer">
+		<img src="/static/image/SOOJLE_LOGO.png" class="logo pointer" onclick="Gohome()">
 		<div class="SJ_main_page1_logo_container_box">
 			<img src="/static/image/SOOJLE_LOGO_BIG.png" class="SJ_main_page1_logo_container">
 			<div id="SJ_main_page1_search_container" class="SJ_main_page1_search_container">
@@ -53,7 +54,7 @@
 			</div>
 		</div>
 		<div id="SJ_main_page1_hyper_button_box" class="SJ_main_page1_hyper_button_box">
-			<div class="SJ_main_page1_hyper_button pointer">
+			<div class="SJ_main_page1_hyper_button pointer" onclick="Goboard()">
 				<i class="fas fa-file-import SJ_main_page1_hyper_button_icon"></i>
 				<div class="SJ_main_page1_hyper_button_text_box">
 					<p class="SJ_main_page1_hyper_button_text">Import</p>
@@ -65,6 +66,19 @@
 	<div class="page_section">
 	</div>
 	<div class="page_section">
+	</div>
+
+
+	<div id="loading" class="loading">
+		<div class="cube">
+		  <div class="top"></div>
+		  <div class="right"></div>
+		  <div class="bottom"></div>
+		  <div class="left"></div>
+		  <div class="front"></div>
+		  <div class="back"></div>
+		</div>
+		<p class="cube_text">Loading ..</p>
 	</div>
 </body>
 

@@ -57,8 +57,10 @@ def get_recommendation_newsfeed(num):
 	return jsonify(
 		posts = result)
 
-	
 
+@BP.route('/board')
+def main_home():
+	return render_template('board/pageboard.html')
 
 
 

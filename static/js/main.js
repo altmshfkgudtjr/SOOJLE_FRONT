@@ -1,3 +1,7 @@
+$(window).ready(function() {
+	$("#loading").css({"top": $(document).scrollTop()});
+});
+
 // Mobile Device Checked
 window.mobilecheck = function() {
 	var isMobile = false;
@@ -53,3 +57,16 @@ function search_blur() {
 		$("html, body").scrollTop(0);
 	} 
 }
+
+function Gohome(){
+	window.location.href = "/";
+}
+function Goboard() {
+	window.location.href = "/board";
+}
+
+// Loading Setting
+setTimeout(function() {
+	$("body").removeAttr("style");
+	$("#loading").addClass("display_none");
+}, 1600);
