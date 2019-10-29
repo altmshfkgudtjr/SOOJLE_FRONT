@@ -27,6 +27,9 @@
 	url('../fonts/AppleSdNeo/AppleSDGothicNeoM.ttf') format('truetype');
 }
 
+input:focus, textarea {
+    outline: none;
+}
 /*All control CSS*/
 :root {
 	--sj_deepdark_color: #2A2A2A;
@@ -46,12 +49,12 @@
 	user-select: none;
 }
 .logo {
-	position: fixed;
+	position: absolute;
 	top: 25px;
 	left: 10%;
 	z-index: 100;
 	width: 110px;
-	height: 25px;
+	height: 30px;
 }
 @media screen and (max-width: 1100px) {
 	.logo { left: 30px }
@@ -303,6 +306,10 @@ body {
 .SJ_main_page1_search_list_icon {
 	height: 16px;
 	opacity: 0.5;
+	padding-left: 5px;
+}
+.SJ_main_page1_search_list_text {
+	padding-left: 10px;
 }
 @media screen and (max-width: 1500px) {
 	.SJ_main_page1_logo_container_box {
@@ -569,4 +576,3 @@ body {
 	   -webkit-transform: translateZ(-25px) rotateX(180deg);
 	}
 }
-

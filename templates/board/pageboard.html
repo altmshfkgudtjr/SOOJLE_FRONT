@@ -17,22 +17,64 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 	<!-- Custom CSS -->
 	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/board.css" rel="stylesheet">
 </head>
 <body>
+	<div class="SJ_board_header header_down">
+		<img src="/static/image/SOOJLE_LOGO.png" class="board_logo pointer" onclick="Goboard()">
+		<div class="header_guideline">
+			<div id="pc_search" class="display_none">
+				<div class="pc_search_container">
+					<input id="pc_search_input" type="text" class="pc_search_input" onkeyup="search_focus()" onblur="search_blur()">
+					<div class="pc_search_button pointer">
+						<img src="https://img.icons8.com/ios-glyphs/30/000000/search.png" class="pc_search_icon">
+					</div>
+				</div>
+				<div id="pc_search_recommend_box" class="pc_search_recommend_box display_none">
+					<div class="search_result noselect">
+						<object type="image/svg+xml" data="/static/icons/search.svg" class="search_result_icon"></object>
+						<span>SOOJLE의 성공을 기원</span>
+					</div>
+					<div class="search_result noselect">
+						<object type="image/svg+xml" data="/static/icons/search.svg" class="search_result_icon"></object>
+						<span>SOOJLE의 성공을 기원</span>
+					</div>
+					<div class="search_result noselect">
+						<object type="image/svg+xml" data="/static/icons/search.svg" class="search_result_icon"></object>
+						<span>SOOJLE의 성공을 기원</span>
+					</div>
+					<div id="search_loading" class="search_loading noselect">검색어를 찾고있습니다</div>
+				</div>
+			</div>
+			<div id="mobile_search" class="display_none">
+				<div class="mobile_search_button pointer">
+					<img src="https://img.icons8.com/ios-glyphs/30/000000/search.png" class="mobile_search_icon">
+				</div>
+			</div>
+		</div>
+		<div class="grid pointer">
+			<img src="https://img.icons8.com/metro/26/000000/activity-grid-2.png" class="grid_icon">
+		</div>
+	</div>
+	<div class="SJ_board_body">
+		
+	</div>
+	<div class="SJ_board_footer" style="height: 2000px">
+		
+	</div>
 </body>
 
 <!-- JQuery JS -->
 <script src="/static/js/jquery/jquery.min.js"></script>
 <!-- MAIN JS -->
-<script src="/static/js/main.js"></script>
+<script src="/static/js/board.js"></script>
 </html>
 
 <!-- 주 색상표
 :root {
 	--sj_deepdark_color: #2A2A2A;
-	--sj_litedark_color: #EDEDED;
-	--sj_mediumdark_color: #E0E0E0;
-	--sj_accentdark_color: #050505;
+	--sj_litedark_color: #F8F8F9;
+	--sj_navy_color : #232833;
 	--sj_deepred_color: #c30e2e;
 	--sj_litered_color: #DF0101;
 }
