@@ -25,7 +25,7 @@
 		<div class="header_guideline">
 			<div id="pc_search" class="display_none">
 				<div class="pc_search_container">
-					<input id="pc_search_input" type="text" class="pc_search_input" onkeyup="search_focus()" onblur="search_blur()">
+					<input id="pc_search_input" type="text" class="pc_search_input" onkeyup="search_focus()" onclick="search_focus()" onblur="search_blur()">
 					<div class="pc_search_button pointer">
 						<img src="https://img.icons8.com/ios-glyphs/30/000000/search.png" class="pc_search_icon">
 					</div>
@@ -43,7 +43,9 @@
 						<object type="image/svg+xml" data="/static/icons/search.svg" class="search_result_icon"></object>
 						<span>SOOJLE의 성공을 기원</span>
 					</div>
-					<div id="search_loading" class="search_loading noselect">검색어를 찾고있습니다</div>
+					<div id="search_loading" class="search_loading pointer noselect">
+						<i class="fas fa-grip-lines"></i>
+					</div>
 				</div>
 			</div>
 			<div id="mobile_search" class="display_none">
@@ -57,41 +59,41 @@
 		</div>
 		<div id="grid_modal" class="grid_modal grid_it display_none">
 			<div class="grid_item_box pointer grid_it">
-				<img src="./" class="grid_item_icon grid_it" onerror="this.src='./static/image/noimage.jpg'">
+				<img src="./" class="grid_item_icon grid_it noselect" onerror="this.src='./static/image/noimage.jpg'">
 				<div class="grid_item_text grid_it"></div>
 			</div>
 			<div class="grid_item_box pointer grid_it">
-				<img src="./" class="grid_item_icon grid_it" onerror="this.src='./static/image/noimage.jpg'">
+				<img src="./" class="grid_item_icon grid_it noselect" onerror="this.src='./static/image/noimage.jpg'">
 				<div class="grid_item_text grid_it"></div>
 			</div>
 			<div class="grid_item_box pointer grid_it">
-				<img src="./" class="grid_item_icon grid_it" onerror="this.src='./static/image/noimage.jpg'">
+				<img src="./" class="grid_item_icon grid_it noselect" onerror="this.src='./static/image/noimage.jpg'">
 				<div class="grid_item_text grid_it"></div>
 			</div>
 			<div class="grid_item_box pointer grid_it">
-				<img src="./" class="grid_item_icon grid_it" onerror="this.src='./static/image/noimage.jpg'">
+				<img src="./" class="grid_item_icon grid_it noselect" onerror="this.src='./static/image/noimage.jpg'">
 				<div class="grid_item_text grid_it"></div>
 			</div>
 			<div class="grid_item_box pointer grid_it">
-				<img src="./" class="grid_item_icon grid_it" onerror="this.src='./static/image/noimage.jpg'">
+				<img src="./" class="grid_item_icon grid_it noselect" onerror="this.src='./static/image/noimage.jpg'">
 				<div class="grid_item_text grid_it"></div>
 			</div>
 			<div class="grid_item_box pointer grid_it">
-				<img src="./" class="grid_item_icon grid_it" onerror="this.src='./static/image/noimage.jpg'">
+				<img src="./" class="grid_item_icon grid_it noselect" onerror="this.src='./static/image/noimage.jpg'">
 				<div class="grid_item_text grid_it"></div>
 			</div>
 			<div class="grid_item_box pointer grid_it">
-				<img src="./" class="grid_item_icon grid_it" onerror="this.src='./static/image/noimage.jpg'">
+				<img src="./" class="grid_item_icon grid_it noselect" onerror="this.src='./static/image/noimage.jpg'">
 				<div class="grid_item_text grid_it"></div>
 			</div>
 			<div class="grid_item_box pointer grid_it">
-				<img src="./" class="grid_item_icon grid_it" onerror="this.src='./static/image/noimage.jpg'">
+				<img src="./" class="grid_item_icon grid_it noselect" onerror="this.src='./static/image/noimage.jpg'">
 				<div class="grid_item_text grid_it"></div>
 			</div>
 		</div>
 	</div>
 	<div class="SJ_board_body">
-		
+
 	</div>
 	<div class="SJ_board_footer" style="height: 2000px">
 		
