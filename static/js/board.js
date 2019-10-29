@@ -51,6 +51,7 @@ if ( $(document).width() < 1200 ) { // mobile
 function Goboard() {
 	window.location.href = "/board";
 }
+
 function search_focus() {
 	$("#pc_search_recommend_box").removeClass("display_none");
 	if ($("#pc_search_input").val() == "")
@@ -59,4 +60,27 @@ function search_focus() {
 }
 function search_blur() {
 	$("#pc_search_recommend_box").addClass("display_none");
+}
+
+let grid_open = 0;
+
+$('html').click(function(e) { // grid_modal_close
+	if (grid_open == 1){
+		if(!$(e.target).hasClass("grid_it")){
+			$("#grid_modal").addClass("display_none");
+			$("#grid").removeAttr("style");
+			grid_open = 0;
+		}
+	}
+});
+function grid_modal_open(tag) {
+	if (grid_open == 0) {
+		$("#grid_modal").removeClass("display_none");
+		tag.css("background-color", "rgba(0,0,0,.1)");
+		grid_open = 1;
+	} else {
+		$("#grid_modal").addClass("display_none");
+		tag.removeAttr("style");
+		grid_open = 0;
+	}
 }
