@@ -170,6 +170,9 @@ html {
 	font-size: 18px;
 	line-height: 50px;
 }
+.search_target {
+	background-color: rgba(0,0,0,.05);
+}
 .SJ_board_footer {
 	position: relative;
 	width: 100%;
