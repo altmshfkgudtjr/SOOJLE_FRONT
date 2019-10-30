@@ -14,7 +14,7 @@ html {
 	width: 100%;
 	height: 60px;
 	background-color: white;
-	border-bottom: 5px solid #EDEDED;
+	border-bottom: 3px solid #EDEDED;
 }
 .board_logo {
 	position: absolute;
@@ -129,7 +129,18 @@ html {
 	transform: translate(-50%, -50%);
 	-webkit-transform: translate(-50%, -50%);
 }
-.pc_search_recommend_box {
+.search_remcommend_box_container {
+	position: absolute;
+	width: 100%;
+	max-width: 1080px;
+	left: 50%;
+	top: 0;
+	transform: translate(-50%, 0);
+	-webkit-transform: translate(-50%, 0);
+	background-color: rgba(0,0,0,0);
+	z-index: 30;
+}
+.search_recommend_box {
 	position: absolute;
 	width: 700px;
 	height: auto;
@@ -139,6 +150,7 @@ html {
 	top: 55px;
 	right: 0;
 	background-color: white;
+	z-index: 30;
 }
 .search_result {
 	position: relative;
@@ -152,7 +164,7 @@ html {
 	background-color: rgba(0,0,0,0);
 }
 .search_result:hover {
-	background-color: rgba(0,0,0,.05);
+	background-color: rgba(0,0,0,.1);
 }
 .search_result_icon {
 	height: 15px;
@@ -328,7 +340,7 @@ html {
 		transition: 0.1s ease-in-out;
 	}
 	.mobile_search_button:hover {
-		background-color: rgba(0,0,0,.05);
+		background-color: rgba(0,0,0,0);
 	}
 	.mobile_search_icon {
 		position: relative;
@@ -339,8 +351,6 @@ html {
 		transform: translate(-50%, -50%);
 		-webkit-transform: translate(-50%, -50%);
 	}
-
-
 	.search_result {
 		position: relative;
 		float: left;
@@ -351,9 +361,13 @@ html {
 		font-size: 18px;
 		line-height: 50px;
 		background-color: rgba(0,0,0,0);
+		color: #232833;
 	}
 	.search_result:hover {
 		background-color: rgba(0,0,0,.1);
+	}
+	.search_target {
+		background-color: rgba(0,0,0,.05);
 	}
 	.search_result_icon {
 		height: 15px;
@@ -370,6 +384,83 @@ html {
 		text-align: center;
 		font-size: 18px;
 		line-height: 50px;
+	}
+	.mobile_search_modal {
+		position: fixed;
+		width: 100%;
+		max-width: 1080px;
+		height: 100%;
+		top: 0;
+		left: 50%;
+		transform: translate(-50%, 0);
+		-webkit-transform: translate(-50%, 0);
+		background-color: #F8F8F9;
+		z-index: 20;
+	}
+	.mobile_search_header {
+		position: absolute;
+		width: 100%;
+		height: 50px;
+		border-bottom: 3px solid #c30e2e;
+		background-color: white;
+	}
+	.mobile_search_modal_close {
+		position: relative;
+		float: left;
+		width: 10%;
+		height: 40px;
+		left: 0;
+		top: 5px;
+		border-radius: 50%;
+		font-size: 20px;
+		line-height: 40px;
+		text-align: center;
+		color: #232833;
+		background-color: white;
+		border: none;
+		opacity: 0.6;
+	}
+	.mobile_search_input {
+		position: relative;
+		float: left;
+		width: 78%;
+		border: none;
+		padding: 0 1%;
+		font-size: 18px;
+		line-height: 50px;
+		background-color: rgba(0,0,0,0);
+	}
+	.mobile_search_button_modal {
+		position: relative;
+		float: left;
+		width: 10%;
+		border:none;
+		height: 40px;
+		top: 5px;
+		background-color: rgba(0,0,0,0);
+	}
+	.mobile_search_icon_modal {
+		position: relative;
+		left: 0;
+		top: 50%;
+		width: 20px;
+		height: 20px;
+		transform: translate(0, -50%);
+		-webkit-transform: translate(0, -50%);
+	}
+	.search_recommend_box {
+		position: absolute;
+		width: 100%;
+		max-width: 1080px;
+		height: auto;
+		min-height: auto;
+		border: none;
+		border-radius: 0;
+		top: 53px;
+		left: 0;
+		right: 0;
+		background-color: rgba(0,0,0,0);
+		z-index: 30;
 	}
 	.SJ_board_footer {
 		position: relative;
