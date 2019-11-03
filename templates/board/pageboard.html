@@ -23,7 +23,7 @@
 	<div class="SJ_board_header header_down">
 		<img src="/static/image/SOOJLE_LOGO.png" class="board_logo pointer" onclick="Goboard()">
 		<div class="header_guideline">
-			<div id="pc_search" class="display_none">
+			<div id="pc_search" class="pc_search">
 				<div class="pc_search_container">
 					<input id="pc_search_input" type="text" class="pc_search_input result_target" onkeyup="search_focus(event.keyCode, $(this))" onclick="search_click()" onblur="search_blur()">
 					<div class="pc_search_button pointer" onclick="search_button()">
@@ -31,7 +31,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="mobile_search" class="display_none">
+			<div id="mobile_search" class="mobile_search">
 				<div class="mobile_search_button pointer" onclick="mobile_search_modal_open()">
 					<img src="https://img.icons8.com/ios-glyphs/30/000000/search.png" class="mobile_search_icon">
 				</div>

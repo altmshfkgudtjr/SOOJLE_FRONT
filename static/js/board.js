@@ -43,12 +43,6 @@ if ( navigator.platform ) { //mobile
 	} else {} // pc
 }
 
-// First setting
-if ( $(document).width() < 1200 ) { // mobile
-	$("#mobile_search").removeClass("display_none");
-} else {
-	$("#pc_search").removeClass("display_none");
-} // pc
 
 function Goboard() {
 	window.location.href = "/board";

@@ -14,6 +14,7 @@ html {
 	width: 100%;
 	height: 60px;
 	background-color: white;
+	border-top: 1px solid #C30E2E;
 	border-bottom: 3px solid #EDEDED;
 }
 .board_logo {
@@ -93,37 +94,45 @@ html {
 	background-color: rgba(0,0,0,0);
 	z-index: 0;
 }
+.pc_search {
+	display: block;
+}
+.mobile_search {
+	display: none;
+}
 .pc_search_container {
 	position: absolute;
 	width: 700px;
-	height: 40px;
-	top: 8px;
+	height: 30px;
+	top: 13px;
 	right: 0;
 	border: 2px solid #DCDCDC;
-	border-radius: 5px;
+	border-radius: 25px;
 }
 .pc_search_input {
 	position: relative;
 	float: left;
-	height: 40px;
+	height: 30px;
 	width: 80%;
 	border: none;
 	padding-left: 5%;
 	padding-right: 5%;
-	font-size: 18px;
-	line-height: 25px;
+	font-size: 16px;
+	line-height: 20px;
 	background-color: rgba(0,0,0,0);
 }
 .pc_search_button {
 	position: relative;
 	float: left;
-	height: 40px;
+	height: 30px;
 	width: 10%;
 	border: none;
 	background-color: rgba(0,0,0,0);
 }
 .pc_search_icon {
 	position: relative;
+	width: 20px;
+	height: 20px;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
@@ -144,10 +153,10 @@ html {
 	position: absolute;
 	width: 700px;
 	height: auto;
-	min-height: 50px;
+	min-height: 40px;
 	border: 2px solid #DCDCDC;
 	border-radius: 5px;
-	top: 55px;
+	top: 50px;
 	right: 0;
 	background-color: white;
 	z-index: 30;
@@ -155,12 +164,12 @@ html {
 .search_result {
 	position: relative;
 	float: left;
-	height: 50px;
+	height: 40px;
 	width: 90%;
 	padding: 0 5%;
 	border: none;
-	font-size: 18px;
-	line-height: 50px;
+	font-size: 16px;
+	line-height: 40px;
 	background-color: rgba(0,0,0,0);
 }
 .search_result:hover {
@@ -174,13 +183,13 @@ html {
 .search_loading {
 	position: relative;
 	float: left;
-	height: 50px;
+	height: 40px;
 	width: 90%;
 	padding: 0 5%;
 	border: none;
 	text-align: center;
-	font-size: 18px;
-	line-height: 50px;
+	font-size: 16px;
+	line-height: 40px;
 }
 .search_target {
 	background-color: rgba(0,0,0,.05);
@@ -328,6 +337,12 @@ html {
 		width: 100%;
 		height: 50px;
 	}
+	.pc_search {
+		display: none;
+	}
+	.mobile_search {
+		display: block;
+	}
 	.mobile_search_button {
 		position: absolute;
 		height: 40px;
@@ -354,12 +369,12 @@ html {
 	.search_result {
 		position: relative;
 		float: left;
-		height: 50px;
+		height: 40px;
 		width: 90%;
 		padding: 0 5%;
 		border: none;
-		font-size: 18px;
-		line-height: 50px;
+		font-size: 16px;
+		line-height: 40px;
 		background-color: rgba(0,0,0,0);
 		color: #232833;
 	}
@@ -375,15 +390,16 @@ html {
 		padding-right: 10px;
 	}
 	.search_loading {
+		display: none;
 		position: relative;
 		float: left;
-		height: 50px;
+		height: 40px;
 		width: 90%;
 		padding: 0 5%;
 		border: none;
 		text-align: center;
-		font-size: 18px;
-		line-height: 50px;
+		font-size: 16px;
+		line-height: 40px;
 	}
 	.mobile_search_modal {
 		position: fixed;
@@ -426,7 +442,7 @@ html {
 		width: 78%;
 		border: none;
 		padding: 0 1%;
-		font-size: 18px;
+		font-size: 16px;
 		line-height: 50px;
 		background-color: rgba(0,0,0,0);
 	}
@@ -441,12 +457,12 @@ html {
 	}
 	.mobile_search_icon_modal {
 		position: relative;
-		left: 0;
+		left: 50%;
 		top: 50%;
 		width: 20px;
 		height: 20px;
-		transform: translate(0, -50%);
-		-webkit-transform: translate(0, -50%);
+		transform: translate(-50%, -50%);
+		-webkit-transform: translate(-50%, -50%);
 	}
 	.search_recommend_box {
 		position: absolute;
