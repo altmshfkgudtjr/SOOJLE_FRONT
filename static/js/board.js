@@ -4,16 +4,18 @@ window.onkeydown = function(e) {
   if (is_loading == 1)
  	return !(e.keyCode == 32);
 };
-$("body").css("overflow", "hidden");
-setTimeout(function() {
+/*$("body").css({"overflow": "hidden"});
+wi8ndow.setTimeout(function() {
 	is_loading = 0;
 	$("body").removeAttr("style");
 	$("#board_loading_modal").addClass("board_loading_modal_unvisible");
-	setTimeout(function() {
+	window.setTimeout(function() {
 		$(".mobile_controller").removeAttr("style");
 		$("#none_click").addClass("display_none");
 	}, 1000);
-}, 1000);
+}, 1500);
+*/
+
 let filter = "win16|win32|win64|mac|macintel";
 // Header setting
 /*

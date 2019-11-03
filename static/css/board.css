@@ -290,6 +290,13 @@ html {
 	margin-right: 0;
 	opacity: 1;
 }
+
+@-webkit-keyframes blink {
+  0% {background-color: rgba(0,0,0,.06);}
+  50% {background-color: rgba(0,0,0,.03);}
+  100% {background-color: rgba(0,0,0,.06);}
+}
+
 .board_loading_modal {
 	position: absolute;
 	width: 100%;
@@ -331,6 +338,8 @@ html {
 	background-color: rgba(0,0,0,0);
 }
 .menu_container_title_loading {
+	animation: blink 1.5s infinite ease-in-out;
+	-webkit-animation: blink 1.5s infinite ease-in-out;
 	position: relative;
 	width: 60px;
 	height: 20px;
@@ -338,6 +347,8 @@ html {
 	background-color: rgba(0,0,0,.05);
 }
 .menu_container_subtitle_loading {
+	animation: blink 1.5s infinite ease-in-out;
+	-webkit-animation: blink 1.5s infinite ease-in-out;
 	position: relative;
 	width: 160px;
 	height: 20px;
@@ -358,6 +369,8 @@ html {
 	height: 80%;
 }
 .board_container_post_loading {
+	animation: blink 1.5s infinite ease-in-out;
+	-webkit-animation: blink 1.5s infinite ease-in-out;
 	position: relative;
 	float: right;
 	width: 700px;
@@ -737,6 +750,8 @@ html {
 		height: 80%;
 	}
 	.board_container_post_loading {
+		animation: blink 1.5s infinite ease-in-out;
+		-webkit-animation: blink 1.5s infinite ease-in-out;
 		position: relative;
 		float: none;
 		left: 50%;
@@ -749,6 +764,8 @@ html {
 		background-color: rgba(0,0,0,.05);
 	}
 	.board_container_name {
+		animation: blink 1.5s infinite ease-in-out;
+		-webkit-animation: blink 1.5s infinite ease-in-out;
 		position: relative;
 		top: 10px;
 		margin-left: 2.5%;
@@ -759,6 +776,8 @@ html {
 		background-color: rgba(0,0,0,.05);
 	}
 	.board_container_user {
+		animation: blink 1.5s infinite ease-in-out;
+		-webkit-animation: blink 1.5s infinite ease-in-out;
 		position: relative;
 		top: 10px;
 		margin-right: 2.5%;
