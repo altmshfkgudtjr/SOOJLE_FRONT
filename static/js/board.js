@@ -1,5 +1,6 @@
 let filter = "win16|win32|win64|mac|macintel";
 // Header setting
+/*
 if ( navigator.platform ) { //mobile
 	if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
 		$(".SJ_board_header").css("position", "fixed");
@@ -42,7 +43,7 @@ if ( navigator.platform ) { //mobile
 		};
 	} else {} // pc
 }
-
+*/
 
 function Goboard() {
 	window.location.href = "/board";
@@ -111,6 +112,7 @@ function search_button(data = "") {	// 검색작업 data = 글자
 		if (data == "")
 			data = $("#pc_search_input").val();
 	}
+	alert(data);
 	/*search 클릭 작업============================================================*/
 }
 function mobile_search_modal_open() {
@@ -138,15 +140,28 @@ function search_result_click(tag) {
 // Grid Task
 let grid_open = 0;
 function grid_modal_onoff(tag) {
+	let w = $(document).width();
 	if (grid_open == 0) {
-		$("#grid ").css("background-color", "rgba(0,0,0,.1)");
+		$("#grid").css("background-color", "rgba(0,0,0,.1)");
 		$("body").css({"position": "fixed", "overflow": "hidden"});
-		$("#grid_modal").removeClass("display_none");
+		$("#grid_modal").addClass("grid_modal_visible");
+		if (w < 1200)
+			$("#mobile_modal_close").removeClass("display_none");
 		grid_open = 1;
 	} else {
 		$("#grid").removeAttr("style");
 		$("body").removeAttr("style");
-		$("#grid_modal").addClass("display_none");
+		$("#grid_modal").removeClass("grid_modal_visible");
+		grid_open = 0;
+	}
+}
+function grid_modal_off() {
+	let w = $(document).width();
+	if (w < 1200){
+		$("#grid").removeAttr("style");
+		$("body").removeAttr("style");
+		$("#grid_modal").removeClass("grid_modal_visible");
+		$("#mobile_modal_close").addClass("display_none");
 		grid_open = 0;
 	}
 }
