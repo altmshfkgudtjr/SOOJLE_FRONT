@@ -290,8 +290,106 @@ html {
 	margin-right: 0;
 	opacity: 1;
 }
-
-
+.board_loading_modal {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 200;
+	background-color: rgba(0,0,0,0);
+	visibility: visible;
+	opacity: 1;
+	transition: .2s ease-in-out;
+}
+.board_loading_modal_unvisible {
+	visibility: hidden;
+	opacity: 0;
+}
+.board_loading_body {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 63px;
+	background-color: #F8F8F9;
+}
+.body_guideline_loading {
+	position: relative;
+	width: 100%;
+	max-width: 1080px;
+	height: 100%;
+	margin: auto;
+	margin-top: 63px;
+	background-color: rgba(0,0,0,0);
+}
+.menu_container_loading {
+	position: absolute;
+	display: inline-block;
+	float: left;
+	width: 100%;
+	height: 80%;
+	background-color: rgba(0,0,0,0);
+}
+.menu_container_title_loading {
+	position: relative;
+	width: 60px;
+	height: 20px;
+	margin-bottom: 20px;
+	background-color: rgba(0,0,0,.05);
+}
+.menu_container_subtitle_loading {
+	position: relative;
+	width: 160px;
+	height: 20px;
+	margin-bottom: 20px;
+	background-color: rgba(0,0,0,.05);
+}
+.menu_container_blank_loading {
+	position: relative;
+	width: 200px;
+	height: 40px;
+	background-color: rgba(0,0,0,0);
+}
+.board_container_loading {
+	position: relative;
+	display: inline-block;
+	float: right;
+	width: 700px;
+	height: 80%;
+}
+.board_container_post_loading {
+	position: relative;
+	float: right;
+	width: 700px;
+	height: 120px;
+	margin-bottom: 20px;
+	background-color: rgba(0,0,0,.05);
+}
+.body_guideline {
+	position: relative;
+	width: 100%;
+	max-width: 1080px;
+	height: auto;
+	margin: auto;
+	margin-top: 63px;
+	background-color: rgba(0,0,0,0);
+}
+.menu_container {
+	position: relative;
+	display: inline-block;
+	float: left;
+	width: 300px;
+	height: auto;
+	min-height: 100px;
+}
+.board_container {
+	position: relative;
+	display: inline-block;
+	float: right;
+	width: 700px;
+	height: auto;
+	min-height: 100px;
+}
 
 /*=========================================================================*/
 /*								Mobile CSS								   */
@@ -596,6 +694,88 @@ html {
 		text-align: center;
 		font-size: 16px;
 		line-height: 40px;
+	}
+	.board_loading_modal {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: 20;
+		background-color: rgba(0,0,0,0);
+		visibility: visible;
+		opacity: 1;
+		transition: .2s ease-in-out;
+	}
+	.board_loading_modal_unvisible {
+		visibility: hidden;
+		opacity: 0;
+	}
+	.board_loading_body {
+		top: 53px;
+	}
+	.body_guideline_loading {
+		margin-top: 53px;
+	}
+	.menu_container_loading {
+		display: none;
+	}
+	.menu_container_title_loading {
+		display: none;
+	}
+	.menu_container_subtitle_loading {
+		display: none;
+	}
+	.menu_container_blank_loading {
+		display: none;
+	}
+	.board_container_loading {
+		position: relative;
+		display: inline-block;
+		float: none;
+		width: 100%;
+		height: 80%;
+	}
+	.board_container_post_loading {
+		position: relative;
+		float: none;
+		left: 50%;
+		transform: translate(-50%, 0);
+		-webkit-transform: translate(-50%, 0);
+		width: 95%;
+		height: 110px;
+		margin-bottom: 10px;
+		border-radius: 5px;
+		background-color: rgba(0,0,0,.05);
+	}
+	.board_container_name {
+		position: relative;
+		top: 10px;
+		margin-left: 2.5%;
+		float: left;
+		width: 80px;
+		height: 25px;
+		border-radius: 5px;
+		background-color: rgba(0,0,0,.05);
+	}
+	.board_container_user {
+		position: relative;
+		top: 10px;
+		margin-right: 2.5%;
+		float: right;
+		width: 130px;
+		height: 25px;
+		border-radius: 5px;
+		background-color: rgba(0,0,0,.05);
+	}
+	.none_click {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: 100;
+		background-color: rgba(0,0,0,0);
 	}
 }
 /*=============================================================================*/
