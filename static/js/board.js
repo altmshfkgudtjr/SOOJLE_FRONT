@@ -137,23 +137,16 @@ function search_result_click(tag) {
 
 // Grid Task
 let grid_open = 0;
-$('html').click(function(e) { // grid_modal_close
-	if (grid_open == 1){
-		if(!$(e.target).hasClass("grid_it")){
-			$("#grid_modal").addClass("display_none");
-			$("#grid").removeAttr("style");
-			grid_open = 0;
-		}
-	}
-});
-function grid_modal_open(tag) {
+function grid_modal_onoff(tag) {
 	if (grid_open == 0) {
+		$("#grid ").css("background-color", "rgba(0,0,0,.1)");
+		$("body").css({"position": "fixed", "overflow": "hidden"});
 		$("#grid_modal").removeClass("display_none");
-		tag.css("background-color", "rgba(0,0,0,.1)");
 		grid_open = 1;
 	} else {
+		$("#grid").removeAttr("style");
+		$("body").removeAttr("style");
 		$("#grid_modal").addClass("display_none");
-		tag.removeAttr("style");
 		grid_open = 0;
 	}
 }
