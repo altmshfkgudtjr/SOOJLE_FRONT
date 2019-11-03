@@ -98,9 +98,14 @@ input:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder { /* Int
 html, body {
 	width: 100%;
 	scroll-behavior: smooth;
+	 -webkit-overflow-scrolling: touch;
 }
 html {
 	background-color: #ededed;
+}
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
 }
 body {
 	font-family: 'AppleSdNeo', 'sans-serif';
