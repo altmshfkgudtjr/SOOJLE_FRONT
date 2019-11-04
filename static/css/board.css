@@ -130,8 +130,11 @@ html {
 	height: 30px;
 	top: 13px;
 	right: 0;
-	border: 2px solid #DCDCDC;
+	border: 1px solid #c30e2e;
 	border-radius: 25px;
+}
+.pc_search_container:hover {
+	box-shadow: 0 1px 6px rgba(0,0,0,.2);
 }
 .pc_search_input {
 	position: relative;
@@ -377,6 +380,24 @@ html {
 	height: 120px;
 	margin-bottom: 20px;
 	background-color: rgba(0,0,0,.05);
+}
+.board_container_post_circle_loading {
+	position: absolute;
+	width: 15px;
+	height: 15px;
+	margin: 20px 0 0 20px;
+	border-radius: 50px;
+	border: none;
+	background-color: rgba(255,255,255,.6);
+}
+.board_container_post_line_loading {
+	position: absolute;
+	width: 200px;
+	height: 15px;
+	margin: 20px 0 0 50px;
+	border: none;
+	border-radius: 5px;
+	background-color: rgba(255,255,255,.3);
 }
 .body_guideline {
 	position: relative;
