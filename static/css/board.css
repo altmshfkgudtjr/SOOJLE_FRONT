@@ -399,23 +399,112 @@ html {
 	border-radius: 5px;
 	background-color: rgba(255,255,255,.3);
 }
-.body_guideline {
+.SJ_board_body {
 	position: relative;
 	width: 100%;
-	max-width: 1080px;
 	height: auto;
+	min-height: 1500px;
+}
+.body_guideline {
+	position: relative;
+	display: -webkit-flex;
+	display: flex;
+	width: 100%;
+	top: 0;
+	padding-top: 60px;
+	max-width: 1080px;
+	height: 100%;
 	margin: auto;
 	margin-top: 63px;
 	background-color: rgba(0,0,0,0);
 }
 .menu_container {
-	position: relative;
-	display: inline-block;
-	float: left;
+	top: 0;
 	width: 300px;
 	height: auto;
 	min-height: 100px;
+	background-color: rgba(0,0,0,0);
+	transition: .2s ease-in-out;
 }
+.menu_container_fixed {
+	top: 10px;
+	position: fixed;
+}
+.menu_container_title {
+	position: relative;
+	display: inline-block;
+	width: 270px;
+	height: 20px;
+	margin-left: 20px;
+	margin-bottom: 15px;
+	font-size: 14px;
+	line-height: 20px;
+	color: #595959;
+}
+.menu_container_subtitle {
+	position: relative;
+	display: inline-block;
+	width: 270px;
+	height: 40px;
+	padding-left: 10px;
+	margin-left: 10px;
+	margin-bottom: 0px;
+	font-size: 16px;
+	line-height: 30px;
+	transition: .05s ease-in-out;
+}
+.menu_container_icon {
+	position: relative;
+	display: inline-block;
+	float: left;
+	width: 20px;
+	height: 20px;
+	margin-top: 10px;
+	margin-right: 20px;
+	background-color: rgba(0,0,0,0);
+	transition: .05s ease-in-out;
+	opacity: 0.5;
+	//*filter: invert(18%) sepia(24%) saturate(7110%) hue-rotate(335deg) brightness(103%) contrast(96%);*/
+}
+.menu_container_subtitle:hover {
+	background-color: rgba(0,0,0,.03);
+}
+.menu_container_user_icon {
+	position: relative;
+	display: inline-block;
+	float: left;
+	width: 22px;
+	height: 22px;
+	margin-top: 9px;
+	margin-right: 10px;
+	border-radius: 50px;
+	background-color: rgba(0,0,0,0);
+	transition: .05s ease-in-out;
+}
+.menu_container_text {
+	position: relative;
+	display: inline-block;
+	float: left;
+	top: 9px;
+	height: 20px;
+	font-size: 16px;
+	line-height: 24px;
+}
+.menu_container_line {
+	position: relative;
+	display: inline-block;
+	float: left;
+	width: 270px;
+	height: 1.5px;
+	background-color: rgba(0,0,0,.05);
+	border: none;
+	left: 50%;
+	transform: translate(-50%, 0);
+	-webkit-transform: translate(-50%, 0);
+	margin: 15px 0;
+}
+
+
 .board_container {
 	position: relative;
 	display: inline-block;

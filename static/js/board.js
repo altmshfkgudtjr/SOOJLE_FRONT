@@ -60,6 +60,17 @@ if ( navigator.platform ) { //mobile
 	} else {} // pc
 }
 */
+let is_scrolling = 0;
+window.onscroll = function() {
+	let currentScroll = document.documentElement.scrollTop;
+	if (currentScroll < 100) {
+		is_scrolling = 0;
+		$("#menu_container").removeClass("menu_container_fixed");
+	} else if (is_scrolling == 0) {
+		is_scrolling = 1;
+		$("#menu_container").addClass("menu_container_fixed");
+	}
+}
 
 function Goboard() {
 	window.location.href = "/board";
