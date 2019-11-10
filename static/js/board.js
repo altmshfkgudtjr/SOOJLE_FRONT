@@ -166,7 +166,12 @@ function search_result_click(tag) {
 
 // Grid Task
 let grid_open = 0;
-function grid_modal_onoff(tag) {
+function grid_modal_onoff() {
+	if (menu_open == 1) {
+		menu_modal_off();
+		menu_modal_onoff();
+		menu_open = 0;
+	}
 	let w = $(document).width();
 	if (grid_open == 0) {
 		$("#grid").css("background-color", "rgba(0,0,0,.1)");
@@ -190,5 +195,29 @@ function grid_modal_off() {
 		$("#grid_modal").removeClass("grid_modal_visible");
 		$("#mobile_modal_close").addClass("display_none");
 		grid_open = 0;
+	}
+}
+
+
+// Menu Task
+let menu_open = 0;
+function menu_modal_onoff() {
+	let w = $(document).width();
+	if (menu_open == 0) {
+		$("body").css({"position": "fixed", "overflow": "hidden"});
+		$("#menu_modal").addClass("menu_modal_visible");
+		menu_open = 1;
+	} else {
+		$("body").removeAttr("style");
+		$("#menu_modal").removeClass("menu_modal_visible");
+		menu_open = 0;
+	}
+}
+function menu_modal_off() {
+	let w = $(document).width();
+	if (w < 1200){
+		$("body").removeAttr("style");
+		$("#menu_modal").removeClass("menu_modal_visible");
+		menu_open = 0;
 	}
 }
