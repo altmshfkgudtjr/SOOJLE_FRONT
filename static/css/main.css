@@ -101,7 +101,7 @@ html, body {
 	 -webkit-overflow-scrolling: touch;
 }
 html {
-	background-color: #ededed;
+	background-color: #fafafa;
 }
 ::-webkit-scrollbar {
     width: 0px;  /* Remove scrollbar space */

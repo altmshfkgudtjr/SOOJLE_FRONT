@@ -1,5 +1,5 @@
 html {
-	background-color: #F8F8F9;
+	background-color: #Fafafa;
 }
 
 .header_up {
@@ -424,20 +424,21 @@ html {
 }
 .body_guideline {
 	position: relative;
-	display: -webkit-flex;
-	display: flex;
 	width: 100%;
+	height: auto;
 	top: 0;
 	padding-top: 60px;
 	max-width: 1080px;
-	height: 100%;
 	margin: auto;
 	margin-top: 63px;
 	background-color: rgba(0,0,0,0);
 }
 .menu_container {
+	position: relative;
 	top: 0;
 	width: 380px;
+	display: inline-block;
+	float: left;
 	height: auto;
 	min-height: 100px;
 	background-color: rgba(0,0,0,0);
@@ -570,7 +571,7 @@ html {
 .board_container {
 	position: relative;
 	display: inline-block;
-	float: right;
+	float: left;
 	width: 700px;
 	height: auto;
 	min-height: 100px;
@@ -613,6 +614,20 @@ html {
 	margin-bottom: 20px;
 	font-size: 24px;
 	line-height: 30px;
+}
+.menu_container_button {
+	position: relative;
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	background-color: #EEEEEE;
+	box-shadow: 0 3px 6px rgba(0,0,0,.16);
+	transition: .1s ease-in-out;
+	-webkit-transition: .1s ease-in-out;
+	text-align: center;
+	font-size: 24px;
 }
 
 /*=========================================================================*/

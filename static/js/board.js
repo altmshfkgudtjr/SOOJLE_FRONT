@@ -15,62 +15,6 @@ window.setTimeout(function() {
 	}, 1000);
 }, 100);
 let filter = "win16|win32|win64|mac|macintel";
-// Header setting
-/*
-if ( navigator.platform ) { //mobile
-	if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
-		$(".SJ_board_header").css("position", "fixed");
-		let didScroll;
-		let lastScrollTop = 0;
-		let delta = 5;
-		let navbarHeight = $('.SJ_board_header').outerHeight();
-		$(window).scroll(function(event){
-		    didScroll = true;
-		});
-		setInterval(function() {
-		    if (didScroll) {
-		        hasScrolled();
-		        didScroll = false;
-		    }
-		}, 250);
-		function hasScrolled() {
-		    let st = $(this).scrollTop();
-		    if(Math.abs(lastScrollTop - st) <= delta)
-		        return;
-		    if (st > lastScrollTop && st > navbarHeight){
-		        $('.SJ_board_header').removeClass('header_down').addClass('header_up');
-		    } else {
-		        if(st + $(window).height() < $(document).height()) {
-		            $('.SJ_board_header').removeClass('header_up').addClass('header_down');
-		        }
-		    }
-		    lastScrollTop = st;
-		}
-		let lastScroll = 0;
-		window.onscroll = function() {
-			let currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
-			if (currentScroll > 0 && lastScroll <= currentScroll){
-				lastScroll = currentScroll;
-				$('.SJ_board_header').removeClass('header_down').addClass('header_up');
-			} else {
-				lastScroll = currentScroll;
-				$('.SJ_board_header').removeClass('header_up').addClass('header_down');
-			}
-		};
-	} else {} // pc
-}
-*/
-let is_scrolling = 0;
-window.onscroll = function() {
-	let currentScroll = document.documentElement.scrollTop;
-	if (currentScroll < 100) {
-		is_scrolling = 0;
-		$("#menu_container").removeClass("menu_container_fixed");
-	} else if (is_scrolling == 0) {
-		is_scrolling = 1;
-		$("#menu_container").addClass("menu_container_fixed");
-	}
-}
 
 function Goboard() {
 	window.location.href = "/board";
