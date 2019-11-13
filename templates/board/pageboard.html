@@ -15,6 +15,8 @@
 	<link rel="apple-touch-icon-precomposed" type="image/png" href="/static/image/shortcut.png">
 	<!-- 아이콘 -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+	<!-- Animation CSS -->
+	<link href="/static/css/animation/animate.css" rel="stylesheet">
 	<!-- Custom CSS -->
 	<link href="/static/css/main.css" rel="stylesheet">
 	<link href="/static/css/board.css" rel="stylesheet">
@@ -42,9 +44,9 @@
 	<div class="SJ_board_body">
 		<div class="body_guideline">
 			<div id="menu_container" class="menu_container">
-				<div class="menu_container_button pointer">
-					<img src="https://img.icons8.com/ios/50/000000/like.png" class="menu_container_button_icon noselect">
-					<div class="menu_container_button_text noselect">로그인</div>
+				<div class="menu_container_button_small pointer" onclick="login_modal_onoff()">
+					<img src="https://img.icons8.com/windows/96/000000/user-male-circle.png" class="menu_container_button_small_icon noselect">
+					<div class="menu_container_button_small_text noselect">로그인</div>
 				</div>
 			</div>
 			<div class="board_container">
@@ -53,6 +55,11 @@
 						<img src="https://img.icons8.com/ios-filled/50/000000/menu.png" class="board_info_icon noselect">
 					</div>
 					<div class="board_info_text">공모전&대외활동</div>
+					<div class="board_mobile_login_container pointer" onclick="login_modal_onoff()">
+						<div class="board_mobile_login_bar"></div>
+						<img src="https://img.icons8.com/windows/96/000000/user-male-circle.png" class="board_mobile_login_icon noselect">
+						<div class="board_mobile_login_name">로그인</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -89,6 +96,36 @@
 		</div>
 	</div>
 	<!--Modal-->
+	<div id="login_modal" class="login_modal wow" data-wow-duration="0.4s">
+		<div class="login_container">
+			<div class="login_logo">SOOJLE</div>
+			<div class="login_title">로그인</div>
+			<div class="login_input_container">
+				<input type="email" id="user_id" class="login_input" autocomplete="off" onkeyup="Enter_login()">
+				<p class="formLabel">학번 / 교번</p>
+			</div>
+			<div class="login_input_container">
+				<input type="password" id="user_pw" class="login_input" onkeyup="Enter_login()">
+				<p class="formLabel">비밀번호</p>
+			</div>
+			<div class="login_info">
+				계정을 모르시겠나요?<br>
+				<a href="https://portal.sejong.ac.kr">세종통합포털사이트</a> 계정을 찾아서 입력해주세요.
+			</div>
+			<div class="menu_container_button_ss_container">
+				<div class="menu_container_button_ss pointer" onclick="login_modal_onoff();">
+					<img src="https://img.icons8.com/windows/96/000000/user-male-circle.png" class="menu_container_button_ss_icon noselect">
+					<div class="menu_container_button_ss_text noselect">나가기</div>
+				</div>
+				<div class="menu_container_button_ss pointer" onclick="Sign_in()">
+					<img src="https://img.icons8.com/windows/96/000000/user-male-circle.png" class="menu_container_button_ss_icon noselect">
+					<div class="menu_container_button_ss_text noselect">로그인</div>
+				</div>
+			</div>
+			<div class="login_background_box1"></div>
+			<div class="login_background_box2"></div>
+		</div>
+	</div>
 	<div id="grid_modal" class="grid_modal">
 		<div class="grid_item_container">
 			<div class="grid_item_box pointer">
@@ -325,8 +362,13 @@
 	<div id="none_click" class="none_click"></div>
 </body>
 
+<!-- Test Host JS -->
+<script src="/static/js/host.js"></script>
 <!-- JQuery JS -->
 <script src="/static/js/jquery/jquery.min.js"></script>
+<!-- Animation JS -->
+<script src="/static/js/wow/wow.min.js"></script>
+<script>new WOW().init();</script>
 <!-- MAIN JS -->
 <script src="/static/js/ajax.js"></script>
 <script src="/static/js/board.js"></script>

@@ -10,6 +10,14 @@ function A_JAX(url, type, token, data){
         error: function(res){
         }
     });
+    $.ajaxSetup({
+        beforeSend: function (xhr) {
+            let token = localStorage.getItem('sj-state');
+            if (token) {
+                xhr.setRequestHeader("Authorization", "Bearer "+token);
+            }
+        }
+    });
     return ajax_;
 }
 
@@ -25,6 +33,14 @@ function A_JAX_FILE(url, type, token, data){
         success: function(res){
         },
         error: function(res){
+        }
+    });
+    $.ajaxSetup({
+        beforeSend: function (xhr) {
+            let token = localStorage.getItem('sj_state');
+            if (token) {
+                xhr.setRequestHeader("Authorization", "Bearer "+token);
+            }
         }
     });
     return ajax_;
