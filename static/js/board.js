@@ -12,103 +12,15 @@ window.setTimeout(function() {
 	window.setTimeout(function() {
 		$(".mobile_controller").removeAttr("style");
 		$("#none_click").addClass("display_none");
-	}, 1000);
-}, 100);
+	}, 200);
+}, 500);
 let filter = "win16|win32|win64|mac|macintel";
 
 function Goboard() {
 	window.location.href = "/board";
 }
 
-// Searchbar Task
-let search_cache = "";	// 이전 검색어
-let search_target = "";	// 목표 검색어
-let now = 0;	// 현재 화살표로 선택한 div 위치
-let all = 0;	// 검색결과 수
-function search_focus(keyCode, tag) {
-	//KeyUp 38 or KeyDown 40
-	if (keyCode == 13) {
-		search_button();
-		search_blur();
-	} else if (keyCode == 38 || keyCode == 40) {
-		$(`.search_result:nth-child(${now})`).removeClass("search_target");
-		if (keyCode == 38) now--;
-		else now++;
-		if (now > all) {
-			now--;
-		} else if (now <= 0) {
-			now++;
-		}
-		$(`.search_result:nth-child(${now})`).addClass("search_target");
-		let target = $(`.search_result:nth-child(${now})`).text().trim();
-		tag.val(target);
-		search_cache = target;
-	} else {
-		let now_search = tag.val();
-		// 문열길이!=0, 문자열변화
-		if (now_search.length != 0 && search_cache != now_search) {
-			$(`.search_result:nth-child(${now})`).removeClass("search_target");
-			now = 0;
-			search_cache = tag.val();
-			search_target = search_cache;
-			/*추천검색어 AJAX 요청 공간=========================================*/
-			all = 3;	// AJAX로 요청한 추천검색어 수
-			if (all != 0)
-				$("#search_recommend_box").removeClass("display_none");
-		} else if (tag.val() == "") {
-			search_target = "";
-			$("#search_recommend_box").addClass("display_none");
-			$("#search_recommend_box").empty();
-			let line = '<div id="search_loading" class="search_loading pointer noselect">\
-							<i class="fas fa-grip-lines"></i>\
-						</div>';
-			document.getElementById('search_recommend_box').innerHTML = line;
-			search_cache = "";
-		}
-	}
-}
-function search_click() {
-	if (all != 0)
-		$("#search_recommend_box").removeClass("display_none");
-}
-function search_blur() {
-	$("#search_recommend_box").addClass("display_none");
-}
-function search_button(data = "") {	// 검색작업 data = 글자
-	let w = $(document).width();
-	if (w < 1200) {
-		if (data == "")
-			data = $("#mobile_search_input").val();
-	} else {
-		if (data == "")
-			data = $("#pc_search_input").val();
-	}
-	alert(data);
-	/*search 클릭 작업============================================================*/
-}
-function mobile_search_modal_open() {
-	$("body").css("overflow", "hidden");
-	$("#mobile_search_modal").removeClass("display_none");
-	$("#mobile_search_input").focus()
-}
-function mobile_search_modal_close() {
-	search_blur();
-	$("body").removeAttr("style");
-	$("#mobile_search_modal").addClass("display_none");
-	$("#mobile_search_input").val("");
-}
-function search_result_click(tag) {
-	let data = tag.children("span").text().trim();
-	let w = $(document).width();
-	if (w < 1200) {
-		$("#mobile_search_input").val(data);
-	} else {
-		$("#pc_search_input").val(data);
-	}
-	search_button(data);
-}
-
-// Grid Task
+// Grid modal on off function
 let grid_open = 0;
 function grid_modal_onoff() {
 	if (menu_open == 1) {
@@ -143,7 +55,7 @@ function grid_modal_off() {
 }
 
 
-// Menu Task
+// Menu modal on off function
 let menu_open = 0;
 function menu_modal_onoff() {
 	let w = $(document).width();
@@ -166,9 +78,13 @@ function menu_modal_off() {
 	}
 }
 
-
+// Login modal on off function
 let login_open = 0;
 function login_modal_onoff() {
+	$("#user_id").val("");
+	$("#user_pw").val("");
+	let formInputs = $('#user_id,#user_pw');
+	formInputs.focusout();
 	let w = $(document).width();
 	if (login_open == 0) {
 		$("body").css({"position": "fixed", "overflow": "hidden"});
@@ -189,43 +105,84 @@ function login_modal_onoff() {
 	}
 }
 
-// 로그인 함수
+// Login fucntion
 function Sign_in(){
 	let user_id = $("#user_id").val();
 	let user_pw = $("#user_pw").val();
+	if ($("#user_id").val() == "") {
+		Snackbar("학번 또는 교번을 입력해주세요.");
+		$("#user_id").focus();
+		return;
+	} else if ($("#user_pw").val() == "") {
+		Snackbar("비밀번호를 다시 입력해주세요.");
+		$("#user_pw").focus();
+		return;
+	}
 	let send_data = {id: user_id, pw: user_pw};
+	$("#login_loading_modal").removeClass("login_loading_modal_unvisible");
 	let a_jax = A_JAX("http://"+host_ip+"/sign_in_up", "POST", null, send_data);
 	$.when(a_jax).done(function () {
+		$("#login_loading_modal").addClass("login_loading_modal_unvisible");
 		if (a_jax.responseJSON['result'] == 'success') {
 			let token = a_jax.responseJSON['access_token']
 			localStorage.setItem('sj-state', token);
 			a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
 			$.when(a_jax).done(function () {
 				if (a_jax.responseJSON['result'] == 'success') {
-					console.log(a_jax.responseJSON);
+					Snackbar("맞춤 서비스를 시작합니다.");
+					After_login(a_jax.responseJSON);
+					login_modal_onoff();
+					$("#user_id").val("");
+					$("#user_pw").val("");
 				} else if (a_jax.responseJSON['result'] == 'not found') {
-					console.log("알수 없어요")
+					Snackbar("비정상적인 접근입니다.")
 				}
 			});
 		} else if (a_jax.responseJSON['result'] == 'not sejong') {
-			console.log("세종인이 아님")
+			Snackbar("올바르지않은 계정입니다.")
 		} else if (a_jax.responseJSON['result'] == 'incorrect pw') {
-			console.log("패스워드를 다시 입력해주십시");
-		} else {
-			console.log("꺼져시발");
+			Snackbar("비밀번호를 다시 입력해주세요.");
+		} else if (a_jax.responseJSON['result'] == 'api error') {
+			Snackbar("세종대학교 전산서비스 오류입니다.");
+		}
+		else {
+			Snackbar("계정을 확인해주세요.");
 		}
 	});
 }
 function Enter_login() {
 	if (window.event.keyCode == 13) {
         if ($("#user_id").val() == "") {
-        	console.log("학번입력좀");
+        	Snackbar("학번 또는 교번을 입력해주세요.");
+        	$("#user_id").focus();
         } else if ($("#user_pw").val() == "") {
-        	console.log("비번입력좀");
+        	Snackbar("비밀번호를 다시 입력해주세요.");
+        	$("#user_pw").focus();
         } else {
         	Sign_in();
         }
     }
+}
+// login modal input event
+$(document).ready(function(){
+	let formInputs = $('#user_id,#user_pw');
+	formInputs.focus(function() {
+       $(this).parent().children('p.formLabel').addClass('formTop');
+	});
+	formInputs.focusout(function() {
+		if ($.trim($(this).val()).length == 0){
+			$(this).parent().children('p.formLabel').removeClass('formTop');
+		}
+	});
+	$('p.formLabel').click(function(){
+		 $(this).parent().children('.login_input').focus();
+	});
+});
+// After login, setting user information.
+function After_login(dict) {
+	let id = dict["user_id"];
+	let major = dict["user_major"];
+	let name = dict["user_name"];
 }
 
 // button click ripple event
@@ -257,21 +214,4 @@ $("html").on("click", ".ripple", function(evt) {
 		}
 	};
 	animationFrame = window.requestAnimationFrame(animationStep);
-});
-
-
-// login modal input event
-$(document).ready(function(){
-	var formInputs = $('#user_id,#user_pw');
-	formInputs.focus(function() {
-       $(this).parent().children('p.formLabel').addClass('formTop');
-	});
-	formInputs.focusout(function() {
-		if ($.trim($(this).val()).length == 0){
-			$(this).parent().children('p.formLabel').removeClass('formTop');
-		}
-	});
-	$('p.formLabel').click(function(){
-		 $(this).parent().children('.login_input').focus();
-	});
 });

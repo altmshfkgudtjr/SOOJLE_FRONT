@@ -475,7 +475,7 @@ body {
 }
 
 
-
+/* Loading CSS */
 .cube_text {
 	position: relative;
 	width: 100px;
@@ -581,4 +581,124 @@ body {
 	.cube div.back {
 	   -webkit-transform: translateZ(-25px) rotateX(180deg);
 	}
+}
+
+
+/* Loading CSS2 */
+svg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(1);
+          transform: translate(-50%, -50%) rotate(45deg) scale(1);
+}
+
+.stroke-still {
+  stroke: #232323;
+}
+
+.stroke-animation {
+  -webkit-animation: stroke-spacing 1.4s ease-in, stroke-color 4.8s linear;
+          animation: stroke-spacing 1.4s ease-in, stroke-color 4.8s linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-delay: 0;
+          animation-delay: 0;
+  -webkit-animation-direction: normal;
+          animation-direction: normal;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+}
+
+@-webkit-keyframes stroke-spacing {
+  0% {
+    stroke-dasharray: 0 200;
+  }
+  45% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 200 200;
+  }
+  90% {
+    stroke-dashoffset: -200;
+    stroke-dasharray: 200 200;
+  }
+  100% {
+    stroke-dashoffset: -200;
+    stroke-dasharray: 200 200;
+  }
+}
+
+@keyframes stroke-spacing {
+  0% {
+    stroke-dasharray: 0 200;
+  }
+  45% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 200 200;
+  }
+  90% {
+    stroke-dashoffset: -200;
+    stroke-dasharray: 200 200;
+  }
+  100% {
+    stroke-dashoffset: -200;
+    stroke-dasharray: 200 200;
+  }
+}
+
+@-webkit-keyframes stroke-color {
+  0%  { stroke: #C30E2E; }
+  24% { stroke: #C30E2E; }
+  25% { stroke: #C30E2E; }
+  49% { stroke: #C30E2E; }
+  50% { stroke: #C30E2E; }
+  74% { stroke: #C30E2E; }
+  75% { stroke: #C30E2E; }
+  99% { stroke: #C30E2E; }
+}
+
+@keyframes stroke-color {
+  0%  { stroke: #C30E2E; }
+  24% { stroke: #C30E2E; }
+  25% { stroke: #C30E2E; }
+  49% { stroke: #C30E2E; }
+  50% { stroke: #C30E2E; }
+  74% { stroke: #C30E2E; }
+  75% { stroke: #C30E2E; }
+  99% { stroke: #C30E2E; }
+}
+
+
+
+
+
+/* Snackbar CSS */
+.snackbar_target {
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
+	-webkit-transform: translate(-50%, 0);
+	height: 50px;
+	width: 300px;
+	z-index: 1000;
+}
+.snackbar {
+	position: absolute;
+	width: 280px;
+	height: 30px;
+	border-top: 2px solid #c30e2e;
+	background-color: #262626;
+	box-shadow: 0 3px 5px rgba(0,0,0,.2);
+	border-radius: 5px;
+	text-align: center;
+	padding: 10px 10px;
+	line-height: 30px;
+	font-size: 16px;
+	color: white;
+	cursor: pointer;
 }
