@@ -15,6 +15,8 @@
 	<link rel="apple-touch-icon-precomposed" type="image/png" href="/static/image/shortcut.png">
 	<!-- 아이콘 -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+	<!-- Animation CSS -->
+	<link href="/static/css/animation/animate.css" rel="stylesheet">
 	<!-- Custom CSS -->
 	<link href="/static/css/board.css" rel="stylesheet">
 	<link href="/static/css/main.css" rel="stylesheet">
@@ -48,10 +50,17 @@
 					</div>
 				</div>
 			</div>
-			<div class="search_info_text">씨발</div>
 		</div>
+		<div class="search_info_text pointer noselect" onclick="next_page()">알아보기</div>
 	</div>
-
+	<div class="page_section" style="padding-top: 300px;">
+		<div class="Sj_info_subtitle">세종대학교와 인공지능의 만남.</div>
+		<div class="Sj_info_subtitle">수즐로 정보를 통합하다.</div>
+		<div class="SJ_info_title noselect">SOOJLE</div>
+	</div>
+	<div class="page_section">
+		
+	</div>
 	<div id="mobile_search_modal" class="mobile_search_modal display_none">
 		<div class="mobile_search_header">
 			<div class="mobile_search_modal_close pointer" onclick="mobile_search_modal_close()">
@@ -91,6 +100,7 @@
 			<polyline class="line-cornered stroke-animation" points="0,0 0,100 100,100" stroke-width="5" fill="none"></polyline>
 		</svg>
 	</div>
+	<div id="snackbar_target" class="snackbar_target"></div>
 </body>
 
 <!-- Test Host JS -->
@@ -99,6 +109,9 @@
 <script src="/static/js/jquery/jquery.min.js"></script>
 <!-- Ajax JS -->
 <script src="/static/js/ajax.js"></script>
+<!-- Animation JS -->
+<script src="/static/js/wow/wow.min.js"></script>
+<script>new WOW().init();</script>
 <!-- Snackbar JS -->
 <script src="/static/js/snackbar.js"></script>
 <!-- MAIN JS -->
@@ -115,13 +128,4 @@
 	--sj_deepred_color: #c30e2e;
 	--sj_litered_color: #DF0101;
 }
--->
-
-<!--
-		<div id="SJ_main_page1_hyper_button_box" class="SJ_main_page1_hyper_button_box">
-			<div class="SJ_main_page1_hyper_button pointer" onclick="Goboard()">
-				<span class="SJ_main_page1_hyper_button_text">시작하기&nbsp;&nbsp;&nbsp;</span>
-				<img src="/static/icons/right.png" class="SJ_main_page1_hyper_button_icon">
-			</div>
-		</div>
 -->

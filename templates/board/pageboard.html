@@ -23,8 +23,8 @@
 </head>
 <body style="-ms-scroll-limit: 0 0 0 0">
 	<div class="SJ_board_header header_down">
-		<img src="/static/image/SOOJLE_LOGO_BIG.png" class="board_logo pointer noselect" onclick="Goboard()">
 		<div class="header_guideline">
+			<img src="/static/image/SOOJLE_LOGO_BIG.png" class="board_logo pointer noselect" onclick="Goboard()">
 			<div id="mobile_modal_close" class="mobile_search_modal_close pointer display_none" onclick="grid_modal_off()">
 				<i class="fas fa-chevron-left"></i>
 			</div>
@@ -37,32 +37,26 @@
 				</div>
 			</div>
 		</div>
-		<div id="grid" class="grid pointer" onclick="grid_modal_onoff()">
-			<img src="/static/icons/grid.png" class="grid_icon noselect">
-		</div>
 	</div>
 	<div class="SJ_board_body">
 		<div class="body_guideline">
 			<div id="menu_container" class="menu_container">
-				<div class="menu_container_button_small pointer" onclick="login_modal_onoff()">
-					<img src="/static/icons/user.png" class="menu_container_button_small_icon noselect">
-					<div class="menu_container_button_small_text noselect">로그인</div>
-				</div>
-			</div>
-			<div class="board_container">
+				<img src="/static/image/menu_line.png" class="board_info_menu_line noselect">
 				<div class="board_info_container">
-					<div class="board_info_icon_container pointer" onclick="menu_modal_onoff()">
-						<img src="/static/icons/menu.png" class="board_info_icon noselect">
-					</div>
-					<div class="board_info_text">공모전&대외활동</div>
+					<div id="board_info_board" class="board_info_board noselect">뉴스피드</div>
+					<div id="board_info_text" class="board_info_text noselect">공모전&대외활동</div>
 					<div class="board_mobile_login_container pointer" onclick="login_modal_onoff()">
 						<div class="board_mobile_login_bar"></div>
 						<img src="/static/icons/user.png" class="board_mobile_login_icon noselect">
 						<div class="board_mobile_login_name">로그인</div>
 					</div>
 				</div>
+				<div class="menu_container_button_small pointer" onclick="login_modal_onoff()">로그인</div>
+				<div class="menu_container_button_small pointer" onclick="menu_modal_onoff()">메뉴</div>
+			</div>
+			<div class="board_container">
 				<div id="posts_target" class="posts_target_container">
-					<div style="width: 100%; height: 200px; border-radius: 5px; box-shadow: 0 3px 8px rgba(0,0,0,.2)"></div>
+					<div style="width: 100%; height: 150px; border-radius: 5px; box-shadow: 0 3px 8px rgba(0,0,0,.2)"></div>
 				</div>
 			</div>
 		</div>
@@ -70,7 +64,7 @@
 	<div class="SJ_board_footer">
 		<div class="SJ_footer_background"></div>
 		<div class="SJ_footer_guideline">
-			<div class="SJ_footer_item noselect">SOOJLE</div>
+			<img src="/static/image/SOOJLE_LOGO_BIG_BLACK.png" class="SJ_footer_item pointer noselect" onclick="Go_home();">
 			<div class="SJ_footer_item pointer">소개</div>
 			<div class="SJ_footer_item pointer">개발자</div>
 			<div class="SJ_footer_item pointer">광고</div>
@@ -117,7 +111,7 @@
 			</div>
 			<div class="menu_container_button_ss_container">
 				<div class="menu_container_button_ss pointer" onclick="login_modal_onoff();">
-					<img src="/static/icons/home.png" class="menu_container_button_ss_icon noselect">
+					<img src="/static/icons/export.png" class="menu_container_button_ss_icon noselect">
 					<div class="menu_container_button_ss_text noselect">나가기</div>
 				</div>
 				<div class="menu_container_button_ss pointer" onclick="Sign_in()">
@@ -234,7 +228,7 @@
 				<img src="/static/icons/Comments.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">자유</div>
 			</div>
-			<div class="menu_container_title noselect">SOOJLE 연구소</div>
+			<div class="menu_container_title noselect">수즐 연구소</div>
 			<div class="menu_container_button pointer">
 				<img src="/static/icons/Lab.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">Lab</div>
@@ -252,6 +246,7 @@
 				<img src="/static/icons/flag.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">피드백 보내기</div>
 			</div>
+			<div style="position: relative; float: left; width: 100%; height: 100px;"></div>
 		</div>
 	</div>
 	<div id="mobile_search_modal" class="mobile_search_modal display_none">
@@ -393,23 +388,18 @@
 			</div>
 		</div>
 	</div>
-	<div id="none_click" class="none_click"></div>
-	<div id="none_click_dark" class="none_click_dark"></div>
 	<div id="snackbar_target" class="snackbar_target"></div>
-	<div style="position: relative; width: 100px; height: 100px; background-color: red; cursor: pointer;" onclick="get_recommend_posts();">추천</div>
-	<div style="position: relative; width: 100px; height: 100px; background-color: yellow; cursor: pointer;" onclick="get_popularity_posts();">인기</div>
-	<div style="position: relative; width: 100px; height: 100px; background-color: green; cursor: pointer;" onclick="get_topic_posts(1);">진로&구인</div>
 </body>
 
 <!-- Test Host JS -->
 <script src="/static/js/host.js"></script>
 <!-- JQuery JS -->
 <script src="/static/js/jquery/jquery.min.js"></script>
-<!-- Snackbar JS -->
-<script src="/static/js/snackbar.js"></script>
 <!-- Animation JS -->
 <script src="/static/js/wow/wow.min.js"></script>
 <script>new WOW().init();</script>
+<!-- Snackbar JS -->
+<script src="/static/js/snackbar.js"></script>
 <!-- Ajax JS -->
 <script src="/static/js/ajax.js"></script>
 <!-- MAIN JS -->

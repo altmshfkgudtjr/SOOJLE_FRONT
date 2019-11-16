@@ -217,8 +217,8 @@ $("html").on("click", ".ripple", function(evt) {
 });
 
 
-function menu_click(tag) {
-
+function Go_home() {
+	window.location.href = "/";
 }
 function Go_analysistics() {
 	window.location.href = "/analysistics";

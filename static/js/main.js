@@ -72,3 +72,8 @@ setTimeout(function() {
 	$("body").removeAttr("style");
 	$("#loading").addClass("display_none");
 }, 400);	// setting time
+
+function next_page() {
+	let target = $(".page_section:nth-child(2)").offset().top;
+	$('html,body').animate({scrollTop: target}, 10);
+}

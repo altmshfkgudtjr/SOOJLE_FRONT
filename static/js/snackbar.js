@@ -2,7 +2,8 @@ function Snackbar(text) {
 	let tag = $(document.createElement("div"));
 	tag.addClass("snackbar noselect animated slideInUp");
 	tag.attr({
-		"onclick": "Snackbar_off($(this));"
+		"onclick": "Snackbar_off($(this));",
+		"data-wow-duration": "0.4s"
 	});
 	tag.text(text);
 	$("#snackbar_target").append(tag);

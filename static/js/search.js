@@ -83,16 +83,8 @@ function search_button(tag) {	// 검색작업 data = 글자
 	let w = $(document).width();
 	if (w < 1200) {
 		data = $("#mobile_search_input").val();
-		if (data == ""){
-			Snackbar("검색어를 입력해주세요.");
-			return;
-		}
 	} else {
 		data = $("#pc_search_input").val();
-		if (data == ""){
-			Snackbar("검색어를 입력해주세요.");
-			return;
-		}
 	}
 	search_text(data);	// 검색 함수 실행
 
@@ -125,6 +117,10 @@ function search_result_click(tag) {
 
 // 검색 api 실행 함수
 function search_text(text) {
+	if (text == ""){
+		Snackbar("검색어를 입력해주세요.");
+		return;
+	}
 	let send_data = {search: text};
 	let a_jax1 = A_JAX("http://"+host_ip+"/priority_search/200", "POST", null, send_data);
 	let a_jax2 = A_JAX("http://"+host_ip+"/category_search/1/200", "POST", null, send_data);

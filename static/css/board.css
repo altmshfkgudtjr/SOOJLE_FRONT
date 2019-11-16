@@ -14,15 +14,14 @@ html {
 	width: 100%;
 	height: 60px;
 	background-color: white;
-	border-top: 1px solid #C30E2E;
-	border-bottom: 2px solid #EDEDED;
+	border-top: 2px solid black;
 }
 .board_logo {
-	position: absolute;
-	top: 15px;
-	left: 30px;
-	width: 95px;
-	height: 30px;
+	position: relative;
+	top: 0;
+	left: 160px;
+	width: 120px;
+	height: auto;
 	z-index: 10;
 }
 .grid {
@@ -117,6 +116,7 @@ html {
 	overflow-y: auto;
 	top: 64px;
 	left: 0px;
+	padding-bottom: 100px;
 	background-color: white;
 	opacity: 0;
 	visibility: hidden;
@@ -149,7 +149,7 @@ html {
 	height: 30px;
 	top: 13px;
 	right: 0;
-	border: 1px solid #c30e2e;
+	border: 2px solid black;
 	border-radius: 25px;
 }
 .pc_search_container:hover {
@@ -217,6 +217,7 @@ html {
 	font-size: 16px;
 	line-height: 40px;
 	background-color: rgba(0,0,0,0);
+	z-index: 40;
 }
 .search_result:hover {
 	background-color: rgba(0,0,0,.1);
@@ -255,11 +256,8 @@ html {
 	position: absolute;
 	width: 100%;
 	height: 250px;
-	transform: skewY(-5deg);
-	-webkit-transform: skewY(-5deg);
-	background-color: #232833;
+	background-color: black;
 	z-index: 0;
-	box-shadow: 0 0 10px #2A2A2A;
 }
 .SJ_footer_background {
 	position: absolute;
@@ -267,7 +265,7 @@ html {
 	height: 250px;
 	left: 0;
 	bottom: -110px;
-	background-color: #232833;
+	background-color: black;
 	z-index: 0;
 }
 .SJ_footer_guideline {
@@ -298,12 +296,12 @@ html {
 	vertical-align: middle;
 	color: white;
 	opacity: 0.6;
+	transition: 0.1s ease-in-out;
+}
+.SJ_footer_item:hover {
+	opacity: 1;
 }
 .SJ_footer_item:first-child {
-	height: 60px;
-	top: 40px;
-	line-height: 80px;
-	font-size: 40px;
 	opacity: 1;
 }
 .SJ_footer_item:last-child {
@@ -340,7 +338,7 @@ html {
 	width: 100%;
 	height: 100%;
 	top: 63px;
-	background-color: #F8F8F9;
+	background-color: white;
 }
 .body_guideline_loading {
 	position: relative;
@@ -429,7 +427,7 @@ html {
 	width: 100%;
 	height: auto;
 	top: 0;
-	padding-top: 60px;
+	padding-top: 30px;
 	max-width: 1080px;
 	margin: auto;
 	margin-top: 63px;
@@ -458,7 +456,7 @@ html {
 	margin-bottom: 20px;
 	font-size: 40px;
 	line-height: 60px;
-	color: #595959;
+	color: black;
 	font-weight: bold;
 }
 .menu_container_subtitle {
@@ -534,23 +532,6 @@ html {
 	margin-bottom: 200px;
 	background-color: rgba(0,0,0,0);
 }
-.menu_container_button {
-	position: relative;
-	display: inline-block;
-	width: 150px;
-	height: 150px;
-	margin-right: 20px;
-	margin-bottom: 20px;
-	background-color: #EEEEEE;
-	box-shadow: 0 3px 6px rgba(0,0,0,.16);
-	transition: .1s ease-in-out;
-	-webkit-transition: .1s ease-in-out;
-	text-align: center;
-	font-size: 24px;
-}
-.menu_container_button:hover {
-	box-shadow: 0 0 0 rgba(0,0,0,0);
-}
 .menu_container_button_icon {
 	position: absolute;
 	width: 30px;
@@ -580,11 +561,11 @@ html {
 }
 .board_info_container {
 	position: relative;
-	float: left;
 	width: 100%;
 	height: 50px;
 	border: none;
 	background-color: rgba(0,0,0,0);
+	margin-bottom: 60px;
 }
 .board_info_icon_container {
 	position: relative;
@@ -601,6 +582,13 @@ html {
 .board_info_icon_container:hover {
 	opacity: 1;
 }
+.board_info_menu_line {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 280px;
+	height: auto;
+}
 .board_info_icon {
 	position: relative;
 	display: inline-block;
@@ -609,15 +597,29 @@ html {
 	margin-left: 3px;
 	margin-top: 3px;
 }
+.board_info_board {
+	position: relative;
+	float: right;
+	width: 100%;
+	height: 20px;
+	margin-top: 50px;
+	margin-right: 100px;
+	font-size: 16px;
+	line-height: 20px;
+	text-align: right;
+	opacity: 0.6;
+}
 .board_info_text {
 	position: relative;
-	display: inline-block;
-	float: left;
-	width: 200px;
-	height: 30px;
-	margin-bottom: 20px;
+	float: right;
+	width: 100%;
+	height: 40px;
+	margin-bottom: 80px;
+	margin-right: 100px;
 	font-size: 24px;
-	line-height: 30px;
+	line-height: 40px;
+	text-align: right;
+	font-weight: 800;
 }
 .board_mobile_login_container {
 	display: none;
@@ -629,29 +631,31 @@ html {
 	height: 150px;
 	margin-right: 20px;
 	margin-bottom: 20px;
-	background-color: #EEEEEE;
-	box-shadow: 0 3px 6px rgba(0,0,0,.16);
 	transition: .1s ease-in-out;
 	-webkit-transition: .1s ease-in-out;
 	text-align: center;
 	font-size: 24px;
 }
+.menu_container_button:hover {
+	box-shadow: 0 0 5px rgba(0,0,0,.3);
+}
 .menu_container_button_small {
 	position: relative;
-	display: inline-block;
-	width: 150px;
-	height: 150px;
-	margin-right: 20px;
+	float: right;
+	width: 100%;
+	height: 40px;
+	right: 0;
 	margin-bottom: 20px;
-	background-color: #EEEEEE;
-	box-shadow: 0 3px 6px rgba(0,0,0,.16);
+	margin-right: 100px;
 	transition: .1s ease-in-out;
 	-webkit-transition: .1s ease-in-out;
-	text-align: center;
-	font-size: 22px;
+	text-align: right;
+	font-size: 20px;
+	line-height: 40px;
+	color: black;
 }
 .menu_container_button_small:hover {
-	box-shadow: 0 0 0 rgba(0,0,0,0);
+	color: #c30e2e
 }
 .menu_container_button_small_icon {
 	position: absolute;
@@ -726,7 +730,7 @@ html {
 	font-size: 45px;
 	line-height: 45px;
 	font-weight: bold;
-	opacity: 0.8;
+	opacity: 1;
 }
 
 .login_input_container{
@@ -807,8 +811,6 @@ html {
 	margin-left: 10px;
 	margin-right: 10px;
 	margin-bottom: 10px;
-	background-color: #EEEEEE;
-	box-shadow: 0 3px 6px rgba(0,0,0,.16);
 	transition: .1s ease-in-out;
 	-webkit-transition: .1s ease-in-out;
 	text-align: center;
@@ -823,7 +825,7 @@ html {
 	height: 30px;
 	opacity: 0.6;
 	left: 50%;
-	top: 15px;
+	top: 5px;
 	transform: translate(-50%, 0);
 	-webkit-transform: translate(-50%, 0);
 }
@@ -831,7 +833,7 @@ html {
 	position: absolute;
 	width: 100%;
 	height: 20px;
-	bottom: 10px;
+	bottom: 5px;
 	line-height: 20px;
 	color: #303030;
 }
@@ -842,6 +844,8 @@ html {
 	height: auto;
 	min-height: 200px;
 }
+
+
 
 /*=========================================================================*/
 /*								Mobile CSS								   */
@@ -1070,9 +1074,7 @@ html {
 		position: absolute;
 		width: 100%;
 		height: 400px;
-		transform: skewY(-5deg);
-		-webkit-transform: skewY(-5deg);
-		background-color: #232833;
+		background-color: black;
 		z-index: 0;
 		box-shadow: 0 0 10px #2A2A2A;
 	}
@@ -1117,11 +1119,14 @@ html {
 		opacity: 0.6;
 	}
 	.SJ_footer_item:first-child {
-		height: 60px;
+		left: 50%;
+		transform: translate(-50%, 0);
+		-webkit-transform: translate(-50%, 0);
+		height: 30px;
+		width: auto;
 		top: 0;
-		line-height: 60px;
-		font-size: 30px;
 		opacity: 1;
+		margin-bottom: 40px;
 	}
 	.SJ_footer_item:last-child {
 		top: 0;
@@ -1315,6 +1320,7 @@ html {
 	}
 	.menu_modal {
 		top: 53px;
+		padding-bottom: 200px;
 	}
 	.menu_guideline {
 		position: relative;
@@ -1331,6 +1337,7 @@ html {
 	}
 	.menu_container_title {
 		position: relative;
+		float: left;
 		width: 90%;
 		height: 30px;
 		margin-left: 15px;
@@ -1338,19 +1345,20 @@ html {
 		margin-bottom: 10px;
 		font-size: 20px;
 		line-height: 30px;
-		color: #595959;
+		color: black;
 		font-weight: bold;
 	}
 	.menu_container_button {
 		position: relative;
 		display: inline-block;
-		width: 95%;
-		height: 80px;
-		margin-left: 2.5%;
-		margin-right: 2.5%;
+		float: left;
+		width: 33.33%;
+		height: 100px;
+		margin-left: 0%;
+		margin-right: 0%;
 		margin-bottom: 5px;
-		background-color: #EEEEEE;
-		box-shadow: 0 3px 6px rgba(0,0,0,.16);
+		background-color: rgba(0,0,0,0);
+		box-shadow: none;
 		transition: .1s ease-in-out;
 		-webkit-transition: .1s ease-in-out;
 		text-align: center;
