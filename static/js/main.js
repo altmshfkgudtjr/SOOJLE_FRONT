@@ -2,6 +2,7 @@ $(window).ready(function() {
 	$("#loading").css({"top": $(document).scrollTop()});
 });
 
+
 // Mobile Device Checked
 window.mobilecheck = function() {
 	var isMobile = false;
@@ -11,7 +12,8 @@ window.mobilecheck = function() {
 	}
     return isMobile;
 };
-var before_width = $(window).width();
+/*
+let before_width = $(window).width();
 function fixed_size(width) {
 	if (mobilecheck()) {
 		let target1 = $("#SJ_main_background");
@@ -35,24 +37,24 @@ $(window).resize(function() {
 		fixed_size(before_width);
 	}
 });
-
+*/
 // 메인페이지 검색 focus 함수
 function search_focus() {
 	$("#SJ_main_page1_search_bar").addClass("SJ_main_page1_search_bar_checked");
 	$("#SJ_main_page1_search_list_box").css({"width": $("#SJ_main_page1_search_box").width()});
 	$("#SJ_main_page1_search_list_box").removeClass("display_none");
 	if (mobilecheck()) {
-		$("#SJ_main_page1_search_box").css({"border-radius": "0 25px 0 0"});
+		$("#SJ_main_page1_search_box").css({"border-radius": "25px 25px 0 0"});
 		let top = $("#SJ_main_page1_search_container").position().top;
 		$("html, body").scrollTop(top);
 	} else {
-		$("#SJ_main_page1_search_box").css({"border-radius": "0 25px 0 0"});
+		$("#SJ_main_page1_search_box").css({"border-radius": "25px 25px 0 0"});
 	}
 }
 function search_blur() {
 	$("#SJ_main_page1_search_bar").removeClass("SJ_main_page1_search_bar_checked");
 	$("#SJ_main_page1_search_list_box").addClass("display_none");
-	$("#SJ_main_page1_search_box").css({"border-radius": "0 50px 50px 0"});
+	$("#SJ_main_page1_search_box").removeAttr("style");
 	if (mobilecheck()) {
 		$("html, body").scrollTop(0);
 	} 
@@ -69,4 +71,4 @@ function Goboard() {
 setTimeout(function() {
 	$("body").removeAttr("style");
 	$("#loading").addClass("display_none");
-}, 1600);
+}, 400);	// setting time

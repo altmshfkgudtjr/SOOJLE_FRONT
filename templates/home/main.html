@@ -16,77 +16,94 @@
 	<!-- 아이콘 -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 	<!-- Custom CSS -->
+	<link href="/static/css/board.css" rel="stylesheet">
 	<link href="/static/css/main.css" rel="stylesheet">
 </head>
 <body style="overflow-y: hidden; overflow-x: hidden;">
-	<div id="SJ_main_background" class="SJ_main_background"></div>
 	<div class="page_section">
-		<img src="/static/image/SOOJLE_LOGO.png" class="logo pointer" onclick="Gohome()">
 		<div class="SJ_main_page1_logo_container_box">
-			<div class="SJ_main_page1_logo_stamp"></div>
-			<img src="/static/image/SOOJLE_LOGO_BIG.png" class="SJ_main_page1_logo_container">
+			<img src="/static/image/SOOJLE_LOGO_BIG.png" class="SJ_main_page1_logo_container pointer" onclick="Gohome()">
 			<div id="SJ_main_page1_search_container" class="SJ_main_page1_search_container">
-				<div id="SJ_main_page1_search_bar" class="SJ_main_page1_search_bar"></div>
 				<div id="SJ_main_page1_search_box" class="SJ_main_page1_search_box">
-					<input type="text" id="SJ_main_page1_search_input" class="SJ_main_page1_search_input" onfocus="search_focus()" onblur="search_blur()">
-					<div class="SJ_main_page1_search_icon_box">
-						<object type="image/svg+xml" data="/static/icons/search.svg" class="SJ_main_page1_search_icon"></object>
-						<div class="SJ_main_page1_search_icon_button pointer"></div>
+					<input type="text" id="pc_search_input" class="SJ_main_page1_search_input" onblur="search_blur()" onkeyup="search_focus(event.keyCode, $(this))" onclick="mobile_search_modal_open()">
+					<div class="SJ_main_page1_search_icon_box pointer" onclick="search_button($(this))">
+						<img src="/static/icons/search.png" class="SJ_main_page1_search_icon_button">
 					</div>
 				</div>
-				<div id="SJ_main_page1_search_list_box" class="SJ_main_page1_search_list_box display_none">
-					<div class="SJ_main_page1_search_list_p pointer">
-						<object type="image/svg+xml" data="/static/icons/search.svg" class="SJ_main_page1_search_list_icon"></object> 
-						<span class="SJ_main_page1_search_list_text">세종</span>
+				<div id="search_recommend_box" class="SJ_main_page1_search_list_box display_none">
+					<div class="search_result noselect" onmousedown="search_result_click($(this))">
+						<img src="/static/icons/search.png" class="search_result_icon">
+						<span>SOOJLE의 성공을 기원</span>
 					</div>
-					<div class="SJ_main_page1_search_list_p pointer">
-						<object type="image/svg+xml" data="/static/icons/search.svg" class="SJ_main_page1_search_list_icon"></object>
-						<span class="SJ_main_page1_search_list_text">세종대학교</span>
+					<div class="search_result noselect" onmousedown="search_result_click($(this))">
+						<img src="/static/icons/search.png" class="search_result_icon">
+						<span>SOOJLE의 검색어 테스트</span>
 					</div>
-					<div class="SJ_main_page1_search_list_p pointer">
-						<object type="image/svg+xml" data="/static/icons/search.svg" class="SJ_main_page1_search_list_icon"></object>
-						<span class="SJ_main_page1_search_list_text">세종대왕</span>
+					<div class="search_result noselect" onmousedown="search_result_click($(this))">
+						<img src="/static/icons/search.png" class="search_result_icon">
+						<span>SOOJLE의 프론트 디자이너</span>
 					</div>
-					<div class="SJ_main_page1_search_list_p pointer">
-						<object type="image/svg+xml" data="/static/icons/search.svg" class="SJ_main_page1_search_list_icon"></object>
-						<span class="SJ_main_page1_search_list_text">수즐</span>
+					<div id="search_loading" class="search_loading pointer noselect">
+						<i class="fas fa-grip-lines"></i>
 					</div>
 				</div>
 			</div>
+			<div class="search_info_text">씨발</div>
 		</div>
-		<div id="SJ_main_page1_hyper_button_box" class="SJ_main_page1_hyper_button_box">
-			<div class="SJ_main_page1_hyper_button pointer" onclick="Goboard()">
-				<i class="fas fa-file-import SJ_main_page1_hyper_button_icon"></i>
-				<div class="SJ_main_page1_hyper_button_text_box">
-					<p class="SJ_main_page1_hyper_button_text">Import</p>
-					<p>Get Started</p>
-				</div>
+	</div>
+
+	<div id="mobile_search_modal" class="mobile_search_modal display_none">
+		<div class="mobile_search_header">
+			<div class="mobile_search_modal_close pointer" onclick="mobile_search_modal_close()">
+				<i class="fas fa-chevron-left"></i>
+			</div>
+			<input id="mobile_search_input" type="text" class="mobile_search_input result_target" onkeyup="search_focus(event.keyCode, $(this))">
+			<div class="mobile_search_button_modal pointer" onclick="search_button($(this))">
+				<img src="/static/icons/search.png" class="mobile_search_icon_modal">
+			</div>
+		</div>
+		<div class="mobile_search_body"></div>
+	</div>
+	<div class="search_remcommend_box_container">
+		<div id="mobile_search_recommend_box" class="SJ_main_page1_search_list_box display_none">
+			<div class="search_result noselect" onmousedown="search_result_click($(this))">
+				<img src="/static/icons/search.png" class="search_result_icon">
+				<span>SOOJLE의 성공을 기원</span>
+			</div>
+			<div class="search_result noselect" onmousedown="search_result_click($(this))">
+				<img src="/static/icons/search.png" class="search_result_icon">
+				<span>SOOJLE의 검색어 테스트</span>
+			</div>
+			<div class="search_result noselect" onmousedown="search_result_click($(this))">
+				<img src="/static/icons/search.png" class="search_result_icon">
+				<span>SOOJLE의 프론트 디자이너</span>
+			</div>
+			<div id="search_loading" class="search_loading pointer noselect">
+				<i class="fas fa-grip-lines"></i>
 			</div>
 		</div>
 	</div>
-	<div class="page_section">
-	</div>
-	<div class="page_section">
-	</div>
-
-
-	<div id="loading" class="loading">
-		<div class="cube">
-		  <div class="top"></div>
-		  <div class="right"></div>
-		  <div class="bottom"></div>
-		  <div class="left"></div>
-		  <div class="front"></div>
-		  <div class="back"></div>
-		</div>
-		<p class="cube_text">Loading ..</p>
+	<div id="loading" class="loading_modal">
+		<svg width="200" height="200" viewBox="0 0 100 100">
+			<polyline class="line-cornered stroke-still" points="0,0 100,0 100,100" stroke-width="5" fill="none"></polyline>
+  			<polyline class="line-cornered stroke-still" points="0,0 0,100 100,100" stroke-width="5" fill="none"></polyline>
+		 	<polyline class="line-cornered stroke-animation" points="0,0 100,0 100,100" stroke-width="5" fill="none"></polyline>
+			<polyline class="line-cornered stroke-animation" points="0,0 0,100 100,100" stroke-width="5" fill="none"></polyline>
+		</svg>
 	</div>
 </body>
 
+<!-- Test Host JS -->
+<script src="/static/js/host.js"></script>
 <!-- JQuery JS -->
 <script src="/static/js/jquery/jquery.min.js"></script>
+<!-- Ajax JS -->
+<script src="/static/js/ajax.js"></script>
+<!-- Snackbar JS -->
+<script src="/static/js/snackbar.js"></script>
 <!-- MAIN JS -->
 <script src="/static/js/main.js"></script>
+<script src="/static/js/search.js"></script>
 </html>
 
 <!-- 주 색상표
@@ -98,4 +115,13 @@
 	--sj_deepred_color: #c30e2e;
 	--sj_litered_color: #DF0101;
 }
+-->
+
+<!--
+		<div id="SJ_main_page1_hyper_button_box" class="SJ_main_page1_hyper_button_box">
+			<div class="SJ_main_page1_hyper_button pointer" onclick="Goboard()">
+				<span class="SJ_main_page1_hyper_button_text">시작하기&nbsp;&nbsp;&nbsp;</span>
+				<img src="/static/icons/right.png" class="SJ_main_page1_hyper_button_icon">
+			</div>
+		</div>
 -->

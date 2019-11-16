@@ -114,15 +114,15 @@ function Sign_in(){
 		$("#user_id").focus();
 		return;
 	} else if ($("#user_pw").val() == "") {
-		Snackbar("비밀번호를 다시 입력해주세요.");
+		Snackbar("비밀번호를 입력해주세요.");
 		$("#user_pw").focus();
 		return;
 	}
 	let send_data = {id: user_id, pw: user_pw};
-	$("#login_loading_modal").removeClass("login_loading_modal_unvisible");
+	$("#loading_modal").removeClass("loading_modal_unvisible");
 	let a_jax = A_JAX("http://"+host_ip+"/sign_in_up", "POST", null, send_data);
 	$.when(a_jax).done(function () {
-		$("#login_loading_modal").addClass("login_loading_modal_unvisible");
+		$("#loading_modal").addClass("loading_modal_unvisible");
 		if (a_jax.responseJSON['result'] == 'success') {
 			let token = a_jax.responseJSON['access_token']
 			localStorage.setItem('sj-state', token);
@@ -215,3 +215,11 @@ $("html").on("click", ".ripple", function(evt) {
 	};
 	animationFrame = window.requestAnimationFrame(animationStep);
 });
+
+
+function menu_click(tag) {
+
+}
+function Go_analysistics() {
+	window.location.href = "/analysistics";
+}

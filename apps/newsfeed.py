@@ -62,6 +62,9 @@ def get_recommendation_newsfeed(num):
 def main_home():
 	return render_template('board/pageboard.html')
 
+@BP.route('/analysistics')
+def go_analysistics():
+	return render_template('etc/analysistic.html')
 
 
 #############################################
