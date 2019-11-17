@@ -90,12 +90,20 @@ function search_button(tag) {	// 검색작업 data = 글자
 
 	/*search 클릭 작업============================================================*/
 }
+let search_open = 0;
 function mobile_search_modal_open() {
 	let w = $(document).width();
-	if (w < 1200) {
-		$("body").css("overflow", "hidden");
-		$("#mobile_search_modal").removeClass("display_none");
-		$("#mobile_search_input").focus()
+	if (search_open == 0) {
+		if (w < 1200) {
+			$("body").css("overflow", "hidden");
+			$("#mobile_search_modal").removeClass("display_none");
+			$("#mobile_search_input").focus()
+			search_open = 1;
+		}
+	} else {
+		if (w < 1200) {
+			mobile_search_modal_close();
+		}
 	}
 }
 function mobile_search_modal_close() {
@@ -103,6 +111,7 @@ function mobile_search_modal_close() {
 	$("body").removeAttr("style");
 	$("#mobile_search_modal").addClass("display_none");
 	$("#mobile_search_input").val("");
+	search_open = 0;
 }
 function search_result_click(tag) {
 	let data = tag.children("span").text().trim();

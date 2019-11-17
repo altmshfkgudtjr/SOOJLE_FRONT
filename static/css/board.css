@@ -51,17 +51,12 @@ html {
 	width: 100%;
 	height: 100%;
 	overflow-y: auto;
-	top: 64px;
+	top: 0px;
 	left: 0px;
+	border-top: 2px solid black;
 	background-color: white;
-	opacity: 0;
-	visibility: hidden;
 	transition: .1s ease-in-out;
-	z-index: 20;
-}
-.grid_modal_visible {
-	visibility: visible;
-	opacity: 1;
+	z-index: 40;
 }
 .grid_item_container {
 	position: relative;
@@ -114,18 +109,13 @@ html {
 	width: 100%;
 	height: 100%;
 	overflow-y: auto;
-	top: 64px;
 	left: 0px;
+	top: 0;
 	padding-bottom: 100px;
 	background-color: white;
-	opacity: 0;
-	visibility: hidden;
+	border-top: 2px solid black;
 	transition: .1s ease-in-out;
-	z-index: 20;
-}
-.menu_modal_visible {
-	visibility: visible;
-	opacity: 1;
+	z-index: 40;
 }
 .header_guideline {
 	position: absolute;
@@ -200,9 +190,9 @@ html {
 	width: 700px;
 	height: auto;
 	min-height: 40px;
-	border: 2px solid #DCDCDC;
+	border: 2px solid black;
 	border-radius: 5px;
-	top: 50px;
+	top: 55px;
 	right: 0;
 	background-color: white;
 	z-index: 40;
@@ -525,11 +515,12 @@ html {
 	position: relative;
 	width: 100%;
 	top: 0;
-	max-width: 1080px;
+	max-width: 920px;
 	height: auto;
 	margin: auto;
 	margin-top: 63px;
 	margin-bottom: 200px;
+	padding-left: 160px;
 	background-color: rgba(0,0,0,0);
 }
 .menu_container_button_icon {
@@ -631,13 +622,15 @@ html {
 	height: 150px;
 	margin-right: 20px;
 	margin-bottom: 20px;
+	border-radius: 20px;
 	transition: .1s ease-in-out;
 	-webkit-transition: .1s ease-in-out;
 	text-align: center;
 	font-size: 24px;
+	border: 2px solid rgba(0,0,0,0);
 }
 .menu_container_button:hover {
-	box-shadow: 0 0 5px rgba(0,0,0,.3);
+	border: 2px solid black;
 }
 .menu_container_button_small {
 	position: relative;
@@ -684,17 +677,9 @@ html {
 	top: 0;
 	left: 0;
 	background-color: white;
-	opacity: 0;
-	visibility: hidden;
-	display: none;
 	transition: .1s ease-in-out;
 	z-index: 30;
-	border-top: 1px solid #C30E2E;
-}
-.login_modal_visible {
-	opacity: 1;
-	visibility: visible;
-	display: block;
+	border-top: 2px solid black;
 }
 .login_container {
 	position: relative;
@@ -817,7 +802,7 @@ html {
 	font-size: 16px;
 }
 .menu_container_button_ss:hover {
-	box-shadow: 0 0 0 rgba(0,0,0,0);
+	filter: invert(18%) sepia(24%) saturate(7110%) hue-rotate(335deg) brightness(103%) contrast(96%);
 }
 .menu_container_button_ss_icon {
 	position: absolute;
@@ -835,7 +820,7 @@ html {
 	height: 20px;
 	bottom: 5px;
 	line-height: 20px;
-	color: #303030;
+	color: black;
 }
 .posts_target_container {
 	position: relative;
@@ -987,7 +972,7 @@ html {
 		transform: translate(-50%, 0);
 		-webkit-transform: translate(-50%, 0);
 		background-color: white;
-		z-index: 30;
+		z-index: 50;
 	}
 	.mobile_search_header {
 		position: absolute;
@@ -1143,7 +1128,7 @@ html {
 		height: 40px;
 		border-top: 1.5px solid #EDEDED;
 		background-color: white;
-		z-index: 5;
+		z-index: 200;
 	}
 	.mobile_controller_content {
 		position: relative;
@@ -1319,7 +1304,6 @@ html {
 		background-color: rgba(0,0,0,0);
 	}
 	.menu_modal {
-		top: 53px;
 		padding-bottom: 200px;
 	}
 	.menu_guideline {
@@ -1330,6 +1314,7 @@ html {
 		height: auto;
 		margin: auto;
 		margin-bottom: 200px;
+		padding-left: 0;
 		background-color: rgba(0,0,0,0);
 	}
 	.menu_container {
@@ -1352,7 +1337,7 @@ html {
 		position: relative;
 		display: inline-block;
 		float: left;
-		width: 33.33%;
+		width: 32%;
 		height: 100px;
 		margin-left: 0%;
 		margin-right: 0%;
@@ -1363,6 +1348,9 @@ html {
 		-webkit-transition: .1s ease-in-out;
 		text-align: center;
 		font-size: 14px;
+	}
+	.menu_container_button:hover {
+		border: 2px solid rgba(0,0,0,0);
 	}
 	.menu_container_button_icon {
 		width: 30px;

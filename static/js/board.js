@@ -23,23 +23,28 @@ function Goboard() {
 // Grid modal on off function
 let grid_open = 0;
 function grid_modal_onoff() {
-	if (menu_open == 1) {
-		menu_modal_off();
-		menu_modal_onoff();
-		menu_open = 0;
-	}
 	let w = $(document).width();
+	if (w < 1200) {
+		if (menu_open == 1) menu_modal_onoff();
+	}
 	if (grid_open == 0) {
 		$("#grid").css("background-color", "rgba(0,0,0,.1)");
 		$("body").css({"position": "fixed", "overflow": "hidden"});
-		$("#grid_modal").addClass("grid_modal_visible");
-		if (w < 1200)
-			$("#mobile_modal_close").removeClass("display_none");
+		$("#grid_modal").addClass("fadeInUp animated");
+		$("#grid_modal").removeClass("display_none");
+		setTimeout(function() {
+			$("#grid_modal").removeClass("fadeInUp animated");
+		}, 400);
 		grid_open = 1;
 	} else {
 		$("#grid").removeAttr("style");
 		$("body").removeAttr("style");
-		$("#grid_modal").removeClass("grid_modal_visible");
+		$("#grid_modal").addClass("fadeOutDown");
+		$("#mobile_modal_close").addClass("display_none");
+		setTimeout(function() {
+			$("#grid_modal").removeClass("fadeOutDown animated");
+			$("#grid_modal").addClass("display_none");
+		}, 400);
 		grid_open = 0;
 	}
 }
@@ -48,7 +53,11 @@ function grid_modal_off() {
 	if (w < 1200){
 		$("#grid").removeAttr("style");
 		$("body").removeAttr("style");
-		$("#grid_modal").removeClass("grid_modal_visible");
+		$("#grid_modal").addClass("fadeOutDown");
+		setTimeout(function() {
+			$("#grid_modal").removeClass("fadeOutDown animated");
+			$("#grid_modal").addClass("display_none");
+		}, 400);
 		$("#mobile_modal_close").addClass("display_none");
 		grid_open = 0;
 	}
@@ -59,13 +68,24 @@ function grid_modal_off() {
 let menu_open = 0;
 function menu_modal_onoff() {
 	let w = $(document).width();
+	if (w < 1200) {
+		if (grid_open == 1) grid_modal_onoff();
+	}
 	if (menu_open == 0) {
 		$("body").css({"position": "fixed", "overflow": "hidden"});
-		$("#menu_modal").addClass("menu_modal_visible");
+		$("#menu_modal").addClass("fadeInUp animated");
+		$("#menu_modal").removeClass("display_none");
+		setTimeout(function() {
+			$("#menu_modal").removeClass("fadeInUp animated");
+		}, 400);
 		menu_open = 1;
 	} else {
 		$("body").removeAttr("style");
-		$("#menu_modal").removeClass("menu_modal_visible");
+		$("#menu_modal").addClass("fadeOutDown");
+		setTimeout(function() {
+			$("#menu_modal").removeClass("fadeOutDown animated");
+			$("#menu_modal").addClass("display_none");
+		}, 400);
 		menu_open = 0;
 	}
 }
@@ -73,7 +93,11 @@ function menu_modal_off() {
 	let w = $(document).width();
 	if (w < 1200){
 		$("body").removeAttr("style");
-		$("#menu_modal").removeClass("menu_modal_visible");
+		$("#menu_modal").addClass("fadeOutDown");
+		setTimeout(function() {
+			$("#menu_modal").removeClass("fadeOutDown animated");
+			$("#menu_modal").addClass("display_none");
+		}, 400);
 		menu_open = 0;
 	}
 }
@@ -88,7 +112,7 @@ function login_modal_onoff() {
 	let w = $(document).width();
 	if (login_open == 0) {
 		$("body").css({"position": "fixed", "overflow": "hidden"});
-		$("#login_modal").addClass("login_modal_visible");
+		$("#login_modal").removeClass("display_none");
 		$("#login_modal").addClass("fadeInUp animated");
 		setTimeout(function() {
 			$("#login_modal").removeClass("fadeInUp animated");
@@ -99,7 +123,7 @@ function login_modal_onoff() {
 		$("#login_modal").addClass("fadeOutDown");
 		setTimeout(function() {
 			$("#login_modal").removeClass("fadeOutDown animated");
-			$("#login_modal").removeClass("login_modal_visible");
+			$("#login_modal").addClass("display_none");
 		}, 400);
 		login_open = 0;
 	}

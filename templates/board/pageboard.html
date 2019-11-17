@@ -53,6 +53,7 @@
 				</div>
 				<div class="menu_container_button_small pointer" onclick="login_modal_onoff()">로그인</div>
 				<div class="menu_container_button_small pointer" onclick="menu_modal_onoff()">메뉴</div>
+				<div class="menu_container_button_small pointer" onclick="grid_modal_onoff()">라이브러리</div>
 			</div>
 			<div class="board_container">
 				<div id="posts_target" class="posts_target_container">
@@ -93,7 +94,7 @@
 		</div>
 	</div>
 	<!--Modal-->
-	<div id="login_modal" class="login_modal wow" data-wow-duration="0.4s">
+	<div id="login_modal" class="login_modal wow display_none" data-wow-duration="0.4s">
 		<div class="login_container">
 			<div class="login_logo">SOOJLE</div>
 			<div class="login_title">로그인</div>
@@ -119,11 +120,9 @@
 					<div class="menu_container_button_ss_text noselect">로그인</div>
 				</div>
 			</div>
-			<div class="login_background_box1"></div>
-			<div class="login_background_box2"></div>
 		</div>
 	</div>
-	<div id="grid_modal" class="grid_modal">
+	<div id="grid_modal" class="grid_modal wow display_none" data-wow-duration="0.4s">
 		<div class="grid_item_container">
 			<div class="grid_item_box pointer">
 				<img src="./" class="grid_item_icon noselect" onerror="this.src='./static/image/noimage.jpg'">
@@ -180,7 +179,7 @@
 		</div>
 		<div class="grid_modal_footer"></div>
 	</div>
-	<div id="menu_modal" class="menu_modal">
+	<div id="menu_modal" class="menu_modal wow display_none" data-wow-duration="0.4s">
 		<div class="menu_guideline">
 			<div class="menu_container_title noselect">내 정보</div>
 			<div class="menu_container_button pointer" onclick="menu_modal_onoff(); menu_modal_off();">
@@ -403,7 +402,7 @@
 <!-- Ajax JS -->
 <script src="/static/js/ajax.js"></script>
 <!-- MAIN JS -->
-<script src="/static/js/search.js"></script>
 <script src="/static/js/post.js"></script>
 <script src="/static/js/board.js"></script>
+<script src="/static/js/search.js"></script>
 </html>
