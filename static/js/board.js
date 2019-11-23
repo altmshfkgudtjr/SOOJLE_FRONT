@@ -4,16 +4,9 @@ window.onkeydown = function(e) {
   if (is_loading == 1)
  	return !(e.keyCode == 32);
 };
-$("body").css({"overflow": "hidden"});
 window.setTimeout(function() {
 	is_loading = 0;
-	$("body").removeAttr("style");
-	$("#board_loading_modal").addClass("board_loading_modal_unvisible");
-	window.setTimeout(function() {
-		$(".mobile_controller").removeAttr("style");
-		$("#none_click").addClass("display_none");
-	}, 200);
-}, 500);
+}, 1000);
 let filter = "win16|win32|win64|mac|macintel";
 
 function Goboard() {
@@ -65,8 +58,13 @@ function grid_modal_off() {
 
 
 // Menu modal on off function
-let menu_open = 0;
-function menu_modal_onoff() {
+var menu_open = 0;
+function menu_modal_onoff(is_menu_open = menu_open) {
+	menu_open = is_menu_open;
+	if (menu_open == 2) {
+		menu_open = 0;
+		return;
+	}
 	let w = $(document).width();
 	if (w < 1200) {
 		if (grid_open == 1) grid_modal_onoff();

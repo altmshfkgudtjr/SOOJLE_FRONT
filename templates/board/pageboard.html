@@ -21,13 +21,10 @@
 	<link href="/static/css/main.css" rel="stylesheet">
 	<link href="/static/css/board.css" rel="stylesheet">
 </head>
-<body>
+<body onload="get_recommend_posts();">
 	<div class="SJ_board_header header_down">
 		<div class="header_guideline">
 			<img src="/static/image/SOOJLE_LOGO_BIG.png" class="board_logo pointer noselect" onclick="Goboard()">
-			<div id="mobile_modal_close" class="mobile_search_modal_close pointer display_none" onclick="grid_modal_off()">
-				<i class="fas fa-chevron-left"></i>
-			</div>
 			<div id="pc_search" class="pc_search">
 				<div class="pc_search_container">
 					<input id="pc_search_input" type="text" class="pc_search_input result_target" onkeyup="search_focus(event.keyCode, $(this))" onclick="search_click()" onblur="search_blur()">
@@ -44,7 +41,7 @@
 				<img src="/static/image/menu_line.png" class="board_info_menu_line noselect">
 				<div class="board_info_container">
 					<div id="board_info_board" class="board_info_board noselect">뉴스피드</div>
-					<div id="board_info_text" class="board_info_text noselect">공모전&대외활동</div>
+					<div id="board_info_text" class="board_info_text noselect">추천</div>
 					<div class="board_mobile_login_container pointer" onclick="login_modal_onoff()">
 						<div class="board_mobile_login_bar"></div>
 						<img src="/static/icons/user.png" class="board_mobile_login_icon noselect">
@@ -57,28 +54,9 @@
 			</div>
 			<div class="board_container">
 				<div id="posts_target" class="posts_target_container">
-					<div class="post_block" p-id="포스트아이디값">
-						<a href="https://www.naver.com">
-							<div class="post_block_img_cont pointer" onmousedown="post_view($(this))">
-								<div class="post_block_img">
-									<img src="./static/image/shortcut.png" class="post_block_img_content">
-								</div>
-							</div>
-						</a>
-						<a href="https://www.naver.com">
-							<div class="post_block_cont pointer" onmousedown="post_view($(this))">
-								<div class="post_title">대양휴머니티칼리지 주관 2019 <100초 인간탐구 영상공모전></div>
-								<div class="post_url">http://board.sejong.ac.kr</div>
-								<div class="post_date">2019.09.27 12:00:06</div>
-							</div>
-						</a>
-						<div class="post_block_set_cont noselect">
-							<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-							<div class="post_like_cnt">177</div>
-							<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-							<div class=""></div>
-						</div>
-					</div>
+				</div>
+				<div id="posts_creating_loading" class="posts_creating_loading display_none">
+					<div class="posts_creating_loading_content loader-8"></div>
 				</div>
 			</div>
 		</div>
@@ -198,6 +176,12 @@
 				<div class="grid_item_text"></div>
 			</div>
 		</div>
+		<div class="grid_modal_close_cont">
+			<div class="grid_modal_close pointer" onclick="grid_modal_onoff();">
+				<img src="./static/icons/export.png" class="grid_modal_close_icon noselect">
+				<div class="grid_modal_close_text">나가기</div>
+			</div>
+		</div>
 		<div class="grid_modal_footer"></div>
 	</div>
 	<div id="menu_modal" class="menu_modal wow display_none" data-wow-duration="0.4s">
@@ -216,35 +200,35 @@
 				<div class="menu_container_button_text noselect">관심 게시글</div>
 			</div>
 			<div class="menu_container_title noselect">뉴스피드</div>
-			<div class="menu_container_button pointer">
+			<div class="menu_container_button pointer" onclick="get_recommend_posts()">
 				<img src="/static/icons/home.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">추천</div>
 			</div>
-			<div class="menu_container_button pointer">
+			<div class="menu_container_button pointer" onclick="get_popularity_posts()">
 				<img src="/static/icons/flame.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">인기</div>
 			</div>
-			<div class="menu_container_button pointer">
+			<div class="menu_container_button pointer" onclick="get_topic_posts($(this))">
 				<img src="/static/icons/Graduate.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">대학교</div>
 			</div>
-			<div class="menu_container_button pointer">
+			<div class="menu_container_button pointer" onclick="get_topic_posts($(this))">
 				<img src="/static/icons/group.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">동아리&모임</div>
 			</div>
-			<div class="menu_container_button pointer">
+			<div class="menu_container_button pointer" onclick="get_topic_posts($(this))">
 				<img src="/static/icons/Award.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">공모전&행사</div>
 			</div>
-			<div class="menu_container_button pointer">
+			<div class="menu_container_button pointer" onclick="get_topic_posts($(this))">
 				<img src="/static/icons/job.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">진로&구인</div>
 			</div>
-			<div class="menu_container_button pointer">
+			<div class="menu_container_button pointer" onclick="get_topic_posts($(this))">
 				<img src="/static/icons/Store.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">장터</div>
 			</div>
-			<div class="menu_container_button pointer">
+			<div class="menu_container_button pointer" onclick="get_topic_posts($(this))">
 				<img src="/static/icons/Comments.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">자유</div>
 			</div>
@@ -320,7 +304,7 @@
 		</div>
 	</div>
 	<div id="post_menu_modal_container" class="post_menu_modal_container display_none" p-id="0" p-url="0">
-		<div id="post_menu_modal" class="post_menu_modal display_none wow animated" data-wow-duration="0.6s">
+		<div id="post_menu_modal" class="post_menu_modal display_none wow animated" data-wow-duration="0.2s">
 			<div class="post_menu_content" oncancel="post_url_copy()">URL 복사</div>
 			<div class="post_menu_content" onclick="post_menu_close()">취소</div>
 		</div>
@@ -341,47 +325,13 @@
 				<div class="menu_container_loading">
 					<div class="menu_container_title_loading"></div>
 					<div class="menu_container_subtitle_loading"></div>
-					<div class="menu_container_subtitle_loading"></div>
-					<div class="menu_container_subtitle_loading" style="width: 200px;"></div>
 					<div class="menu_container_blank_loading"></div>
-					<div class="menu_container_title_loading"></div>
-					<div class="menu_container_subtitle_loading" style="width: 100px;"></div>
-					<div class="menu_container_subtitle_loading" style="width: 100px;"></div>
-					<div class="menu_container_subtitle_loading" style="width: 150px;"></div>
-					<div class="menu_container_subtitle_loading"></div>
-					<div class="menu_container_subtitle_loading" style="width: 200px;"></div>
-					<div class="menu_container_subtitle_loading" style="width: 100px;"></div>
-					<div class="menu_container_subtitle_loading" style="width: 100px;"></div>
 					<div class="menu_container_blank_loading"></div>
-					<div class="menu_container_title_loading"></div>
 					<div class="menu_container_subtitle_loading"></div>
-					<div class="menu_container_subtitle_loading" style="width: 100px;"></div>
-					<div class="menu_container_blank_loading"></div>
-					<div class="menu_container_title_loading"></div>
-					<div class="menu_container_subtitle_loading" style="width: 60px;"></div>
+					<div class="menu_container_subtitle_loading" style="width: 70px;"></div>
 					<div class="menu_container_subtitle_loading"></div>
 				</div>
 				<div class="board_container_loading">
-					<div class="board_container_post_loading">
-						<div class="board_container_post_circle_loading"></div>
-						<div class="board_container_post_line_loading"></div>
-					</div>
-					<div class="board_container_post_loading">
-						<div class="board_container_post_circle_loading"></div>
-						<div class="board_container_post_line_loading"></div>
-					</div>
-					<div class="board_container_post_loading">
-						<div class="board_container_post_circle_loading"></div>
-						<div class="board_container_post_line_loading"></div>
-					</div>
-					<div class="board_container_post_loading">
-						<div class="board_container_post_circle_loading"></div>
-						<div class="board_container_post_line_loading"></div>
-					</div>
-					<div class="board_container_post_loading">
-						<div class="board_container_post_circle_loading"></div>
-						<div class="board_container_post_line_loading"></div>
-					</div>
 					<div class="board_container_post_loading">
 						<div class="board_container_post_circle_loading"></div>
 						<div class="board_container_post_line_loading"></div>
@@ -429,7 +379,7 @@
 <!-- Ajax JS -->
 <script src="/static/js/ajax.js"></script>
 <!-- MAIN JS -->
-<script src="/static/js/post.js"></script>
 <script src="/static/js/board.js"></script>
+<script src="/static/js/post.js"></script>
 <script src="/static/js/search.js"></script>
 </html>
