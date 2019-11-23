@@ -19,7 +19,12 @@ function search_focus(keyCode, tag) {
 			now++;
 		}
 		$(`.search_result:nth-child(${now})`).addClass("search_target");
-		let target = $(`.search_result:nth-child(${now})`).text().trim();
+		let target;
+		if (w < 1200) {
+			target = $(`#mobile_search_recommend_box > .search_result:nth-child(${now})`).text().trim();
+		} else {
+			target = $(`#search_recommend_box > .search_result:nth-child(${now})`).text().trim();
+		}
 		tag.val(target);
 		search_cache = target;
 	} else {
@@ -32,7 +37,6 @@ function search_focus(keyCode, tag) {
 			search_target = search_cache;
 			/*추천검색어 AJAX 요청 공간=========================================*/
 			all = 3;	// AJAX로 요청한 추천검색어 수
-			console.log(all);
 			if (all != 0){
 				if (w < 1200){
 					$("#mobile_search_recommend_box").removeClass("display_none");
@@ -123,19 +127,45 @@ function search_result_click(tag) {
 	}
 	search_button(data);
 }
-
+/*
+0: 최근 트렌드
+3: 일반
+2: 행사&모임
+1: 진로&구인
+4: 커뮤니티
+*/
 // 검색 api 실행 함수
 function search_text(text) {
 	if (text == ""){
 		Snackbar("검색어를 입력해주세요.");
 		return;
 	}
+	search_container_set(text);
+	$("#posts_creating_loading").removeClass("display_none");
+	$("#posts_target").empty();
+	now_topic = "검색 결과";
+	where_topic = "SOOJLE엔진";
+	posts_update = 0;
+	$("#board_info_text").empty();
+	$("#board_info_text").text("검색 결과");
+	$("#board_info_board").empty();
+	$("#board_info_board").text("SOOJLE엔진");
 	let send_data = {search: text};
-	let a_jax1 = A_JAX("http://"+host_ip+"/priority_search/200", "POST", null, send_data);
-	let a_jax2 = A_JAX("http://"+host_ip+"/category_search/1/200", "POST", null, send_data);
-	let a_jax3 = A_JAX("http://"+host_ip+"/category_search/2/200", "POST", null, send_data);
-	let a_jax4 = A_JAX("http://"+host_ip+"/category_search/3/200", "POST", null, send_data);
-	let a_jax5 = A_JAX("http://"+host_ip+"/category_search/4/200", "POST", null, send_data);
+	let a_jax0 = A_JAX("http://"+host_ip+"/priority_search/200", "POST", null, send_data);
+	let a_jax1 = A_JAX("http://"+host_ip+"/category_search/1/200", "POST", null, send_data);
+	let a_jax2 = A_JAX("http://"+host_ip+"/category_search/2/200", "POST", null, send_data);
+	let a_jax3 = A_JAX("http://"+host_ip+"/category_search/3/200", "POST", null, send_data);
+	let a_jax4 = A_JAX("http://"+host_ip+"/category_search/4/200", "POST", null, send_data);
+	$.when(a_jax0).done(function () {
+		let json = a_jax0.responseJSON;
+		if (json['result'] == 'success') {
+			/* 검색 성공 */
+			console.log("0");
+			console.log(json);
+		} else {
+			Snackbar("다시 접속해주세요!");
+		}
+	});
 	$.when(a_jax1).done(function () {
 		let json = a_jax1.responseJSON;
 		if (json['result'] == 'success') {
@@ -176,14 +206,17 @@ function search_text(text) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	$.when(a_jax5).done(function () {
-		let json = a_jax5.responseJSON;
-		if (json['result'] == 'success') {
-			/* 검색 성공 */
-			console.log("5");
-			console.log(json);
-		} else {
-			Snackbar("다시 접속해주세요!");
-		}
-	});
+}
+
+// 검색 창 구성 함수
+function search_container_set(search_thing) {
+
+}
+// 도메인 검색 결과를 해당 dive에 넣어줌
+function insert_domain_post(posts) {
+
+}
+// 검색 결과를 해당 div에 넣어줌
+function insert_search_post(target, posts) {
+
 }

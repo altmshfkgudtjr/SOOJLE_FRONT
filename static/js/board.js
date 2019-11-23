@@ -249,6 +249,7 @@ function After_login(dict) {
 		$("#user_login").addClass("display_none");
 		$("#user_info").removeClass("display_none");
 	}
+	get_recommend_posts(1);
 }
 
 // button click ripple event

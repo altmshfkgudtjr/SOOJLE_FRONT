@@ -45,11 +45,11 @@
 					<div class="board_mobile_login_container pointer" onclick="login_modal_onoff()">
 						<div class="board_mobile_login_bar"></div>
 						<div id="user_login_mobile" class="board_mobile_login_name">로그인</div>
-						<div id="user_info_mobile" class="board_mobile_login_name pointer display_none"></div>
+						<div id="user_info_mobile" class="board_mobile_login_name display_none"></div>
 					</div>
 				</div>
 				<div id="user_login" class="menu_container_button_small pointer" onclick="login_modal_onoff()">로그인</div>
-				<div id="user_info" class="menu_container_button_small pointer display_none"></div>
+				<div id="user_info" class="menu_container_button_small_info noselect display_none"></div>
 				<div class="menu_container_button_small pointer" onclick="menu_modal_onoff()">메뉴</div>
 				<div class="menu_container_button_small pointer" onclick="grid_modal_onoff()">책갈피</div>
 			</div>
@@ -192,11 +192,11 @@
 				<img src="/static/icons/back.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">뒤로가기</div>
 			</div>
-			<div class="menu_container_button pointer">
+			<div class="menu_container_button pointer" onclick="get_user_view_posts()">
 				<img src="/static/icons/time.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">최근 본 게시글</div>
 			</div>
-			<div class="menu_container_button pointer">
+			<div class="menu_container_button pointer" onclick="get_user_like_posts()">
 				<img src="/static/icons/like.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">관심 게시글</div>
 			</div>

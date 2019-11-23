@@ -5,7 +5,7 @@ $(window).resize(function() {
 		location.reload();
 	} else if (w >= 1200 && now_w < 1200) {
 		location.reload();
-	} 
+	}
 	now_w = w;
 });
 let save_posts = [];
@@ -115,9 +115,7 @@ $(document).scroll(function() {
 });
 // 포스트 더보기
 function get_posts_more() {
-	if (save_posts.length == 0) {
-		return;
-	}
+	if (save_posts.length == 0) return;
 	let output = save_posts.slice(0,30);
 	save_posts = save_posts.slice(30);
 	creating_post(output);
@@ -255,7 +253,7 @@ function post_view(tag) {
 	// 위의 document ready 함수의 속도를 위해서 지연시간 400 설정
 	setTimeout(function() {
 		if (mouse_which == 3) return;
-		let id = tag.parent('div').attr("p-id");
+		let id = tag.parent('a').parent('div').attr("p-id");
 		let e = mouse_which;
 		if (e == 1 || e == 2) {
 			let a_jax = A_JAX("http://"+host_ip+"/post_view/"+id, "GET", null, null);
@@ -288,16 +286,19 @@ Date.prototype.SetTime = function()
     		(HH[1] ? HH : '0'+ HH[0]) + ":" + (mm[1] ? mm : '0'+mm[0]) + ":" + (ss[1] ? ss : '0'+ss[0]);
 }
 // 게시글 제작 함수
-function creating_post(posts) {
+function creating_post(posts, is_fav_cnt = 1) {
 	let target = $("#posts_target");
 	let w = $(document).width();
 	// 속도향상을 위한 선언
 	let check;
-	let id, fav_cnt, title, date, url, domain, img, subimg, tag, post_one;
+	let id, fav_cnt, title, date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
 	if (w < 1200) {
 		for (post_one of posts) {
 			check = 0;
-			id = post_one["_id"].$oid;		
+			if (is_fav_cnt == 0)
+				id = post_one["_id"];
+			else
+				id = post_one["_id"].$oid;	
 			fav_cnt = post_one['fav_cnt'];
 			title = post_one['title'];
 			date = post_one['date'].$date;
@@ -306,6 +307,11 @@ function creating_post(posts) {
 			domain = url.split('/');
 			domain = domain[0] + '//' + domain[2];
 			img = post_one['img'];
+			if (is_fav_cnt == 1) {
+				fav_cnt_block = `<div class="post_like_cnt">${fav_cnt}</div>`;
+			} else {
+				fav_cnt_block = ``;
+			}
 			if (img.toString().indexOf("everytime") != -1) {
 				img = "./static/image/everytime.jpg";
 				check = 1;
@@ -313,12 +319,12 @@ function creating_post(posts) {
 			/* tag 에다가 레이아웃 배치할 것 */
 			if (img.length < 10 || img.length == undefined && check == 0) {
 					tag = `<div class="post_block" p-id="${id}>
-							<a href="${url}">
+							<a href="${url}" target="_blank">
 								<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
 									<div class="post_title">${title}</div>
 								</div>
 							</a>
-							<a href="${url}">
+							<a href="${url}" target="_blank">
 								<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
 									<div class="post_url">${domain}</div>
 									<div class="post_date">${date}</div>
@@ -326,21 +332,21 @@ function creating_post(posts) {
 							</a>
 							<div class="post_block_set_cont_noimg noselect">
 								<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-								<div class="post_like_cnt">${fav_cnt}</div>
+								${fav_cnt_block}
 							</div>
 							<div class="post_menu noselect" onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
 						</div>`
 			} else {
 					tag = `<div class="post_block" p-id="${id}">
-							<a href="${url}">
+							<a href="${url}" target="_blank">
 								<div class="post_title_cont pointer" onmousedown="post_view($(this))">
 									<div class="post_title">${title}</div>
 								</div>
 							</a>
-							<a href="${url}">
+							<a href="${url}" target="_blank">
 								<div class="post_block_img_cont" onmousedown="post_view($(this)" style="background-image: url(${img})"></div>
 							</a>
-							<a href="${url}">
+							<a href="${url}" target="_blank">
 								<div class="post_block_cont pointer" onmousedown="post_view($(this))">
 									<div class="post_url">${domain}</div>
 									<div class="post_date">${date}</div>
@@ -348,7 +354,7 @@ function creating_post(posts) {
 							</a>
 							<div class="post_block_set_cont noselect">
 								<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-								<div class="post_like_cnt">${fav_cnt}</div>
+								${fav_cnt_block}
 							</div>
 							<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
 						</div>`
@@ -358,7 +364,10 @@ function creating_post(posts) {
 	} else {
 		for (post_one of posts) {
 			check = 0;
-			id = post_one["_id"].$oid;		
+			if (is_fav_cnt == 0)
+				id = post_one["_id"];
+			else
+				id = post_one["_id"].$oid;
 			fav_cnt = post_one['fav_cnt'];
 			title = post_one['title'];
 			date = post_one['date'].$date;
@@ -367,18 +376,23 @@ function creating_post(posts) {
 			domain = url.split('/');
 			domain = domain[0] + '//' + domain[2];
 			img = post_one['img'];
+			if (is_fav_cnt == 1) {
+				fav_cnt_block = `<div class="post_like_cnt">${fav_cnt}</div>`;
+			} else {
+				fav_cnt_block = ``;
+			}
 			if (img.toString().indexOf("everytime") != -1) {
 				img = "./static/image/everytime.jpg";
 				check = 1;
 			}
 			if (img.length < 10 || img.length == undefined && check == 0) {
 				tag = `<div class="post_block" p-id="${id}">
-						<a href="${url}">
+						<a href="${url}" target="_blank">
 							<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
 								<div class="post_title">${title}</div>
 							</div>
 						</a>
-						<a href="${url}">
+						<a href="${url}" target="_blank">
 							<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
 								<div class="post_url">${domain}</div>
 								<div class="post_date">${date}</div>
@@ -386,21 +400,21 @@ function creating_post(posts) {
 						</a>
 						<div class="post_block_set_cont_noimg noselect">
 							<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-							<div class="post_like_cnt">${fav_cnt}</div>
+							${fav_cnt_block}
 						</div>
 						<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
 					</div>`
 			} else {
 				tag = `<div class="post_block" p-id="${id}">
-						<a href="${url}">
+						<a href="${url}" target="_blank">
 							<div class="post_block_img_cont" onmousedown="post_view($(this)" style="background-image: url(${img})"></div>
 						</a>
-						<a href="${url}">
+						<a href="${url}" target="_blank">
 							<div class="post_title_cont pointer" onmousedown="post_view($(this))">
 								<div class="post_title">${title}</div>
 							</div>
 						</a>
-						<a href="${url}">
+						<a href="${url}" target="_blank">
 							<div class="post_block_cont pointer" onmousedown="post_view($(this))">
 								<div class="post_url">${domain}</div>
 								<div class="post_date">${date}</div>
@@ -408,7 +422,7 @@ function creating_post(posts) {
 						</a>
 						<div class="post_block_set_cont noselect">
 							<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-							<div class="post_like_cnt">${fav_cnt}</div>
+							${fav_cnt_block}
 						</div>
 						<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
 					</div>`
@@ -443,12 +457,67 @@ function creating_post(posts) {
 	
 /*{
 "_id":<obi>,
-"topic":<list>,
-"tag":"<list>,
 "fav_cnt":<int>,
 "date":<int>,
 "title":<string>,
-"post":<string>,
 "url":<string>,
 "img":<json_array:string>
 }*/
+
+/* 
+0 : 좋아요, 뷰, 검색
+1 : 좋아요
+2 : 뷰
+3 : 검색
+*/
+function get_user_like_posts() {
+	$("#posts_creating_loading").removeClass("display_none");
+	$("#posts_target").empty();
+	now_topic = "관심 게시글";
+	where_topic = "내 정보";
+	posts_update = 0;
+	menu_modal_onoff();
+	$("#board_info_text").empty();
+	$("#board_info_text").text("관심 게시글");
+	$("#board_info_board").empty();
+	$("#board_info_board").text("내 정보");
+	let a_jax = A_JAX("http://"+host_ip+"/get_specific_userinfo/"+1, "GET", null, null);
+	$.when(a_jax).done(function () {
+		let json = a_jax.responseJSON;
+		if (json['result'] == 'success') {
+			let output = JSON.parse(json["user"]);
+			output = output["fav_list"].reverse();
+			save_posts = output.slice(30);
+			output = output.slice(0, 30);
+			creating_post(output, 0);
+		} else {
+			Snackbar("다시 접속해주세요!");
+		}
+	});
+}
+function get_user_view_posts() {
+	$("#posts_creating_loading").removeClass("display_none");
+	$("#posts_target").empty();
+	now_topic = "최근 본 게시글";
+	where_topic = "내 정보";
+	posts_update = 0;
+	menu_modal_onoff();
+	$("#board_info_text").empty();
+	$("#board_info_text").text("최근 본 게시글");
+	$("#board_info_board").empty();
+	$("#board_info_board").text("내 정보");
+	let a_jax = A_JAX("http://"+host_ip+"/get_specific_userinfo/"+2, "GET", null, null);
+	$.when(a_jax).done(function () {
+		let json = a_jax.responseJSON;
+		if (json['result'] == 'success') {
+			let output = JSON.parse(json["user"]);
+
+			output = output["view_list"].reverse();
+			save_posts = output.slice(30);
+			output = output.slice(0, 30);
+			creating_post(output, 0);
+		} else {
+			Snackbar("다시 접속해주세요!");
+		}
+	});
+}
