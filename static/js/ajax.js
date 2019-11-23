@@ -1,6 +1,14 @@
-function A_JAX(url, type, token, data){
-    var ajax_;
+function A_JAX(url, type, nope, data){
+    let token = localStorage.getItem('sj-state');
+    let authorization;
+    if (token != null && token != undefined && token != 'undefined') {
+        authorization = {'Authorization': "Bearer " + token};
+    } else {
+        authorization = {};
+    }
+    let ajax_;
     ajax_ = $.ajax({
+        headers: authorization,
         type: type,
         url: url,
         data: data,
@@ -10,20 +18,20 @@ function A_JAX(url, type, token, data){
         error: function(res){
         }
     });
-    $.ajaxSetup({
-        beforeSend: function (xhr) {
-            let token = localStorage.getItem('sj-state');
-            if (token) {
-                xhr.setRequestHeader("Authorization", "Bearer "+token);
-            }
-        }
-    });
     return ajax_;
 }
 
-function A_JAX_FILE(url, type, token, data){
-    var ajax_;
+function A_JAX_FILE(url, type, nope, data){
+    let token = localStorage.getItem('sj-state');
+    let authorization;
+    if (token != null && token != undefined && token != 'undefined') {
+        authorization = {'Authorization': "Bearer " + token};
+    } else {
+        authorization = {};
+    }
+    let ajax_;
     ajax_ = $.ajax({
+        headers: authorization,
         type: type,
         url: url,
         data: data,
@@ -33,14 +41,6 @@ function A_JAX_FILE(url, type, token, data){
         success: function(res){
         },
         error: function(res){
-        }
-    });
-    $.ajaxSetup({
-        beforeSend: function (xhr) {
-            let token = localStorage.getItem('sj_state');
-            if (token) {
-                xhr.setRequestHeader("Authorization", "Bearer "+token);
-            }
         }
     });
     return ajax_;

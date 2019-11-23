@@ -455,7 +455,7 @@ html {
 	position: relative;
 	width: 100%;
 	height: auto;
-	min-height: 1500px;
+	min-height: 1200px;
 }
 .body_guideline {
 	position: relative;
@@ -590,7 +590,6 @@ html {
 .board_container {
 	position: relative;
 	display: inline-block;
-	float: left;
 	width: 700px;
 	height: auto;
 	min-height: 100px;
@@ -893,7 +892,7 @@ html {
 	float: left;
 	width: 150px;
     height: 150px;
-    background-image: url(../image/poster.jpg);
+    background-image: url(../image/shortcut.png);
     background-repeat: no-repeat;
     overflow: hidden;
     background-size: cover;
@@ -926,6 +925,7 @@ html {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	margin-right: 15px;
 }
 .post_block_cont {
 	position: relative;
@@ -1094,14 +1094,14 @@ html {
 	position: relative;
 	float: left;
 	width: 100%;
-	height: 100px;
+	height: 140px;
 }
 .posts_creating_loading_content {
 	position: relative;
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	margin: 30px;
+	margin-top: 100px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -1124,9 +1124,9 @@ html {
 	content: '';
 	background-color: black;
 	transform: scale(0);
-	animation: posts_creating_loading_content 1.5s infinite ease-in-out;
+	animation: posts_creating_loading_content 0.8s infinite ease-in-out;
 }
-.loader-8:after { animation-delay: 0.75s; }
+.loader-8:after { animation-delay: 0.4s; }
 
 
 
@@ -1349,7 +1349,7 @@ html {
 		background-color: rgba(0,0,0,0);
 		left: 0;
 		bottom: 0;
-		margin-top: 200px;
+		margin-top: 50px;
 		z-index: 0;
 	}
 	.SJ_board_footer:after {
@@ -1418,6 +1418,7 @@ html {
 		opacity: 1;
 	}
 	.mobile_controller {
+		display: block;
 		position: fixed;
 		bottom: 0;
 		left: 0;
@@ -1492,7 +1493,7 @@ html {
 		transform: translate(-50%, 0);
 		-webkit-transform: translate(-50%, 0);
 		width: 95%;
-		height: 110px;
+		height: 135px;
 		margin-bottom: 10px;
 		border-radius: 5px;
 		background-color: rgba(0,0,0,.05);
@@ -1539,6 +1540,7 @@ html {
 		float: left;
 		width: auto;
 		height: 50px;
+		margin-right: 0;
 		margin-left: 15px;
 		margin-bottom: 20px;
 		font-size: 16px;
@@ -1550,7 +1552,7 @@ html {
 		float: right;
 		width: auto;
 		height: 50px;
-		padding-right: 15px;
+		padding-right: 10px;
 	}
 	.board_mobile_login_container:active {
 		background-color: rgba(0,0,0,.1);
@@ -1562,6 +1564,7 @@ html {
 		width: 1px;
 		height: 30px;
 		margin-top: 10px;
+		margin-right: 15px;
 		border: none;
 		background-color: #f0f0f0;
 	}
@@ -1590,12 +1593,11 @@ html {
 	}
 	.body_guideline {
 		position: relative;
-		display: -webkit-flex;
-		display: flex;
+		display: block;
 		width: 100%;
 		top: 0;
 		padding-top: 0;
-		height: 100%;
+		height: auto;
 		margin: auto;
 		margin-top: 53px;
 		background-color: rgba(0,0,0,0);
@@ -1613,9 +1615,6 @@ html {
 		margin-bottom: 200px;
 		padding-left: 0;
 		background-color: rgba(0,0,0,0);
-	}
-	.menu_container {
-		display: none;
 	}
 	.menu_container_title {
 		position: relative;
@@ -1719,7 +1718,7 @@ html {
 	    content: "";
 	    display: block;
 	    padding-top: 100%; /* 1:1 sqaure */
-	    background-image: url(../image/poster.jpg);
+	    background-image: url(../image/shortcut.png);
 	    background-repeat: no-repeat;
 	    background-size: cover;
 	    object-fit: cover;
@@ -1745,6 +1744,7 @@ html {
 		position: relative;
 		font-size: 18px;
 		color: black;
+		margin-right: 0;
 		line-height: 20px;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -1856,6 +1856,26 @@ html {
 		line-height: 100px;
 		color: #f00730;
 	}
+	.menu_container {
+		position: relative;
+		top: 0;
+		width: 100%;
+		display: inline-block;
+		float: left;
+		height: 50px;
+		min-height: 50px;
+		background-color: rgba(0,0,0,0);
+		transition: .2s ease-in-out;
+	}
+	.board_info_menu_line {
+		display: none;
+	}
+	.board_info_board {
+		display: none;
+	}
+	.menu_container_button_small {
+		display: none;
+	}
 }
 /*=============================================================================*/
 /*                                    840px                                    */
@@ -1902,6 +1922,7 @@ html {
 		width: 100%;
 		height: 200px;
 		background-color: rgba(0,0,0,0);
+		z-index: 10;
 	}
 	.post_title_cont {
 		position: relative;

@@ -574,8 +574,13 @@ svg {
 
 
 
-
-
+/* COPY CSS ====================================================================*/
+.copy_input {
+	position: absolute;
+	top: -100;
+	left: 0;
+	opacity: 0;
+}
 /* Snackbar CSS ================================================================*/
 .snackbar_target {
 	position: fixed;

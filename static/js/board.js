@@ -1,3 +1,5 @@
+// Greetings Array
+let greetings = ["반갑습니다!", "환영합니다!", "좋은 하루입니다.", "세종대학교."];
 // Loading Modal
 let is_loading = 1;
 window.onkeydown = function(e) { 
@@ -12,6 +14,12 @@ let filter = "win16|win32|win64|mac|macintel";
 function Goboard() {
 	window.location.href = "/board";
 }
+// 초기 setting
+$(document).ready( function() {
+	get_recommend_posts(1);
+	auto_login();
+	setTimeout(function() {scroll(0,0);}, 500);
+});
 
 // Grid modal on off function
 let grid_open = 0;
@@ -127,6 +135,23 @@ function login_modal_onoff() {
 	}
 }
 
+// Frist Auto Login function
+function auto_login() {
+	let token = localStorage.getItem('sj-state');
+	if (token == null || token == undefined || token == 'undefined') {
+		return;
+	} else {
+		a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
+		$.when(a_jax).done(function () {
+			if (a_jax.responseJSON['result'] == 'success') {
+				Snackbar("맞춤 서비스를 시작합니다.");
+				After_login(a_jax.responseJSON);
+			} else {
+				localStorage.removeItem('sj-state');
+			}
+		});
+	}
+}
 // Login fucntion
 function Sign_in(){
 	let user_id = $("#user_id").val();
@@ -146,29 +171,35 @@ function Sign_in(){
 	$.when(a_jax).done(function () {
 		$("#loading_modal").addClass("loading_modal_unvisible");
 		if (a_jax.responseJSON['result'] == 'success') {
-			let token = a_jax.responseJSON['access_token']
+			let token = a_jax.responseJSON['access_token'];
 			localStorage.setItem('sj-state', token);
 			a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
 			$.when(a_jax).done(function () {
 				if (a_jax.responseJSON['result'] == 'success') {
 					Snackbar("맞춤 서비스를 시작합니다.");
-					After_login(a_jax.responseJSON);
-					login_modal_onoff();
 					$("#user_id").val("");
 					$("#user_pw").val("");
+					After_login(a_jax.responseJSON);
+					login_modal_onoff();
 				} else if (a_jax.responseJSON['result'] == 'not found') {
-					Snackbar("비정상적인 접근입니다.")
+					Snackbar("비정상적인 접근입니다.");
+					localStorage.removeItem('sj-state');
 				}
 			});
 		} else if (a_jax.responseJSON['result'] == 'not sejong') {
-			Snackbar("올바르지않은 계정입니다.")
+			Snackbar("올바르지않은 계정입니다.");
+			localStorage.removeItem('sj-state');
+
 		} else if (a_jax.responseJSON['result'] == 'incorrect pw') {
 			Snackbar("비밀번호를 다시 입력해주세요.");
+			localStorage.removeItem('sj-state');
 		} else if (a_jax.responseJSON['result'] == 'api error') {
 			Snackbar("세종대학교 전산서비스 오류입니다.");
+			localStorage.removeItem('sj-state');
 		}
 		else {
 			Snackbar("계정을 확인해주세요.");
+			localStorage.removeItem('sj-state');
 		}
 	});
 }
@@ -202,9 +233,22 @@ $(document).ready(function(){
 });
 // After login, setting user information.
 function After_login(dict) {
+	let w = $(document).width();
 	let id = dict["user_id"];
 	let major = dict["user_major"];
 	let name = dict["user_name"];
+	greetings.push(major + ",");
+	let hello = greetings[Math.floor(Math.random() * greetings.length)];
+	hello = hello + " " + dict['user_name'] + "님";
+	$("#user_info").text(hello);
+	$("#user_info_mobile").text(hello);
+	if (w < 1200) {
+		$("#user_login_mobile").addClass("display_none");
+		$("#user_info_mobile").removeClass("display_none");
+	} else {
+		$("#user_login").addClass("display_none");
+		$("#user_info").removeClass("display_none");
+	}
 }
 
 // button click ripple event

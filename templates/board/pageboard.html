@@ -21,7 +21,7 @@
 	<link href="/static/css/main.css" rel="stylesheet">
 	<link href="/static/css/board.css" rel="stylesheet">
 </head>
-<body onload="get_recommend_posts();">
+<body>
 	<div class="SJ_board_header header_down">
 		<div class="header_guideline">
 			<img src="/static/image/SOOJLE_LOGO_BIG.png" class="board_logo pointer noselect" onclick="Goboard()">
@@ -44,19 +44,20 @@
 					<div id="board_info_text" class="board_info_text noselect">추천</div>
 					<div class="board_mobile_login_container pointer" onclick="login_modal_onoff()">
 						<div class="board_mobile_login_bar"></div>
-						<img src="/static/icons/user.png" class="board_mobile_login_icon noselect">
-						<div class="board_mobile_login_name">로그인</div>
+						<div id="user_login_mobile" class="board_mobile_login_name">로그인</div>
+						<div id="user_info_mobile" class="board_mobile_login_name pointer display_none"></div>
 					</div>
 				</div>
-				<div class="menu_container_button_small pointer" onclick="login_modal_onoff()">로그인</div>
+				<div id="user_login" class="menu_container_button_small pointer" onclick="login_modal_onoff()">로그인</div>
+				<div id="user_info" class="menu_container_button_small pointer display_none"></div>
 				<div class="menu_container_button_small pointer" onclick="menu_modal_onoff()">메뉴</div>
 				<div class="menu_container_button_small pointer" onclick="grid_modal_onoff()">책갈피</div>
 			</div>
 			<div class="board_container">
 				<div id="posts_target" class="posts_target_container">
 				</div>
-				<div id="posts_creating_loading" class="posts_creating_loading display_none">
-					<div class="posts_creating_loading_content loader-8"></div>
+				<div class="posts_creating_loading">
+					<div id="posts_creating_loading" class="posts_creating_loading_content loader-8 display_none"></div>
 				</div>
 			</div>
 		</div>
@@ -73,7 +74,7 @@
 			<div class="SJ_footer_item noselect">©2019 TEAM IML</div>
 		</div>
 	</div>
-	<div class="mobile_controller" style="z-index: 30">
+	<div class="mobile_controller">
 		<div class="mobile_controller_content pointer" onclick="menu_modal_onoff()">
 			<div id="mobile_menu" class="mobile_menu">
 				<img src="/static/icons/menu.png" class="mobile_menu_icon">
@@ -305,7 +306,7 @@
 	</div>
 	<div id="post_menu_modal_container" class="post_menu_modal_container display_none" p-id="0" p-url="0">
 		<div id="post_menu_modal" class="post_menu_modal display_none wow animated" data-wow-duration="0.2s">
-			<div class="post_menu_content" oncancel="post_url_copy()">URL 복사</div>
+			<div class="post_menu_content" onclick="post_url_copy($(this))">URL 복사</div>
 			<div class="post_menu_content" onclick="post_menu_close()">취소</div>
 		</div>
 	</div>
