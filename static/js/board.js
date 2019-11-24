@@ -120,6 +120,7 @@ function login_modal_onoff() {
 		$("body").css({"position": "fixed", "overflow": "hidden"});
 		$("#login_modal").removeClass("display_none");
 		$("#login_modal").addClass("fadeInUp animated");
+		$("#user_id").focus();
 		setTimeout(function() {
 			$("#login_modal").removeClass("fadeInUp animated");
 		}, 400);
@@ -289,4 +290,9 @@ function Go_home() {
 }
 function Go_analysistics() {
 	window.location.href = "/analysistics";
+}
+
+function Logout() {
+	localStorage.removeItem("sj-state");
+	location.reload();
 }

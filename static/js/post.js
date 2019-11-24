@@ -498,10 +498,21 @@ function get_user_like_posts() {
 		let json = a_jax.responseJSON;
 		if (json['result'] == 'success') {
 			let output = JSON.parse(json["user"]);
-			output = output["fav_list"].reverse();
-			save_posts = output.slice(30);
-			output = output.slice(0, 30);
-			creating_post(output, 0);
+			if (output["fav_list"].length == 0) {
+				let target = $("#posts_target");
+				let no_posts_tag = `
+					<div class="sr_none_posts_cont">
+						<img src="./static/image/none_posts.png" class="sr_none_posts_img">
+						<div class="sr_none_posts_text">관심있는 게시글이 없네요!</div>
+					</div>`;
+				target.append(no_posts_tag);
+				$("#posts_creating_loading").addClass('display_none');
+			} else {
+				output = output["fav_list"].reverse();
+				save_posts = output.slice(30);
+				output = output.slice(0, 30);
+				creating_post(output, 0);
+			}
 		} else {
 			Snackbar("다시 접속해주세요!");
 		}
@@ -523,11 +534,21 @@ function get_user_view_posts() {
 		let json = a_jax.responseJSON;
 		if (json['result'] == 'success') {
 			let output = JSON.parse(json["user"]);
-
-			output = output["view_list"].reverse();
-			save_posts = output.slice(30);
-			output = output.slice(0, 30);
-			creating_post(output, 0);
+			if (output["view_list"].length == 0) {
+				let target = $("#posts_target");
+				let no_posts_tag = `
+					<div class="sr_none_posts_cont">
+						<img src="./static/image/none_posts.png" class="sr_none_posts_img">
+						<div class="sr_none_posts_text">최근 본 글이 존재하지 않아요!</div>
+					</div>`;
+				target.append(no_posts_tag);
+				$("#posts_creating_loading").addClass('display_none');
+			} else {
+				output = output["view_list"].reverse();
+				save_posts = output.slice(30);
+				output = output.slice(0, 30);
+				creating_post(output, 0);
+			}
 		} else {
 			Snackbar("다시 접속해주세요!");
 		}
