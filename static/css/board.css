@@ -128,7 +128,7 @@ html {
 	width: 30px;
 	height: 30px;
 	opacity: 0.6;
-	left: 50%;
+	left: 52%;
 	top: 5px;
 	transform: translate(-50%, 0);
 	-webkit-transform: translate(-50%, 0);
@@ -1244,6 +1244,17 @@ html {
 	font-size: 30px;
 	font-weight: 800;
 }
+.sr_more_to_before {
+	position: relative;
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+	cursor: pointer;
+	top: 1px;
+}
+.sr_more_to_before:hover {
+	filter: invert(18%) sepia(24%) saturate(7110%) hue-rotate(335deg) brightness(103%) contrast(96%);
+}
 
 
 /*=========================================================================*/
@@ -1652,7 +1663,7 @@ html {
 		width: auto;
 		height: 50px;
 		margin-right: 0;
-		margin-left: 15px;
+		margin-left: 10px;
 		margin-bottom: 20px;
 		font-size: 16px;
 		line-height: 50px;
@@ -1992,6 +2003,129 @@ html {
 		margin-left: auto;
 		margin-right: auto;
 	}
+	.sr_title {
+		position: relative;
+		width: 95s%;
+		color: black;
+		font-size: 18px;
+		margin-bottom: 5px;
+		margin-left: 10px; 
+	}
+	.sr_domain_ct {
+		position: relative;
+		width: 91%;
+		max-width: 700px;
+		height: 110px;
+		padding: 2%;
+		border-radius: 5px;
+		border: 2px solid rgba(0,0,0,0);
+		box-shadow: 0 2px 6px rgba(0,0,0,.16);
+		cursor: pointer;
+		margin-bottom: 10px;
+		left: 50%;
+		transform: translate(-50%, 0);
+		transition: .1s ease-in-out;
+	}
+	.sr_domain_ct:hover {
+		border: 2px solid rgba(0,0,0,0);
+	}
+	.sr_domain_ct:active {
+		box-shadow: 0 2px 6px white;
+	}
+	.sr_domain_title {
+		position: relative;
+		width: auto;
+		height: 22px;
+		font-size: 18px;
+		line-height: 22px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.sr_domain_url {
+		position: relative;
+		width: auto;
+		height: 20px;
+		font-size: 16px;
+		line-height: 20px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		color: #006621;
+		transition: .1s ease-in-out;
+	}
+	.sr_domain_url:active {
+		text-decoration: underline;
+	}
+	.sr_domain_post {
+		position: relative;
+		width: 100%;
+		height: 40px;
+		font-size: 16px;
+		line-height: 20px;
+		overflow: hidden;
+	}
+	.sr_line {
+		position: relative;
+		width: 100%;
+		height: 2px;
+		background-color: #ccc;
+		margin: 15px 0;
+	}
+	.sr_more {
+		position: relative;
+		width: 96%;
+		height: 20px;
+		text-align: right;
+		line-height: 20px;
+		font-size: 16px;
+		color: #818181;
+		cursor: pointer;
+		margin-top: 10px;
+		margin-right: 2%;
+		margin-left: 2%;
+		transition: .1s ease-in-out;
+	}
+	.sr_more:active {
+		color: #c30e2e;
+	}
+	.sr_domain_ct > a:link,a:visited,a:hover {
+		color: black; text-decoration: none;
+	}
+	.sr_none_posts_cont {
+		position: relative;
+		width: 100%;
+		height: 400px;
+		padding-top: 200px;
+	}
+	.sr_none_posts_img {
+		position: relative;
+		width: 95%;
+		height: auto;
+		left: 50%;
+		transform: translate(-50%, 0);
+		-webkit-transform: translate(-50%, 0);
+	}
+	.sr_none_posts_text {
+		position: relative;
+		width: 100%;
+		height: 30px;
+		text-align: center;
+		margin-top: 50px;
+		font-size: 24px;
+		font-weight: 800;
+	}
+	.sr_more_to_before {
+		position: relative;
+		width: 15px;
+		height: 15px;
+		margin-right: 10px;
+		cursor: pointer;
+		top: 2px;
+	}
+	.sr_more_to_before:active {
+		filter: invert(18%) sepia(24%) saturate(7110%) hue-rotate(335deg) brightness(103%) contrast(96%);
+	}
 }
 /*=============================================================================*/
 /*                                    840px                                    */
@@ -2139,6 +2273,7 @@ html {
 	.grid_item_container {
 		width: 330px;
 		top: 50px;
+		height: auto;
 		padding-left: 30px;
 		transform: translate(0, 0);
 		-webkit-transform: translate(0, 0);
@@ -2213,6 +2348,9 @@ html {
 	.mobile_search_input {
 		width: 78%;
 	}
+	.grid_modal_close_cont {
+		top: 20%;
+	}
 }
 /*=============================================================================*/
 /*                                    350px                                    */
@@ -2222,8 +2360,6 @@ html {
 		width: 270px;
 		top: 50px;
 		padding-left: 10px;
-		transform: translate(-50%, 0);
-		-webkit-transform: translate(-50%, 0);
 	}
 	.grid_item_box {
 		width: 80px;

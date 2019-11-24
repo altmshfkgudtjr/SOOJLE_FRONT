@@ -321,6 +321,9 @@ function creating_post(posts, is_fav_cnt = 1) {
 			if (img.toString().indexOf("everytime") != -1) {
 				img = "./static/image/everytime.jpg";
 				check = 1;
+			} else if (img.toString().indexOf("daum") != -1) {
+				img = "./static/image/sjstation.png";
+				check = 1;
 			}
 			/* tag 에다가 레이아웃 배치할 것 */
 			if (img.length < 10 || img.length == undefined && check == 0) {
@@ -389,6 +392,9 @@ function creating_post(posts, is_fav_cnt = 1) {
 			}
 			if (img.toString().indexOf("everytime") != -1) {
 				img = "./static/image/everytime.jpg";
+				check = 1;
+			} else if (img.toString().indexOf("daum") != -1) {
+				img = "./static/image/sjstation.png";
 				check = 1;
 			}
 			if (img.length < 10 || img.length == undefined && check == 0) {

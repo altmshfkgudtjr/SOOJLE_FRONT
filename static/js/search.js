@@ -118,6 +118,8 @@ function mobile_search_modal_open() {
 function mobile_search_modal_close() {
 	search_blur();
 	$("body").removeAttr("style");
+	$("#board_logo").removeAttr("style");
+	$("#mobile_search").addClass("display_none");
 	//$("#mobile_search").addClass("display_none");
 	search_open = 0;
 }
@@ -140,6 +142,7 @@ function search_result_click(tag) {
 */
 // 검색 api 실행 함수
 //let is_posts_there = 0, is_posts_done = 0;
+let domain_posts = [];
 let a_jax_posts = [];
 function search_text(text) {
 	is_posts_there.a = 0;
@@ -170,6 +173,7 @@ function search_text(text) {
 	$.when(a_jax_domain).done(function () {
 		let json = a_jax_domain.responseJSON;
 		if (json['result'] == 'success') {
+			domain_posts = json["search_result"];
 			insert_domain_post(json["search_result"]);
 			is_posts_done.a += 1;
 		} else {
@@ -251,15 +255,17 @@ function insert_domain_post(posts) {
 		title = post_one["title"];
 		phara = post_one["post"];
 		domain_block = `
-			<div class="sr_domain_ct"">
+			<div class="sr_domain_ct" p-id="0">
 				<a href = ${url} target="_blank">
 					<div>
 						<div class="sr_domain_title">${title}</div>
 						<div class="sr_domain_url">${url}</div>
 						<div class="sr_domain_post">${phara}</div>
-						<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
 					</div>
 				</a>
+				<div>
+					<div class="post_menu" onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
+				</div>
 			</div>`;
 		domain_tag += domain_block;
 	}
@@ -317,10 +323,13 @@ function insert_search_post(target_num, posts, is_fav_cnt = 1) {
 			if (img.toString().indexOf("everytime") != -1) {
 				img = "./static/image/everytime.jpg";
 				check = 1;
+			} else if (img.toString().indexOf("daum") != -1) {
+				img = "./static/image/sjstation.png";
+				check = 1;
 			}
 			/* tag 에다가 레이아웃 배치할 것 */
 			if (img.length < 10 || img.length == undefined && check == 0) {
-					tag = `<div class="post_block" p-id="${id}>
+					tag = `<div class="post_block" p-id="${id}">
 							<a href="${url}" target="_blank">
 								<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
 									<div class="post_title">${title}</div>
@@ -385,6 +394,9 @@ function insert_search_post(target_num, posts, is_fav_cnt = 1) {
 			}
 			if (img.toString().indexOf("everytime") != -1) {
 				img = "./static/image/everytime.jpg";
+				check = 1;
+			} else if (img.toString().indexOf("daum") != -1) {
+				img = "./static/image/sjstation.png";
 				check = 1;
 			}
 			if (img.length < 10 || img.length == undefined && check == 0) {
@@ -453,7 +465,9 @@ function more_posts(target_num, is_fav_cnt = 1) {
 		else if (Number(target_num) == 2) {target_name = "행사&모임";}
 		else if (Number(target_num) == 3) {target_name = "일반";}
 		else {target_name = "커뮤니티";}
-		$("#board_info_text").text(target_name);
+		let more_left_tag = `<img src="/static/icons/back.png" class="sr_more_to_before noselect" onclick="before_posts(${target_num});">${target_name}`;
+		$("#board_info_text").empty();
+		$("#board_info_text").append(more_left_tag);
 		let posts = a_jax_posts[target_num];
 		$("#posts_target").empty();
 		let target = $("#posts_target");
@@ -484,6 +498,9 @@ function more_posts(target_num, is_fav_cnt = 1) {
 					}
 					if (img.toString().indexOf("everytime") != -1) {
 						img = "./static/image/everytime.jpg";
+						check = 1;
+					} else if (img.toString().indexOf("daum") != -1) {
+						img = "./static/image/sjstation.png";
 						check = 1;
 					}
 					/* tag 에다가 레이아웃 배치할 것 */
@@ -553,6 +570,9 @@ function more_posts(target_num, is_fav_cnt = 1) {
 					}
 					if (img.toString().indexOf("everytime") != -1) {
 						img = "./static/image/everytime.jpg";
+						check = 1;
+					} else if (img.toString().indexOf("daum") != -1) {
+						img = "./static/image/sjstation.png";
 						check = 1;
 					}
 					if (img.length < 10 || img.length == undefined && check == 0) {
@@ -626,7 +646,23 @@ function more_posts(target_num, is_fav_cnt = 1) {
 		$("#posts_creating_loading").addClass("display_none");
 	}, 1000);
 }
-
+// back to search selection page
+function before_posts(target_num, is_fav_cnt = 1) {
+	$("#posts_creating_loading").removeClass("display_none");
+	$("#posts_target").empty();
+	$("#board_info_text").empty();
+	$("#board_info_text").text("검색 결과입니다!");
+	$("#board_info_board").empty();
+	$("#board_info_board").text("SOOJLE 엔진");
+	search_container_set();
+	insert_domain_post(domain_posts);
+	insert_search_post(0, a_jax_posts[0]);
+	insert_search_post(1, a_jax_posts[1]);
+	insert_search_post(2, a_jax_posts[2]);
+	insert_search_post(3, a_jax_posts[3]);
+	insert_search_post(4, a_jax_posts[4]);
+	$("#posts_creating_loading").addClass("display_none");
+}
 
 
 let is_posts_done = {
