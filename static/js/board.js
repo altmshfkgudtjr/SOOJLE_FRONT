@@ -234,6 +234,7 @@ $(document).ready(function(){
 });
 // After login, setting user information.
 function After_login(dict) {
+	$("#logout_button").removeClass("display_none");
 	let w = $(document).width();
 	let id = dict["user_id"];
 	let major = dict["user_major"];

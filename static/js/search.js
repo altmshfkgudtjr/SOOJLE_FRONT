@@ -101,6 +101,7 @@ function mobile_search_modal_open() {
 	let w = $(document).width();
 	if (search_open == 0) {
 		if (w < 1200) {
+			scroll(0,0);
 			$("#board_logo").css({"left": "10px",
 								"transform": "translate(0, 0)",
 								"-webkit-transform": "translate(0, 0)"})
