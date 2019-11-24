@@ -18,6 +18,8 @@ var where_topic;
 function get_recommend_posts(is_first = 0) {
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
+	$("#pc_search_input").val("");
+	$("#mobile_search_input").val("");
 	now_topic = "추천";
 	where_topic = "뉴스피드";
 	posts_update = 0;
@@ -53,6 +55,8 @@ function get_recommend_posts(is_first = 0) {
 function get_popularity_posts() {
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
+	$("#pc_search_input").val("");
+	$("#mobile_search_input").val("");
 	now_topic = "인기";
 	where_topic = "뉴스피드";
 	posts_update = 0;
@@ -78,6 +82,8 @@ function get_popularity_posts() {
 function get_topic_posts(tag) {
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
+	$("#pc_search_input").val("");
+	$("#mobile_search_input").val("");
 	where_topic = "뉴스피드";
 	posts_update = 0;
 	menu_modal_onoff();
@@ -521,3 +527,4 @@ function get_user_view_posts() {
 		}
 	});
 }
+

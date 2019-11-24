@@ -9,7 +9,7 @@ function Snackbar(text) {
 	$("#snackbar_target").append(tag);
 	setTimeout(function() {
 		Snackbar_off(tag);
-	}, 3000);
+	}, 4000);
 }
 
 function Snackbar_off(tag) {
@@ -17,5 +17,5 @@ function Snackbar_off(tag) {
 	tag.addClass("slideOutDown");
 	setTimeout(function() {
 		tag.remove();
-	}, 3000);
+	}, 4000);
 }
