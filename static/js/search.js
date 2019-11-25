@@ -6,6 +6,10 @@ let now = 0;	// 현재 화살표로 선택한 div 위치
 let all = 0;	// 검색결과 수
 function search_focus(keyCode, tag) {
 	let w = $(document).width();
+	if (w <1200) {
+		$("#mobile_search_recommend_box").removeClass("display_none");
+		$("body").css("overflow", "hidden");
+	}
 	//KeyUp 38 or KeyDown 40
 	if (keyCode == 13) {
 		search_button(tag);
@@ -48,7 +52,7 @@ function search_focus(keyCode, tag) {
 		} else if (tag.val() == "") {
 			search_target = "";
 			if (w < 1200){
-				$("#mobile_search_recommend_box").addClass("display_none");
+				//$("#mobile_search_recommend_box").addClass("display_none");
 				$(".search_result").remove();
 			} else {
 				$("#search_recommend_box").addClass("display_none");
@@ -88,11 +92,19 @@ function search_button(tag) {	// 검색작업 data = 글자
 	let w = $(document).width();
 	if (w < 1200) {
 		data = $("#mobile_search_input").val();
+		$("#mobile_search_input").blur();
+		search_blur();
+		$("body").removeAttr("style");
+		//$("#board_logo").removeAttr("style");
+		//$("#mobile_search").addClass("display_none");
+		search_open = 0;
 	} else {
 		data = $("#pc_search_input").val();
+		$("#pc_search_input").blur();
 	}
 	$("#mobile_search_recommend_box").addClass("display_none");
-	mobile_search_modal_close();
+	//mobile_search_modal_close();
+
 	search_text(data);	// 검색 함수 실행
 
 	/*search 클릭 작업============================================================*/
@@ -108,8 +120,9 @@ function mobile_search_modal_open() {
 								"-webkit-transform": "translate(0, 0)"})
 			$("body").css("overflow", "hidden");
 			$("#mobile_search").removeClass("display_none");
-			$("#mobile_search_input").focus()
+			$("#mobile_search_input").focus();
 			search_open = 1;
+			$("#mobile_search_recommend_box").removeClass("display_none");
 		}
 	} else {
 		if (w < 1200) {
@@ -118,12 +131,11 @@ function mobile_search_modal_open() {
 	}
 }
 function mobile_search_modal_close() {
-	search_blur();
+	search_open = 0;
 	$("body").removeAttr("style");
+	$("#mobile_search_recommend_box").addClass("display_none");
 	$("#board_logo").removeAttr("style");
 	$("#mobile_search").addClass("display_none");
-	//$("#mobile_search").addClass("display_none");
-	search_open = 0;
 }
 function search_result_click(tag) {
 	let data = tag.children("span").text().trim();
@@ -184,6 +196,7 @@ function search_text(text) {
 			insert_domain_post(json["search_result"]);
 			is_posts_done.a += 1;
 		} else {
+			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
 		}
 	});
@@ -193,6 +206,7 @@ function search_text(text) {
 			insert_search_post(0, json["search_result"]);
 			is_posts_done.a += 1;
 		} else {
+			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
 		}
 	});
@@ -202,6 +216,7 @@ function search_text(text) {
 			insert_search_post(1, json["search_result"]);
 			is_posts_done.a += 1;
 		} else {
+			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
 		}
 	});
@@ -211,6 +226,7 @@ function search_text(text) {
 			insert_search_post(2, json["search_result"]);
 			is_posts_done.a += 1;
 		} else {
+			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
 		}
 	});
@@ -220,6 +236,7 @@ function search_text(text) {
 			insert_search_post(3, json["search_result"]);
 			is_posts_done.a += 1;
 		} else {
+			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
 		}
 	});
@@ -229,6 +246,7 @@ function search_text(text) {
 			insert_search_post(4, json["search_result"]);
 			is_posts_done.a += 1;
 		} else {
+			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
 		}
 	});
@@ -237,6 +255,7 @@ function search_text(text) {
 		if (json['result'] == "success") {
 			insert_recommend_words(json['similarity_words']);
 		} else {
+			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
 		}
 	});
@@ -308,6 +327,7 @@ function insert_search_post(target_num, posts, is_fav_cnt = 1) {
 	let target = $(`#sr_t${target_num}`), target_name = target_num;
 	if (posts.length == 0) {
 		target.remove();
+		is_posts_there.a += 1;
 		return;
 	}
 	target = $("#posts_target");

@@ -10,6 +10,13 @@ window.setTimeout(function() {
 	is_loading = 0;
 }, 1000);
 let filter = "win16|win32|win64|mac|macintel";
+/*
+// 좋아요 마우스 hover
+if (filter.indexOf(navigator.platform.toLowerCase()) < 0) { // mobile
+	
+} else { // pc
+	
+}*/
 
 function Goboard() {
 	window.location.href = "/board";
@@ -110,6 +117,12 @@ function menu_modal_off() {
 // Login modal on off function
 let login_open = 0;
 function login_modal_onoff() {
+	let token = localStorage.getItem("sj-state");
+	if (token == null || token == undefined || token == 'undefined') {
+
+	} else {
+		return;
+	}
 	$("#user_id").val("");
 	$("#user_pw").val("");
 	let formInputs = $('#user_id,#user_pw');

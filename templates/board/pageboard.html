@@ -38,7 +38,7 @@
 					<div class="mobile_search_button_modal pointer" onclick="search_button($(this))">
 						<img src="/static/icons/search.png" class="mobile_search_icon_modal">
 					</div>
-					<input id="mobile_search_input" type="text" class="mobile_search_input result_target" onkeyup="search_focus(event.keyCode, $(this))">
+					<input id="mobile_search_input" type="text" class="mobile_search_input result_target" onkeyup="search_focus(event.keyCode, $(this))" onfocus="search_focus(0, $(this))">
 				</div>
 			</div>
 		</div>
@@ -82,7 +82,8 @@
 			<div class="SJ_footer_item noselect">©2019 TEAM IML</div>
 		</div>
 	</div>
-	<div class="mobile_controller">
+	<div id="mobile_controller_none" class="mobile_controller_none"></div>
+	<div id="mobile_controller" class="mobile_controller">
 		<div class="mobile_controller_content pointer" onclick="menu_modal_onoff()">
 			<div id="mobile_menu" class="mobile_menu">
 				<img src="/static/icons/menu.png" class="mobile_menu_icon">
@@ -320,6 +321,10 @@
 					<div class="menu_container_subtitle_loading"></div>
 				</div>
 				<div class="board_container_loading">
+					<div class="board_container_post_loading">
+						<div class="board_container_post_circle_loading"></div>
+						<div class="board_container_post_line_loading"></div>
+					</div>
 					<div class="board_container_post_loading">
 						<div class="board_container_post_circle_loading"></div>
 						<div class="board_container_post_line_loading"></div>

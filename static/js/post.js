@@ -321,7 +321,7 @@ function creating_post(posts, is_fav_cnt = 1) {
 			}
 			/* tag 에다가 레이아웃 배치할 것 */
 			if (img.length < 10 || img.length == undefined && check == 0) {
-					tag = `<div class="post_block" p-id="${id}>
+					tag = `<div class="post_block" p-id="${id}">
 							<a href="${url}" target="_blank">
 								<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
 									<div class="post_title">${title}</div>
@@ -438,6 +438,7 @@ function creating_post(posts, is_fav_cnt = 1) {
 	}
 	// 로딩 모달 제거
 	window.setTimeout(function() {
+		$("#mobile_controller_none").addClass("display_none");
 		$("#board_loading_modal").addClass("board_loading_modal_unvisible");
 		$(".mobile_controller").removeAttr("style");
 		$("#none_click").addClass("display_none");

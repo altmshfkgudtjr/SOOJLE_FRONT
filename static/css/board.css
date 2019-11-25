@@ -454,6 +454,7 @@ html {
 .board_container_post_loading:nth-child(5) {animation-delay: .8s}
 .board_container_post_loading:nth-child(6) {animation-delay: 1s}
 .board_container_post_loading:nth-child(7) {animation-delay: 1.2s}
+.board_container_post_loading:nth-child(8) {animation-delay: 1.4s}
 .board_container_post_circle_loading {
 	position: absolute;
 	width: 20px;
@@ -906,6 +907,10 @@ html {
 	position: relative;
 	float: left;
 	width: 100%;
+	max-width: 700px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	-webkit-transform: translate(-50%, 0);
 	height: auto;
 	min-height: 200px;
 }
@@ -1027,8 +1032,10 @@ html {
 	cursor: pointer;
 	transition: .1s ease-in-out;
 }
-.post_like:hover {
-	color: #f00730;
+@media screen and (min-width: 1200px) {
+	.post_like:hover {
+		color: #f00730;
+	}
 }
 .post_like_cnt {
 	position: relative;
@@ -1119,6 +1126,9 @@ html {
 	color: #c30e2e;
 }
 .mobile_controller {
+	display: none;
+}
+.mobile_controller_none {
 	display: none;
 }
 @keyframes posts_creating_loading_content {
@@ -1344,7 +1354,7 @@ html {
 		height: 20px;
 		transform: translate(-50%, -50%);
 		-webkit-transform: translate(-50%, -50%);
-		opacity: 0.6;
+		opacity: 1;
 	}
 	.grid {
 		visibility: hidden;
@@ -1501,7 +1511,7 @@ html {
 		position: absolute;
 		width: 100%;
 		max-width: 1080px;
-		height: 90%;
+		height: 95%;
 		border: none;
 		border-radius: 0;
 		top: 0;
@@ -1586,6 +1596,16 @@ html {
 		margin-top: 30px;
 		opacity: 1;
 	}
+	.mobile_controller_none {
+		display: block;
+		position: absolute;
+		background-color: rgba(0,0,0,0);
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 41.5px;
+		z-index: 201;
+	}
 	.mobile_controller {
 		display: block;
 		position: fixed;
@@ -1621,11 +1641,18 @@ html {
 		opacity: 1;
 		transition: .2s ease-in-out;
 	}
+	.board_loading_search_cont {
+		display: none;
+	}
 	.board_loading_modal_unvisible {
 		visibility: hidden;
 		opacity: 0;
 	}
 	.board_loading_body {
+		max-width: 700px;
+		left: 50%;
+		transform: translate(-50%, 0);
+		-webkit-transform: translate(-50%, 0);
 		top: 53px;
 	}
 	.body_guideline_loading {
@@ -1661,7 +1688,7 @@ html {
 		left: 50%;
 		transform: translate(-50%, 0);
 		-webkit-transform: translate(-50%, 0);
-		width: 95%;
+		width: 100%;
 		height: 135px;
 		margin-bottom: 10px;
 		border-radius: 5px;
@@ -1672,7 +1699,7 @@ html {
 		-webkit-animation: blink 1.5s infinite ease-in-out;
 		position: relative;
 		top: 10px;
-		margin-left: 2.5%;
+		margin-left: 0%;
 		float: left;
 		width: 80px;
 		height: 25px;
@@ -1684,7 +1711,7 @@ html {
 		-webkit-animation: blink 1.5s infinite ease-in-out;
 		position: relative;
 		top: 10px;
-		margin-right: 2.5%;
+		margin-right: 0%;
 		float: right;
 		width: 130px;
 		height: 25px;
@@ -1710,7 +1737,7 @@ html {
 		width: auto;
 		height: 50px;
 		margin-right: 0;
-		margin-left: 10px;
+		margin-left: 0px;
 		margin-bottom: 20px;
 		font-size: 16px;
 		line-height: 50px;
@@ -1721,7 +1748,7 @@ html {
 		float: right;
 		width: auto;
 		height: 50px;
-		padding-right: 10px;
+		padding-right: 0px;
 	}
 	.board_mobile_login_container:active {
 		background-color: rgba(0,0,0,.1);
@@ -1858,10 +1885,10 @@ html {
 	.post_block {
 		position: relative;
 		display: inline-block;
-		width: 95%;
+		width: 100%;
 		max-width: 700px;
 		height: 135px;
-		border: none;
+		border: 2px solid rgba(0,0,0,0);
 		border-radius: 5px;
 		box-shadow: 0 2px 6px rgba(0,0,0,.16);
 		transition: .1s ease-in-out;
@@ -1870,6 +1897,9 @@ html {
 	}
 	.post_block:active {
 		box-shadow: 0 2px 6px rgba(0,0,0,0);
+	}
+	.post_block:hover {
+		border: 2px solid black;
 	}
 	.post_block_img_cont {
 	    position: relative;
@@ -2052,15 +2082,15 @@ html {
 	}
 	.sr_title {
 		position: relative;
-		width: 95s%;
+		width: 95%;
 		color: black;
 		font-size: 18px;
-		margin-bottom: 5px;
-		margin-left: 10px; 
+		margin-bottom: 10px;
+		margin-left: 0px;
 	}
 	.sr_domain_ct {
 		position: relative;
-		width: 91%;
+		width: 96%;
 		max-width: 700px;
 		height: 110px;
 		padding: 2%;
@@ -2121,7 +2151,7 @@ html {
 	}
 	.sr_more {
 		position: relative;
-		width: 96%;
+		width: 98%;
 		height: 20px;
 		text-align: right;
 		line-height: 20px;
@@ -2129,7 +2159,7 @@ html {
 		color: #818181;
 		cursor: pointer;
 		margin-top: 10px;
-		margin-right: 2%;
+		margin-right: 0%;
 		margin-left: 2%;
 		transition: .1s ease-in-out;
 	}
@@ -2397,6 +2427,87 @@ html {
 	}
 	.grid_modal_close_cont {
 		top: 20%;
+	}
+	.board_container_post_loading {
+		animation: blink 1.5s infinite ease-in-out;
+		-webkit-animation: blink 1.5s infinite ease-in-out;
+		position: relative;
+		float: none;
+		left: 50%;
+		transform: translate(-50%, 0);
+		-webkit-transform: translate(-50%, 0);
+		width: 95%;
+		height: 135px;
+		margin-bottom: 10px;
+		border-radius: 5px;
+		background-color: rgba(0,0,0,.05);
+	}
+	.board_container_name {
+		animation: blink 1.5s infinite ease-in-out;
+		-webkit-animation: blink 1.5s infinite ease-in-out;
+		position: relative;
+		top: 10px;
+		margin-left: 2.5%;
+		float: left;
+		width: 80px;
+		height: 25px;
+		border-radius: 5px;
+		background-color: rgba(0,0,0,.05);
+	}
+	.board_container_user {
+		animation: blink 1.5s infinite ease-in-out;
+		-webkit-animation: blink 1.5s infinite ease-in-out;
+		position: relative;
+		top: 10px;
+		margin-right: 2.5%;
+		float: right;
+		width: 130px;
+		height: 25px;
+		border-radius: 5px;
+		background-color: rgba(0,0,0,.05);
+	}
+	.board_info_text {
+		position: relative;
+		display: inline-block;
+		float: left;
+		width: auto;
+		height: 50px;
+		margin-right: 0;
+		margin-left: 8px;
+		margin-bottom: 20px;
+		font-size: 16px;
+		line-height: 50px;
+	}
+	.board_mobile_login_container {
+		position: relative;
+		display: inline-block;
+		float: right;
+		width: auto;
+		height: 50px;
+		padding-right: 8px;
+	}
+	.post_block {
+		position: relative;
+		display: inline-block;
+		width: 95%;
+		max-width: 700px;
+		height: 135px;
+		border: 2px solid rgba(0,0,0,0);
+		border-radius: 5px;
+		box-shadow: 0 2px 6px rgba(0,0,0,.16);
+		transition: .1s ease-in-out;
+		left: 50%;
+		transform: translate(-50%, 0);
+	}
+	.sr_domain_ct {
+		width: 91%;
+	}
+	.sr_title {
+		margin-left: 10px;
+	}
+	.sr_more {
+		width: 96%;
+		margin-right: 10px;
 	}
 }
 /*=============================================================================*/
