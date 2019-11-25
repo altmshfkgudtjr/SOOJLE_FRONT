@@ -1,4 +1,5 @@
 // Searchbar Task
+let is_searching = 0;
 let search_cache = "";	// 이전 검색어
 let search_target = "";	// 목표 검색어
 let now = 0;	// 현재 화살표로 선택한 div 위치
@@ -146,6 +147,10 @@ function search_result_click(tag) {
 let domain_posts = [];
 let a_jax_posts = [];
 function search_text(text) {
+	// 현재 검색 중이면 차단
+	if (is_searching == 1) return;
+	is_searching = 1;
+
 	is_posts_there.a = 0;
 	is_posts_done.a = 0;
 	if (text == ""){
@@ -171,6 +176,7 @@ function search_text(text) {
 	let a_jax2 = A_JAX("http://"+host_ip+"/category_search/2/200", "POST", null, send_data);
 	let a_jax3 = A_JAX("http://"+host_ip+"/category_search/3/200", "POST", null, send_data);
 	let a_jax4 = A_JAX("http://"+host_ip+"/category_search/4/200", "POST", null, send_data);
+	let a_jax_recommend = A_JAX("http://"+host_ip+"/get_similarity_words", "POST", null, send_data);
 	$.when(a_jax_domain).done(function () {
 		let json = a_jax_domain.responseJSON;
 		if (json['result'] == 'success') {
@@ -226,6 +232,14 @@ function search_text(text) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
+	$.when(a_jax_recommend).done(function () {
+		let json = a_jax_recommend.responseJSON;
+		if (json['result'] == "success") {
+			insert_recommend_words(json['similarity_words']);
+		} else {
+			Snackbar("다시 접속해주세요!");
+		}
+	});
 }
 // 검색 창 구성 함수
 function search_container_set() {
@@ -235,7 +249,9 @@ function search_container_set() {
 	let ajax2_target = `<div id="sr_t2"></div>`;
 	let ajax3_target = `<div id="sr_t3"></div>`;
 	let ajax4_target = `<div id="sr_t4"></div>`;
+	let search_recommend_target = `<div id="sr_recommend" class="sr_recommend"></div>`
 	let target = $("#posts_target");
+	target.append(search_recommend_target);
 	target.append(domain_target);
 	target.append(ajax0_target);
 	target.append(ajax1_target);
@@ -290,7 +306,11 @@ function insert_search_post(target_num, posts, is_fav_cnt = 1) {
 	let posts_len = posts.length;
 	posts = posts.slice(0,5); // 미리보기는 5개까지만 보여줌
 	let target = $(`#sr_t${target_num}`), target_name = target_num;
-	if (posts.length == 0) target.remove();
+	if (posts.length == 0) {
+		target.remove();
+		return;
+	}
+	target = $("#posts_target");
 	if (Number(target_name) == 0) {target_name = "최근 트렌드";}
 	else if (Number(target_name) == 1) {target_name = "진로&구인";}
 	else if (Number(target_name) == 2) {target_name = "행사&모임";}
@@ -452,6 +472,48 @@ function insert_search_post(target_num, posts, is_fav_cnt = 1) {
 	else {more = `<div class="sr_more" onclick="more_posts(${target_num})">더 보기</div>`;}
 	target_tag = target_tag + more + line;
 	target.append(target_tag);
+}
+
+// Recommend words inserting
+function insert_recommend_words(words_dict) {
+	let target = $("#sr_recommend");
+	let recommends = [];
+	let output = [];
+	let words_key, words_list, word;
+	for (words_key in words_dict) {
+		words_list = words_dict[words_key];
+		for (word of words_list) {
+			recommends.push(word);
+		}
+	}
+	recommends.sort(compare);
+	recommends = recommends.slice(0, 6);
+	for (word of recommends) {
+		output.push(Object.keys(word)[0]);
+	}
+	if (output.length == 0) {
+		target.remove();
+		return;
+	}
+	let title = `<div class="sr_recommend_word_title noselect">이런 검색어는 어떤가요?</div>`
+	target.append(title);
+	for (word of output) {
+		words_key = `<div class="sr_recommend_word" onclick="recommend_word_click($(this))">${word}</div>`
+		target.append(words_key);
+	}
+}
+function compare( a, b ) {
+  if ( Object.values(a)[0] > Object.values(b)[0] ){
+    return -1;
+  }
+  if ( Object.values(a)[0] < Object.values(b)[0] ){
+    return 1;
+  }
+  return 0;
+}
+function recommend_word_click(tag) {
+	let text = tag.text();
+	search_text(text);
 }
 
 // a_jax_posts[i] 0, 1, 2, 3, 4
@@ -697,6 +759,7 @@ let is_posts_there = {
 is_posts_done.registerListener(function(val) {
 	if (val == 6) {
 		// 로딩 제거
+		is_searching = 0;
 		let token = localStorage.getItem('sj-state');
 		if (token == null || token == undefined || token == 'undefined') {} 
 		else {

@@ -16,7 +16,6 @@ function Goboard() {
 }
 // 초기 setting
 $(document).ready( function() {
-	get_recommend_posts(1);
 	auto_login();
 	setTimeout(function() {scroll(0,0);}, 500);
 });
@@ -140,6 +139,7 @@ function login_modal_onoff() {
 function auto_login() {
 	let token = localStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') {
+		get_recommend_posts(1);
 		return;
 	} else {
 		a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);

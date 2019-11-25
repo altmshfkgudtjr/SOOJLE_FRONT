@@ -40,12 +40,6 @@ function get_recommend_posts(is_first = 0) {
 			output = output.slice(0, 30);
 			creating_post(output);
 			// Modal Remove
-			$("body").removeAttr("style");
-			$("#board_loading_modal").addClass("board_loading_modal_unvisible");
-			window.setTimeout(function() {
-				$(".mobile_controller").removeAttr("style");
-				$("#none_click").addClass("display_none");
-			}, 200);
 		} else {
 			Snackbar("다시 접속해주세요!");
 		}
@@ -442,11 +436,17 @@ function creating_post(posts, is_fav_cnt = 1) {
 			target.append($(tag));
 		}
 	}
+	// 로딩 모달 제거
+	window.setTimeout(function() {
+		$("#board_loading_modal").addClass("board_loading_modal_unvisible");
+		$(".mobile_controller").removeAttr("style");
+		$("#none_click").addClass("display_none");
+	}, 200);
 	// 로딩 제거
 	let token = localStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') {} 
 	else {
-		a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
+		let a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
 		$.when(a_jax).done(function () {
 			if (a_jax.responseJSON['result'] == 'success') {
 				let posts = $(".post_block");
