@@ -102,14 +102,21 @@ function get_topic_posts(tag) {
 		}
 	});
 }
+let now_creating = 0;
 $(document).scroll(function() {
 	if (where_topic == "뉴스피드"){
-		if ($(window).scrollTop() + $(window).height() == $(document).height()){
+		if ($(window).scrollTop() + $(window).height() >= $(document).height()- 400){
 			if (save_posts.length == 0) return;
-			$("#posts_creating_loading").removeClass("display_none");
-			setTimeout(function() {
-				get_posts_more();
-			}, 600);
+			if (now_creating == 0) {
+				now_creating = 1;
+				$("#posts_creating_loading").removeClass("display_none");
+				setTimeout(function() {
+					get_posts_more();
+					setTimeout(function() {
+						now_creating = 0;
+					}, 200);
+				}, 600);
+			}
 		}
 	}
 });

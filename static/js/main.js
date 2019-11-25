@@ -57,8 +57,146 @@ function search_blur() {
 	$("#SJ_main_page1_search_box").removeAttr("style");
 	if (mobilecheck()) {
 		$("html, body").scrollTop(0);
-	} 
+	}
 }
+let search_cache = "";	// 이전 검색어
+let search_target = "";	// 목표 검색어
+let now = 0;	// 현재 화살표로 선택한 div 위치
+let all = 0;	// 검색결과 수
+function search_focus(keyCode, tag) {
+	let w = $(document).width();
+	if (w < 1200) {
+		mobile_search_modal_open();
+		return;
+	}
+	if (keyCode == 13) {
+		search_button();
+		search_blur();
+	} else if (keyCode == 38 || keyCode == 40) {
+		$(`.search_result:nth-child(${now})`).removeClass("search_target");
+		if (keyCode == 38) now--;
+		else now++;
+		if (now > all) {
+			now--;
+		} else if (now <= 0) {
+			now++;
+		}
+		$(`.search_result:nth-child(${now})`).addClass("search_target");
+		let target;
+		if (w < 1200) {
+			target = $(`#mobile_search_recommend_box > .search_result:nth-child(${now})`).text().trim();
+		} else {
+			target = $(`#search_recommend_box > .search_result:nth-child(${now})`).text().trim();
+		}
+		tag.val(target);
+		search_cache = target;
+	} else {
+		let now_search = tag.val();
+		// 문열길이!=0, 문자열변화
+		if (now_search.length != 0 && search_cache != now_search) {
+			$(`.search_result:nth-child(${now})`).removeClass("search_target");
+			now = 0;
+			search_cache = tag.val();
+			search_target = search_cache;
+			/*추천검색어 AJAX 요청 공간=========================================*/
+			all = 3;	// AJAX로 요청한 추천검색어 수
+			if (all != 0){
+				if (w < 1200){
+					$("#mobile_search_recommend_box").removeClass("display_none");
+				} else {
+					$("#search_recommend_box").removeClass("display_none");
+				}
+			}
+		} else if (tag.val() == "") {
+			search_target = "";
+			if (w < 1200){
+				//$("#mobile_search_recommend_box").addClass("display_none");
+				$(".search_result").remove();
+			} else {
+				$("#search_recommend_box").addClass("display_none");
+				$(".search_result").remove();
+			}
+			
+			let line = '<div id="search_loading" class="search_loading pointer noselect">\
+							<i class="fas fa-grip-lines"></i>\
+						</div>';
+			$("#mobile_search_recommend_box").append(line);
+			search_cache = "";
+		}
+	}
+}
+let search_open = 0;
+function mobile_search_modal_open() {
+	let w = $(document).width();
+	if (search_open == 0) {
+		if (w < 1200) {
+			scroll(0,0);
+			$("#mobile_search_modal").removeClass("display_none");
+			$("#board_logo").css({"left": "10px",
+								"transform": "translate(0, 0)",
+								"-webkit-transform": "translate(0, 0)"})
+			$("body").css("overflow", "hidden");
+			$("#mobile_search_input").focus();
+			search_open = 1;
+		}
+	} else {
+		if (w < 1200) {
+			search_blur();
+		}
+	}
+}
+function search_button() {	// 검색작업 data = 글자
+	let data;
+	let w = $(document).width();
+	if (w < 1200) {
+		data = $("#mobile_search_input").val();
+		$("#mobile_search_input").blur();
+		search_blur();
+		$("body").removeAttr("style");
+		//$("#board_logo").removeAttr("style");
+		//$("#mobile_search").addClass("display_none");
+		search_open = 0;
+	} else {
+		data = $("#pc_search_input").val();
+		$("#pc_search_input").blur();
+	}
+	//mobile_search_modal_close();
+
+	search_text(data);	// 검색 함수 실행
+
+	/*search 클릭 작업============================================================*/
+}
+function search_result_click(tag) {
+	let data = tag.children("span").text().trim();
+	let w = $(document).width();
+	if (w < 1200) {
+		$("#mobile_search_input").val(data);
+	} else {
+		$("#pc_search_input").val(data);
+	}
+	search_button();
+}
+function search_blur() {
+	let w = $(document).width();
+	if (all != 0){
+		if (w < 1200){
+			$("#mobile_search_modal").addClass("display_none");
+		} else {
+			$("#search_recommend_box").addClass("display_none");
+		}
+	}
+}
+
+
+
+function search_text(text) {
+	if (text == "") {
+		Snackbar("검색어를 입력해주세요.");
+		return;
+	}
+	console.log(text);
+}
+
 
 function Gohome(){
 	window.location.href = "/";
@@ -71,7 +209,7 @@ function Goboard() {
 setTimeout(function() {
 	$("body").removeAttr("style");
 	$("#loading").addClass("display_none");
-}, 2000);	// setting time
+}, 0);	// setting time
 
 function next_page() {
 	let target = $(".page_section:nth-child(2)").offset().top;

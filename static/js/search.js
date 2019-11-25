@@ -87,7 +87,7 @@ function search_blur() {
 		}
 	}
 }
-function search_button(tag) {	// 검색작업 data = 글자
+function search_button() {	// 검색작업 data = 글자
 	let data;
 	let w = $(document).width();
 	if (w < 1200) {
@@ -533,7 +533,12 @@ function compare( a, b ) {
 }
 function recommend_word_click(tag) {
 	let text = tag.text();
+	if (is_searching == 1) {
+		return;
+	}
 	search_text(text);
+	$("#mobile_search_input").val(text);
+	$("#pc_search_input").val(text);
 }
 
 // a_jax_posts[i] 0, 1, 2, 3, 4

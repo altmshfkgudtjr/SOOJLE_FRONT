@@ -117,12 +117,6 @@ function menu_modal_off() {
 // Login modal on off function
 let login_open = 0;
 function login_modal_onoff() {
-	let token = localStorage.getItem("sj-state");
-	if (token == null || token == undefined || token == 'undefined') {
-
-	} else {
-		return;
-	}
 	$("#user_id").val("");
 	$("#user_pw").val("");
 	let formInputs = $('#user_id,#user_pw');
@@ -247,6 +241,9 @@ $(document).ready(function(){
 });
 // After login, setting user information.
 function After_login(dict) {
+	$("#login_button").addClass("display_none");
+	$("#view_button").removeClass("display_none");
+	$("#like_button").removeClass("display_none");
 	$("#logout_button").removeClass("display_none");
 	let w = $(document).width();
 	let id = dict["user_id"];
@@ -306,6 +303,10 @@ function Go_analysistics() {
 	window.location.href = "/analysistics";
 }
 
+function Login() {
+	menu_modal_onoff();
+	login_modal_onoff();
+}
 function Logout() {
 	localStorage.removeItem("sj-state");
 	location.reload();
