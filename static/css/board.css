@@ -506,6 +506,12 @@ html {
 	background-color: rgba(0,0,0,0);
 	transition: .2s ease-in-out;
 }
+@media screen and (min-width: 1200px) {
+	.menu_container {
+		position: fixed;
+		top: 90px;
+	}
+}
 .menu_container_fixed {
 	top: 10px;
 	position: fixed;
@@ -617,9 +623,15 @@ html {
 .board_container {
 	position: relative;
 	display: inline-block;
+	right: 0;
 	width: 700px;
 	height: auto;
 	min-height: 100px;
+}
+@media screen and (min-width: 1200px) {
+	.board_container {
+		margin-left: 380px;
+	}
 }
 .board_info_container {
 	position: relative;

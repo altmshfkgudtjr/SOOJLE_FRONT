@@ -36,7 +36,7 @@ function grid_modal_onoff() {
 	}
 	if (grid_open == 0) {
 		$("#grid").css("background-color", "rgba(0,0,0,.1)");
-		$("body").css({"position": "fixed", "overflow": "hidden"});
+		$("body").css({"overflow": "hidden"});
 		$("#grid_modal").addClass("fadeInUp animated");
 		$("#grid_modal").removeClass("display_none");
 		setTimeout(function() {
@@ -84,7 +84,7 @@ function menu_modal_onoff(is_menu_open = menu_open) {
 		if (grid_open == 1) grid_modal_onoff();
 	}
 	if (menu_open == 0) {
-		$("body").css({"position": "fixed", "overflow": "hidden"});
+		$("body").css({"overflow": "hidden"});
 		$("#menu_modal").addClass("fadeInUp animated");
 		$("#menu_modal").removeClass("display_none");
 		setTimeout(function() {
@@ -123,7 +123,7 @@ function login_modal_onoff() {
 	formInputs.focusout();
 	let w = $(document).width();
 	if (login_open == 0) {
-		$("body").css({"position": "fixed", "overflow": "hidden"});
+		$("body").css({"overflow": "hidden"});
 		$("#login_modal").removeClass("display_none");
 		$("#login_modal").addClass("fadeInUp animated");
 		$("#user_id").focus();

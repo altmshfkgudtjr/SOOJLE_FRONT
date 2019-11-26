@@ -39,6 +39,7 @@ function get_recommend_posts(is_first = 0) {
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
 			creating_post(output);
+			scroll(0,0);
 			// Modal Remove
 		} else {
 			Snackbar("다시 접속해주세요!");
@@ -67,6 +68,7 @@ function get_popularity_posts() {
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
 			creating_post(output);
+			scroll(0,0);
 		} else {
 			Snackbar("다시 접속해주세요!");
 		}
@@ -97,6 +99,7 @@ function get_topic_posts(tag) {
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
 			creating_post(output);
+			scroll(0,0);
 		} else {
 			Snackbar("다시 접속해주세요!");
 		}
@@ -104,6 +107,12 @@ function get_topic_posts(tag) {
 }
 let now_creating = 0;
 $(document).scroll(function() {
+	let w = $(document).width();
+	if (w > 1200 && $(window).scrollTop() > 60) {
+		$("#menu_container").css("top", "30px");
+	} else if (w > 1200 && $(window).scrollTop() < 60) {
+		$("#menu_container").removeAttr("style");
+	}
 	if (where_topic == "뉴스피드"){
 		if ($(window).scrollTop() + $(window).height() >= $(document).height()- 400){
 			if (save_posts.length == 0) return;

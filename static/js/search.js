@@ -118,7 +118,7 @@ function mobile_search_modal_open() {
 			$("#board_logo").css({"left": "10px",
 								"transform": "translate(0, 0)",
 								"-webkit-transform": "translate(0, 0)"})
-			$("body").css("overflow", "hidden");
+			$("body").css({"position": "fixed","overflow": "hidden"});
 			$("#mobile_search").removeClass("display_none");
 			$("#mobile_search_input").focus();
 			search_open = 1;
