@@ -211,7 +211,11 @@ setTimeout(function() {
 	$("#loading").addClass("display_none");
 }, 0);	// setting time
 
-function next_page() {
-	let target = $(".page_section:nth-child(2)").offset().top;
+function next_page(n) {
+	let target = $(`.page_section:nth-child(${n})`).offset().top;
+	$('html,body').animate({scrollTop: target}, 10);
+}
+function last_page() {
+	let target = $("#last_blank").offset().top;
 	$('html,body').animate({scrollTop: target}, 10);
 }

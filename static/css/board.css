@@ -938,7 +938,6 @@ html {
 	float: left;
 	width: 150px;
     height: 150px;
-    background-image: url(../image/shortcut.png);
     background-repeat: no-repeat;
     overflow: hidden;
     background-size: cover;
@@ -1920,7 +1919,6 @@ html {
 	    content: "";
 	    display: block;
 	    padding-top: 100%; /* 1:1 sqaure */
-	    background-image: url(../image/shortcut.png);
 	    background-repeat: no-repeat;
 	    background-size: cover;
 	    object-fit: cover;
@@ -2397,7 +2395,6 @@ html {
 	    content: "";
 	    display: block;
 	    padding-top: 100%; /* 1:1 square */
-	    background-image: url(../image/shortcut.png);
 	    background-repeat: no-repeat;
 	    background-size: cover;
 	    object-fit: cover;

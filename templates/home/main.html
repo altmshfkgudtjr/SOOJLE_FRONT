@@ -11,8 +11,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<!-- shortcut 아이콘 -->
-	<link rel="icon" type="image/png" href="/static/image/shortcut.png">
-	<link rel="apple-touch-icon-precomposed" type="image/png" href="/static/image/shortcut.png">
+	<link rel="icon" type="image/png" href="/static/image/shortcut.jpg">
+	<link rel="apple-touch-icon-precomposed" type="image/png" href="/static/image/shortcut.jpg">
 	<!-- 아이콘 -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 	<!-- Animation CSS -->
@@ -24,7 +24,7 @@
 <body style="overflow-y: hidden; overflow-x: hidden;">
 	<div class="page_section">
 		<div class="SJ_main_page1_logo_container_box">
-			<img src="/static/image/SOOJLE_LOGO_BIG.png" class="SJ_main_page1_logo_container pointer" onclick="Gohome()">
+			<img src="/static/image/SOOJLE_LOGO_BIG.png" class="SJ_main_page1_logo_container pointer" onclick="Goboard()">
 			<div id="SJ_main_page1_search_container" class="SJ_main_page1_search_container">
 				<div id="SJ_main_page1_search_box" class="SJ_main_page1_search_box">
 					<input type="text" id="pc_search_input" class="SJ_main_page1_search_input" onblur="search_blur()" onkeyup="search_focus(event.keyCode, $(this))" onclick="mobile_search_modal_open()">
@@ -43,16 +43,75 @@
 				</div>
 			</div>
 		</div>
-		<div class="search_info_text pointer noselect" onclick="next_page()">알아보기</div>
+		<div class="search_info_text pointer noselect" onclick="next_page(2)">알아보기</div>
 	</div>
 	<div class="page_section">
-		<div class="Sj_info_subtitle">세종대학교와 인공지능의 만남.</div>
-		<div class="Sj_info_subtitle">수즐로 정보를 통합하다.</div>
-		<div class="SJ_info_title noselect">SOOJLE</div>
-		<div class="SJ_info_link" onclick="Goboard();">게시판 이동하기</div>
+		<div class="SJ_info_blank"></div>
+		<div class="Sj_info_subtitle">세종대학교의 <span style="color: white">정보</span>를 <span style="color: white">체계화</span>하여<br><span style="color: white">모두가 편리</span>하게 <span style="color: white">이용</span>할 수 있도록 합니다.</div>
+		<img src="./static/image/SOOJLE_LOGO_BIG_BLACK.png" class="SJ_main_page1_logo_container ">
+		<div class="SJ_info_link" onclick="Goboard();">뉴스피드로 이동</div>
+		<div class="spark_icon" onclick="next_page(3)">
+			<svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="150px" height="73px" viewBox="0 0 150 73" enable-background="new 0 0 150 73" xml:space="preserve">
+			<polyline fill="none" stroke="white" stroke-width="3" stroke-miterlimit="10" points="0,45.486 38.514,45.486 44.595,33.324 50.676,45.486 57.771,45.486 62.838,55.622 71.959,9 80.067,63.729 84.122,45.486 97.297,45.486 103.379,40.419 110.473,45.486 150,45.486"/>
+			</svg>
+			<div class="fade-in"></div>
+			<div class="fade-out"></div>
+		</div>
 	</div>
 	<div class="page_section">
-		
+		<div class="introduce_box">
+			<img src="./static/image/introduce1.png" class="introduce_img noselect pointer" onclick="next_page(4)">
+			<div class="introduce_text_box">
+				<div class="introduce_subtitle">SOOJLE</div>
+				<div class="introduce_title">세종대학교의 모든 것</div>
+				<div class="introduce_post">SOOJLE은 세종인들을 위한 정보를 실시간으로 모니터링하고 분석하는 정보 통합 서비스입니다.</div>
+			</div>
+		</div>
+	</div>
+	<div class="page_section">
+		<div class="introduce_box">
+			<img src="./static/image/introduce2.png" class="introduce_img noselect pointer" onclick="next_page(5)">
+			<div class="introduce_text_box">
+				<div class="introduce_subtitle">SOOJLE AI</div>
+				<div class="introduce_title">세종대학교와 인공지능의 만남</div>
+				<div class="introduce_post">SOOJLE은 사용자의 모든 행동 패턴을 학습하고, 각 사용자의 관심사에 맞게 적절한 정보를 추천합니다.</div>
+			</div>
+		</div>
+	</div>
+	<div class="page_section">
+		<div class="introduce_box">
+			<img src="./static/image/introduce3.png" class="introduce_img noselect pointer" onclick="next_page(6)">
+			<div class="introduce_text_box">
+				<div class="introduce_subtitle">SOOJLE 검색 엔진</div>
+				<div class="introduce_title">세종인을 위한 차별화된 검색</div>
+				<div class="introduce_post">SOOJLE은 우리 세종인들이 관심을 가질만한 정보에 초점을 두고 있습니다. 또한 검색어의 잠재적인 의미를 분석하여, 보다 충실한 결과를 보여줍니다.</div>
+			</div>
+		</div>
+	</div>
+	<div class="page_section">
+		<div class="introduce_box">
+			<img src="./static/image/introduce4.png" class="introduce_img noselect pointer" onclick="last_page()">
+			<div class="introduce_text_box">
+				<div class="introduce_subtitle">SOOJLE 빅데이터</div>
+				<div class="introduce_title">모든 정보는 가치를 가집니다.</div>
+				<div class="introduce_post">SOOJLE은 세종대학교의 모든 정보를 통합하여, 학교 전체의 이슈나 관심거리와 같은 흩어진 정보의 흐름을 한 눈에 파악할 수 있습니다.</div>
+			</div>
+		</div>
+	</div>
+	<div id="last_blank" class="SJ_info_blank"></div>
+	<div class="Sj_info_subtitle">SOOJLE</div>
+	<div class="SJ_info_title noselect pointer" onclick="Goboard()">시작합니다</div>
+	<div class="SJ_board_footer">
+		<div class="SJ_footer_background"></div>
+		<div class="SJ_footer_guideline">
+			<img src="/static/image/SOOJLE_LOGO_BIG_BLACK.png" class="SJ_footer_item pointer noselect" onclick="Go_home();">
+			<div class="SJ_footer_item pointer">소개</div>
+			<div class="SJ_footer_item pointer">개발자</div>
+			<div class="SJ_footer_item pointer">광고</div>
+			<div class="SJ_footer_item pointer">개인정보처리방침</div>
+			<div class="SJ_footer_item pointer">서비스이용약관</div>
+			<div class="SJ_footer_item noselect">©2019 TEAM IML</div>
+		</div>
 	</div>
 	<div id="mobile_search_modal" class="mobile_search_modal display_none">
 		<div class="header_guideline">
