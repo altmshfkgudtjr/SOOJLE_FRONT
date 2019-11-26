@@ -64,8 +64,8 @@ def main_home():
 
 @BP.route('/analysistics')
 def go_analysistics():
+	return render_template('etc/gensim26.html');
 	return render_template('etc/analysistic.html')
-
 
 #############################################
 #############################################
