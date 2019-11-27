@@ -34,7 +34,7 @@ function search_focus(keyCode, tag) {
 		search_cache = target;
 	} else {
 		let now_search = tag.val();
-		// 문열길이!=0, 문자열변화
+		// 문자열길이!=0, 문자열변화
 		if (now_search.length != 0 && search_cache != now_search) {
 			$(`.search_result:nth-child(${now})`).removeClass("search_target");
 			now = 0;
@@ -173,7 +173,7 @@ function search_text(text) {
 	}
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
-	search_container_set();
+	//search_container_set();
 	now_topic = "검색 결과입니다!";
 	where_topic = "SOOJLE 엔진";
 	posts_update = 0;
@@ -203,7 +203,8 @@ function search_text(text) {
 	$.when(a_jax0).done(function () {
 		let json = a_jax0.responseJSON;
 		if (json['result'] == 'success') {
-			insert_search_post(0, json["search_result"]);
+			let output = remove_duplicated(0, json["search_result"]);
+			insert_search_post(0, output);
 			is_posts_done.a += 1;
 		} else {
 			is_posts_done.a += 1;
@@ -213,7 +214,8 @@ function search_text(text) {
 	$.when(a_jax1).done(function () {
 		let json = a_jax1.responseJSON;
 		if (json['result'] == 'success') {
-			insert_search_post(1, json["search_result"]);
+			let output = remove_duplicated(1, json["search_result"]);
+			insert_search_post(1, output);
 			is_posts_done.a += 1;
 		} else {
 			is_posts_done.a += 1;
@@ -223,7 +225,8 @@ function search_text(text) {
 	$.when(a_jax2).done(function () {
 		let json = a_jax2.responseJSON;
 		if (json['result'] == 'success') {
-			insert_search_post(2, json["search_result"]);
+			let output = remove_duplicated(2, json["search_result"]);
+			insert_search_post(2, output);
 			is_posts_done.a += 1;
 		} else {
 			is_posts_done.a += 1;
@@ -233,7 +236,8 @@ function search_text(text) {
 	$.when(a_jax3).done(function () {
 		let json = a_jax3.responseJSON;
 		if (json['result'] == 'success') {
-			insert_search_post(3, json["search_result"]);
+			let output = remove_duplicated(3, json["search_result"]);
+			insert_search_post(3, output);
 			is_posts_done.a += 1;
 		} else {
 			is_posts_done.a += 1;
@@ -243,7 +247,8 @@ function search_text(text) {
 	$.when(a_jax4).done(function () {
 		let json = a_jax4.responseJSON;
 		if (json['result'] == 'success') {
-			insert_search_post(4, json["search_result"]);
+			let output = remove_duplicated(4, json["search_result"]);
+			insert_search_post(4, output);
 			is_posts_done.a += 1;
 		} else {
 			is_posts_done.a += 1;
@@ -742,7 +747,7 @@ function before_posts(target_num, is_fav_cnt = 1) {
 	$("#board_info_text").text("검색 결과입니다!");
 	$("#board_info_board").empty();
 	$("#board_info_board").text("SOOJLE 엔진");
-	search_container_set();
+	//search_container_set();
 	insert_domain_post(domain_posts);
 	insert_search_post(0, a_jax_posts[0]);
 	insert_search_post(1, a_jax_posts[1]);
@@ -750,6 +755,26 @@ function before_posts(target_num, is_fav_cnt = 1) {
 	insert_search_post(3, a_jax_posts[3]);
 	insert_search_post(4, a_jax_posts[4]);
 	$("#posts_creating_loading").addClass("display_none");
+}
+// duplicative posts removed
+function remove_duplicated(target, posts) {
+	let output = [], index = [], post_one, i, j, posts_len = posts.length;
+	for (i = 0; i < posts_len; i++) index.push(0);
+	for (i = posts_len - 1; i >= 0; i--) {
+		for (j = i - 1; j >= 0; j--) {
+			if (posts[i]["_id"] == posts[j]["_id"]) {
+				index[i] = 1;
+				break;
+			} else if (posts[i]["similarity"] != posts[j]['similarity']){
+				break;
+			}
+		}
+	}
+	for (i = 0; i < posts_len; i++) {
+		if (index[i] == 1) continue;
+		output.push(posts[i]);
+	}
+	return output;
 }
 
 

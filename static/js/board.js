@@ -195,7 +195,7 @@ function Sign_in(){
 				}
 			});
 		} else if (a_jax.responseJSON['result'] == 'not sejong') {
-			Snackbar("올바르지않은 계정입니다.");
+			Snackbar("올바르지 않은 계정입니다.");
 			localStorage.removeItem('sj-state');
 
 		} else if (a_jax.responseJSON['result'] == 'incorrect pw') {

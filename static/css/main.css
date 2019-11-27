@@ -308,15 +308,21 @@ body {
 	min-height: 40px;
 	height: auto;
 	margin-top: 10px;
-	left: 50%;
-	transform: translate(-50%, 0);
-	-webkit-transform: translate(-50%, 0);
+	margin-left: 3%;
 	background-color: white;
 	border: 2px solid black;
 	border-radius: 5px;
 	transition: .2s ease;
 	-webkit-transition: .2s ease;
 	z-index: 40;
+}
+@media screen and (max-width: 1200px) {
+	.SJ_main_page1_search_list_box {
+		margin-left: 0;
+		left: 50%;
+		-webkit-transform: translate(-50%, 0);
+		transform: translate(-50%, 0);
+	}
 }
 @media screen and (max-width: 450px) {
 	.SJ_main_page1_search_list_box {
