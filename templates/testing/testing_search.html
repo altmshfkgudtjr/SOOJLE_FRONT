@@ -22,6 +22,19 @@
 	<link rel="stylesheet" type="text/css" href="/static/testing/pipline_demo5.css" />
 	<link rel="stylesheet" type="text/css" href="/static/testing/scroll_base.css" />
 	<link rel="stylesheet" type="text/css" href="/static/testing/scroll_demo1.css" />
+	<!-- Chart JS -- >
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" integrity="sha256-IvM9nJf/b5l2RoebiFno92E5ONttVyaEEsdemDC6iQA=" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js" integrity="sha256-arMsf+3JJK2LoTGqxfnuJPFTU4hAK57MtIPdFpiHXOU=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" integrity="sha256-IvM9nJf/b5l2RoebiFno92E5ONttVyaEEsdemDC6iQA=" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js" integrity="sha256-arMsf+3JJK2LoTGqxfnuJPFTU4hAK57MtIPdFpiHXOU=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
 	<!-- pipline -->
 	<script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
 </head>
@@ -36,8 +49,10 @@
 	<main style="position: relative; height: 750vh;">
 		<div class="content">
 			<div class="content__section">
-				<div class="content__link"><div class="content__img">
-					<img src="./static/image/introduce3.png" class="introduce_img noselect pointer">
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s">
+					<div class="introduce_img_cont">
+						<img src="./static/image/introduce3.png" class="introduce_img noselect pointer">
+					</div>
 					<div class="introduce_text_box">
 						<div class="introduce_subtitle">SOOJLE 검색 엔진</div>
 						<div class="introduce_title">세종인을 위한 차별화된 검색</div>
@@ -47,10 +62,10 @@
 				<h2 class="content__text">SOOJLE의 검색시스템</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img">
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s">
 					<div class="second_box">
 						<div class="typing_img"><img src="./static/testing/typing.png" class="typing_img_cont"></div>
-						<div class="typing_info">검색어를 입력해주세요.</div>
+						<div class="typing_info noselect">검색어를 입력해주세요.</div>
 						<div id="SJ_main_page1_search_container" class="SJ_main_page1_search_container">
 							<div id="SJ_main_page1_search_box" class="SJ_main_page1_search_box">
 								<input type="text" id="pc_search_input" class="SJ_main_page1_search_input" onkeyup="search_focus(event.keyCode)">
@@ -67,23 +82,30 @@
 				<h2 class="content__text">검색어 입력</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img"></div></div>
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="0s">
+					<div id="words_token_cont" class="words_token_cont"></div>
+					<div id="word_fasttext_cont" class="word_fasttext_cont"></div>
+				</div></div>
 				<h2 class="content__text">검색어 분석</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img"></div></div>
-				<h2 class="content__text">검색어 잠재의미 분석</h2>
+				<div class="content__link"><div class="chart-container content__img wow display_none" data-wow-duration="1.5s">
+					<div class="words_token_title noselect">연관도 Vector/수치화</div>
+					<div id="words__vector_chart" class="words__vector_chart"></div>
+					<div id="words__similarity_chart" class="words__similarity_chart"></div>
+				</div></div>
+				<h2 class="content__text">검색어 잠재의미 분석(%)</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img"></div></div>
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s"></div></div>
 				<h2 class="content__text">의미있는 검색결과 도출</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img"></div></div>
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s"></div></div>
 				<h2 class="content__text">검색결과 분류</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img"></div></div>
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s"></div></div>
 				<h2 class="content__text">검색결과 분류</h2>
 			</div>
 		</div>

@@ -173,7 +173,7 @@ function search_text(text) {
 	}
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
-	//search_container_set();
+	search_container_set();
 	now_topic = "검색 결과입니다!";
 	where_topic = "SOOJLE 엔진";
 	posts_update = 0;
@@ -277,11 +277,11 @@ function search_container_set() {
 	let target = $("#posts_target");
 	target.append(search_recommend_target);
 	target.append(domain_target);
-	target.append(ajax0_target);
-	target.append(ajax1_target);
-	target.append(ajax2_target);
-	target.append(ajax3_target);
-	target.append(ajax4_target);
+	//target.append(ajax0_target);
+	//target.append(ajax1_target);
+	//target.append(ajax2_target);
+	//target.append(ajax3_target);
+	//target.append(ajax4_target);
 }
 // 도메인 검색 결과를 해당 dive에 넣어줌
 function insert_domain_post(posts) {

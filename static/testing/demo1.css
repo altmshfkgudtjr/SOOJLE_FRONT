@@ -16,6 +16,7 @@
 .content__main {
 	color: var(--color-main-text);
 }
+
 .js .content__text::before {
 	content: '';
 	position: absolute;
@@ -29,6 +30,5 @@
 	left: 3vw; /*SOOJLE_REMIX*/
 	top: 50%; /*SOOJLE_REMIX*/
 	transform: translate(0, -50%); /*SOOJLE_REMIX*/
-	background: url("../../static/image/shortcut.jpg");
-	background-size: 2vw 2vw;
+	background: var(--color-link);
 }
