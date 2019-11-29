@@ -253,6 +253,12 @@ a.demo--current {
 	padding-left: 6vmax;
 	z-index: 1000;
 	line-height: 1;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-selecti: none;
 }
 
 .js .ioapi .content__text {
@@ -677,4 +683,41 @@ a.demo--current {
 	top: 50%;
 	float: right;
 	transform: translate(0, -50%);
+}
+
+
+.db_posts_cont {
+	position: relative;
+	width: 100%;
+	height: 10vw;
+	text-align: center;
+	color: white;
+	margin-left: auto;
+	margin-right: auto;
+}
+.count_subtitle {
+	position: relative;
+	width: auto;
+	height: 3vw;
+	opacity: .6;
+	font-size: 2vw;
+	line-height: 3vw;
+}
+.count {
+	position: relative;
+	width: auto;
+	text-align: right;
+	font-size: 6vw;
+	line-height: 7vw;
+	margin-right: 1vw;
+}
+.count_title {
+	position: relative;
+	width: auto;
+	text-align: left;
+	font-size: 5vw;
+	line-height: 7vw;
+	opacity: .6;
+	margin-left: 1vw;
+	bottom: 0.5vw;
 }

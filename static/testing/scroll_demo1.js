@@ -23,9 +23,23 @@
             this.DOM.title.letters.forEach(letter => letter.dataset.initial = letter.innerHTML);
             this.lettersTotal = this.DOM.title.letters.length;
             observer.observe(this.DOM.el);
-        } 
+        }
         enter(direction = 'down') {
             $(this.DOM.el.querySelector('.content__img')).removeClass("display_none").addClass("animated fadeInUp");
+            // number up function
+            if (this.DOM.el.querySelector('.content__img').classList.contains('database')) {
+                $('.count').each(function () {
+                    $(this).prop('Counter',0).animate({
+                        Counter: $(this).text()
+                    }, {
+                        duration: 2000,
+                        easing: 'swing',
+                        step: function (now) {
+                            $(this).text(Math.ceil(now));
+                        }
+                    });
+                });
+            }
             this.DOM.title.word.style.opacity = 1;
             
             this.timeouts = [];

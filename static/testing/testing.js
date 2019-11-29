@@ -265,7 +265,7 @@ function word_similarity_display(words_array) {
 	}
 	que_id = "_bar";
 	target2 = $("#words__similarity_chart");
-	target2.empty().append('<canvas id="hist'+que_id+'"" width="auto" height="auto"></canvas>');
+	target2.empty().append('<canvas id="hist_bar" width="auto" height="auto"></canvas>');
 	hist(
 		"hist"+que_id, //해당 캔버스 아이디
 		"", // 없으면 ""
@@ -276,13 +276,13 @@ function word_similarity_display(words_array) {
 		20,  // 라벨 폰트
 		"#00000" // 모든 글씨 색깔
 	);
-	polar_area("area"+vector_id);
+	target3 = $("#words__vector_chart");
+	target3.empty().append('<canvas id="area_vector" width="auto" height="auto"></canvas>');
+	polar_area("area_vector");
 }
 // Input chart
 let que_id = "_bar", vector_id = "_vector";
 let target2 = $("#words__similarity_chart"), target3 = $("#words__vector_chart");
-target2.append('<canvas id="hist'+que_id+'"" width="auto" height="auto"></canvas>');
-target3.append('<canvas id="area'+vector_id+'"" width="auto" height="auto"></canvas>');
 // chart js
 var myChart1, myChart2;
 Chart.defaults.global.defaultFontSize = 20;
@@ -414,37 +414,6 @@ function polar_area(id_) {
 					'#5900ff',
 					'#c300ff',
 					'#ff00c8'
-					/*
-					'#ffa6a6',
-					'#fab055',
-					'#f7eda8',
-					'#92d687',
-					'#4edcf2',
-					'#6998ff',
-					'#aa80ff',
-					'#f0adea',
-					'#e8dce2',
-					'#9dfcdc',
-					'#ffa6a6',
-					'#fab055',
-					'#f7eda8',
-					'#92d687',
-					'#4edcf2',
-					'#6998ff',
-					'#aa80ff',
-					'#f0adea',
-					'#e8dce2',
-					'#9dfcdc',
-					'#ffa6a6',
-					'#fab055',
-					'#f7eda8',
-					'#92d687',
-					'#4edcf2',
-					'#6998ff',
-					'#aa80ff',
-					'#f0adea',
-					'#e8dce2',
-					'#9dfcdc'*/
 				],
 				borderColor: 'rgba(0,0,0,1)'
 			}],
@@ -519,3 +488,17 @@ function polar_area(id_) {
 		}
 	});
 }
+
+
+
+// $('.count').each(function () {
+//     $(this).prop('Counter',0).animate({
+//         Counter: $(this).text()
+//     }, {
+//         duration: 4000,
+//         easing: 'swing',
+//         step: function (now) {
+//             $(this).text(Math.ceil(now));
+//         }
+//     });
+// });
