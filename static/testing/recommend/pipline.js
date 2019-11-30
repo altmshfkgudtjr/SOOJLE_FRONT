@@ -184,7 +184,7 @@ function draw() {
 }
 
 /*GPU used : PAUSE*/
-//window.addEventListener('load', setup);
+window.addEventListener('load', setup);
 window.addEventListener('resize', resize);
 
 //svg_restart();
