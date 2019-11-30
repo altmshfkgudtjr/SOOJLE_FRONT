@@ -22,45 +22,68 @@
 	<link rel="stylesheet" type="text/css" href="/static/testing/pipline_demo5.css" />
 	<link rel="stylesheet" type="text/css" href="/static/testing/scroll_base.css" />
 	<link rel="stylesheet" type="text/css" href="/static/testing/scroll_demo1.css" />
+	<link rel="stylesheet" type="text/css" href="/static/testing/recommend.css">
+	<!-- Chart JS -- >
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" integrity="sha256-IvM9nJf/b5l2RoebiFno92E5ONttVyaEEsdemDC6iQA=" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js" integrity="sha256-arMsf+3JJK2LoTGqxfnuJPFTU4hAK57MtIPdFpiHXOU=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" integrity="sha256-IvM9nJf/b5l2RoebiFno92E5ONttVyaEEsdemDC6iQA=" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js" integrity="sha256-arMsf+3JJK2LoTGqxfnuJPFTU4hAK57MtIPdFpiHXOU=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
 	<!-- pipline -->
 	<script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
 </head>
 <body class="demo-1 loading">
 	<main>
 		<div class="content content--canvas">
-			<img class="content__title" src="static/image/SOOJLE_LOGO_BIG_BLACK.png">
-			<div class="content__title_sub noselect">추천시스템</div>
+			<img class="content__title pointer" src="static/image/SOOJLE_LOGO_BIG.png" onclick="moveToinfo(1)">
+			<div class="content__title_sub noselect">추천 시스템</div>
 		</div>
 	</main>
 
 	<main style="position: relative; height: 750vh;">
 		<div class="content">
 			<div class="content__section">
-				<div class="content__link"><div class="content__img"></div></div>
-				<h2 class="content__text">세사봉</h2>
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s">
+					<div class="introduce_img_cont">
+						<img src="./static/testing/recommend.png" class="introduce_img noselect pointer" onclick="moveToinfo(2);">
+					</div>
+					<div class="introduce_text_box">
+						<div class="introduce_subtitle">SOOJLE 인공지능</div>
+						<div class="introduce_title">세종인을 위한 맞춤화 된 추천</div>
+						<div class="introduce_post">SOOJLE은 우리 세종인들이 관심을 가질만한 정보에 초점을 두고 있습니다. 또한 사용자의 관심지표를 분석하여, 보다 유용한 정보를 제공합니다.</div>
+					</div>
+				</div></div>
+				<h2 class="content__text">SOOJLE의 추천시스템</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img"></div></div>
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s"></div></div>
 				<h2 class="content__text">SOOJLE AI</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img"></div></div>
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s"></div></div>
 				<h2 class="content__text">SOOJLE 검색 엔진</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img"></div></div>
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s"></div></div>
 				<h2 class="content__text">SOOJLE 빅데이터</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img"></div></div>
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s"></div></div>
 				<h2 class="content__text">결과입니다.</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img"></div></div>
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s"></div></div>
 				<h2 class="content__text">결과2입니다.</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img"></div></div>
+				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s"></div></div>
 				<h2 class="content__text">마지막입니다.</h2>
 			</div>
 		</div>
@@ -96,8 +119,9 @@
 <script src="/static/js/main.js"></script>
 <script src="/static/testing/noise.min.js"></script>
 <script src="/static/testing/util.js"></script>
-<script src="/static/testing/pipeline.js"></script>
+<script src="/static/testing/recommend/pipline.js"></script>
 <script src="/static/testing/imagesloaded.pkgd.min.js"></script>
 <script src="/static/testing/charming.min.js"></script>
 <script src="/static/testing/scroll_demo1.js"></script>
+<script src="/static/testing/recommend.js"></script>
 </html>
