@@ -33,10 +33,6 @@ function search_text(text) {
 	let a_jax_wordanalysis = A_JAX("http://"+host_ip+"/simulation_tokenizer", "POST", null, send_data);
 	let a_jax_recommend = A_JAX("http://"+host_ip+"/get_similarity_words", "POST", null, send_data);
 	let a_jax0 = A_JAX("http://"+host_ip+"/priority_search/200", "POST", null, send_data);
-	let a_jax1 = A_JAX("http://"+host_ip+"/category_search/1/200", "POST", null, send_data);
-	let a_jax2 = A_JAX("http://"+host_ip+"/category_search/2/200", "POST", null, send_data);
-	let a_jax3 = A_JAX("http://"+host_ip+"/category_search/3/200", "POST", null, send_data);
-	let a_jax4 = A_JAX("http://"+host_ip+"/category_search/4/200", "POST", null, send_data);
 	$.when(a_jax_wordanalysis).done(function () {
 		let json = a_jax_wordanalysis.responseJSON;
 		if (json['result'] == 'success') {
@@ -44,7 +40,7 @@ function search_text(text) {
 		} else {
 			Snackbar("다시 접속해주세요!");
 		}
-	});
+	})
 	$.when(a_jax_recommend).done(function () {
 		let json = a_jax_recommend.responseJSON;
 		if (json['result'] == 'success') {
@@ -58,50 +54,6 @@ function search_text(text) {
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(0, json["search_result"]);
 			insert_search_post(0, output);
-			is_posts_done.a += 1;
-		} else {
-			is_posts_done.a += 1;
-			Snackbar("다시 접속해주세요!");
-		}
-	});
-	$.when(a_jax1).done(function () {
-		let json = a_jax1.responseJSON;
-		if (json['result'] == 'success') {
-			let output = remove_duplicated(1, json["search_result"]);
-			insert_search_post(1, output);
-			is_posts_done.a += 1;
-		} else {
-			is_posts_done.a += 1;
-			Snackbar("다시 접속해주세요!");
-		}
-	});
-	$.when(a_jax2).done(function () {
-		let json = a_jax2.responseJSON;
-		if (json['result'] == 'success') {
-			let output = remove_duplicated(2, json["search_result"]);
-			insert_search_post(2, output);
-			is_posts_done.a += 1;
-		} else {
-			is_posts_done.a += 1;
-			Snackbar("다시 접속해주세요!");
-		}
-	});
-	$.when(a_jax3).done(function () {
-		let json = a_jax3.responseJSON;
-		if (json['result'] == 'success') {
-			let output = remove_duplicated(3, json["search_result"]);
-			insert_search_post(3, output);
-			is_posts_done.a += 1;
-		} else {
-			is_posts_done.a += 1;
-			Snackbar("다시 접속해주세요!");
-		}
-	});
-	$.when(a_jax4).done(function () {
-		let json = a_jax4.responseJSON;
-		if (json['result'] == 'success') {
-			let output = remove_duplicated(4, json["search_result"]);
-			insert_search_post(4, output);
 			is_posts_done.a += 1;
 		} else {
 			is_posts_done.a += 1;
@@ -130,8 +82,55 @@ function remove_duplicated(target, posts) {
 	}
 	return output;
 }
+// yyyyMMddHHmmss 형태로 포멧팅하여 날짜 반환
+Date.prototype.SetTime = function()
+{
+    let yyyy = this.getFullYear().toString();
+    let MM = (this.getMonth() + 1).toString();
+    let dd = this.getDate().toString();
+    this.setHours(this.getHours() - 9);
+    let HH = this.getHours().toString();
+    let mm = this.getMinutes().toString();
+    let ss = this.getSeconds().toString();
+    return yyyy + "." + (MM[1] ? MM : '0'+ MM[0]) + "." + (dd[1] ? dd : '0'+ dd[0]) + " " +
+    		(HH[1] ? HH : '0'+ HH[0]) + ":" + (mm[1] ? mm : '0'+mm[0]) + ":" + (ss[1] ? ss : '0'+ss[0]);
+}
+var post_tags_search = [];
+var post_tags_percent = [];
 function insert_search_post(target, posts) {
+	post_tags_search.push($("#post1"));
+	post_tags_search.push($("#post2"));
+	post_tags_search.push($("#post3"));
+	post_tags_search.push($("#post4"));
+	post_tags_search.push($("#post5"));
+	let date1 = new Date(posts[0]["date"]).SetTime(),
+		date2 = new Date(posts[1]["date"]).SetTime(),
+		date3 = new Date(posts[2]["date"]).SetTime(),
+		date4 = new Date(posts[3]["date"]).SetTime(),
+		date5 = new Date(posts[4]["date"]).SetTime();
+	let dates = [];
+	dates.push(date1);
+	dates.push(date2);
+	dates.push(date3);
+	dates.push(date4);
+	dates.push(date5);
+	posts = posts.slice(0,5);
+	let standard = 100/posts[0]["similarity"];
+	for (let i = 0; i< 5; i++) {
+		post_tags_percent.push(posts[i]["similarity"]);
+		let tag = `<div class="view_post_title">${posts[i]["title"]}</div>
+						<a href="${posts[i]["url"]}" target="_blank"><div class="view_post_url">${posts[i]["url"]}</div></a>
+						<div class="view_post_time">${dates[i]}</div>
+						<div class="progress" data-label="${posts[i]["similarity"]*standard-5}%">
+						<span class="value" style="width: 0%;"></span>
+					</div>`;
+		post_tags_search[i].empty();
+		post_tags_search[i].append(tag);
+	}
 	
+	for (let i =0; i < 5; i++) {
+		post_tags_percent[i] *= standard;
+	}
 }
 
 
@@ -164,30 +163,10 @@ let is_posts_there = {
 	}
 }
 is_posts_done.registerListener(function(val) {
-	if (val == 5) {
+	if (val == 1) {
 		// 로딩 제거
 		is_searching = 0;
-		let token = localStorage.getItem('sj-state');
-		if (token == null || token == undefined || token == 'undefined') {} 
-		else {
-			a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-			$.when(a_jax).done(function () {
-				if (a_jax.responseJSON['result'] == 'success') {
-					let posts = $(".post_block");
-					let post_one;
-					for (post_one of posts) {
-						for (let fav_post of a_jax.responseJSON["user_fav_list"]) {
-							if ($(post_one).attr("p-id") == fav_post["_id"]) {
-								$(post_one).children('div').children('div.post_like').css("color", "#f00730");
-								$(post_one).children('div').children('div.post_like').attr("ch", "1");
-							}
-						}
-					}
-				} else {
-					localStorage.removeItem('sj-state');
-				}
-			});
-		}
+		moveToinfo(3);
 		$("#posts_creating_loading").addClass("display_none");
 	}
 });
@@ -263,32 +242,25 @@ function word_similarity_display(words_array) {
 		chart_title.push(Object.keys(output[i])[0]);
 		chart_number.push(Object.values(output[i])[0]*100);
 	}
-	que_id = "_bar";
 	target2 = $("#words__similarity_chart");
 	target2.empty().append('<canvas id="hist_bar" width="auto" height="auto"></canvas>');
-	hist(
-		"hist"+que_id, //해당 캔버스 아이디
-		"", // 없으면 ""
-		chart_title, //레이블
-		chart_number,               // 각 레이블의 값
-		"#222222",
-		30,  // 제목폰트
-		20,  // 라벨 폰트
-		"#00000" // 모든 글씨 색깔
-	);
+	// hist(
+	// 	"hist_bar", //해당 캔버스 아이디
+	// 	chart_title, //레이블
+	// 	chart_number,               // 각 레이블의 값
+	// );
 	target3 = $("#words__vector_chart");
 	target3.empty().append('<canvas id="area_vector" width="auto" height="auto"></canvas>');
-	polar_area("area_vector");
+	//polar_area("area_vector");
 }
 // Input chart
-let que_id = "_bar", vector_id = "_vector";
 let target2 = $("#words__similarity_chart"), target3 = $("#words__vector_chart");
 // chart js
 var myChart1, myChart2;
 Chart.defaults.global.defaultFontSize = 20;
 Chart.defaults.global.defaultFontColor = 'white';
 Chart.defaults.global.defaultFontFamily = "'AppleSdNeo'";
-function hist(id_, title_, labels_, data_, bgcolor_, tfsize_, lfsize_, fcolor_) {
+function hist(id_, labels_, data_) {
     var ctx = document.getElementById(id_);
     myChart1 = new Chart(ctx, {
         type: 'horizontalBar',
@@ -337,12 +309,15 @@ function hist(id_, title_, labels_, data_, bgcolor_, tfsize_, lfsize_, fcolor_) 
         			fontColor: "white",
         			barThickness: 30
         		}]
-        	}
+        	},
+        	animation: {
+				duration: 2000
+			}
         }
     });
 }
 var randomScalingFactor = function() {
-	return Math.round(Math.random() * 100);
+	return Math.random() * 100;
 };
 function polar_area(id_) {
 	var ctx2 = document.getElementById(id_);
@@ -483,22 +458,15 @@ function polar_area(id_) {
 			},
 			animation: {
 				animateRotate: false,
-				animateScale: true
+				animateScale: true,
+				duration: 2000
 			}
 		}
 	});
 }
 
 
-
-// $('.count').each(function () {
-//     $(this).prop('Counter',0).animate({
-//         Counter: $(this).text()
-//     }, {
-//         duration: 4000,
-//         easing: 'swing',
-//         step: function (now) {
-//             $(this).text(Math.ceil(now));
-//         }
-//     });
-// });
+function moveToinfo(num) {
+	let target_offset = $(`div.content__section:nth-child(${num})`).offset().top;
+	$('html,body').animate({scrollTop: target_offset}, 1000);
+}

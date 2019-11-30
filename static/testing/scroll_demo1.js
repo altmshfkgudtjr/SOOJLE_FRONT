@@ -40,8 +40,25 @@
                     });
                 });
             }
+            // chart js reload
+            if (this.DOM.el.querySelector('.content__img').classList.contains('chart-container')) {
+                hist(
+                    "hist_bar", //해당 캔버스 아이디
+                    chart_title, //레이블
+                    chart_number,               // 각 레이블의 값
+                );
+                polar_area("area_vector");
+            }
+            // post similarity reload
+            if (this.DOM.el.querySelector('.content__img').classList.contains('post-percent-view')) {
+                for (let i = 0; i < 5; i++) {
+                    post_tags_search[i].children(".progress").children('span').css("width", `${post_tags_percent[i]}%`);
+                }
+            }
+
+
+
             this.DOM.title.word.style.opacity = 1;
-            
             this.timeouts = [];
             this.complete = false;
             let cnt = 0;

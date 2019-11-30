@@ -41,7 +41,7 @@
 <body class="demo-1 loading">
 	<main>
 		<div class="content content--canvas">
-			<img class="content__title" src="static/image/SOOJLE_LOGO_BIG_BLACK.png">
+			<img class="content__title pointer" src="static/image/SOOJLE_LOGO_BIG_BLACK.png" onclick="moveToinfo(1);">
 			<div class="content__title_sub noselect">검색 엔진</div>
 		</div>
 	</main>
@@ -51,7 +51,7 @@
 			<div class="content__section">
 				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s">
 					<div class="introduce_img_cont">
-						<img src="./static/image/introduce3.png" class="introduce_img noselect pointer">
+						<img src="./static/image/introduce3.png" class="introduce_img noselect pointer" onclick="moveToinfo(2);">
 					</div>
 					<div class="introduce_text_box">
 						<div class="introduce_subtitle">SOOJLE 검색 엔진</div>
@@ -82,7 +82,7 @@
 				<h2 class="content__text">검색어 입력</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="0s">
+				<div class="content__link"><div class="content__img wow display_none pointer" data-wow-duration="0s" onclick="moveToinfo(4)">
 					<div id="words_token_cont" class="words_token_cont"></div>
 					<div id="word_fasttext_cont" class="word_fasttext_cont"></div>
 				</div></div>
@@ -90,7 +90,7 @@
 			</div>
 			<div class="content__section">
 				<div class="content__link"><div class="chart-container content__img wow display_none" data-wow-duration="1.5s">
-					<div class="words_token_title noselect">연관도 Vector/수치화</div>
+					<div class="words_token_title pointer noselect" onclick="moveToinfo(5)">연관도 Vector/수치화</div>
 					<div id="words__vector_chart" class="words__vector_chart"></div>
 					<div id="words__similarity_chart" class="words__similarity_chart"></div>
 				</div></div>
@@ -103,16 +103,27 @@
 						<span class="count">311073</span>
 						<span class="count_title">게시글</span>
 					</div>
+					<div class="count_image_cont pointer" onclick="moveToinfo(6)"><img src="./static/testing/AI.gif" class="count_image"></div>
 				</div></div>
 				<h2 class="content__text">의미있는 검색결과 도출</h2>
 			</div>
 			<div class="content__section">
-				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s"></div></div>
-				<h2 class="content__text">검색결과 분류</h2>
-			</div>
-			<div class="content__section">
-				<div class="content__link"><div class="content__img wow display_none" data-wow-duration="1.5s"></div></div>
-				<h2 class="content__text">검색결과 분류</h2>
+				<div class="content__link"><div class="content__img wow display_none post-percent-view" data-wow-duration="1.5s">
+					<div class="view_posts_cont">
+						<div class="view_menu">
+							<img src="./static/testing/menu.png" class="view_menu_img">
+						</div>
+						<div id="view_target" class="view_target">
+							<div id="post1" class="view_posts noselect"></div>
+							<div id="post2" class="view_posts noselect"></div>
+							<div id="post3" class="view_posts noselect"></div>
+							<div id="post4" class="view_posts noselect"></div>
+							<div id="post5" class="view_posts noselect"></div>
+
+						</div>
+					</div>
+				</div></div>
+				<h2 class="content__text">검색 결과</h2>
 			</div>
 		</div>
 	</main>
