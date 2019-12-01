@@ -121,7 +121,7 @@ function insert_search_post(target, posts) {
 		let tag = `<div class="view_post_title">${posts[i]["title"]}</div>
 						<a href="${posts[i]["url"]}" target="_blank"><div class="view_post_url">${posts[i]["url"]}</div></a>
 						<div class="view_post_time">${dates[i]}</div>
-						<div class="progress" data-label="${posts[i]["similarity"]*standard-5}%">
+						<div class="progress" data-label="${(posts[i]["similarity"]*standard-5).toFixed(3)}%">
 						<span class="value" style="width: 0%;"></span>
 					</div>`;
 		post_tags_search[i].empty();
