@@ -57,7 +57,6 @@
             }
 
 
-
             this.DOM.title.word.style.opacity = 1;
             this.timeouts = [];
             this.complete = false;

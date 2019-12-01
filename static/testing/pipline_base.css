@@ -44,7 +44,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 *,
 *::after,
 *::before {
-	font-family: 'AppleSdNeo', 'sans-serif' !important;
 	box-sizing: border-box;
 	-webkit-tap-highlight-color: transparent;/*SOOJLE_REMIX*/
 }

@@ -470,3 +470,12 @@ function moveToinfo(num) {
 	let target_offset = $(`div.content__section:nth-child(${num})`).offset().top;
 	$('html,body').animate({scrollTop: target_offset}, 1000);
 }
+
+function page_reload() {
+	$('html, body').animate({
+		scrollTop: 0
+	}, 1000);
+	setTimeout(function() {
+		location.reload();
+	}, 1000);
+}
