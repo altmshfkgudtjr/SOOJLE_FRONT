@@ -505,6 +505,7 @@ function creating_post(posts, is_fav_cnt = 1) {
 3 : 검색
 */
 function get_user_like_posts() {
+	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
 	now_topic = "관심 게시글";
@@ -541,6 +542,7 @@ function get_user_like_posts() {
 	});
 }
 function get_user_view_posts() {
+	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
 	now_topic = "최근 본 게시글";
