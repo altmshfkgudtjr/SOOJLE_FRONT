@@ -159,6 +159,9 @@ function search_result_click(tag) {
 let domain_posts = [];
 let a_jax_posts = [];
 function search_text(text) {
+	// 좌측 메뉴 버그 수정 fixed
+	$("#menu_container").addClass("menu_container_searching");
+	$("#menu_container").removeAttr("style");
 	// 현재 검색 중이면 차단
 	if (is_searching == 1) return;
 	is_searching = 1;
@@ -497,6 +500,10 @@ function insert_search_post(target_num, posts, is_fav_cnt = 1) {
 	else {more = `<div class="sr_more" onclick="more_posts(${target_num})">더 보기</div>`;}
 	target_tag = target_tag + more + line;
 	target.append(target_tag);
+	if (w > 1200) {
+		$("#menu_container").removeClass("menu_container_searching");
+		setTimeout(function() {$("#menu_container").css({"transition": ".2s ease-in-out"});}, 200);
+	}
 }
 
 // Recommend words inserting
@@ -552,6 +559,8 @@ function more_posts(target_num, is_fav_cnt = 1) {
 	window.scroll(0, 0);
 	$("#posts_creating_loading").removeClass("display_none");
 	setTimeout(function() {
+		$("#menu_container").addClass("menu_container_searching");
+		$("#menu_container").removeAttr("style");
 		let target_name;
 		if (Number(target_num) == 0) {target_name = "최근 트렌드";}
 		else if (Number(target_num) == 1) {target_name = "진로&구인";}
@@ -737,10 +746,16 @@ function more_posts(target_num, is_fav_cnt = 1) {
 			});
 		}
 		$("#posts_creating_loading").addClass("display_none");
+		setTimeout(function() {
+			if (w > 1200) {
+				$("#menu_container").removeAttr("style").removeClass("menu_container_searching");
+			}
+		}, 1000);
 	}, 1000);
 }
 // back to search selection page
 function before_posts(target_num, is_fav_cnt = 1) {
+	is_posts_there.a = 0;
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
 	$("#board_info_text").empty();
@@ -807,6 +822,7 @@ let is_posts_there = {
 	}
 }
 is_posts_done.registerListener(function(val) {
+	// fixed 제거 sticky으로 변경
 	if (val == 6) {
 		// 로딩 제거
 		is_searching = 0;

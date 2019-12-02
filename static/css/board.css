@@ -504,17 +504,21 @@ html {
 	height: auto;
 	min-height: 100px;
 	background-color: rgba(0,0,0,0);
-	transition: .2s ease-in-out;
 }
 @media screen and (min-width: 1200px) {
 	.menu_container {
-		position: fixed;
+		position: sticky;
+		margin-top: -570px;
+		margin-bottom: 140px;
 		top: 90px;
 	}
 }
 .menu_container_fixed {
-	top: 10px;
+	margin-top: -5px;
+}
+.menu_container_searching {
 	position: fixed;
+	margin-top: 0;
 }
 .menu_container_title {
 	position: relative;

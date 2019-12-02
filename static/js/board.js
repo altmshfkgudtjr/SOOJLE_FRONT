@@ -311,3 +311,7 @@ function Logout() {
 	localStorage.removeItem("sj-state");
 	location.reload();
 }
+function pageUp() {
+	scroll(0,0);
+	$("#pc_search_input").focus();
+}

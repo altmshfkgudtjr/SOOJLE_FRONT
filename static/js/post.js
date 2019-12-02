@@ -16,6 +16,8 @@ var where_topic;
 
 // 추천 뉴스피드 불러오기 함수
 function get_recommend_posts(is_first = 0) {
+	// 좌측 메뉴 버그 수정 fixed
+	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
 	$("#pc_search_input").val("");
@@ -48,6 +50,8 @@ function get_recommend_posts(is_first = 0) {
 }
 // 인기 뉴스피드 불러오기 함수
 function get_popularity_posts() {
+	// 좌측 메뉴 버그 수정 fixed
+	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
 	$("#pc_search_input").val("");
@@ -76,6 +80,8 @@ function get_popularity_posts() {
 }
 // 토픽별 뉴스피드 불러오기 함수
 function get_topic_posts(tag) {
+	// 좌측 메뉴 버그 수정 fixed
+	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
 	$("#pc_search_input").val("");
@@ -109,9 +115,9 @@ let now_creating = 0;
 $(document).scroll(function() {
 	let w = $(document).width();
 	if (w > 1200 && $(window).scrollTop() > 60) {
-		$("#menu_container").css("top", "30px");
+		$("#menu_container").css({"top": "30px", "transition": ".2s ease-in-out"});
 	} else if (w > 1200 && $(window).scrollTop() < 60) {
-		$("#menu_container").removeAttr("style");
+		$("#menu_container").removeAttr("style").css("transition", ".2s ease-in-out");
 	}
 	if (where_topic == "뉴스피드"){
 		if ($(window).scrollTop() + $(window).height() >= $(document).height()- 400){
@@ -278,9 +284,7 @@ function post_view(tag) {
 				if (json['result'] == 'success') {
 					/* 토픽별 뉴스피드 불러오기 성공 */
 				} else if (json['result'] == 'fail') {
-					Snackbar("포스트 조회수 안 올라감."); // 지울 것
 				} else {
-					Snackbar("포스트 조회수 안 올라감. 다른 이유") // 지울 것
 				}
 			});
 		}
@@ -481,6 +485,7 @@ function creating_post(posts, is_fav_cnt = 1) {
 			}
 		});
 	}
+	$("#menu_container").removeClass("menu_container_fixed");
 	$("#posts_creating_loading").addClass("display_none");
 }
 	
