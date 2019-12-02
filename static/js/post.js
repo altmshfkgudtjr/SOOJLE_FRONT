@@ -112,12 +112,18 @@ function get_topic_posts(tag) {
 	});
 }
 let now_creating = 0;
+let header_scrolling = 0;
 $(document).scroll(function() {
 	let w = $(document).width();
 	if (w > 1200 && $(window).scrollTop() > 60) {
-		$("#menu_container").css({"top": "30px", "transition": ".2s ease-in-out"});
+		if (header_scrolling == 0) {
+			$("#menu_container").css({"top": "30px", "transition": ".2s ease-in-out"});	
+			header_scrolling = 1;
+		}
+		setTimeout(function() {$("#menu_container").css("transition", "0s ease-in-out")}, 400);
 	} else if (w > 1200 && $(window).scrollTop() < 60) {
 		$("#menu_container").removeAttr("style").css("transition", ".2s ease-in-out");
+		header_scrolling = 0;
 	}
 	if (where_topic == "뉴스피드"){
 		if ($(window).scrollTop() + $(window).height() >= $(document).height()- 400){
@@ -486,6 +492,7 @@ function creating_post(posts, is_fav_cnt = 1) {
 		});
 	}
 	$("#menu_container").removeClass("menu_container_fixed");
+	$("#menu_container").removeAttr("style");
 	$("#posts_creating_loading").addClass("display_none");
 }
 	
