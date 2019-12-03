@@ -197,7 +197,6 @@ function search_text(text) {
 		if (json['result'] == 'success') {
 			domain_posts = json["search_result"];
 			insert_domain_post(json["search_result"]);
-			is_posts_done.a += 1;
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -208,7 +207,6 @@ function search_text(text) {
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(0, json["search_result"]);
 			insert_search_post(0, output);
-			is_posts_done.a += 1;
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -219,7 +217,6 @@ function search_text(text) {
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(1, json["search_result"]);
 			insert_search_post(1, output);
-			is_posts_done.a += 1;
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -230,7 +227,6 @@ function search_text(text) {
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(2, json["search_result"]);
 			insert_search_post(2, output);
-			is_posts_done.a += 1;
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -241,7 +237,6 @@ function search_text(text) {
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(3, json["search_result"]);
 			insert_search_post(3, output);
-			is_posts_done.a += 1;
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -252,7 +247,6 @@ function search_text(text) {
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(4, json["search_result"]);
 			insert_search_post(4, output);
-			is_posts_done.a += 1;
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -288,6 +282,7 @@ function search_container_set() {
 }
 // 도메인 검색 결과를 해당 dive에 넣어줌
 function insert_domain_post(posts) {
+	is_posts_done.a += 1;
 	let id, title, phara, url, post_one, domain_block;
 	let target = $("#sr_dt");
 	let domain_tag = `
@@ -329,6 +324,7 @@ function insert_domain_post(posts) {
 */
 // 검색 결과를 해당 div에 넣어줌
 function insert_search_post(target_num, posts, is_fav_cnt = 1) {
+	is_posts_done.a += 1;
 	a_jax_posts[target_num] = posts;	// posts 저장
 	let posts_len = posts.length;
 	posts = posts.slice(0,5); // 미리보기는 5개까지만 보여줌
@@ -556,6 +552,7 @@ function recommend_word_click(tag) {
 // a_jax_posts[i] 0, 1, 2, 3, 4
 // more posts function
 function more_posts(target_num, is_fav_cnt = 1) {
+	is_posts_done.a = 1;
 	window.scroll(0, 0);
 	$("#posts_creating_loading").removeClass("display_none");
 	setTimeout(function() {
@@ -723,28 +720,30 @@ function more_posts(target_num, is_fav_cnt = 1) {
 				}
 			}
 		}, 600);
-		// 로딩 제거
-		let token = localStorage.getItem('sj-state');
-		if (token == null || token == undefined || token == 'undefined') {} 
-		else {
-			a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-			$.when(a_jax).done(function () {
-				if (a_jax.responseJSON['result'] == 'success') {
-					let posts = $(".post_block");
-					let post_one;
-					for (post_one of posts) {
-						for (let fav_post of a_jax.responseJSON["user_fav_list"]) {
-							if ($(post_one).attr("p-id") == fav_post["_id"]) {
-								$(post_one).children('div').children('div.post_like').css("color", "#f00730");
-								$(post_one).children('div').children('div.post_like').attr("ch", "1");
+		setTimeout(function() {
+			// 로딩 제거
+			let token = localStorage.getItem('sj-state');
+			if (token == null || token == undefined || token == 'undefined') {} 
+			else {
+				a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
+				$.when(a_jax).done(function () {
+					if (a_jax.responseJSON['result'] == 'success') {
+						let posts = $(".post_block");
+						let post_one;
+						for (post_one of posts) {
+							for (let fav_post of a_jax.responseJSON["user_fav_list"]) {
+								if ($(post_one).attr("p-id") == fav_post["_id"]) {
+									$(post_one).children('div').children('div.post_like').css("color", "#f00730");
+									$(post_one).children('div').children('div.post_like').attr("ch", "1");
+								}
 							}
 						}
+					} else {
+						localStorage.removeItem('sj-state');
 					}
-				} else {
-					localStorage.removeItem('sj-state');
-				}
-			});
-		}
+				});
+			}
+		}, 700);
 		$("#posts_creating_loading").addClass("display_none");
 		setTimeout(function() {
 			if (w > 1200) {
@@ -825,7 +824,6 @@ is_posts_done.registerListener(function(val) {
 	// fixed 제거 sticky으로 변경
 	if (val == 6) {
 		// 로딩 제거
-		is_searching = 0;
 		let token = localStorage.getItem('sj-state');
 		if (token == null || token == undefined || token == 'undefined') {} 
 		else {
@@ -847,6 +845,7 @@ is_posts_done.registerListener(function(val) {
 				}
 			});
 		}
+		is_searching = 0;
 		$("#posts_creating_loading").addClass("display_none");
 	}
 });
