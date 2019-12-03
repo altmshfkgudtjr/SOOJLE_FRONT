@@ -33,7 +33,7 @@ function setup() {
 }
 
 function delete_canvas() {
-  $("canvas").remove();
+  $("canvas#pipline_canvas").remove();
 }
 
 function initPipes() {
@@ -121,6 +121,7 @@ function createCanvas() {
     a: document.createElement('canvas'),
     b: document.createElement('canvas')
   };
+  canvas.b.id = "pipline_canvas";
   canvas.b.style = `
     position: relative;
     top: 0;

@@ -195,13 +195,15 @@ function recommend() {
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
 		if (json['result'] == 'success') {
-			$("#user_lda_cont").append(`<canvas id="user_lda_content" class="chart_plus" width="auto" height="auto"></canvas>`);
-			$("#user_fasttext_cont").append(`<canvas id="user_fasttext_content" class="chart_plus" width="auto" height="auto"></canvas>`);
-			lda_list = json['user']['topic'];
-			recommend_lda_chart(json['user']['topic']);
-			fasttext_list = json['user']['ft_vector'];
-			recommend_fasttext_chart(json['user']['ft_vector']);
-			recommend_tag_chart(json['user']['tag']);
+			setTimeout(function() {
+				$("#user_lda_cont").append(`<canvas id="user_lda_content" class="chart_plus" width="auto" height="auto"></canvas>`);
+				$("#user_fasttext_cont").append(`<canvas id="user_fasttext_content" class="chart_plus" width="auto" height="auto"></canvas>`);
+				lda_list = json['user']['topic'];
+				recommend_lda_chart(json['user']['topic']);
+				fasttext_list = json['user']['ft_vector'];
+				recommend_fasttext_chart(json['user']['ft_vector']);
+				recommend_tag_chart(json['user']['tag']);
+			}, 500);
 			$("#recommend_analysis_element_introduce").text(`${json['user']['user_id']} ${json['user']['user_name']}`);
 		} else {
 			Snackbar("다시 접속해주세요!");
