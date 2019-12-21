@@ -149,12 +149,17 @@ function auto_login() {
 		get_recommend_posts(1);
 		return;
 	} else {
+		sessionStorage.setItem('sj-state', localStorage.getItem('sj-state'));
 		a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
 		$.when(a_jax).done(function () {
 			if (a_jax.responseJSON['result'] == 'success') {
 				After_login(a_jax.responseJSON);
-			} else {
+			} else if (a_jax['status'].toString().startswith('4')) {
+				Snackbar("올바르지 않은 접근입니다.");
+				sessionStorage.removeItem('sj-state');
 				localStorage.removeItem('sj-state');
+			} else {
+				Snackbar("통신이 원활하지 않습니다.");
 			}
 		});
 	}
@@ -179,34 +184,46 @@ function Sign_in(){
 		$("#loading_modal").addClass("loading_modal_unvisible");
 		if (a_jax.responseJSON['result'] == 'success') {
 			let token = a_jax.responseJSON['access_token'];
-			localStorage.setItem('sj-state', token);
+			sessionStorage.setItem('sj-state', token);
 			a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
 			$.when(a_jax).done(function () {
 				if (a_jax.responseJSON['result'] == 'success') {
 					Snackbar("맞춤 서비스를 시작합니다.");
 					$("#user_id").val("");
 					$("#user_pw").val("");
+					if (a_jax.responseJSON['auto_login'] == 1)
+						localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
 					After_login(a_jax.responseJSON);
 					login_modal_onoff();
 				} else if (a_jax.responseJSON['result'] == 'not found') {
 					Snackbar("비정상적인 접근입니다.");
 					localStorage.removeItem('sj-state');
+					sessionStorage.removeItem('sj-state');
+				} else if (a_jax['status'].toString().startswith('4')) {
+					Snackbar("올바르지 않은 접근입니다.");
+					sessionStorage.removeItem('sj-state');
+					localStorage.removeItem('sj-state');
+				} else {
+					Snackbar("통신이 원활하지 않습니다.");
 				}
 			});
 		} else if (a_jax.responseJSON['result'] == 'not sejong') {
 			Snackbar("올바르지 않은 계정입니다.");
 			localStorage.removeItem('sj-state');
+			sessionStorage.removeItem('sj-state');
 
 		} else if (a_jax.responseJSON['result'] == 'incorrect pw') {
 			Snackbar("비밀번호를 다시 입력해주세요.");
 			localStorage.removeItem('sj-state');
+			sessionStorage.removeItem('sj-state');
 		} else if (a_jax.responseJSON['result'] == 'api error') {
 			Snackbar("세종대학교 전산서비스 오류입니다.");
+		} else if (a_jax['status'].toString().startswith('4')) {
+			Snackbar("올바르지 않은 접근입니다.");
+			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
-		}
-		else {
-			Snackbar("계정을 확인해주세요.");
-			localStorage.removeItem('sj-state');
+		} else {
+			Snackbar("통신이 원활하지 않습니다.");
 		}
 	});
 }
@@ -316,7 +333,6 @@ function Go_home() {
 	window.location.href = "/";
 }
 function Go_analysistics() {
-	window.location.href = "/analysistics";
 }
 
 function Login() {
@@ -324,7 +340,7 @@ function Login() {
 	login_modal_onoff();
 }
 function Logout() {
-	localStorage.removeItem("sj-state");
+	sessionStorage.removeItem("sj-state");
 	location.reload();
 }
 function pageUp() {

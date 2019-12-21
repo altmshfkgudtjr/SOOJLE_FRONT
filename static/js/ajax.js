@@ -1,5 +1,5 @@
 function A_JAX(url, type, nope, data){
-    let token = localStorage.getItem('sj-state');
+    let token = sessionStorage.getItem('sj-state');
     let authorization;
     if (token != null && token != undefined && token != 'undefined') {
         authorization = {'Authorization': "Bearer " + token};
@@ -22,7 +22,7 @@ function A_JAX(url, type, nope, data){
 }
 
 function A_JAX_FILE(url, type, nope, data){
-    let token = localStorage.getItem('sj-state');
+    let token = sessionStorage.getItem('sj-state');
     let authorization;
     if (token != null && token != undefined && token != 'undefined') {
         authorization = {'Authorization': "Bearer " + token};

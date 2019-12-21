@@ -220,7 +220,7 @@ function post_like_button(tag) {
 }
 // 좋아요 실행 함수
 function post_like(id, tag) {
-	let token = localStorage.getItem('sj-state');
+	let token = sessionStorage.getItem('sj-state');
 	if (token == null){
 		Snackbar("로그인이 필요합니다.");
 		return;
@@ -245,7 +245,7 @@ function post_like(id, tag) {
 }
 // 좋아요 취소 함수
 function post_dislike(id, tag) {
-	let token = localStorage.getItem('sj-state');
+	let token = sessionStorage.getItem('sj-state');
 	if (token == null){
 		Snackbar("로그인이 필요합니다.");
 		return;
@@ -470,7 +470,7 @@ function creating_post(posts, is_fav_cnt = 1) {
 		$("#none_click").addClass("display_none");
 	}, 200);
 	// 로딩 제거
-	let token = localStorage.getItem('sj-state');
+	let token = sessionStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') {} 
 	else {
 		let a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
@@ -486,8 +486,12 @@ function creating_post(posts, is_fav_cnt = 1) {
 						}
 					}
 				}
-			} else {
+			} else if (a_jax['status'].toString().startswith('4')) {
+				Snackbar("올바르지 않은 접근입니다.");
+				sessionStorage.removeItem('sj-state');
 				localStorage.removeItem('sj-state');
+			} else {
+				Snackbar("통신이 원활하지 않습니다.");
 			}
 		});
 	}
@@ -529,6 +533,8 @@ function get_user_like_posts() {
 		if (json['result'] == 'success') {
 			let output = JSON.parse(json["user"]);
 			if (output["fav_list"].length == 0) {
+				$("#menu_container").addClass("menu_container_searching");
+				$("#menu_container").removeAttr("style");
 				let target = $("#posts_target");
 				let no_posts_tag = `
 					<div class="sr_none_posts_cont">
@@ -566,6 +572,8 @@ function get_user_view_posts() {
 		if (json['result'] == 'success') {
 			let output = JSON.parse(json["user"]);
 			if (output["view_list"].length == 0) {
+				$("#menu_container").addClass("menu_container_searching");
+				$("#menu_container").removeAttr("style");
 				let target = $("#posts_target");
 				let no_posts_tag = `
 					<div class="sr_none_posts_cont">

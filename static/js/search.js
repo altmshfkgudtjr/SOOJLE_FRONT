@@ -722,7 +722,7 @@ function more_posts(target_num, is_fav_cnt = 1) {
 		}, 600);
 		setTimeout(function() {
 			// 로딩 제거
-			let token = localStorage.getItem('sj-state');
+			let token = sessionStorage.getItem('sj-state');
 			if (token == null || token == undefined || token == 'undefined') {} 
 			else {
 				a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
@@ -738,8 +738,12 @@ function more_posts(target_num, is_fav_cnt = 1) {
 								}
 							}
 						}
-					} else {
+					} else if (a_jax['status'].toString().startswith('4')) {
+						Snackbar("올바르지 않은 접근입니다.");
+						sessionStorage.removeItem('sj-state');
 						localStorage.removeItem('sj-state');
+					} else {
+						Snackbar("통신이 원활하지 않습니다.");
 					}
 				});
 			}
@@ -824,7 +828,7 @@ is_posts_done.registerListener(function(val) {
 	// fixed 제거 sticky으로 변경
 	if (val == 6) {
 		// 로딩 제거
-		let token = localStorage.getItem('sj-state');
+		let token = sessionStorage.getItem('sj-state');
 		if (token == null || token == undefined || token == 'undefined') {} 
 		else {
 			a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
@@ -840,8 +844,12 @@ is_posts_done.registerListener(function(val) {
 							}
 						}
 					}
-				} else {
+				} else if (a_jax['status'].toString().startswith('4')) {
+					Snackbar("올바르지 않은 접근입니다.");
+					sessionStorage.removeItem('sj-state');
 					localStorage.removeItem('sj-state');
+				} else {
+					Snackbar("통신이 원활하지 않습니다.");
 				}
 			});
 		}
