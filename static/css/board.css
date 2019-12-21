@@ -228,6 +228,8 @@ html {
 	-webkit-transform: translate(-50%, 0);
 	background-color: rgba(0,0,0,0);
 	z-index: 20;
+
+	display: none !important /*수정사항 임시*/
 }
 .search_recommend_box {
 	position: absolute;
