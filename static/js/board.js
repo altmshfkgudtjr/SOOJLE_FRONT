@@ -152,7 +152,6 @@ function auto_login() {
 		a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
 		$.when(a_jax).done(function () {
 			if (a_jax.responseJSON['result'] == 'success') {
-				Snackbar("맞춤 서비스를 시작합니다.");
 				After_login(a_jax.responseJSON);
 			} else {
 				localStorage.removeItem('sj-state');
@@ -240,7 +239,7 @@ $(document).ready(function(){
 	});
 });
 // After login, setting user information.
-function After_login(dict) {
+async function After_login(dict) {
 	$("#login_button").addClass("display_none");
 	$("#view_button").removeClass("display_none");
 	$("#like_button").removeClass("display_none");
@@ -261,7 +260,24 @@ function After_login(dict) {
 		$("#user_login").addClass("display_none");
 		$("#user_info").removeClass("display_none");
 	}
-	get_recommend_posts(1);
+	// 메인에서 검색을 했다면 검색 결과 호출
+	if (window.location.href.search("#search?") != -1) {
+		// 로딩 모달 제거
+		$("#mobile_controller_none").addClass("display_none");
+		$("#board_loading_modal").addClass("board_loading_modal_unvisible");
+		$(".mobile_controller").removeAttr("style");
+		$("#none_click").addClass("display_none");
+		let text = decodeURI(window.location.href);
+		text = text.split("#search?")[1];
+		window.location.href = "/board#";
+		text = text.split("/")[0];
+		text = text.replace(/"+"/g, " ");
+		await search_text(text);
+	}
+	else {// 메인에서 검색을 하지않았다면 추천 뉴스피드 호출
+		Snackbar("맞춤 서비스를 시작합니다.");
+		get_recommend_posts(1);
+	}
 }
 
 // button click ripple event

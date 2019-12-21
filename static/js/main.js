@@ -169,7 +169,8 @@ function search_text(text) {
 		Snackbar("검색어를 입력해주세요.");
 		return;
 	}
-	console.log(text);
+	text = text.replace(/ /g, "+");
+	window.location.href = "/board#search?" + text + '/'
 }
 
 
