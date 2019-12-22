@@ -24,6 +24,7 @@ function get_recommend_posts(is_first = 0) {
 	$("#mobile_search_input").val("");
 	now_topic = "추천";
 	where_topic = "뉴스피드";
+	now_state = now_topic;	// now state changing
 	posts_update = 0;
 	if (is_first == 1)
 		menu_modal_onoff(2);
@@ -40,7 +41,7 @@ function get_recommend_posts(is_first = 0) {
 			let output = JSON.parse(json["newsfeed"]);
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
-			creating_post(output);
+			creating_post(output, "추천");
 			scroll(0,0);
 			// Modal Remove
 		} else {
@@ -58,6 +59,7 @@ function get_popularity_posts() {
 	$("#mobile_search_input").val("");
 	now_topic = "인기";
 	where_topic = "뉴스피드";
+	now_state = now_topic;	// now state changing
 	posts_update = 0;
 	menu_modal_onoff();
 	$("#board_info_text").empty();
@@ -71,7 +73,7 @@ function get_popularity_posts() {
 			let output = JSON.parse(json["newsfeed"]);
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
-			creating_post(output);
+			creating_post(output, "인기");
 			scroll(0,0);
 		} else {
 			Snackbar("다시 접속해주세요!");
@@ -93,6 +95,7 @@ function get_topic_posts(tag) {
 	if (typeof(tag) == String) topic = tag;
 	else topic = tag.children('div').text();
 	now_topic = topic;
+	now_state = now_topic;	// now state changing
 	$("#board_info_text").empty();
 	$("#board_info_text").text(topic);
 	$("#board_info_board").empty();
@@ -104,7 +107,7 @@ function get_topic_posts(tag) {
 			let output = JSON.parse(json["newsfeed"]);
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
-			creating_post(output);
+			creating_post(output, topic);
 			scroll(0,0);
 		} else {
 			Snackbar("다시 접속해주세요!");
@@ -146,7 +149,7 @@ function get_posts_more() {
 	if (save_posts.length == 0) return;
 	let output = save_posts.slice(0,30);
 	save_posts = save_posts.slice(30);
-	creating_post(output);
+	creating_post(output, now_state);
 }
 
 
@@ -312,7 +315,7 @@ Date.prototype.SetTime = function()
     		(HH[1] ? HH : '0'+ HH[0]) + ":" + (mm[1] ? mm : '0'+mm[0]) + ":" + (ss[1] ? ss : '0'+ss[0]);
 }
 // 게시글 제작 함수
-function creating_post(posts, is_fav_cnt = 1) {
+function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 	let target = $("#posts_target");
 	let w = $(document).width();
 	// 속도향상을 위한 선언
@@ -388,7 +391,8 @@ function creating_post(posts, is_fav_cnt = 1) {
 							<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
 						</div>`
 			}
-			target.append($(tag));
+			if (now_creating_state == now_state)
+				target.append($(tag));
 		}
 	} else {
 		for (post_one of posts) {
@@ -459,7 +463,8 @@ function creating_post(posts, is_fav_cnt = 1) {
 						<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
 					</div>`
 			}
-			target.append($(tag));
+			if (now_creating_state == now_state)
+				target.append($(tag));
 		}
 	}
 	// 로딩 모달 제거
@@ -496,7 +501,7 @@ function creating_post(posts, is_fav_cnt = 1) {
 		});
 	}
 	$("#menu_container").removeClass("menu_container_fixed");
-	$("#menu_container").removeAttr("style");
+	//$("#menu_container").removeAttr("style");
 	$("#posts_creating_loading").addClass("display_none");
 }
 	
@@ -516,11 +521,14 @@ function creating_post(posts, is_fav_cnt = 1) {
 3 : 검색
 */
 function get_user_like_posts() {
+	window.scroll(0,0);
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
 	now_topic = "관심 게시글";
 	where_topic = "내 정보";
+	now_state = now_topic;
+	let now_creating_state = now_state;
 	posts_update = 0;
 	menu_modal_onoff();
 	$("#board_info_text").empty();
@@ -541,13 +549,16 @@ function get_user_like_posts() {
 						<img src="./static/image/none_posts.png" class="sr_none_posts_img">
 						<div class="sr_none_posts_text">관심있는 게시글이 없네요!</div>
 					</div>`;
-				target.append(no_posts_tag);
+				if (now_creating_state == now_state)
+					target.append(no_posts_tag);
 				$("#posts_creating_loading").addClass('display_none');
+				$("#menu_container").removeClass('menu_container_searching');
+				$("#menu_container").removeClass('menu_container_fixed');
 			} else {
 				output = output["fav_list"].reverse();
 				save_posts = output.slice(30);
 				output = output.slice(0, 30);
-				creating_post(output, 0);
+				creating_post(output, now_creating_state, 0);
 			}
 		} else {
 			Snackbar("다시 접속해주세요!");
@@ -555,11 +566,14 @@ function get_user_like_posts() {
 	});
 }
 function get_user_view_posts() {
+	window.scroll(0,0);
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
 	now_topic = "최근 본 게시글";
 	where_topic = "내 정보";
+	now_state = now_topic;
+	let now_creating_state = now_state;
 	posts_update = 0;
 	menu_modal_onoff();
 	$("#board_info_text").empty();
@@ -580,13 +594,16 @@ function get_user_view_posts() {
 						<img src="./static/image/none_posts.png" class="sr_none_posts_img">
 						<div class="sr_none_posts_text">최근 본 글이 존재하지 않아요!</div>
 					</div>`;
-				target.append(no_posts_tag);
+				if (now_creating_state == now_state)
+					target.append(no_posts_tag);
 				$("#posts_creating_loading").addClass('display_none');
+				$("#menu_container").removeClass('menu_container_searching');
+				$("#menu_container").removeClass('menu_container_fixed');
 			} else {
 				output = output["view_list"].reverse();
 				save_posts = output.slice(30);
 				output = output.slice(0, 30);
-				creating_post(output, 0);
+				creating_post(output, now_creating_state, 0);
 			}
 		} else {
 			Snackbar("다시 접속해주세요!");

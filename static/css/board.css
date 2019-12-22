@@ -1,6 +1,9 @@
 html {
 	background-color: white;
 }
+html, body {
+	scroll-behavior: auto;
+}
 .header_up {
 	top: -65px;
 }
@@ -935,7 +938,7 @@ html {
 	transform: translate(-50%, 0);
 	-webkit-transform: translate(-50%, 0);
 	height: auto;
-	min-height: 200px;
+	min-height: 500px;
 }
 .post_block {
 	position: relative;

@@ -159,6 +159,8 @@ function search_result_click(tag) {
 let domain_posts = [];
 let a_jax_posts = [];
 function search_text(text) {
+	now_state = text;
+	let now_creating_state = now_state;
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_searching");
 	$("#menu_container").removeAttr("style");
@@ -196,7 +198,7 @@ function search_text(text) {
 		let json = a_jax_domain.responseJSON;
 		if (json['result'] == 'success') {
 			domain_posts = json["search_result"];
-			insert_domain_post(json["search_result"]);
+			insert_domain_post(json["search_result"], now_creating_state);
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -206,7 +208,7 @@ function search_text(text) {
 		let json = a_jax0.responseJSON;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(0, json["search_result"]);
-			insert_search_post(0, output);
+			insert_search_post(0, output, now_creating_state);
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -216,7 +218,7 @@ function search_text(text) {
 		let json = a_jax1.responseJSON;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(1, json["search_result"]);
-			insert_search_post(1, output);
+			insert_search_post(1, output, now_creating_state);
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -226,7 +228,7 @@ function search_text(text) {
 		let json = a_jax2.responseJSON;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(2, json["search_result"]);
-			insert_search_post(2, output);
+			insert_search_post(2, output, now_creating_state);
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -236,7 +238,7 @@ function search_text(text) {
 		let json = a_jax3.responseJSON;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(3, json["search_result"]);
-			insert_search_post(3, output);
+			insert_search_post(3, output, now_creating_state);
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -246,7 +248,7 @@ function search_text(text) {
 		let json = a_jax4.responseJSON;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(4, json["search_result"]);
-			insert_search_post(4, output);
+			insert_search_post(4, output, now_creating_state);
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -255,7 +257,7 @@ function search_text(text) {
 	$.when(a_jax_recommend).done(function () {
 		let json = a_jax_recommend.responseJSON;
 		if (json['result'] == "success") {
-			insert_recommend_words(json['similarity_words']);
+			insert_recommend_words(json['similarity_words'], now_creating_state);
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -281,7 +283,7 @@ function search_container_set() {
 	//target.append(ajax4_target);
 }
 // 도메인 검색 결과를 해당 dive에 넣어줌
-function insert_domain_post(posts) {
+function insert_domain_post(posts, now_creating_state = "") {
 	is_posts_done.a += 1;
 	let id, title, phara, url, post_one, domain_block;
 	let target = $("#sr_dt");
@@ -323,7 +325,7 @@ function insert_domain_post(posts) {
 4: 커뮤니티
 */
 // 검색 결과를 해당 div에 넣어줌
-function insert_search_post(target_num, posts, is_fav_cnt = 1) {
+function insert_search_post(target_num, posts, now_creating_state = "", is_fav_cnt = 1) {
 	is_posts_done.a += 1;
 	a_jax_posts[target_num] = posts;	// posts 저장
 	let posts_len = posts.length;
@@ -495,7 +497,8 @@ function insert_search_post(target_num, posts, is_fav_cnt = 1) {
 	else if (posts_len < 6) {more = ``;}
 	else {more = `<div class="sr_more" onclick="more_posts(${target_num})">더 보기</div>`;}
 	target_tag = target_tag + more + line;
-	target.append(target_tag);
+	if (now_creating_state == now_state)
+		target.append(target_tag);
 	if (w > 1200) {
 		$("#menu_container").removeClass("menu_container_searching");
 		setTimeout(function() {$("#menu_container").css({"transition": ".2s ease-in-out"});}, 200);
@@ -503,7 +506,7 @@ function insert_search_post(target_num, posts, is_fav_cnt = 1) {
 }
 
 // Recommend words inserting
-function insert_recommend_words(words_dict) {
+function insert_recommend_words(words_dict, now_creating_state = "") {
 	let target = $("#sr_recommend");
 	let recommends = [];
 	let output = [];
@@ -523,11 +526,13 @@ function insert_recommend_words(words_dict) {
 		target.remove();
 		return;
 	}
-	let title = `<div class="sr_recommend_word_title noselect">이런 검색어는 어떤가요?</div>`
-	target.append(title);
+	let title = `<div class="sr_recommend_word_title noselect">이런 검색어는 어떤가요?</div>`;
+	if (now_creating_state == now_state)
+		target.append(title);
 	for (word of output) {
-		words_key = `<div class="sr_recommend_word" onclick="recommend_word_click($(this))">${word}</div>`
-		target.append(words_key);
+		words_key = `<div class="sr_recommend_word" onclick="recommend_word_click($(this))">${word}</div>`;
+		if (now_creating_state == now_state)
+			target.append(words_key);
 	}
 }
 function compare( a, b ) {
@@ -552,6 +557,7 @@ function recommend_word_click(tag) {
 // a_jax_posts[i] 0, 1, 2, 3, 4
 // more posts function
 function more_posts(target_num, is_fav_cnt = 1) {
+	let now_creating_state = now_state;
 	is_posts_done.a = 1;
 	window.scroll(0, 0);
 	$("#posts_creating_loading").removeClass("display_none");
@@ -645,7 +651,8 @@ function more_posts(target_num, is_fav_cnt = 1) {
 									<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
 								</div>`
 					}
-					target.append($(tag));
+					if (now_creating_state == now_state)
+						target.append($(tag));
 				}
 			} else {
 				for (post_one of posts) {
@@ -716,7 +723,8 @@ function more_posts(target_num, is_fav_cnt = 1) {
 								<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
 							</div>`
 					}
-					target.append($(tag));
+					if (now_creating_state == now_state)
+						target.append($(tag));
 				}
 			}
 		}, 600);
@@ -867,5 +875,6 @@ is_posts_there.registerListener(function(val) {
 				<div class="sr_none_posts_text">포스트가 존재하지 않습니다!</div>
 			</div>`;
 		target.append(no_posts_tag);
+		$("#menu_container").removeClass('menu_container_searching');
 	}
 });

@@ -1,3 +1,5 @@
+// now state
+let now_state = "";
 // Greetings Array
 let greetings = ["반갑습니다!", "환영합니다!", "좋은 하루입니다.", "세종대학교."];
 // Loading Modal
@@ -141,28 +143,42 @@ function login_modal_onoff() {
 		login_open = 0;
 	}
 }
+function open_login_or_setting() {
+	let token = sessionStorage.getItem('sj-state');
+	if (token == null || token == undefined || token == 'undefined') {
+		login_modal_onoff();
+	} else {
+		menu_open = 1;
+		Go_setting();
+	}
+}
 
 // Frist Auto Login function
 function auto_login() {
-	let token = localStorage.getItem('sj-state');
+	let token = sessionStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') {
-		get_recommend_posts(1);
-		return;
-	} else {
-		sessionStorage.setItem('sj-state', localStorage.getItem('sj-state'));
-		a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-		$.when(a_jax).done(function () {
-			if (a_jax.responseJSON['result'] == 'success') {
-				After_login(a_jax.responseJSON);
-			} else if (a_jax['status'].toString().startswith('4')) {
-				Snackbar("올바르지 않은 접근입니다.");
-				sessionStorage.removeItem('sj-state');
-				localStorage.removeItem('sj-state');
-			} else {
-				Snackbar("통신이 원활하지 않습니다.");
-			}
-		});
+		sessionStorage.removeItem('sj-state');
+		token = localStorage.getItem('sj-state');
+		if (token == null || token == undefined || token == 'undefined') {
+			localStorage.removeItem('sj-state');
+			get_recommend_posts(1);
+			return;
+		} else {
+			sessionStorage.setItem('sj-state', localStorage.getItem('sj-state'));
+		}
 	}
+	a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
+	$.when(a_jax).done(function () {
+		if (a_jax.responseJSON['result'] == 'success') {
+			After_login(a_jax.responseJSON);
+		} else if (a_jax['status'].toString().startswith('4')) {
+			Snackbar("올바르지 않은 접근입니다.");
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+		} else {
+			Snackbar("통신이 원활하지 않습니다.");
+		}
+	});
 }
 // Login fucntion
 function Sign_in(){
@@ -292,7 +308,6 @@ async function After_login(dict) {
 		await search_text(text);
 	}
 	else {// 메인에서 검색을 하지않았다면 추천 뉴스피드 호출
-		Snackbar("맞춤 서비스를 시작합니다.");
 		get_recommend_posts(1);
 	}
 }
