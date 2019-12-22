@@ -14,7 +14,7 @@ window.mobilecheck = function() {
 };
 
 // 메인페이지 검색 focus 함수
-function search_focus() {
+function searching_focus() {
 	$("#SJ_main_page1_search_bar").addClass("SJ_main_page1_search_bar_checked");
 	$("#SJ_main_page1_search_list_box").css({"width": $("#SJ_main_page1_search_box").width()});
 	$("#SJ_main_page1_search_list_box").removeClass("display_none");
@@ -40,7 +40,7 @@ let now = 0;	// 현재 화살표로 선택한 div 위치
 let all = 0;	// 검색결과 수
 function search_focus(keyCode, tag) {
 	let w = $(document).width();
-	if (w < 1200) {
+	if (w < 1200 && search_open == 0) {
 		mobile_search_modal_open();
 		return;
 	}
@@ -136,7 +136,6 @@ function search_button() {	// 검색작업 data = 글자
 		$("#pc_search_input").blur();
 	}
 	//mobile_search_modal_close();
-
 	search_text(data);	// 검색 함수 실행
 
 	/*search 클릭 작업============================================================*/

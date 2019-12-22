@@ -376,7 +376,7 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 								</div>
 							</a>
 							<a href="${url}" target="_blank">
-								<div class="post_block_img_cont" onmousedown="post_view($(this)" style="background-image: url(${img})"></div>
+								<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url(${img})"></div>
 							</a>
 							<a href="${url}" target="_blank">
 								<div class="post_block_cont pointer" onmousedown="post_view($(this))">

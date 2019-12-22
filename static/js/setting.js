@@ -46,7 +46,7 @@ function insert_user_custom_setting() {
 	let title_info_2 = "사용자 계정에 대한 정보 관리 및 설정";
 	let st_2 = "계정삭제";
 	let st_info_2 = "사용자의 정보를 SOOJLE 데이터베이스에서 완전 삭제합니다.";
-	let st_3 = "전체화면";
+	let st_3 = "모바일 전체화면";
 	let st_info_3 = "전체화면을 통하여 보다 넓은 화면에서 SOOJLE을 사용합니다."
 
 	let div = `	<div class="setting_subject_wrap">
@@ -59,14 +59,6 @@ function insert_user_custom_setting() {
 							<label for="autologin_toggle"></label>
 						</div>
 						<div class="setting_subtitle_info noselect">${st_info_1}</div>
-					</div>
-					<div>
-						<div class="setting_subtitle noselect">${st_3}</div>
-						<input type="checkbox" id="fullscreen_toggle" onchange="change_fullscreen_st()" name="fullscreen_toggle">
-						<div class="setting_toggle">
-							<label for="fullscreen_toggle"></label>
-						</div>
-						<div class="setting_subtitle_info noselect">${st_info_3}</div>
 					</div>
 				</div>
 				<div class="setting_subject_wrap">
@@ -90,6 +82,16 @@ function insert_user_information_setting() {
 
 
 // 자동로그인 옵션화
+/*
+					<div>
+						<div class="setting_subtitle noselect">${st_3}</div>
+						<input type="checkbox" id="fullscreen_toggle" onchange="change_fullscreen_st()" name="fullscreen_toggle">
+						<div class="setting_toggle">
+							<label for="fullscreen_toggle"></label>
+						</div>
+						<div class="setting_subtitle_info noselect">${st_info_3}</div>
+					</div>
+*/
 function change_autologin_st(){
 	if($("#autologin_toggle").is(":checked")) {
 		localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
@@ -109,24 +111,8 @@ function change_fullscreen_st() {
 	}
 }
 function startFS() {
-	if(document.requestFullScreen) {
-		document.requestFullScreen();
-	} else if(document.webkitRequestFullScreen) {
-		document.webkitRequestFullScreen();
-	} else if(document.mozRequestFullScreen) {
-		document.mozRequestFullScreen();
-	} else if (document.msRequestFullscreen) {
-		document.msRequestFullscreen();
-	}
+
 }
 function exitFS() {
-	if (document.webkitExitFullscreen) {
-		document.webkitExitFullscreen();
-	} else if (document.exitFullscreen) {
-		document.exitFullscreen();
-	} else if (document.mozCancelFullScreen) {
-		document.mozCancelFullScreen();
-	} else if (document.msExitFullscreen) {
-		document.msExitFullscreen();
-	}
+	
 }

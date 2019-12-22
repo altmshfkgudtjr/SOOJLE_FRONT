@@ -60,6 +60,9 @@ html, body {
 	transition: .1s ease-in-out;
 	z-index: 40;
 }
+.grid_modal::-webkit-scrollbar {
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
 .grid_item_container {
 	position: relative;
 	width: 950px;
@@ -163,6 +166,9 @@ html, body {
 	border-top: 2px solid black;
 	transition: .1s ease-in-out;
 	z-index: 40;
+}
+.menu_modal::-webkit-scrollbar {
+    background: transparent;  /* Optional: just make scrollbar invisible */
 }
 .header_guideline {
 	position: absolute;

@@ -154,14 +154,30 @@ function open_login_or_setting() {
 }
 
 // Frist Auto Login function
-function auto_login() {
+async function auto_login() {
 	let token = sessionStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') {
 		sessionStorage.removeItem('sj-state');
 		token = localStorage.getItem('sj-state');
 		if (token == null || token == undefined || token == 'undefined') {
 			localStorage.removeItem('sj-state');
-			get_recommend_posts(1);
+			// 메인에서 검색을 했다면 검색 결과 호출
+			if (window.location.href.search("#search?") != -1) {
+				// 로딩 모달 제거
+				$("#mobile_controller_none").addClass("display_none");
+				$("#board_loading_modal").addClass("board_loading_modal_unvisible");
+				$(".mobile_controller").removeAttr("style");
+				$("#none_click").addClass("display_none");
+				let text = decodeURI(window.location.href);
+				text = text.split("#search?")[1];
+				window.location.href = "/board#";
+				text = text.split("/")[0];
+				text = text.replace(/"+"/g, " ");
+				await search_text(text);
+			}
+			else {// 메인에서 검색을 하지않았다면 추천 뉴스피드 호출
+				get_recommend_posts(1);
+			}
 			return;
 		} else {
 			sessionStorage.setItem('sj-state', localStorage.getItem('sj-state'));
@@ -355,6 +371,7 @@ function Login() {
 	login_modal_onoff();
 }
 function Logout() {
+	localStorage.removeItem("sj-state");
 	sessionStorage.removeItem("sj-state");
 	location.reload();
 }
