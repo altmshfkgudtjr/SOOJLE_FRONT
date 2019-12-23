@@ -1,4 +1,5 @@
 let now_w = $(document).width();
+/*
 $(window).resize(function() {
 	let w = $(document).width();
 	if (w < 1200 && now_w >= 1200) {
@@ -7,7 +8,7 @@ $(window).resize(function() {
 		location.reload();
 	}
 	now_w = w;
-});
+});*/
 let save_posts = [];
 let posts_update = 1;
 var now_topic;
@@ -118,13 +119,15 @@ let now_creating = 0;
 let header_scrolling = 0;
 $(document).scroll(function() {
 	let w = $(document).width();
-	if (w > 1200 && $(window).scrollTop() > 60) {
+	//if (w > 1200 && $(window).scrollTop() > 60) {
+	if (!mobilecheck() && $(window).scrollTop() > 60) {
 		if (header_scrolling == 0) {
 			$("#menu_container").css({"top": "30px", "transition": ".2s ease-in-out"});	
 			header_scrolling = 1;
 		}
 		setTimeout(function() {$("#menu_container").css("transition", "0s ease-in-out")}, 400);
-	} else if (w > 1200 && $(window).scrollTop() < 60) {
+	} //else if (w > 1200 && $(window).scrollTop() < 60) {
+	else if (!mobilecheck() && $(window).scrollTop() < 60) {
 		$("#menu_container").removeAttr("style").css("transition", ".2s ease-in-out");
 		header_scrolling = 0;
 	}
@@ -321,7 +324,8 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 	// 속도향상을 위한 선언
 	let check;
 	let id, fav_cnt, title, date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
-	if (w < 1200) {
+	//if (w < 1200) {
+	if (mobilecheck()) {
 		for (post_one of posts) {
 			check = 0;
 			if (is_fav_cnt == 0)

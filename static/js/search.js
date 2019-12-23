@@ -6,7 +6,8 @@ let now = 0;	// 현재 화살표로 선택한 div 위치
 let all = 0;	// 검색결과 수
 function search_focus(keyCode, tag) {
 	let w = $(document).width();
-	if (w <1200) {
+	//if (w <1200) {
+	if (mobilecheck()) {
 		$("#mobile_search_recommend_box").removeClass("display_none");
 		$("body").css("overflow", "hidden");
 	}
@@ -25,7 +26,8 @@ function search_focus(keyCode, tag) {
 		}
 		$(`.search_result:nth-child(${now})`).addClass("search_target");
 		let target;
-		if (w < 1200) {
+		//if (w < 1200) {
+		if (mobilecheck()) {
 			target = $(`#mobile_search_recommend_box > .search_result:nth-child(${now})`).text().trim();
 		} else {
 			target = $(`#search_recommend_box > .search_result:nth-child(${now})`).text().trim();
@@ -43,7 +45,8 @@ function search_focus(keyCode, tag) {
 			/*추천검색어 AJAX 요청 공간=========================================*/
 			all = 3;	// AJAX로 요청한 추천검색어 수
 			if (all != 0){
-				if (w < 1200){
+				//if (w < 1200){
+				if (mobilecheck()) {
 					$("#mobile_search_recommend_box").removeClass("display_none");
 				} else {
 					$("#search_recommend_box").removeClass("display_none");
@@ -51,7 +54,8 @@ function search_focus(keyCode, tag) {
 			}
 		} else if (tag.val() == "") {
 			search_target = "";
-			if (w < 1200){
+			//if (w < 1200){
+			if (mobilecheck()) {
 				//$("#mobile_search_recommend_box").addClass("display_none");
 				$(".search_result").remove();
 			} else {
@@ -70,7 +74,8 @@ function search_focus(keyCode, tag) {
 function search_click() {
 	let w = $(document).width();
 	if (all != 0){
-		if (w < 1200){
+		//if (w < 1200){
+		if (mobilecheck()) {
 			$("#mobile_search_recommend_box").removeClass("display_none");
 		} else {
 			$("#search_recommend_box").removeClass("display_none");
@@ -80,7 +85,8 @@ function search_click() {
 function search_blur() {
 	let w = $(document).width();
 	if (all != 0){
-		if (w < 1200){
+		//if (w < 1200){
+		if (mobilecheck()) {
 			$("#mobile_search_recommend_box").addClass("display_none");
 		} else {
 			$("#search_recommend_box").addClass("display_none");
@@ -90,7 +96,8 @@ function search_blur() {
 function search_button() {	// 검색작업 data = 글자
 	let data;
 	let w = $(document).width();
-	if (w < 1200) {
+	//if (w < 1200) {
+	if (mobilecheck()) {
 		data = $("#mobile_search_input").val();
 		$("#mobile_search_input").blur();
 		search_blur();
@@ -112,7 +119,8 @@ let search_open = 0;
 function mobile_search_modal_open() {
 	let w = $(document).width();
 	if (search_open == 0) {
-		if (w < 1200) {
+		//if (w < 1200) {
+		if (mobilecheck()) {
 			scroll(0,0);
 			$("#board_logo").css({"left": "10px",
 								"transform": "translate(0, 0)",
@@ -124,7 +132,8 @@ function mobile_search_modal_open() {
 			$("#mobile_search_recommend_box").removeClass("display_none");
 		}
 	} else {
-		if (w < 1200) {
+		//if (w < 1200) {
+		if (mobilecheck()) {
 			mobile_search_modal_close();
 		}
 	}
@@ -139,7 +148,8 @@ function mobile_search_modal_close() {
 function search_result_click(tag) {
 	let data = tag.children("span").text().trim();
 	let w = $(document).width();
-	if (w < 1200) {
+	//if (w < 1200) {
+	if (mobilecheck()) {
 		$("#mobile_search_input").val(data);
 	} else {
 		$("#pc_search_input").val(data);
@@ -188,6 +198,12 @@ function search_text(text) {
 		return;
 	} else {
 		text = text.toLowerCase();
+	}
+	// search_input box text input
+	if (mobilecheck()) {
+		$("#mobile_search_input").val(text);
+	} else {
+		$("#pc_search_input").val(text);
 	}
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();
@@ -361,7 +377,8 @@ function insert_search_post(target_num, posts, now_creating_state = "", is_fav_c
 	let check;
 	let id, fav_cnt, title, date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
 	let target_tag = `<div class="sr_title">${target_name}</div>`;
-	if (w < 1200) {
+	//if (w < 1200) {
+	if (mobilecheck()) {
 		for (post_one of posts) {
 			check = 0;
 			if (is_fav_cnt == 0)
@@ -513,7 +530,8 @@ function insert_search_post(target_num, posts, now_creating_state = "", is_fav_c
 	target_tag = target_tag + more + line;
 	if (now_creating_state == now_state)
 		target.append(target_tag);
-	if (w > 1200) {
+	//if (w > 1200) {
+	if (!mobilecheck()) {
 		$("#menu_container").removeClass("menu_container_searching");
 		setTimeout(function() {$("#menu_container").css({"transition": ".2s ease-in-out"});}, 200);
 	}
@@ -594,7 +612,8 @@ function more_posts(target_num, is_fav_cnt = 1) {
 	let check;
 	let id, fav_cnt, title, date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
 	setTimeout(function() {
-		if (w < 1200) {
+		//if (w < 1200) {
+		if (mobilecheck()) {
 			for (post_one of posts) {
 				check = 0;
 				if (is_fav_cnt == 0)
@@ -771,7 +790,8 @@ function more_posts(target_num, is_fav_cnt = 1) {
 	}, 700);
 	$("#posts_creating_loading").addClass("display_none");
 	setTimeout(function() {
-		if (w > 1200) {
+		//if (w > 1200) {
+		if (!mobilecheck()) {
 			$("#menu_container").removeAttr("style").removeClass("menu_container_searching");
 		}
 	}, 1000);
