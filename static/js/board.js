@@ -381,8 +381,6 @@ $("html").on("click", ".ripple", function(evt) {
 function Go_home() {
 	window.location.href = "/";
 }
-function Go_analysistics() {
-}
 
 function Login() {
 	menu_modal_onoff();
