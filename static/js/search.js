@@ -119,6 +119,10 @@ let search_open = 0;
 function mobile_search_modal_open() {
 	let w = $(document).width();
 	if (search_open == 0) {
+		if (grid_open == 1)
+			grid_modal_off();
+		if (menu_open == 1)
+			menu_modal_off();
 		//if (w < 1200) {
 		if (mobilecheck()) {
 			scroll(0,0);
