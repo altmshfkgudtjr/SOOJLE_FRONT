@@ -907,9 +907,11 @@ is_posts_there.registerListener(function(val) {
 	if (val == 6) {
 		$("#posts_creating_loading").addClass("display_none");
 		let target = $("#posts_target");
+		let imoticon = imoticons[Math.floor(Math.random() * imoticons.length)];
+		//<img src="./static/image/none_posts.png" class="sr_none_posts_img">
 		let no_posts_tag = `
 			<div class="sr_none_posts_cont">
-				<img src="./static/image/none_posts.png" class="sr_none_posts_img">
+				<div class="sr_none_posts_img noselect">${imoticon}</div>
 				<div class="sr_none_posts_text">포스트가 존재하지 않습니다!</div>
 			</div>`;
 		target.append(no_posts_tag);

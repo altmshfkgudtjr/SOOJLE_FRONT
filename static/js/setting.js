@@ -40,6 +40,8 @@ function Go_setting() {
 
 // 사용자 맞춤 설정 관련
 function insert_user_custom_setting() {
+	let token = sessionStorage.getItem('sj-state');
+	// Title & Subtitle
 	let title_info_1 = "각 사용자에게 맞는 SOOJLE 서비스 환경설정";
 	let st_1 = "자동로그인"
 	let st_info_1 = "로그인을 자동화해 SOOJLE 서비스 이용을 간편하게 합니다.";
@@ -48,30 +50,41 @@ function insert_user_custom_setting() {
 	let st_info_2 = "사용자의 정보를 SOOJLE 데이터베이스에서 완전 삭제합니다.";
 	let st_3 = "모바일 전체화면";
 	let st_info_3 = "전체화면을 통하여 보다 넓은 화면에서 SOOJLE을 사용합니다."
-
-	let div = `	<div class="setting_subject_wrap">
-					<div class="setting_title noselect">사용자 맞춤</div>
-					<div class="setting_title_info noselect">${title_info_1}</div>
-					<div>
-						<div class="setting_subtitle noselect">${st_1}</div>
-						<input type="checkbox" id="autologin_toggle" onchange="change_autologin_st()" name="autologin_toggle">
-						<div class="setting_toggle">
-							<label for="autologin_toggle"></label>
+	// Tag
+	let autologin_div = ``;
+	let user_information_div = ``;
+	if (token != null && token != undefined && token != 'undefined' && token != 'null') {
+		autologin_div = `
+						<div>
+							<div class="setting_subtitle noselect">${st_1}</div>
+							<input type="checkbox" id="autologin_toggle" onchange="change_autologin_st()" name="autologin_toggle">
+							<div class="setting_toggle">
+								<label for="autologin_toggle"></label>
+							</div>
+							<div class="setting_subtitle_info noselect">${st_info_1}</div>
 						</div>
-						<div class="setting_subtitle_info noselect">${st_info_1}</div>
+						`;
+		user_information_div = `
+								<div class="setting_subject_wrap">
+									<div class="setting_title noselect">개인정보 설정</div>
+									<div class="setting_title_info noselect">${title_info_2}</div>
+									<div class="setting_subtitle noselect">${st_2}</div>
+									<input type="checkbox" id="user_data_delete">
+									<div class="setting_toggle">
+										<label for="user_data_delete"></label>
+									</div>
+									<div class="setting_subtitle_info noselect">${st_info_2}</div>
+								</div>
+								`
+	}
+	let div =	`
+					<div class="setting_subject_wrap">
+						<div class="setting_title noselect">사용자 맞춤</div>
+						<div class="setting_title_info noselect">${title_info_1}</div>
+						${autologin_div}
 					</div>
-				</div>
-				<div class="setting_subject_wrap">
-					<div class="setting_title noselect">개인정보 설정</div>
-					<div class="setting_title_info noselect">${title_info_2}</div>
-					<div class="setting_subtitle noselect">${st_2}</div>
-					<input type="checkbox" id="user_data_delete">
-					<div class="setting_toggle">
-						<label for="user_data_delete"></label>
-					</div>
-					<div class="setting_subtitle_info noselect">${st_info_2}</div>
-				</div>
-			`;
+					${user_information_div}
+				`;
 	$("#setting_box").append(div);
 }
 

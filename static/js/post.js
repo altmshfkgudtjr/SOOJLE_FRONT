@@ -548,9 +548,11 @@ function get_user_like_posts() {
 				$("#menu_container").addClass("menu_container_searching");
 				$("#menu_container").removeAttr("style");
 				let target = $("#posts_target");
+				let imoticon = imoticons[Math.floor(Math.random() * imoticons.length)];
+				//<img src="./static/image/none_posts.png" class="sr_none_posts_img">
 				let no_posts_tag = `
 					<div class="sr_none_posts_cont">
-						<img src="./static/image/none_posts.png" class="sr_none_posts_img">
+						<div class="sr_none_posts_img noselect">${imoticon}</div>
 						<div class="sr_none_posts_text">관심있는 게시글이 없네요!</div>
 					</div>`;
 				if (now_creating_state == now_state)
@@ -593,9 +595,11 @@ function get_user_view_posts() {
 				$("#menu_container").addClass("menu_container_searching");
 				$("#menu_container").removeAttr("style");
 				let target = $("#posts_target");
+				//<img src="./static/image/none_posts.png" class="sr_none_posts_img">
+				let imoticon = imoticons[Math.floor(Math.random() * imoticons.length)];
 				let no_posts_tag = `
 					<div class="sr_none_posts_cont">
-						<img src="./static/image/none_posts.png" class="sr_none_posts_img">
+						<div class="sr_none_posts_img noselect">${imoticon}</div>
 						<div class="sr_none_posts_text">최근 본 글이 존재하지 않아요!</div>
 					</div>`;
 				if (now_creating_state == now_state)

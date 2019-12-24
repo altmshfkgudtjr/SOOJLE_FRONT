@@ -12,6 +12,8 @@ window.mobilecheck = function() {
 let now_state = "";
 // Greetings Array
 let greetings = ["반갑습니다!", "환영합니다!", "좋은 하루입니다.", "세종대학교."];
+// Error Imoticon
+let imoticons = ["ᵒ̌ ᴥ ᵒ̌ ", "(。・_・。)", "˚ᆺ˚", "( ˃̣̣̥᷄⌓˂̣̣̥᷅ )"];
 // Loading Modal
 let is_loading = 1;
 window.onkeydown = function(e) { 
