@@ -777,6 +777,10 @@ html, body {
 .menu_container_button_small:hover {
 	color: #c30e2e
 }
+.menu_container_login_accent {
+	font-weight: bold;
+	color: #c30e2e;
+}
 .menu_container_button_small_icon {
 	position: absolute;
 	width: 50px;
