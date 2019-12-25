@@ -43,7 +43,7 @@ function get_recommend_posts(is_first = 0) {
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
 			creating_post(output, "추천");
-			scroll(0,0);
+			$("html, body").animate({scrollTop: 0}, 400);
 			// Modal Remove
 		} else {
 			Snackbar("다시 접속해주세요!");
@@ -75,7 +75,7 @@ function get_popularity_posts() {
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
 			creating_post(output, "인기");
-			scroll(0,0);
+			$("html, body").animate({scrollTop: 0}, 400);
 		} else {
 			Snackbar("다시 접속해주세요!");
 		}
@@ -109,7 +109,7 @@ function get_topic_posts(tag) {
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
 			creating_post(output, topic);
-			scroll(0,0);
+			$("html, body").animate({scrollTop: 0}, 400);
 		} else {
 			Snackbar("다시 접속해주세요!");
 		}

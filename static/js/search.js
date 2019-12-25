@@ -115,7 +115,7 @@ function search_button() {	// 검색작업 data = 글자
 
 	/*search 클릭 작업============================================================*/
 }
-let search_open = 0;
+var search_open = 0;
 function mobile_search_modal_open() {
 	let w = $(document).width();
 	if (search_open == 0) {

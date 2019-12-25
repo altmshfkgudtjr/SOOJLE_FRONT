@@ -20,8 +20,9 @@
 .anlt_time_hhmmss {
 	position: relative;
 	float: left;
-	width: 190px;
+	width: auto;
 	font-size: 48px;
+	margin-left: 15px;
 }
 .anlt_time_ampm {
 	position: relative;
@@ -46,7 +47,7 @@
 	float: left;
 	width: 100%;
 	height: 300px;
-	margin-top: 50px;
+	margin-top: 40px;
 }
 .anlt_realtime_title {
 	position: relative;
@@ -57,5 +58,82 @@
 .anlt_realtime_standard {
 	position: relative;
 	width: 100%;
-	font-size: 16px;
+	font-size: 14px;
+	margin-top: 10px;
+}
+.anlt_reatime_words_wrap {
+	position: relative;
+	width: 100%;
+	height: auto;
+	min-height: 150px;
+	border: 2px solid #ebebeb;
+	margin-top: 20px;
+	box-sizing: border-box;
+}
+.anlt_reatime_word_elements {
+	position: relative;
+	display: inline-block;
+	width: 50%;
+	height: 100%;
+	border: none;
+}
+.anlt_realtime_word {
+	position: relative;
+	width: 90%;
+	display: inline-block;
+	line-height: 24px;
+	margin-bottom: 10px;
+	font-size: 18px;
+	padding: 0 5%;
+}
+.anlt_realtime_word:first-child {
+	margin-top: 10px;
+}
+.anlt_realtime_word:hover {
+	text-decoration: underline;
+}
+.anlt_visitor_wrap {
+	position: relative;
+	width: 100%;
+	float: left;
+	margin-top: 40px;
+}
+.anlt_visitor_title {
+	position: relative;
+	font-size: 28px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+.anlt_visitor_box {
+	position: relative;
+	float: left;
+	width: 48%;
+	height: 150px;
+	box-sizing: border-box;
+	margin-left: 2%;
+	margin-right: 0%;
+	padding: 15px;
+	padding-top: 40px;
+	border: 2px solid #ebebeb;
+	transition: .1s ease-in-out;
+}
+.anlt_visitor_box:nth-child(2n) {
+	margin-left: 0%;
+	margin-right: 2%;
+}
+.anlt_visitor_box:hover {
+	border: 2px solid black;
+}
+.anlt_visitor_box_title {
+	position: relative;
+	font-size: 18px;
+	text-align: center;
+	line-height: 20px;
+}
+.anlt_visitor_box_data {
+	position: relative;
+	font-size: 40px;
+	text-align: center;
+	font-weight: 300;
+	line-height: 50px;
 }
