@@ -195,8 +195,10 @@ function change_date_realative(dt) {
 	let min = 60 * 1000;
 	let c = new Date()
 	let d = new Date(dt);
+	/*
 	console.log("now      :", c);
 	console.log("original :", d);
+	*/
 	let minsAgo = Math.floor((c - d) / (min));
 	let result = {
 		'raw': d.getFullYear() + '-' + 
