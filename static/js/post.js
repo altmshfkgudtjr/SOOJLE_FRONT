@@ -190,6 +190,34 @@ function post_url_copy(tag) {
 	post_menu_close();
 }
 
+// 몇일전 몇분전 표기
+function change_date_realative(dt) {
+	let min = 60 * 1000;
+	let c = new Date()
+	let d = new Date(dt);
+	console.log("now      :", c);
+	console.log("original :", d);
+	let minsAgo = Math.floor((c - d) / (min));
+	let result = {
+		'raw': d.getFullYear() + '-' + 
+		(d.getMonth() + 1 > 9 ? '' : '0') + (d.getMonth() + 1) + '-' + 
+		(d.getDate() > 9 ? '' : '0') +  d.getDate() + ' ' + 
+		(d.getHours() > 9 ? '' : '0') +  d.getHours() + ':' + 
+		(d.getMinutes() > 9 ? '' : '0') +  d.getMinutes() + ':'  + 
+		(d.getSeconds() > 9 ? '' : '0') +  d.getSeconds(),
+		'formatted': '',
+	};
+	if (minsAgo < 60 && minsAgo >= 0) { // 1시간 내
+		result.formatted = minsAgo + '분 전';
+	} else if (minsAgo < 60 * 24 && minsAgo >= 0) { // 하루 내
+		result.formatted = Math.floor(minsAgo / 60) + '시간 전';
+	} else if (minsAgo < 60 * 25 * 7 && minsAgo >= 0) {
+		result.formatted = Math.floor(minsAgo / 60 / 24) + '일 전';
+	} else { // 하루 이상
+		result.formatted = result.raw;
+	};
+	return result.formatted;
+}
 
 
 // 좋아요 애니메이션 동작함수
@@ -336,7 +364,8 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			fav_cnt = post_one['fav_cnt'];
 			title = post_one['title'];
 			date = post_one['date'].$date;
-			date = new Date(date).SetTime(); 
+			//date = new Date(date).SetTime();
+			date = change_date_realative(date);
 			url = post_one['url'];
 			domain = url.split('/');
 			domain = domain[0] + '//' + domain[2];
@@ -409,7 +438,8 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			fav_cnt = post_one['fav_cnt'];
 			title = post_one['title'];
 			date = post_one['date'].$date;
-			date = new Date(date).SetTime(); 
+			//date = new Date(date).SetTime();
+			date = change_date_realative(date);
 			url = post_one['url'];
 			domain = url.split('/');
 			domain = domain[0] + '//' + domain[2];
