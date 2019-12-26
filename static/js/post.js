@@ -121,8 +121,9 @@ $(document).scroll(function() {
 	let w = $(document).width();
 	//if (w > 1200 && $(window).scrollTop() > 60) {
 	if (!mobilecheck() && $(window).scrollTop() > 60) {
+		$("#menu_container").css("top", "30px");
 		if (header_scrolling == 0) {
-			$("#menu_container").css({"top": "30px", "transition": ".2s ease-in-out"});	
+			$("#menu_container").css("transition", ".2s ease-in-out");	
 			header_scrolling = 1;
 		}
 		setTimeout(function() {$("#menu_container").css("transition", "0s ease-in-out")}, 400);

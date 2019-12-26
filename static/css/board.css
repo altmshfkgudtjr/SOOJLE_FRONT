@@ -1506,3 +1506,29 @@ input[type="checkbox"]:checked ~ .setting_toggle label::after{
   left: calc(20% - 0.5px);
   background: rgba(73,168,68,1);
 }
+
+.category_tabs {
+	position: relative;
+	width: 100%;
+	height: auto;
+	border-bottom: 1px solid #ebebeb;
+	margin-bottom: 15px;
+}
+.category_tab {
+	position: relative;
+	display: inline-block;
+	width: auto;
+	padding: 0 10px 5px 10px;
+	font-size: 20px;
+	line-height: 30px;
+	border-bottom: 2px solid rgba(0,0,0,0);
+	transition: .1s ease-in-out;
+}
+.category_tab:hover {
+	color: #c30e2e;
+	border-bottom: 2px solid #c30e2e;
+}
+.category_checked {
+	color: #c30e2e;
+	border-bottom: 2px solid #c30e2e;
+}

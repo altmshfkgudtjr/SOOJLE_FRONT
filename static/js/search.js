@@ -186,6 +186,8 @@ let similarity_words;
 let domain_posts = [];
 let a_jax_posts = [];
 function search_text(text) {
+	a_jax_posts = [];
+	domain_posts = [];
 	now_state = text;
 	let now_creating_state = now_state;
 	// 좌측 메뉴 버그 수정 fixed
@@ -199,6 +201,7 @@ function search_text(text) {
 	is_posts_done.a = 0;
 	if (text == ""){
 		Snackbar("검색어를 입력해주세요.");
+		is_searching = 0;
 		return;
 	} else {
 		text = text.toLowerCase();
@@ -219,6 +222,16 @@ function search_text(text) {
 	$("#board_info_text").text("검색 결과입니다!");
 	$("#board_info_board").empty();
 	$("#board_info_board").text("SOOJLE 엔진");
+	let category_tabs = `<div class="category_tabs">
+							<div id="category0" class="category_tab pointer category_checked" onclick="category_select($(this))">통합 검색</div>\
+							<div id="category1" class="category_tab pointer" onclick="category_select($(this))">최근 트렌드</div>\
+							<div id="category2" class="category_tab pointer" onclick="category_select($(this))">진로&구인</div>\
+							<div id="category3" class="category_tab pointer" onclick="category_select($(this))">행사&모임</div>\
+							<div id="category4" class="category_tab pointer" onclick="category_select($(this))">일반</div>\
+							<div id="category5" class="category_tab pointer" onclick="category_select($(this))">커뮤니티</div>\
+						</div>`;
+	$("#posts_target").append(category_tabs);
+	$("#posts_target").append(`<div id="search_posts_target"></div>`);
 	let send_data = {search: text};
 	let a_jax_domain = A_JAX("http://"+host_ip+"/domain_search", "POST", null, send_data);
 	let a_jax0 = A_JAX("http://"+host_ip+"/priority_search/200", "POST", null, send_data);
@@ -226,7 +239,8 @@ function search_text(text) {
 	let a_jax2 = A_JAX("http://"+host_ip+"/category_search/2/200", "POST", null, send_data);
 	let a_jax3 = A_JAX("http://"+host_ip+"/category_search/3/200", "POST", null, send_data);
 	let a_jax4 = A_JAX("http://"+host_ip+"/category_search/4/200", "POST", null, send_data);
-	let a_jax_recommend = A_JAX("http://"+host_ip+"/get_similarity_words", "POST", null, send_data);
+	// 연관검색어 임시 중단
+	//let a_jax_recommend = A_JAX("http://"+host_ip+"/get_similarity_words", "POST", null, send_data);
 	$.when(a_jax_domain).done(function () {
 		let json = a_jax_domain.responseJSON;
 		if (json['result'] == 'success') {
@@ -241,7 +255,8 @@ function search_text(text) {
 		let json = a_jax0.responseJSON;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(0, json["search_result"]);
-			insert_search_post(0, output, now_creating_state);
+			//insert_search_post(0, output, now_creating_state);
+			a_jax_posts[0] = output;
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -251,7 +266,8 @@ function search_text(text) {
 		let json = a_jax1.responseJSON;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(1, json["search_result"]);
-			insert_search_post(1, output, now_creating_state);
+			//insert_search_post(1, output, now_creating_state);
+			a_jax_posts[1] = output;
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -261,7 +277,8 @@ function search_text(text) {
 		let json = a_jax2.responseJSON;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(2, json["search_result"]);
-			insert_search_post(2, output, now_creating_state);
+			//insert_search_post(2, output, now_creating_state);
+			a_jax_posts[2] = output;
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -271,7 +288,8 @@ function search_text(text) {
 		let json = a_jax3.responseJSON;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(3, json["search_result"]);
-			insert_search_post(3, output, now_creating_state);
+			//insert_search_post(3, output, now_creating_state);
+			a_jax_posts[3] = output;
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
@@ -281,22 +299,24 @@ function search_text(text) {
 		let json = a_jax4.responseJSON;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(4, json["search_result"]);
-			insert_search_post(4, output, now_creating_state);
+			//insert_search_post(4, output, now_creating_state);
+			a_jax_posts[4] = output;
 		} else {
 			is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	$.when(a_jax_recommend).done(function () {
+	// 연관검색어 임시중지
+	/*$.when(a_jax_recommend).done(function () {
 		let json = a_jax_recommend.responseJSON;
 		if (json['result'] == "success") {
 			similarity_words = json['similarity_words'];
 			insert_recommend_words(json['similarity_words'], now_creating_state);
 		} else {
-			is_posts_done.a += 1;
+			//is_posts_done.a += 1;
 			Snackbar("다시 접속해주세요!");
 		}
-	});
+	});*/
 }
 // 검색 창 구성 함수
 function search_container_set() {
@@ -306,9 +326,10 @@ function search_container_set() {
 	let ajax2_target = `<div id="sr_t2"></div>`;
 	let ajax3_target = `<div id="sr_t3"></div>`;
 	let ajax4_target = `<div id="sr_t4"></div>`;
-	let search_recommend_target = `<div id="sr_recommend" class="sr_recommend"></div>`
-	let target = $("#posts_target");
-	target.append(search_recommend_target);
+	let search_recommend_target = `<div id="sr_recommend" class="sr_recommend"></div>`;
+	let target = $("#search_posts_target");
+	// 연관검색어 임시중지
+	//target.append(search_recommend_target);
 	target.append(domain_target);
 	//target.append(ajax0_target);
 	//target.append(ajax1_target);
@@ -316,7 +337,7 @@ function search_container_set() {
 	//target.append(ajax3_target);
 	//target.append(ajax4_target);
 }
-// 도메인 검색 결과를 해당 dive에 넣어줌
+// 도메인 검색 결과를 해당 div에 넣어줌
 function insert_domain_post(posts, now_creating_state = "") {
 	is_posts_done.a += 1;
 	let id, title, phara, url, post_one, domain_block;
@@ -362,15 +383,19 @@ function insert_domain_post(posts, now_creating_state = "") {
 function insert_search_post(target_num, posts, now_creating_state = "", is_fav_cnt = 1) {
 	is_posts_done.a += 1;
 	a_jax_posts[target_num] = posts;	// posts 저장
-	let posts_len = posts.length;
-	posts = posts.slice(0,5); // 미리보기는 5개까지만 보여줌
+	let posts_len = 0;
+	if (posts == undefined) posts_len = 0;
+	else {
+		posts_len = posts.length;
+		posts = posts.slice(0,5); // 미리보기는 5개까지만 보여줌
+	}
 	let target = $(`#sr_t${target_num}`), target_name = target_num;
-	if (posts.length == 0) {
+	if (posts_len == 0) {
 		target.remove();
 		is_posts_there.a += 1;
 		return;
 	}
-	target = $("#posts_target");
+	target = $("#search_posts_target");
 	if (Number(target_name) == 0) {target_name = "최근 트렌드";}
 	else if (Number(target_name) == 1) {target_name = "진로&구인";}
 	else if (Number(target_name) == 2) {target_name = "행사&모임";}
@@ -593,12 +618,8 @@ function recommend_word_click(tag) {
 // a_jax_posts[i] 0, 1, 2, 3, 4
 // more posts function
 function more_posts(target_num, is_fav_cnt = 1) {
-	let now_creating_state = now_state;
-	is_posts_done.a = 1;
-	window.scroll(0, 0);
-	$("#posts_creating_loading").removeClass("display_none");
-	$("#menu_container").addClass("menu_container_searching");
-	$("#menu_container").removeAttr("style");
+	$(".category_checked").removeClass("category_checked");
+	$(`#category${target_num + 1}`).addClass("category_checked");
 	let target_name;
 	if (Number(target_num) == 0) {target_name = "최근 트렌드";}
 	else if (Number(target_num) == 1) {target_name = "진로&구인";}
@@ -608,9 +629,16 @@ function more_posts(target_num, is_fav_cnt = 1) {
 	let more_left_tag = `<img src="/static/icons/back.png" class="sr_more_to_before noselect" onclick="before_posts(${target_num});">${target_name}`;
 	$("#board_info_text").empty();
 	$("#board_info_text").append(more_left_tag);
+	if (a_jax_posts[target_num].length == 0) return 1;
+	let now_creating_state = now_state;
+	is_posts_done.a = 1;
+	window.scroll(0, 0);
+	$("#posts_creating_loading").removeClass("display_none");
+	$("#menu_container").addClass("menu_container_searching");
+	$("#menu_container").removeAttr("style");
 	let posts = a_jax_posts[target_num];
-	$("#posts_target").empty();
-	let target = $("#posts_target");
+	$("#search_posts_target").empty();
+	let target = $("#search_posts_target");
 	let w = $(document).width();
 	// 속도향상을 위한 선언
 	let check;
@@ -802,25 +830,58 @@ function more_posts(target_num, is_fav_cnt = 1) {
 }
 // back to search selection page
 function before_posts(target_num, is_fav_cnt = 1) {
+	$(".category_checked").removeClass("category_checked");
+	$("#category0").addClass("category_checked");
 	is_posts_there.a = 0;
 	$("#posts_creating_loading").removeClass("display_none");
-	$("#posts_target").empty();
-	$("#posts_target").append(`<div id="sr_recommend" class="sr_recommend"></div>`);
+	$("#search_posts_target").empty();
+	// 연관검색어 임시중지
+	//$("#search_posts_target").append(`<div id="sr_recommend" class="sr_recommend"></div>`);
 	$("#board_info_text").empty();
 	$("#board_info_text").text("검색 결과입니다!");
 	$("#board_info_board").empty();
 	$("#board_info_board").text("SOOJLE 엔진");
 	//search_container_set();
-	insert_recommend_words(similarity_words, now_state);
+	// 연관검색어 임시중지
+	//insert_recommend_words(similarity_words, now_state);
+	is_posts_done.a -= 1;
 	insert_domain_post(domain_posts, now_state);
-	insert_search_post(0, a_jax_posts[0], now_state);
-	insert_search_post(1, a_jax_posts[1], now_state);
-	insert_search_post(2, a_jax_posts[2], now_state);
-	insert_search_post(3, a_jax_posts[3], now_state);
-	insert_search_post(4, a_jax_posts[4], now_state);
+	for (let i = 0; i< 5; i++)
+		if (sum[i] != 0){
+			is_posts_done.a -= 1;
+			insert_search_post(index[i], a_jax_posts[index[i]], now_state);
+		}
+	// 로딩 제거
+	let token = sessionStorage.getItem('sj-state');
+	if (token == null || token == undefined || token == 'undefined') {} 
+	else {
+		a_jax_userinfo = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
+		$.when(a_jax_userinfo).done(function () {
+			if (a_jax_userinfo.responseJSON['result'] == 'success') {
+				let posts = $(".post_block");
+				let post_one;
+				for (post_one of posts) {
+					for (let fav_post of a_jax_userinfo.responseJSON["user_fav_list"]) {
+						if ($(post_one).attr("p-id") == fav_post["_id"]) {
+							$(post_one).children('div').children('div.post_like').css("color", "#f00730");
+							$(post_one).children('div').children('div.post_like').attr("ch", "1");
+						}
+					}
+				}
+			} else if (a_jax_userinfo['status'].toString().startswith('4')) {
+				Snackbar("올바르지 않은 접근입니다.");
+				sessionStorage.removeItem('sj-state');
+				localStorage.removeItem('sj-state');
+			} else {
+				Snackbar("통신이 원활하지 않습니다.");
+			}
+		});
+	}
+	is_searching = 0;
 	$("#posts_creating_loading").addClass("display_none");
 }
 // duplicative posts removed
+// 오직 맨 처음 text_search 에서만 실행되어야함 is_posts_done.a += 1 때문에
 function remove_duplicated(target, posts) {
 	let output = [], index = [], post_one, i, j, posts_len = posts.length;
 	for (i = 0; i < posts_len; i++) index.push(0);
@@ -838,6 +899,7 @@ function remove_duplicated(target, posts) {
 		if (index[i] == 1) continue;
 		output.push(posts[i]);
 	}
+	is_posts_done.a += 1;
 	return output;
 }
 
@@ -873,40 +935,15 @@ let is_posts_there = {
 is_posts_done.registerListener(function(val) {
 	// fixed 제거 sticky으로 변경
 	if (val == 6) {
-		// 로딩 제거
-		let token = sessionStorage.getItem('sj-state');
-		if (token == null || token == undefined || token == 'undefined') {} 
-		else {
-			a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-			$.when(a_jax).done(function () {
-				if (a_jax.responseJSON['result'] == 'success') {
-					let posts = $(".post_block");
-					let post_one;
-					for (post_one of posts) {
-						for (let fav_post of a_jax.responseJSON["user_fav_list"]) {
-							if ($(post_one).attr("p-id") == fav_post["_id"]) {
-								$(post_one).children('div').children('div.post_like').css("color", "#f00730");
-								$(post_one).children('div').children('div.post_like').attr("ch", "1");
-							}
-						}
-					}
-				} else if (a_jax['status'].toString().startswith('4')) {
-					Snackbar("올바르지 않은 접근입니다.");
-					sessionStorage.removeItem('sj-state');
-					localStorage.removeItem('sj-state');
-				} else {
-					Snackbar("통신이 원활하지 않습니다.");
-				}
-			});
-		}
-		is_searching = 0;
-		$("#posts_creating_loading").addClass("display_none");
+		setTimeout(function() {
+			check_search_results_sort();
+		}, 100);
 	}
 });
 is_posts_there.registerListener(function(val) {
 	if (val == 6) {
 		$("#posts_creating_loading").addClass("display_none");
-		let target = $("#posts_target");
+		let target = $("#search_posts_target");
 		let imoticon = imoticons[Math.floor(Math.random() * imoticons.length)];
 		//<img src="./static/image/none_posts.png" class="sr_none_posts_img">
 		let no_posts_tag = `
@@ -918,3 +955,92 @@ is_posts_there.registerListener(function(val) {
 		$("#menu_container").removeClass('menu_container_searching');
 	}
 });
+
+
+function similarity_sort(index, sum) {
+	let i, j, max, tmp;
+	for (i = 0; i< 5; i++) {
+		max = i;
+		for (j = i + 1; j< 5; j++)
+			if (sum[max] < sum[j])
+				max = j;
+		if (max != i) {
+			tmp = sum[i];
+			sum[i] = sum[max];
+			sum[max] = tmp;
+			tmp = index[i];
+			index[i] = index[max];
+			index[max] = tmp;
+		}
+	}
+	return index;
+}
+let index = [0, 1, 2, 3, 4], sum = [0, 0, 0, 0, 0];
+function check_search_results_sort() {
+	index = [0, 1, 2, 3, 4];
+	sum = [0, 0, 0, 0, 0];
+	for (let i = 0; i < 5; i++) {
+		if (a_jax_posts[i] != undefined){
+			for (let j = 0; j<5; j++){
+				if (a_jax_posts[i][j] != undefined)
+					sum[i] += a_jax_posts[i][j]["similarity"];
+			}
+		}
+	}
+	index = similarity_sort(index, sum);
+	for (let i = 0; i< 5; i++) {
+		insert_search_post(index[i], a_jax_posts[index[i]], now_state);
+	}
+	// 로딩 제거
+	let token = sessionStorage.getItem('sj-state');
+	if (token == null || token == undefined || token == 'undefined') {} 
+	else {
+		a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
+		$.when(a_jax).done(function () {
+			if (a_jax.responseJSON['result'] == 'success') {
+				let posts = $(".post_block");
+				let post_one;
+				for (post_one of posts) {
+					for (let fav_post of a_jax.responseJSON["user_fav_list"]) {
+						if ($(post_one).attr("p-id") == fav_post["_id"]) {
+							$(post_one).children('div').children('div.post_like').css("color", "#f00730");
+							$(post_one).children('div').children('div.post_like').attr("ch", "1");
+						}
+					}
+				}
+			} else if (a_jax['status'].toString().startswith('4')) {
+				Snackbar("올바르지 않은 접근입니다.");
+				sessionStorage.removeItem('sj-state');
+				localStorage.removeItem('sj-state');
+			} else {
+				Snackbar("통신이 원활하지 않습니다.");
+			}
+		});
+	}
+	is_searching = 0;
+	$("#posts_creating_loading").addClass("display_none");
+}
+
+function category_select(tag) {
+	let id = tag.attr('id');
+	if (id == 'category0') {
+		if (tag.hasClass('category0')) return;
+		else before_posts(id.slice(Number(8) - 1));
+	} else {
+		let ok_post = more_posts(Number(id.slice(8)) - 1);
+		if (ok_post == 1) {
+			$("#posts_creating_loading").addClass("display_none");
+			let target = $("#search_posts_target");
+			target.empty();
+			let imoticon = imoticons[Math.floor(Math.random() * imoticons.length)];
+			//<img src="./static/image/none_posts.png" class="sr_none_posts_img">
+			let no_posts_tag = `
+				<div class="sr_none_posts_cont">
+					<div class="sr_none_posts_img noselect">${imoticon}</div>
+					<div class="sr_none_posts_text">포스트가 존재하지 않습니다!</div>
+				</div>`;
+			target.append(no_posts_tag);
+			$("#menu_container").removeClass('menu_container_searching');
+		}
+	}
+}
