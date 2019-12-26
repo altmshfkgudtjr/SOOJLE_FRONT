@@ -1,6 +1,7 @@
 function Go_analysistic() {
 	now_topic = "통계";
 	where_topic = "통계";
+	now_state = "통계";
 	$("#board_info_board").text("SOOJLE 애널리틱스");
 	$("#board_info_text").text("통계");
 	$("#posts_target").empty();
@@ -18,6 +19,8 @@ function set_analysistic() {
 	insert_weather_div();
 	insert_realtimesearch_div();
 	insert_visitor_div();
+	insert_post_div();
+	insert_outlink_div();
 }
 
 // 시각 div Insert
@@ -95,6 +98,21 @@ function set_analysistic_time_event(month, date) {
 function insert_weather_div() {
 	let div = `<div id="anlt_weather_wrap" class="anlt_weather_wrap"></div>`;
 	$("#anlt_time_weather_wrap").append(div);
+	//set_weather();
+}
+function set_weather() {
+	let weather_ajax = A_JAX("http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData?\
+								ServiceKey=0A5sn7QJHavj4KHM7abOIxdnDC7zPEADwdXcrhEuo7%2BILrC1Fb%2Bf4ni0pHcKAKd1gErcsUqqgYUGCqL9cKk7Cg%3D%3D\
+								&base_date=20191226\
+								&base_time=1430\
+								&nx=62\
+								&ny=126\
+								&_type=json"
+							, "Get", null, null);
+	$.when(weather_ajax).done(function () {
+		let json = weather_ajax.responseJSON;
+		console.log(json);
+	});
 }
 
 // 실시간 검색어 div Insert
@@ -120,14 +138,23 @@ function set_realtimesearch() {
 		if (json['result'] == 'success') {
 			realtime_words_list = json['search_realtime'];
 			let target, div, i;
-			for (i = 1; i <= 10; i++) {
-				let word = realtime_words_list[i - 1][0];
-				div = `<div class="anlt_realtime_word pointer" onclick="realtime_word_search($(this))">\
-							<span style="font-weight:bold">${i}</span>. ${word}\
-						</div>`;
-				if (i < 6) target = $('#anlt_reatime_word_1to5');
-				else target = $("#anlt_reatime_word_6to10");
-				target.append(div);
+			for (i = 1; i <= realtime_words_list.length; i++) {
+				let word;
+				if (realtime_words_list[i - 1] != undefined)
+					word = realtime_words_list[i - 1][0];
+					if (i == 1) {
+						div = `<div class="anlt_realtime_word pointer" onclick="realtime_word_search($(this))">\
+									<span style="font-weight:bold">${i}.</span> <span style="color:#c30e2e">${word}</span>\
+								</div>`;
+					}
+					else {
+						div = `<div class="anlt_realtime_word pointer" onclick="realtime_word_search($(this))">\
+									<span style="font-weight:bold">${i}.</span> <span>${word}</span>\
+								</div>`;
+					}
+					if (i < 6) target = $('#anlt_reatime_word_1to5');
+					else target = $("#anlt_reatime_word_6to10");
+					target.append(div);
 			}
 		} else {
 			Snackbar("실시간 검색어를 불러오지 못하였습니다.");
@@ -140,24 +167,46 @@ function set_realtimesearch() {
 	$("#anlt_realtime_standard").append(standard);
 }
 function realtime_word_search(tag) {
-	let text = tag.text();//.slice(3);
+	let text = tag.text().trim().slice(3);
 	search_text(text);
 	if (mobilecheck()) {
 		mobile_search_modal_open();
 	}
 }
 
+// 방문자 분석 div Insert
 function insert_visitor_div() {
 	let div = 	`
 					<div id="anlt_visitor_wrap" class="anlt_visitor_wrap">
 						<div class="anlt_visitor_title noselect">방문자 분석</div>
 						<div id="anlt_today_visitor" class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">오늘 방문자수</div>
-							<div id="anlt_visitor_box_data" class="anlt_visitor_box_data">0</div>
+							<div id="anlt_today_visitor_data" class="anlt_visitor_box_data">0</div>
 						</div>\
 						<div id="anlt_all_visitor" class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">총 방문자수</div>
-							<div id="anlt_visitor_box_data" class="anlt_visitor_box_data">0</div>
+							<div id="anlt_all_visitor_data" class="anlt_visitor_box_data">0</div>
+						</div>\
+						<div id="anlt_average_visitor" class="anlt_visitor_box noselect">
+							<div class="anlt_visitor_box_title">하루 평균 방문자수</div>
+							<div id="anlt_today_visitor_average_data" class="anlt_visitor_box_data">0</div>
+						</div>\
+						<div id="anlt_average_visitor" class="anlt_visitor_box noselect">
+							<div class="anlt_visitor_box_title">하루 최대 방문자수</div>
+							<div id="anlt_all_visitor_max_data" class="anlt_visitor_box_data">0</div>
+						</div>\
+						<div class="anlt_visitor_chart_box">
+							<div class="anlt_visitor_box_title_big noselect">사용 시간대 분석</div>
+							<canvas id="visitor_distribution" class="anlt_visitor_chart_element" width="auto" height="auto"></canvas>
+						</div>\
+						<div></div>\
+						<div id="anlt_number_visitor" class="anlt_visitor_box noselect">
+							<div class="anlt_visitor_box_title">학번별 최고 방문수</div>
+							<div id="anlt_visitor_number_data" class="anlt_visitor_box_data">0</div>
+						</div>\
+						<div id="anlt_major_visitor" class="anlt_visitor_box noselect">
+							<div class="anlt_visitor_box_title">학과별 최고 방문수</div>
+							<div id="anlt_visitor_major_data" class="anlt_visitor_box_data">0</div>
 						</div>\
 					</div>
 				`;
@@ -175,4 +224,137 @@ function set_visitor_data() {
 			Snackbar("방문자 데이터를 가져오지 못하였습니다.");
 		}
 	});*/
+	get_line("visitor_distribution",
+		['12월 24일', '12월 25일'],
+		[
+			[1,2,3,4,3,6,2,7,10,3,2,4,1,2,3,1,6,11,8,20,23,10,29,33,30],
+			[12,23,7,1,7,8,10,11,7,8,10,12,13,14,4,26,36,41,38,41,44,45,32,41,38]
+		],
+	);
+}
+
+// 게시글 분석 div Insert
+function insert_post_div() {
+	let div = 	`
+				<div id="anlt_postdata_wrap" class="anlt_visitor_wrap">
+					<div class="anlt_visitor_title noselect">게시글 분석</div>\
+					<div id="anlt_view_allpost" class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">전체 게시글 조회 수</div>
+						<div id="anlt_all_posts_view_data" class="anlt_visitor_box_data">0</div>
+					</div>\
+					<div id="anlt_like_allpost" class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">전체 게시글 공감 수</div>
+						<div id="anlt_all_posts_like_data" class="anlt_visitor_box_data">0</div>
+					</div>\
+				</div>
+	`;
+	$("#posts_target").append(div);
+	set_post_data();
+}
+function set_post_data() {
+	
+}
+
+function insert_outlink_div() {
+	let div = 	`
+				<div id="anlt_postdata_wrap" class="anlt_visitor_wrap">
+					<div class="anlt_visitor_title noselect">외부사이트 분석</div>\
+					<div id="anlt_view_allpost" class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">외부사이트 클릭수</div>
+						<div id="anlt_outlink_click_all_data" class="anlt_visitor_box_data">0</div>
+					</div>\
+					<div id="anlt_like_allpost" class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">외부사이트 최대 클릭수</div>
+						<div id="anlt_outlink_click_max_data" class="anlt_visitor_box_data">0</div>
+					</div>\
+					<div id="anlt_like_allpost" class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">외부사이트 명예의 전당</div>
+						<div id="anlt_outlink_text_max_data" class="anlt_top_text_data">OJ</div>
+					</div>\
+				</div>
+	`;
+	$("#posts_target").append(div);
+	set_outlink_data();
+}
+function set_outlink_data() {
+
+}
+
+// Chart JS : Line Type
+function get_line(id_, labels_, datas_) {
+	let ctx = document.getElementById(id_);
+	let myLineChart  = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
+			datasets: [{
+				label: labels_[0],
+				data: datas_[0],
+				borderColor: "#1ad904",
+				backgroundColor: "#1ad904",
+				lineTension: 0,
+				fill: false
+			}, {
+				label: labels_[1],
+				data: datas_[1],
+				borderColor: "#03adfc",
+				backgroundColor: "#03adfc",
+				lineTension: 0,
+				fill: false
+			}]
+		},
+		options: {
+			response: true,
+			layout: {
+        		padding: {
+                    left: 20,
+                    right: 20,
+                    top: 0,
+                    bottom: 0
+                },
+                labels: {
+                	fontSize: 20
+                }
+        	},
+			tooltips: {
+				xPadding: 20,
+				ypadding: 15,
+				titleFontColor: "rgba(0,0,0,0)",
+				titleFontSize: 0,
+				titleSpacing: 0,
+				bodyFontSize: 16,
+				bodySpacing: 5,
+				mode: 'index',
+				intersect: false,
+				cornerRadius: 3,
+				caretPadding : 20,
+				opacity: 0.7,
+				footer: ' ',
+				footerFontColor: "rgba(0,0,0,0)",
+				footerFontSize: 10,
+				footerSpacing: 0,
+				footerMarginTop: 10
+			},
+			legend: {
+        		display: true,
+        		align: 'end'
+        	},
+        	title: {
+        		display: false
+        	},
+			scales: {
+				xAxes: [{
+					display: true
+				}],
+				yAxes: [{
+					display: true
+				}]
+			},
+			hover: {
+				mode: 'index',
+				axis: 'x',
+				intersect: false
+			}
+		}
+	});
 }

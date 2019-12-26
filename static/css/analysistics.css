@@ -69,6 +69,10 @@
 	border: 2px solid #ebebeb;
 	margin-top: 20px;
 	box-sizing: border-box;
+	transition: .1s ease-in-out;
+}
+.anlt_reatime_words_wrap:hover {
+	border: 2px solid black;
 }
 .anlt_reatime_word_elements {
 	position: relative;
@@ -112,6 +116,7 @@
 	box-sizing: border-box;
 	margin-left: 2%;
 	margin-right: 0%;
+	margin-bottom: 15px;
 	padding: 15px;
 	padding-top: 40px;
 	border: 2px solid #ebebeb;
@@ -136,4 +141,32 @@
 	text-align: center;
 	font-weight: 300;
 	line-height: 50px;
+}
+.anlt_visitor_chart_box {
+	position: relative;
+	float: left;
+	width: 100%;
+	height: auto;
+	margin-bottom: 20px;
+}
+.anlt_visitor_chart_element {
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+.anlt_visitor_box_title_big {
+	position: relative;
+	font-size: 18px;
+	text-align: center;
+	line-height: 20px;
+	font-weight: bold;
+	margin: 10px 0;
+}
+.anlt_top_text_data {
+	position: relative;
+	font-size: 40px;
+	text-align: center;
+	font-weight: 300;
+	line-height: 50px;
+	color: #c30e2e;
 }
