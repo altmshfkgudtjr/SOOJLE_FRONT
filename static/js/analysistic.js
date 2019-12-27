@@ -181,19 +181,19 @@ function insert_visitor_div() {
 						<div class="anlt_visitor_title noselect">방문자 분석</div>
 						<div id="anlt_today_visitor" class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">오늘 방문자수</div>
-							<div id="anlt_today_visitor_data" class="anlt_visitor_box_data">0</div>
+							<div id="anlt_today_visitor_data" class="anlt_visitor_box_data">18</div>
 						</div>\
 						<div id="anlt_all_visitor" class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">총 방문자수</div>
-							<div id="anlt_all_visitor_data" class="anlt_visitor_box_data">0</div>
+							<div id="anlt_all_visitor_data" class="anlt_visitor_box_data">238</div>
 						</div>\
 						<div id="anlt_average_visitor" class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">하루 평균 방문자수</div>
-							<div id="anlt_today_visitor_average_data" class="anlt_visitor_box_data">0</div>
+							<div id="anlt_today_visitor_average_data" class="anlt_visitor_box_data">31</div>
 						</div>\
 						<div id="anlt_average_visitor" class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">하루 최대 방문자수</div>
-							<div id="anlt_all_visitor_max_data" class="anlt_visitor_box_data">0</div>
+							<div id="anlt_all_visitor_max_data" class="anlt_visitor_box_data">45</div>
 						</div>\
 						<div class="anlt_visitor_chart_box">
 							<div class="anlt_visitor_box_title_big noselect">사용 시간대 분석</div>
@@ -202,11 +202,11 @@ function insert_visitor_div() {
 						<div></div>\
 						<div id="anlt_number_visitor" class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">학번별 최고 방문수</div>
-							<div id="anlt_visitor_number_data" class="anlt_visitor_box_data">0</div>
+							<div id="anlt_visitor_number_data" class="anlt_visitor_box_data">16</div>
 						</div>\
 						<div id="anlt_major_visitor" class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">학과별 최고 방문수</div>
-							<div id="anlt_visitor_major_data" class="anlt_visitor_box_data">0</div>
+							<div id="anlt_visitor_major_data" class="anlt_visitor_box_data">21</div>
 						</div>\
 					</div>
 				`;
@@ -225,7 +225,7 @@ function set_visitor_data() {
 		}
 	});*/
 	get_line("visitor_distribution",
-		['12월 24일', '12월 25일'],
+		['12월 25일', '12월 26일'],
 		[
 			[1,2,3,4,3,6,2,7,10,3,2,4,1,2,3,1,6,11,8,20,23,10,29,33,30],
 			[12,23,7,1,7,8,10,11,7,8,10,12,13,14,4,26,36,41,38,41,44,45,32,41,38]
@@ -240,11 +240,11 @@ function insert_post_div() {
 					<div class="anlt_visitor_title noselect">게시글 분석</div>\
 					<div id="anlt_view_allpost" class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">전체 게시글 조회 수</div>
-						<div id="anlt_all_posts_view_data" class="anlt_visitor_box_data">0</div>
+						<div id="anlt_all_posts_view_data" class="anlt_visitor_box_data">617</div>
 					</div>\
 					<div id="anlt_like_allpost" class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">전체 게시글 공감 수</div>
-						<div id="anlt_all_posts_like_data" class="anlt_visitor_box_data">0</div>
+						<div id="anlt_all_posts_like_data" class="anlt_visitor_box_data">78</div>
 					</div>\
 				</div>
 	`;
@@ -261,15 +261,15 @@ function insert_outlink_div() {
 					<div class="anlt_visitor_title noselect">외부사이트 분석</div>\
 					<div id="anlt_view_allpost" class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">외부사이트 클릭수</div>
-						<div id="anlt_outlink_click_all_data" class="anlt_visitor_box_data">0</div>
+						<div id="anlt_outlink_click_all_data" class="anlt_visitor_box_data">78</div>
 					</div>\
 					<div id="anlt_like_allpost" class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">외부사이트 최대 클릭수</div>
-						<div id="anlt_outlink_click_max_data" class="anlt_visitor_box_data">0</div>
+						<div id="anlt_outlink_click_max_data" class="anlt_visitor_box_data">21</div>
 					</div>\
 					<div id="anlt_like_allpost" class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">외부사이트 명예의 전당</div>
-						<div id="anlt_outlink_text_max_data" class="anlt_top_text_data">OJ</div>
+						<div id="anlt_outlink_text_max_data" class="anlt_top_text_data">BlackBoard</div>
 					</div>\
 				</div>
 	`;

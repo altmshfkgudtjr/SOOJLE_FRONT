@@ -329,9 +329,15 @@ function change_date_realative(dt) {
 		result.formatted = Math.floor(minsAgo / 60) + '시간 전';
 	} else if (minsAgo < 60 * 25 * 7 && minsAgo >= 0) {
 		result.formatted = Math.floor(minsAgo / 60 / 24) + '일 전';
-	} else { // 하루 이상
+	} else if (minsAgo < 60 * 25 * 7 * 4 && minsAgo >= 0) {
+		result.formatted = Math.floor(minsAgo / 60 / 24 / 7) + '주 전';
+	} else if (minsAgo < 60 * 25 * 7 * 4 * 13 && minsAgo >= 0) {
+		result.formatted = Math.floor(minsAgo / 60 / 24 / 7 / 4) + '달 전';
+	} else if (minsAgo >= 0) { // 한달 이상
+		result.formatted = Math.floor(minsAgo / 60 / 24 / 7 / 4 / 12) + '년 전';
+	} else {
 		result.formatted = result.raw;
-	};
+	}
 	return result.formatted;
 }
 // yyyyMMddHHmmss 형태로 포멧팅하여 날짜 반환
