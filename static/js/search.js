@@ -341,6 +341,8 @@ function search_container_set() {
 function insert_domain_post(posts, now_creating_state = "") {
 	is_posts_done.a += 1;
 	let id, title, phara, url, post_one, domain_block;
+	let domain_target = `<div id="sr_dt"></div>`;
+	$("#search_posts_target").append(domain_target);
 	let target = $("#sr_dt");
 	let domain_tag = `
 		<div class="sr_title">웹사이트</div>`;
@@ -370,7 +372,9 @@ function insert_domain_post(posts, now_creating_state = "") {
 		target.remove();
 		is_posts_there.a += 1;
 	}
-	else { target.append(domain_tag); }
+	else {
+		target.append(domain_tag); 
+	}
 }
 /*
 0: 최근 트렌드
