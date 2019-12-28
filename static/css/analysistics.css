@@ -164,9 +164,12 @@
 }
 .anlt_top_text_data {
 	position: relative;
-	font-size: 40px;
+	font-size: 30px;
 	text-align: center;
 	font-weight: 300;
 	line-height: 50px;
 	color: #c30e2e;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

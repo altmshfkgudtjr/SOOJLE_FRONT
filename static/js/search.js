@@ -854,11 +854,14 @@ function before_posts(target_num, is_fav_cnt = 1) {
 	//insert_recommend_words(similarity_words, now_state);
 	is_posts_done.a -= 1;
 	insert_domain_post(domain_posts, now_state);
-	for (let i = 0; i< 5; i++)
+	for (let i = 0; i< 5; i++) {
 		if (sum[i] != 0){
 			is_posts_done.a -= 1;
 			insert_search_post(index[i], a_jax_posts[index[i]], now_state);
+		} else {
+			is_posts_there.a += 1;
 		}
+	}
 	// 로딩 제거
 	let token = sessionStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') {} 

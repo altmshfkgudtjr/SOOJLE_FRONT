@@ -40,3 +40,41 @@
 	float: left;
 	margin: 40px 2.5% 0 2.5%;
 }
+.anlt_visitor_box {
+	position: relative;
+	float: left;
+	width: 48%;
+	height: 130px;
+	box-sizing: border-box;
+	margin-left: 2%;
+	margin-right: 0%;
+	margin-bottom: 15px;
+	padding: 15px;
+	padding-top: 30px;
+	border: 2px solid #ebebeb;
+	transition: .1s ease-in-out;
+}
+.anlt_visitor_box_title {
+	position: relative;
+	font-size: 14px;
+	text-align: center;
+	line-height: 20px;
+}
+.anlt_visitor_box_data {
+	position: relative;
+	font-size: 30px;
+	text-align: center;
+	font-weight: 300;
+	line-height: 50px;
+}
+.anlt_top_text_data {
+	position: relative;
+	font-size: 24px;
+	text-align: center;
+	font-weight: 300;
+	line-height: 50px;
+	color: #c30e2e;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

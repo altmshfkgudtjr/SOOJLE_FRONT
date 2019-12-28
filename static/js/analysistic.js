@@ -269,7 +269,7 @@ function insert_outlink_div() {
 					</div>\
 					<div id="anlt_like_allpost" class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">외부사이트 명예의 전당</div>
-						<div id="anlt_outlink_text_max_data" class="anlt_top_text_data">BlackBoard</div>
+						<div id="anlt_outlink_text_max_data" class="anlt_top_text_data">대양휴머니티칼리지</div>
 					</div>\
 				</div>
 	`;
