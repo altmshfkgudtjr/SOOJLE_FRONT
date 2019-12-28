@@ -70,7 +70,7 @@ function insert_user_custom_setting() {
 									<div class="setting_title_info noselect">${title_info_2}</div>
 									<div class="setting_subtitle noselect">${st_2}</div>
 									<input type="checkbox" id="user_data_delete">
-									<div class="setting_toggle">
+									<div class="setting_toggle_red">
 										<label for="user_data_delete"></label>
 									</div>
 									<div class="setting_subtitle_info noselect">${st_info_2}</div>

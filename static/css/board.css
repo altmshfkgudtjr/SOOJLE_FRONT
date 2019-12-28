@@ -1432,7 +1432,9 @@ input[type="checkbox"],
 input[type="checkbox"]:checked,
 label, .setting_toggle,
 label:before, .setting_toggle:before,
-label:ater, .setting_toggle:after {
+label:ater, .setting_toggle:after,
+.setting_toggle_red, .setting_toggle_red:before,
+.setting_toggle_red:after {
 	transition: 400ms all ease-in-out 50ms;
 	box-sizing: border-box;
 	backface-visibility: hidden;
@@ -1445,16 +1447,23 @@ input[type="checkbox"]:checked ~ .setting_toggle {
   background: rgba(73,168,68,1);
   box-shadow: 0 0 2px rgba(73,168,68,1);
 }
-input[type="checkbox"]:checked ~ .setting_toggle label {
+input[type="checkbox"]:checked ~ .setting_toggle_red {
+  background: rgba(207,0,0,1);
+  box-shadow: 0 0 2px rgba(207,0,0,1);
+}
+input[type="checkbox"]:checked ~ .setting_toggle label,
+input[type="checkbox"]:checked ~ .setting_toggle_red label {
   left: 33px;
   transform: rotate(360deg);
 }
 .setting_toggle,
+.setting_toggle_red,
 label {
   transition: 400ms all ease-in-out 50ms;
   border-radius: 50px;
 }
-.setting_toggle {
+.setting_toggle,
+.setting_toggle_red {
   height: 30px;
   width: 60px;
   background: rgba(43, 43, 43, 1);
@@ -1508,6 +1517,18 @@ input[type="checkbox"]:checked ~ .setting_toggle label::after{
   top: calc(90% - 9px);
   left: calc(20% - 0.5px);
   background: rgba(73,168,68,1);
+}
+input[type="checkbox"]:checked ~ .setting_toggle_red label::before{
+  height: 14px;
+  top: calc(55% - 8px);
+  left: calc(60% - 0px);
+  background: rgba(207,0,0,1);
+}
+input[type="checkbox"]:checked ~ .setting_toggle_red label::after{
+  width: 9px;
+  top: calc(90% - 9px);
+  left: calc(20% - 0.5px);
+  background: rgba(207,0,0,1);
 }
 
 .category_tabs {
