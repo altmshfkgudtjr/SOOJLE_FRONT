@@ -120,9 +120,9 @@ function insert_realtimesearch_div() {
 	let div = 	`
 					<div id="anlt_realtime_wrap" class="anlt_realtime_wrap">
 						<div class="anlt_realtime_title noselect">실시간 검색어</div>
-						<div class="anlt_reatime_words_wrap">
+						<div class="anlt_reatime_words_wrap">\
 							<div id="anlt_reatime_word_1to5" class="anlt_reatime_word_elements">\
-							</div><div id="anlt_reatime_word_6to10" class="anlt_reatime_word_elements"></div>
+							</div><div id="anlt_reatime_word_6to10" class="anlt_reatime_word_elements"></div>\
 						</div>
 						<div id="anlt_realtime_standard" class="anlt_realtime_standard noselect"></div>
 					</div>

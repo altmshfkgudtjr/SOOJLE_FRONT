@@ -81,6 +81,11 @@
 	height: 100%;
 	border: none;
 }
+.anlt_reatime_word_elements:nth-child(2) {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
 .anlt_realtime_word {
 	position: relative;
 	width: 90%;

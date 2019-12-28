@@ -245,6 +245,7 @@ function search_text(text) {
 		let json = a_jax_domain.responseJSON;
 		if (json['result'] == 'success') {
 			domain_posts = json["search_result"];
+			console.log(domain_posts);
 			insert_domain_post(json["search_result"], now_creating_state);
 		} else {
 			is_posts_done.a += 1;
