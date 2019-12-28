@@ -141,7 +141,7 @@ $(document).scroll(function() {
 			if (now_creating == 0) {
 				now_creating = 1;
 				$("#posts_creating_loading").removeClass("display_none");
-				$("#board_container").addClass("board_container_fixed");
+				//$("#board_container").addClass("board_container_fixed");
 				setTimeout(function() {
 					get_posts_more();
 					setTimeout(function() {
