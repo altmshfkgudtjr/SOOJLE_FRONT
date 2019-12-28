@@ -191,7 +191,7 @@ function search_text(text) {
 	now_state = text;
 	let now_creating_state = now_state;
 	// 좌측 메뉴 버그 수정 fixed
-	$("#menu_container").addClass("menu_container_searching");
+	//$("#menu_container").addClass("menu_container_searching");
 	$("#menu_container").removeAttr("style");
 	// 현재 검색 중이면 차단
 	if (is_searching == 1) return;
@@ -245,7 +245,6 @@ function search_text(text) {
 		let json = a_jax_domain.responseJSON;
 		if (json['result'] == 'success') {
 			domain_posts = json["search_result"];
-			console.log(domain_posts);
 			insert_domain_post(json["search_result"], now_creating_state);
 		} else {
 			is_posts_done.a += 1;
@@ -568,7 +567,7 @@ function insert_search_post(target_num, posts, now_creating_state = "", is_fav_c
 		target.append(target_tag);
 	//if (w > 1200) {
 	if (!mobilecheck()) {
-		$("#menu_container").removeClass("menu_container_searching");
+		//$("#menu_container").removeClass("menu_container_searching");
 		setTimeout(function() {$("#menu_container").css({"transition": ".2s ease-in-out"});}, 200);
 	}
 }
@@ -641,7 +640,7 @@ function more_posts(target_num, is_fav_cnt = 1) {
 	is_posts_done.a = 1;
 	window.scroll(0, 0);
 	$("#posts_creating_loading").removeClass("display_none");
-	$("#menu_container").addClass("menu_container_searching");
+	//$("#menu_container").addClass("menu_container_searching");
 	$("#menu_container").removeAttr("style");
 	let posts = a_jax_posts[target_num];
 	$("#search_posts_target").empty();
@@ -833,7 +832,7 @@ function more_posts(target_num, is_fav_cnt = 1) {
 	setTimeout(function() {
 		//if (w > 1200) {
 		if (!mobilecheck()) {
-			$("#menu_container").removeAttr("style").removeClass("menu_container_searching");
+			$("#menu_container").removeAttr("style");//.removeClass("menu_container_searching");
 		}
 	}, 1000);
 }
@@ -964,7 +963,7 @@ is_posts_there.registerListener(function(val) {
 				<div class="sr_none_posts_text">포스트가 존재하지 않습니다!</div>
 			</div>`;
 		target.append(no_posts_tag);
-		$("#menu_container").removeClass('menu_container_searching');
+		//$("#menu_container").removeClass('menu_container_searching');
 	}
 });
 
@@ -1052,7 +1051,7 @@ function category_select(tag) {
 					<div class="sr_none_posts_text">포스트가 존재하지 않습니다!</div>
 				</div>`;
 			target.append(no_posts_tag);
-			$("#menu_container").removeClass('menu_container_searching');
+			//$("#menu_container").removeClass('menu_container_searching');
 		}
 	}
 }

@@ -192,7 +192,7 @@ function insert_visitor_div() {
 							<div id="anlt_today_visitor_average_data" class="anlt_visitor_box_data">31</div>
 						</div>\
 						<div id="anlt_average_visitor" class="anlt_visitor_box noselect">
-							<div class="anlt_visitor_box_title">하루 최대 방문자수</div>
+							<div class="anlt_visitor_box_title">하루 최고 방문자수</div>
 							<div id="anlt_all_visitor_max_data" class="anlt_visitor_box_data">45</div>
 						</div>\
 						<div class="anlt_visitor_chart_box">
@@ -260,11 +260,11 @@ function insert_outlink_div() {
 				<div id="anlt_postdata_wrap" class="anlt_visitor_wrap">
 					<div class="anlt_visitor_title noselect">외부사이트 분석</div>\
 					<div id="anlt_view_allpost" class="anlt_visitor_box noselect">
-						<div class="anlt_visitor_box_title">외부사이트 클릭수</div>
+						<div class="anlt_visitor_box_title">외부사이트 총 클릭수</div>
 						<div id="anlt_outlink_click_all_data" class="anlt_visitor_box_data">78</div>
 					</div>\
 					<div id="anlt_like_allpost" class="anlt_visitor_box noselect">
-						<div class="anlt_visitor_box_title">외부사이트 최대 클릭수</div>
+						<div class="anlt_visitor_box_title">외부사이트 최고 클릭수</div>
 						<div id="anlt_outlink_click_max_data" class="anlt_visitor_box_data">21</div>
 					</div>\
 					<div id="anlt_like_allpost" class="anlt_visitor_box noselect">

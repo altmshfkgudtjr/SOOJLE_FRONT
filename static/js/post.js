@@ -20,6 +20,7 @@ function get_recommend_posts(is_first = 0) {
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
+	$("#board_container").addClass("board_container_fixed");
 	$("#posts_target").empty();
 	$("#pc_search_input").val("");
 	$("#mobile_search_input").val("");
@@ -55,6 +56,7 @@ function get_popularity_posts() {
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
+	$("#board_container").addClass("board_container_fixed");
 	$("#posts_target").empty();
 	$("#pc_search_input").val("");
 	$("#mobile_search_input").val("");
@@ -86,6 +88,7 @@ function get_topic_posts(tag) {
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
+	$("#board_container").addClass("board_container_fixed");
 	$("#posts_target").empty();
 	$("#pc_search_input").val("");
 	$("#mobile_search_input").val("");
@@ -138,6 +141,7 @@ $(document).scroll(function() {
 			if (now_creating == 0) {
 				now_creating = 1;
 				$("#posts_creating_loading").removeClass("display_none");
+				$("#board_container").addClass("board_container_fixed");
 				setTimeout(function() {
 					get_posts_more();
 					setTimeout(function() {
@@ -308,11 +312,7 @@ function change_date_realative(dt) {
 	let min = 60 * 1000;
 	let c = new Date()
 	let d = new Date(dt);
-	/*
-	console.log(dt, d);
-	console.log("now      :", c);
-	console.log("original :", d);
-	*/
+	d.setHours(d.getHours() - 9);
 	let minsAgo = Math.floor((c - d) / (min));
 	let result = {
 		'raw': d.getFullYear() + '-' + 
@@ -549,6 +549,7 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 	$("#menu_container").removeClass("menu_container_fixed");
 	//$("#menu_container").removeAttr("style");
 	$("#posts_creating_loading").addClass("display_none");
+	$("#board_container").removeClass("board_container_fixed");
 }
 	
 /*{
@@ -570,6 +571,7 @@ function get_user_like_posts() {
 	window.scroll(0,0);
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
+	$("#board_container").addClass("board_container_fixed");
 	$("#posts_target").empty();
 	now_topic = "관심 게시글";
 	where_topic = "내 정보";
@@ -600,6 +602,7 @@ function get_user_like_posts() {
 				if (now_creating_state == now_state)
 					target.append(no_posts_tag);
 				$("#posts_creating_loading").addClass('display_none');
+				$("#board_container").removeClass("board_container_fixed");
 				$("#menu_container").removeClass('menu_container_searching');
 				$("#menu_container").removeClass('menu_container_fixed');
 			} else {
@@ -617,6 +620,7 @@ function get_user_view_posts() {
 	window.scroll(0,0);
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
+	$("#board_container").addClass("board_container_fixed");
 	$("#posts_target").empty();
 	now_topic = "최근 본 게시글";
 	where_topic = "내 정보";
@@ -647,6 +651,7 @@ function get_user_view_posts() {
 				if (now_creating_state == now_state)
 					target.append(no_posts_tag);
 				$("#posts_creating_loading").addClass('display_none');
+				$("#board_container").removeClass("board_container_fixed");
 				$("#menu_container").removeClass('menu_container_searching');
 				$("#menu_container").removeClass('menu_container_fixed');
 			} else {

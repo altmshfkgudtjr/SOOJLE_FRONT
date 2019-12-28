@@ -537,7 +537,7 @@ html, body {
 	top: 90px;
 }
 .menu_container_fixed {
-	margin-top: -5px;
+	margin-top: 0px;
 }
 .menu_container_searching {
 	position: fixed;
@@ -662,6 +662,9 @@ html, body {
 		margin-left: 380px;
 	}
 }*/
+.board_container_fixed {
+	margin-left: 0;
+}
 .board_info_container {
 	position: relative;
 	width: 100%;
