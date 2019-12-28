@@ -104,18 +104,20 @@ function change_autologin_st(){
 }
 // 사용자 정보 삭제
 function change_userdelete_st() {
-	let is_delete_user_data = confirm("ㄹㅇ삭제?");
-	if (is_delete_user_data) {
-		really_delete_userdata();
-	} else {
-		$("#user_data_delete").prop("checked", false);
-	}
+	$("#user_data_modal_container").removeClass("display_none");
+	$("body").css("overflow", "hidden");
 }
-function really_delete_userdata() {
+function user_data_delete_button_ok() {
+	let val = $("#user_data_delete_input").val();
+	if (val != "SOOJLE 계정삭제") {
+		Snackbar("입력이 잘못되었습니다.");
+		$("#user_data_delete_input").focus();
+		return;
+	}
 	let user_data_delete_ajax = A_JAX("http://"+host_ip+"/remove_mine", "GET", null, null);
 	$.when(user_data_delete_ajax).done(function() {
 		if(user_data_delete_ajax.responseJSON['result'] == 'success') {
-			alert("아 삭제띠");
+			Snackbar("계정이 삭제되었습니다.");
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
 			location.reload();
@@ -123,4 +125,9 @@ function really_delete_userdata() {
 			Snackbar("통신이 원활하지 않습니다.");
 		}
 	});
+}
+function user_data_delete_button_cancel() {
+	$("#user_data_modal_container").addClass("display_none");
+	$("body").removeAttr("style");
+	$("#user_data_delete").prop("checked", false);
 }
