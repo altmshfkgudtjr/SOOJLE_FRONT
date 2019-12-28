@@ -17,6 +17,11 @@ var where_topic;
 
 // 추천 뉴스피드 불러오기 함수
 function get_recommend_posts(is_first = 0) {
+	window.scrollTo(0,0);
+	now_topic = "추천";
+	where_topic = "뉴스피드";
+	posts_update = 0;
+	now_state = now_topic;	// now state changing
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
@@ -24,18 +29,14 @@ function get_recommend_posts(is_first = 0) {
 	$("#posts_target").empty();
 	$("#pc_search_input").val("");
 	$("#mobile_search_input").val("");
-	now_topic = "추천";
-	where_topic = "뉴스피드";
-	now_state = now_topic;	// now state changing
-	posts_update = 0;
-	if (is_first == 1)
-		menu_modal_onoff(2);
-	else
-		menu_modal_onoff();
 	$("#board_info_text").empty();
 	$("#board_info_text").text("SOOJLE의 추천");
 	$("#board_info_board").empty();
 	$("#board_info_board").text("뉴스피드");
+	if (is_first == 1)
+		menu_modal_onoff(2);
+	else
+		menu_modal_onoff();
 	let a_jax = A_JAX("http://"+host_ip+"/get_recommendation_newsfeed", "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
@@ -53,6 +54,11 @@ function get_recommend_posts(is_first = 0) {
 }
 // 인기 뉴스피드 불러오기 함수
 function get_popularity_posts() {
+	window.scrollTo(0,0);
+	now_topic = "인기";
+	where_topic = "뉴스피드";
+	posts_update = 0;
+	now_state = now_topic;	// now state changing
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
@@ -60,15 +66,11 @@ function get_popularity_posts() {
 	$("#posts_target").empty();
 	$("#pc_search_input").val("");
 	$("#mobile_search_input").val("");
-	now_topic = "인기";
-	where_topic = "뉴스피드";
-	now_state = now_topic;	// now state changing
-	posts_update = 0;
-	menu_modal_onoff();
 	$("#board_info_text").empty();
 	$("#board_info_text").text("인기");
 	$("#board_info_board").empty();
 	$("#board_info_board").text("뉴스피드");
+	menu_modal_onoff();
 	let a_jax = A_JAX("http://"+host_ip+"/get_popularity_newsfeed", "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
@@ -85,6 +87,14 @@ function get_popularity_posts() {
 }
 // 토픽별 뉴스피드 불러오기 함수
 function get_topic_posts(tag) {
+	window.scrollTo(0,0);
+	where_topic = "뉴스피드";
+	posts_update = 0;
+	let topic;
+	if (typeof(tag) == String) topic = tag;
+	else topic = tag.children('div').text();
+	now_topic = topic;
+	now_state = now_topic;	// now state changing
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
@@ -92,18 +102,11 @@ function get_topic_posts(tag) {
 	$("#posts_target").empty();
 	$("#pc_search_input").val("");
 	$("#mobile_search_input").val("");
-	where_topic = "뉴스피드";
-	posts_update = 0;
-	menu_modal_onoff();
-	let topic;
-	if (typeof(tag) == String) topic = tag;
-	else topic = tag.children('div').text();
-	now_topic = topic;
-	now_state = now_topic;	// now state changing
 	$("#board_info_text").empty();
 	$("#board_info_text").text(topic);
 	$("#board_info_board").empty();
 	$("#board_info_board").text("뉴스피드");
+	menu_modal_onoff();
 	let a_jax = A_JAX("http://"+host_ip+"/get_newsfeed_of_topic/"+topic, "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
@@ -123,7 +126,9 @@ let header_scrolling = 0;
 $(document).scroll(function() {
 	let w = $(document).width();
 	//if (w > 1200 && $(window).scrollTop() > 60) {
-	if (!mobilecheck() && $(window).scrollTop() > 60) {
+	if (!mobilecheck() && $(window).scrollTop() == 0) {
+		$("#menu_container").removeAttr("style").css("transition", "0s ease-in-out");
+	} else if (!mobilecheck() && $(window).scrollTop() > 60) {
 		$("#menu_container").css("top", "30px");
 		if (header_scrolling == 0) {
 			$("#menu_container").css("transition", ".2s ease-in-out");	
@@ -155,9 +160,11 @@ $(document).scroll(function() {
 // 포스트 더보기
 function get_posts_more() {
 	if (save_posts.length == 0) return;
-	let output = save_posts.slice(0,30);
-	save_posts = save_posts.slice(30);
-	creating_post(output, now_state);
+	setTimeout(function() {
+		let output = save_posts.slice(0,30);
+		save_posts = save_posts.slice(30);
+		creating_post(output, now_state);
+	}, 500);
 }
 
 
