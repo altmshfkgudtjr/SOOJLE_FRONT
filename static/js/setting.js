@@ -69,7 +69,7 @@ function insert_user_custom_setting() {
 									<div class="setting_title noselect">개인정보 설정</div>
 									<div class="setting_title_info noselect">${title_info_2}</div>
 									<div class="setting_subtitle noselect">${st_2}</div>
-									<input type="checkbox" id="user_data_delete">
+									<input type="checkbox" id="user_data_delete" onchange="change_userdelete_st()">
 									<div class="setting_toggle_red">
 										<label for="user_data_delete"></label>
 									</div>
@@ -87,24 +87,12 @@ function insert_user_custom_setting() {
 				`;
 	$("#setting_box").append(div);
 }
-
-// 사용자 정보 설정 관련
+// 사용자 개인정보 설정 관련
 function insert_user_information_setting() {
 
 }
 
-
 // 자동로그인 옵션화
-/*
-					<div>
-						<div class="setting_subtitle noselect">${st_3}</div>
-						<input type="checkbox" id="fullscreen_toggle" onchange="change_fullscreen_st()" name="fullscreen_toggle">
-						<div class="setting_toggle">
-							<label for="fullscreen_toggle"></label>
-						</div>
-						<div class="setting_subtitle_info noselect">${st_info_3}</div>
-					</div>
-*/
 function change_autologin_st(){
 	if($("#autologin_toggle").is(":checked")) {
 		localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
@@ -114,18 +102,25 @@ function change_autologin_st(){
 		a_jax = A_JAX("http://"+host_ip+"/update_auto_login/" + 0, "GET", null, null);
 	}
 }
-
-// 전체화면 옵션화
-function change_fullscreen_st() {
-	if($("#fullscreen_toggle").is(":checked")) {
-		startFS();
+// 사용자 정보 삭제
+function change_userdelete_st() {
+	let is_delete_user_data = confirm("ㄹㅇ삭제?");
+	if (is_delete_user_data) {
+		really_delete_userdata();
 	} else {
-		exitFS();
+		$("#user_data_delete").prop("checked", false);
 	}
 }
-function startFS() {
-
-}
-function exitFS() {
-	
+function really_delete_userdata() {
+	let user_data_delete_ajax = A_JAX("http://"+host_ip+"/remove_mine", "GET", null, null);
+	$.when(user_data_delete_ajax).done(function() {
+		if(user_data_delete_ajax.responseJSON['result'] == 'success') {
+			alert("아 삭제띠");
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+			location.reload();
+		} else {
+			Snackbar("통신이 원활하지 않습니다.");
+		}
+	});
 }

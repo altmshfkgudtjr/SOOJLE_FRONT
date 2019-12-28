@@ -1556,3 +1556,70 @@ input[type="checkbox"]:checked ~ .setting_toggle_red label::after{
 	color: #c30e2e;
 	border-bottom: 2px solid #c30e2e;
 }
+.user_data_delete_container {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: auto;
+	margin-bottom: auto;
+	width: 400px;
+	height: 300px;
+	border-radius: 30px;
+	background-color: white;
+	box-shadow: 0 3px 20px rgba(0,0,0,.1),
+				0 0 20px rgba(0,0,0,.15) inset;
+	transition: .1s ease-in-out;
+}
+.user_data_delete_info {
+	position: relative;
+	line-height: 30px;
+	font-size: 18px;
+	text-align: center;
+	width: 100%;
+	padding: 0 20px;
+	box-sizing: border-box;
+	height: auto;
+	margin-top: 70px;
+}
+.user_data_delete_input {
+	position: relative;
+	width: 250px;
+	height: 30px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	margin-top: 15px;
+	text-align: center;
+	font-size: 20px;
+	border: none;
+	border-bottom: 2px solid black;
+}
+.user_data_delete_button {
+	position: relative;
+	float: left;
+	width: 180px;
+	height: 50px;
+	border: none;
+	text-align: center;
+	font-weight: bold;
+	box-sizing: border-box;
+	font-size: 20px;
+	line-height: 50px;
+	margin-top: 20px;
+	transition: .1s ease-in-out;
+}
+.user_data_delete_button:nth-child(2n - 1) {
+	margin-left: 20px;
+	left: 0;
+	color: #c30e2e;
+}
+.user_data_delete_button:nth-child(2n) {
+	margin-right: 20px;
+	right: 0;
+}
+.user_data_delete_button:hover {
+	text-decoration: underline;
+}

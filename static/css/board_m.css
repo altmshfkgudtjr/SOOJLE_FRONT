@@ -12,7 +12,22 @@
 		height: 50px;
 		min-width: auto;
 	}
-	.board_logo {
+	.board_logposition: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: auto;
+	margin-bottom: auto;
+	width: 400px;
+	height: 300px;
+	border-radius: 30px;
+	background-color: white;
+	box-shadow: 0 3px 20px rgba(0,0,0,.1),
+				0 0 20px rgba(0,0,0,.15) inset;
+	transition: .1s ease-in-out;o {
 		position: absolute;
 		top: 10px;
 		left: 50%;
@@ -1092,6 +1107,24 @@
 	.setting_toggle {
 		transform: scale(0.8) translate(5px, 1px);
 		margin-top: 4px;
+	}
+	.user_data_delete_container {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: auto;
+		margin-bottom: auto;
+		width: 200px;
+		height: 180px;
+		border-radius: 30px;
+		background-color: white;
+		box-shadow: 0 3px 20px rgba(0,0,0,.1),
+					0 0 20px rgba(0,0,0,.15) inset;
+		transition: .1s ease-in-out;
 	}
 }
 /*=============================================================================*/
