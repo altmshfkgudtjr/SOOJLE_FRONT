@@ -193,6 +193,7 @@ function search_text(text) {
 	// 좌측 메뉴 버그 수정 fixed
 	//$("#menu_container").addClass("menu_container_searching");
 	$("#menu_container").removeAttr("style");
+	$("#menu_container").removeClass("menu_container_fixed");
 	// 현재 검색 중이면 차단
 	if (is_searching == 1) return;
 	is_searching = 1;
@@ -571,7 +572,6 @@ function insert_search_post(target_num, posts, now_creating_state = "", is_fav_c
 		setTimeout(function() {$("#menu_container").css({"transition": ".2s ease-in-out"});}, 200);
 	}
 }
-
 // Recommend words inserting
 function insert_recommend_words(words_dict, now_creating_state = "") {
 	let target = $("#sr_recommend");
