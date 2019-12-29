@@ -17,6 +17,7 @@ var where_topic;
 
 // 추천 뉴스피드 불러오기 함수
 function get_recommend_posts(is_first = 0) {
+	out_of_search();
 	window.scrollTo(0,0);
 	now_topic = "추천";
 	where_topic = "뉴스피드";
@@ -54,6 +55,7 @@ function get_recommend_posts(is_first = 0) {
 }
 // 인기 뉴스피드 불러오기 함수
 function get_popularity_posts() {
+	out_of_search();
 	window.scrollTo(0,0);
 	now_topic = "인기";
 	where_topic = "뉴스피드";
@@ -87,6 +89,7 @@ function get_popularity_posts() {
 }
 // 토픽별 뉴스피드 불러오기 함수
 function get_topic_posts(tag) {
+	out_of_search();
 	window.scrollTo(0,0);
 	where_topic = "뉴스피드";
 	posts_update = 0;

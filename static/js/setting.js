@@ -1,5 +1,6 @@
 // Setting Page 구성 함수
 function Go_setting() {
+	out_of_search();
 	//window.scroll(0,0);
 	$('body,html').animate({ scrollTop: 0, }, 0);
 	$("#menu_container").removeClass("menu_container_fixed");

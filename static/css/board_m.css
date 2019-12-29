@@ -12,6 +12,15 @@
 		height: 50px;
 		min-width: auto;
 	}
+	.board_logo {
+		position: relative;
+		top: 10px;
+		left: 50%;
+		transform: translate(-50%, 0);
+		width: 100px;
+		height: auto;
+		z-index: 10;
+	}
 	.board_logposition: absolute;
 	left: 0;
 	right: 0;
@@ -90,7 +99,9 @@
 		display: none;
 	}
 	.mobile_search {
-		display: block;
+		display: inline-block;
+		float: right;
+		width: 65%;
 	}
 	.mobile_search_button {
 		position: absolute;
@@ -176,7 +187,7 @@
 		float: right;
 		top: 15px;
 		height: 20px;
-		width: 84%;
+		width: 80%;
 		border: none;
 		padding: 0 10px;
 		font-size: 16px;
@@ -910,6 +921,17 @@
 	.sr_more_to_before:active {
 		filter: invert(18%) sepia(24%) saturate(7110%) hue-rotate(335deg) brightness(103%) contrast(96%);
 	}
+	.category_tab {
+		position: relative;
+		display: inline-block;
+		width: auto;
+		padding: 0 10px 5px 10px;
+		font-size: 12px;
+		font-size: 16px;
+		line-height: 20px;
+		border-bottom: 2px solid rgba(0,0,0,0);
+		transition: .1s ease-in-out;
+	}
 }
 /*=============================================================================*/
 /*                                    840px                                    */
@@ -1209,11 +1231,11 @@
 		display: inline-block;
 		float: right;
 		margin-right: 10px;
-		width: 70%;
+		width: 90%;
 		height: 50px;
 	}
 	.mobile_search_input {
-		width: 78%;
+		width: 80%;
 	}
 	.grid_modal_close_cont {
 		float: left;
@@ -1341,7 +1363,7 @@
 		display: inline-block;
 		float: right;
 		margin-right: 10px;
-		width: 60%;
+		width: 80%;
 		height: 50px;
 	}
 }

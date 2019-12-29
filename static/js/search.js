@@ -1055,3 +1055,9 @@ function category_select(tag) {
 		}
 	}
 }
+
+// 검색 창 끄기
+function out_of_search() {
+	search_open = 1;
+	mobile_search_modal_close();
+}

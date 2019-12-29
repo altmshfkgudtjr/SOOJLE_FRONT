@@ -1534,10 +1534,15 @@ input[type="checkbox"]:checked ~ .setting_toggle_red label::after{
 
 .category_tabs {
 	position: relative;
-	width: 100%;
-	height: auto;
+	width: auto;
+	height: 30px;
+	overflow-x: scroll;
+	white-space:nowrap;
 	border-bottom: 1px solid #ebebeb;
 	margin-bottom: 15px;
+}
+.category_tabs::-webkit-scrollbar {
+    background: transparent;  /* Optional: just make scrollbar invisible */
 }
 .category_tab {
 	position: relative;

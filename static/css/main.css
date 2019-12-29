@@ -92,9 +92,12 @@ input:focus, textarea {
 	cursor: pointer !important;
 	-webkit-tap-highlight-color: transparent;
 }
-
-
-
+/*스크롤바 투명*/
+/*
+body::-webkit-scrollbar {
+    background: transparent;
+}
+*/
 
 /*input focus placeholder hide*/
 input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder { /* WebKit browsers */ color:transparent }
