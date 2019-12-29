@@ -107,6 +107,7 @@ function change_autologin_st(){
 function change_userdelete_st() {
 	$("#user_data_modal_container").removeClass("display_none");
 	$("body").css("overflow", "hidden");
+	$("#user_data_delete_input").focus();
 }
 function user_data_delete_button_ok() {
 	let val = $("#user_data_delete_input").val();

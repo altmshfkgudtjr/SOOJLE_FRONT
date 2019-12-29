@@ -577,7 +577,9 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 2 : 뷰
 3 : 검색
 */
+// 좋아요 게시물 보기
 function get_user_like_posts() {
+	out_of_search();
 	window.scroll(0,0);
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
@@ -626,7 +628,9 @@ function get_user_like_posts() {
 		}
 	});
 }
+// 최근 본 게시물 보기
 function get_user_view_posts() {
+	out_of_search();
 	window.scroll(0,0);
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
