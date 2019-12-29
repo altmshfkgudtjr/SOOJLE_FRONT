@@ -374,6 +374,7 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 	// 속도향상을 위한 선언
 	let check;
 	let id, fav_cnt, title, date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
+	let onerror = `./static/image/shortcut_black_mobile.png`;
 	//if (w < 1200) {
 	if (mobilecheck()) {
 		for (post_one of posts) {
@@ -431,7 +432,7 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 								</div>
 							</a>
 							<a href="${url}" target="_blank">
-								<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url(${img})"></div>
+								<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url(${img}), url(${onerror})"></div>
 							</a>
 							<a href="${url}" target="_blank">
 								<div class="post_block_cont pointer" onmousedown="post_view($(this))">
@@ -499,7 +500,7 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			} else {
 				tag = `<div class="post_block" p-id="${id}">
 						<a href="${url}" target="_blank">
-							<div class="post_block_img_cont" onmousedown="post_view($(this)" style="background-image: url(${img})"></div>
+							<div class="post_block_img_cont" onmousedown="post_view($(this)" style="background-image: url(${img}), url(${onerror})"></div>
 						</a>
 						<a href="${url}" target="_blank">
 							<div class="post_title_cont pointer" onmousedown="post_view($(this))">

@@ -1535,13 +1535,14 @@ input[type="checkbox"]:checked ~ .setting_toggle_red label::after{
 .category_tabs {
 	position: relative;
 	width: auto;
-	height: 30px;
+	height: 37px;
 	overflow-x: scroll;
 	white-space:nowrap;
 	border-bottom: 1px solid #ebebeb;
 	margin-bottom: 15px;
 }
 .category_tabs::-webkit-scrollbar {
+	display: none !important;
     background: transparent;  /* Optional: just make scrollbar invisible */
 }
 .category_tab {
@@ -1560,7 +1561,7 @@ input[type="checkbox"]:checked ~ .setting_toggle_red label::after{
 }
 .category_checked {
 	color: #c30e2e;
-	border-bottom: 2px solid #c30e2e;
+	border-bottom: 2px solid #c30e2e !important;
 }
 .user_data_delete_container {
 	position: absolute;
@@ -1628,4 +1629,5 @@ input[type="checkbox"]:checked ~ .setting_toggle_red label::after{
 }
 .user_data_delete_button:hover {
 	text-decoration: underline;
+	text-underline-position: under;
 }

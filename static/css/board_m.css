@@ -932,6 +932,15 @@
 		border-bottom: 2px solid rgba(0,0,0,0);
 		transition: .1s ease-in-out;
 	}
+	.category_tabs {
+		position: relative;
+		width: auto;
+		height: 28px;
+		overflow-x: scroll;
+		white-space:nowrap;
+		border-bottom: 1px solid #ebebeb;
+		margin-bottom: 15px;
+	}
 }
 /*=============================================================================*/
 /*                                    840px                                    */
