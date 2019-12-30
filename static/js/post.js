@@ -500,7 +500,7 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			} else {
 				tag = `<div class="post_block" p-id="${id}">
 						<a href="${url}" target="_blank">
-							<div class="post_block_img_cont" onmousedown="post_view($(this)" style="background-image: url(${img}), url(${onerror})"></div>
+							<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url(${img}), url(${onerror})"></div>
 						</a>
 						<a href="${url}" target="_blank">
 							<div class="post_title_cont pointer" onmousedown="post_view($(this))">

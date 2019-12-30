@@ -19,12 +19,13 @@ function set_analysistic() {
 	insert_time_div();
 	insert_weather_div();
 	insert_realtimesearch_div();
+	insert_hall();
 	insert_visitor_div();
 	insert_post_div();
 	insert_outlink_div();
 }
 
-// 시각 div Insert
+// 시각 div Insert---------------------------------------------------
 var time_event = {
 					'1225': `<span style="color: green">행복한</span> <span style="color:red">메리크리스마스!</span>`,
 					'11': `새해<span style="font-weight:bold; color:red;">복</span> 많이 받으세요!`,
@@ -95,7 +96,7 @@ function set_analysistic_time_event(month, date) {
 		$("#anlt_time_event").empty();
 }
 
-// 날씨 div Insert
+// 날씨 div Insert-----------------------------------------------------
 function insert_weather_div() {
 	let div = `<div id="anlt_weather_wrap" class="anlt_weather_wrap"></div>`;
 	$("#anlt_time_weather_wrap").append(div);
@@ -116,7 +117,7 @@ function set_weather() {
 	});
 }
 
-// 실시간 검색어 div Insert
+// 실시간 검색어 div Insert---------------------------------------------
 function insert_realtimesearch_div() {
 	let div = 	`
 					<div id="anlt_realtime_wrap" class="anlt_realtime_wrap">
@@ -175,24 +176,24 @@ function realtime_word_search(tag) {
 	}
 }
 
-// 방문자 분석 div Insert
+// 방문자 분석 div Insert-----------------------------------------------
 function insert_visitor_div() {
 	let div = 	`
 					<div id="anlt_visitor_wrap" class="anlt_visitor_wrap">
 						<div class="anlt_visitor_title noselect">방문자 분석</div>
-						<div id="anlt_today_visitor" class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">오늘 방문자수</div>
 							<div id="anlt_today_visitor_data" class="anlt_visitor_box_data">18</div>
 						</div>\
-						<div id="anlt_all_visitor" class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">총 방문자수</div>
 							<div id="anlt_all_visitor_data" class="anlt_visitor_box_data">238</div>
 						</div>\
-						<div id="anlt_average_visitor" class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">하루 평균 방문자수</div>
 							<div id="anlt_today_visitor_average_data" class="anlt_visitor_box_data">31</div>
 						</div>\
-						<div id="anlt_average_visitor" class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">하루 최고 방문자수</div>
 							<div id="anlt_all_visitor_max_data" class="anlt_visitor_box_data">45</div>
 						</div>\
@@ -200,14 +201,13 @@ function insert_visitor_div() {
 							<div class="anlt_visitor_box_title_big noselect">사용 시간대 분석</div>
 							<canvas id="visitor_distribution" class="anlt_visitor_chart_element" width="auto" height="auto"></canvas>
 						</div>\
-						<div></div>\
-						<div id="anlt_number_visitor" class="anlt_visitor_box noselect">
-							<div class="anlt_visitor_box_title">학번별 최고 방문수</div>
-							<div id="anlt_visitor_number_data" class="anlt_visitor_box_data">16</div>
+						<div class="anlt_visitor_chart_box">
+							<div class="anlt_visitor_box_title_big noselect">학번별 방문수</div>
+							<canvas id="visitor_number_distribution" class="anlt_visitor_chart_element" width="auto" height="auto"></canvas>
 						</div>\
-						<div id="anlt_major_visitor" class="anlt_visitor_box noselect">
-							<div class="anlt_visitor_box_title">학과별 최고 방문수</div>
-							<div id="anlt_visitor_major_data" class="anlt_visitor_box_data">21</div>
+						<div class="anlt_visitor_chart_box">
+							<div class="anlt_visitor_box_title_big noselect">학과별 방문수</div>
+							<canvas id="visitor_major_distribution" class="anlt_visitor_chart_element" width="auto" height="auto"></canvas>
 						</div>\
 					</div>
 				`;
@@ -232,18 +232,26 @@ function set_visitor_data() {
 			[12,23,7,1,7,8,10,11,7,8,10,12,13,14,4,26,36,41,38,41,44,45,32,41]
 		],
 	);
+	get_bar("visitor_number_distribution",
+		['19', '18', '17', '16', '15', '14', '13', '12'],
+		[5, 4, 3, 1, 5, 2, 4, 10]
+	);
+	get_bar("visitor_major_distribution",
+		['컴퓨터공학과', '무용학과', '호텔관광경영학과', '데이터사이언스학과', '지능기전공학부', '물리학과', "패션디자인학과"],
+		[5, 4, 10, 8, 1, 3, 9]
+	);
 }
 
-// 게시글 분석 div Insert
+// 게시글 분석 div Insert------------------------------------------------
 function insert_post_div() {
 	let div = 	`
 				<div id="anlt_postdata_wrap" class="anlt_visitor_wrap">
 					<div class="anlt_visitor_title noselect">게시글 분석</div>\
-					<div id="anlt_view_allpost" class="anlt_visitor_box noselect">
+					<div class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">전체 게시글 조회 수</div>
 						<div id="anlt_all_posts_view_data" class="anlt_visitor_box_data">617</div>
 					</div>\
-					<div id="anlt_like_allpost" class="anlt_visitor_box noselect">
+					<div class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">전체 게시글 공감 수</div>
 						<div id="anlt_all_posts_like_data" class="anlt_visitor_box_data">78</div>
 					</div>\
@@ -256,21 +264,18 @@ function set_post_data() {
 	
 }
 
+// 외부사이트 div Insert--------------------------------------------------
 function insert_outlink_div() {
 	let div = 	`
 				<div id="anlt_postdata_wrap" class="anlt_visitor_wrap">
 					<div class="anlt_visitor_title noselect">외부사이트 분석</div>\
-					<div id="anlt_view_allpost" class="anlt_visitor_box noselect">
+					<div class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">외부사이트 총 클릭수</div>
 						<div id="anlt_outlink_click_all_data" class="anlt_visitor_box_data">78</div>
 					</div>\
-					<div id="anlt_like_allpost" class="anlt_visitor_box noselect">
+					<div class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">외부사이트 최고 클릭수</div>
 						<div id="anlt_outlink_click_max_data" class="anlt_visitor_box_data">21</div>
-					</div>\
-					<div id="anlt_like_allpost" class="anlt_visitor_box noselect">
-						<div class="anlt_visitor_box_title">외부사이트 명예의 전당</div>
-						<div id="anlt_outlink_text_max_data" class="anlt_top_text_data">대양휴머니티칼리지</div>
 					</div>\
 				</div>
 	`;
@@ -281,7 +286,37 @@ function set_outlink_data() {
 
 }
 
-// Chart JS : Line Type
+// 명예의 전당 div Insert-------------------------------------------------
+function insert_hall() {
+	let div = 	`
+				<div id="anlt_postdata_wrap" class="anlt_visitor_wrap">
+					<div class="anlt_visitor_title noselect">명예의 전당</div>\
+					<div class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">외부사이트</div>
+						<div id="anlt_outlink_text_max_data" class="anlt_top_text_data">대양휴머니티칼리지</div>
+					</div>\
+					<div class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">학과/학부</div>
+						<div id="anlt_major_text_max_data" class="anlt_top_text_data">컴퓨터공학과</div>
+					</div>\
+					<div class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">학번</div>
+						<div id="anlt_number_text_max_data" class="anlt_top_text_data">16학번</div>
+					</div>\
+					<div class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">검색어</div>
+						<div id="anlt_search_text_max_data" class="anlt_top_text_data">수강편람</div>
+					</div>\
+				</div>
+	`;
+	$("#posts_target").append(div);
+	set_hall_data();
+}
+function set_hall_data() {
+
+}
+
+// Chart JS : Line Type---------------------------------------------------**
 function get_line(id_, labels_, datas_) {
 	let ctx = document.getElementById(id_);
 	let myLineChart  = new Chart(ctx, {
@@ -357,5 +392,60 @@ function get_line(id_, labels_, datas_) {
 				intersect: false
 			}
 		}
+	});
+}
+// Chart JS : Bar Type----------------------------------------------------**
+function get_bar(id_, labels_, datas_) {
+	let ctx = document.getElementById(id_);
+	let myBarChart = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	    	labels: labels_,
+			datasets: [{
+				data: datas_,
+				barPercentage: 0.9,
+				categoryPercentage: 0.5,
+        		barThickness: 1,
+        		maxBarThickness: 2,
+        		maxBarThickness: 1,
+        		minBarLength: 10,
+				backgroundColor: "#67a7f2",
+			}]
+	    },
+	    options: {
+	    	response: true,
+			layout: {
+        		padding: {
+                    left: 20,
+                    right: 20,
+                    top: 0,
+                    bottom: 0
+                },
+                labels: {
+                	fontSize: 20
+                }
+        	},
+			tooltips: {
+				enabled: false
+			},
+			legend: {
+        		display: false,
+        		align: 'end'
+        	},
+        	title: {
+        		display: false
+        	},
+			scales: {
+				xAxes: [{
+					display: true
+				}],
+				yAxes: [{
+					ticks: {
+						min: 0,
+						fontSize : 14
+					}
+				}]
+			}
+	    }
 	});
 }
