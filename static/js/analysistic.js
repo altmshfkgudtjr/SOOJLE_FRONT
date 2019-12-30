@@ -178,6 +178,38 @@ function realtime_word_search(tag) {
 	}
 }
 
+// 명예의 전당 div Insert-------------------------------------------------
+function insert_hall() {
+	let info = `사용자들이 SOOJLE에서 최고 기록을 갱신하신 분야에 대해서 분석해드립니다.`;
+	let div = 	`
+				<div id="anlt_postdata_wrap" class="anlt_visitor_wrap">
+					<div class="anlt_visitor_title noselect">명예의 전당</div>\
+					<div class="anlt_realtime_subtitle noselect">${info}</div>\
+					<div class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">외부사이트</div>
+						<div id="anlt_outlink_text_max_data" class="anlt_top_text_data">대양휴머니티칼리지</div>
+					</div>\
+					<div class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">학과/학부</div>
+						<div id="anlt_major_text_max_data" class="anlt_top_text_data">컴퓨터공학과</div>
+					</div>\
+					<div class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">학번</div>
+						<div id="anlt_number_text_max_data" class="anlt_top_text_data">16학번</div>
+					</div>\
+					<div class="anlt_visitor_box noselect">
+						<div class="anlt_visitor_box_title">검색어</div>
+						<div id="anlt_search_text_max_data" class="anlt_top_text_data">수강편람</div>
+					</div>\
+				</div>
+	`;
+	$("#posts_target").append(div);
+	set_hall_data();
+}
+function set_hall_data() {
+
+}
+
 // 방문자 분석 div Insert-----------------------------------------------
 function insert_visitor_div() {
 	let info = `SOOJLE의 모든 방문자들의 통계를 분석하여 보여드립니다.`;
@@ -267,62 +299,38 @@ function insert_post_div() {
 	set_post_data();
 }
 function set_post_data() {
-	
+
 }
 
 // 외부사이트 div Insert--------------------------------------------------
 function insert_outlink_div() {
+	let info = `외부사이트 이용률을 분석하여 보여드립니다.`;
 	let div = 	`
 				<div id="anlt_postdata_wrap" class="anlt_visitor_wrap">
 					<div class="anlt_visitor_title noselect">외부사이트 분석</div>\
 					<div class="anlt_realtime_subtitle noselect">${info}</div>\
 					<div class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">외부사이트 총 클릭수</div>
-						<div id="anlt_outlink_click_all_data" class="anlt_visitor_box_data">78</div>
+						<div id="anlt_outlink_click_all_data" class="anlt_visitor_box_data">1,080</div>
 					</div>\
 					<div class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">외부사이트 최고 클릭수</div>
-						<div id="anlt_outlink_click_max_data" class="anlt_visitor_box_data">21</div>
+						<div id="anlt_outlink_click_max_data" class="anlt_visitor_box_data">441</div>
 					</div>\
+					<div class="anlt_visitor_chart_box">
+							<div class="anlt_visitor_box_title_big noselect">외부사이트별 방문수</div>
+							<canvas id="anlt_outlink_use_distribution" class="anlt_visitor_chart_element" width="auto" height="auto"></canvas>\
+						</div>\
 				</div>
 	`;
 	$("#posts_target").append(div);
 	set_outlink_data();
 }
 function set_outlink_data() {
-
-}
-
-// 명예의 전당 div Insert-------------------------------------------------
-function insert_hall() {
-	let info = `사용자들이 SOOJLE에서 최고 기록을 갱신하신 분야에 대해서 분석해드립니다.`;
-	let div = 	`
-				<div id="anlt_postdata_wrap" class="anlt_visitor_wrap">
-					<div class="anlt_visitor_title noselect">명예의 전당</div>\
-					<div class="anlt_realtime_subtitle noselect">${info}</div>\
-					<div class="anlt_visitor_box noselect">
-						<div class="anlt_visitor_box_title">외부사이트</div>
-						<div id="anlt_outlink_text_max_data" class="anlt_top_text_data">대양휴머니티칼리지</div>
-					</div>\
-					<div class="anlt_visitor_box noselect">
-						<div class="anlt_visitor_box_title">학과/학부</div>
-						<div id="anlt_major_text_max_data" class="anlt_top_text_data">컴퓨터공학과</div>
-					</div>\
-					<div class="anlt_visitor_box noselect">
-						<div class="anlt_visitor_box_title">학번</div>
-						<div id="anlt_number_text_max_data" class="anlt_top_text_data">16학번</div>
-					</div>\
-					<div class="anlt_visitor_box noselect">
-						<div class="anlt_visitor_box_title">검색어</div>
-						<div id="anlt_search_text_max_data" class="anlt_top_text_data">수강편람</div>
-					</div>\
-				</div>
-	`;
-	$("#posts_target").append(div);
-	set_hall_data();
-}
-function set_hall_data() {
-
+	get_bar("anlt_outlink_use_distribution",
+		['세종대포털', ' 블랙보드', 'UIS', '대양휴머니티칼리지', 'OJ', '두드림', '유드림', '열람실', '도서검색', '북카페', '세종지도', '학사일정', '세종위키'],
+		[31, 42, 33, 23, 131, 441, 101, 232, 310, 41, 22, 33, 41]
+	);
 }
 
 // Chart JS : Line Type---------------------------------------------------**
