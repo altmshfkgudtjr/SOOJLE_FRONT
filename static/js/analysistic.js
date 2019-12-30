@@ -119,9 +119,11 @@ function set_weather() {
 
 // 실시간 검색어 div Insert---------------------------------------------
 function insert_realtimesearch_div() {
+	let info = `SOOJLE에서 가장 인기있는 검색어를 실시간으로 보여드립니다.`;
 	let div = 	`
 					<div id="anlt_realtime_wrap" class="anlt_realtime_wrap">
-						<div class="anlt_realtime_title noselect">실시간 검색어</div>
+						<div class="anlt_realtime_title noselect">실시간 검색어</div>\
+						<div class="anlt_realtime_subtitle noselect">${info}</div>\
 						<div class="anlt_reatime_words_wrap">\
 							<div id="anlt_reatime_word_1to5" class="anlt_reatime_word_elements">\
 							</div><div id="anlt_reatime_word_6to10" class="anlt_reatime_word_elements"></div>\
@@ -178,9 +180,11 @@ function realtime_word_search(tag) {
 
 // 방문자 분석 div Insert-----------------------------------------------
 function insert_visitor_div() {
+	let info = `SOOJLE의 모든 방문자들의 통계를 분석하여 보여드립니다.`;
 	let div = 	`
 					<div id="anlt_visitor_wrap" class="anlt_visitor_wrap">
-						<div class="anlt_visitor_title noselect">방문자 분석</div>
+						<div class="anlt_visitor_title noselect">방문자 분석</div>\
+						<div class="anlt_realtime_subtitle noselect">${info}</div>\
 						<div class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">오늘 방문자수</div>
 							<div id="anlt_today_visitor_data" class="anlt_visitor_box_data">18</div>
@@ -244,9 +248,11 @@ function set_visitor_data() {
 
 // 게시글 분석 div Insert------------------------------------------------
 function insert_post_div() {
+	let info = `게시글에 대한 전체 통계를 분석해 보여드립니다.`;
 	let div = 	`
 				<div id="anlt_postdata_wrap" class="anlt_visitor_wrap">
 					<div class="anlt_visitor_title noselect">게시글 분석</div>\
+					<div class="anlt_realtime_subtitle noselect">${info}</div>\
 					<div class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">전체 게시글 조회 수</div>
 						<div id="anlt_all_posts_view_data" class="anlt_visitor_box_data">617</div>
@@ -269,6 +275,7 @@ function insert_outlink_div() {
 	let div = 	`
 				<div id="anlt_postdata_wrap" class="anlt_visitor_wrap">
 					<div class="anlt_visitor_title noselect">외부사이트 분석</div>\
+					<div class="anlt_realtime_subtitle noselect">${info}</div>\
 					<div class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">외부사이트 총 클릭수</div>
 						<div id="anlt_outlink_click_all_data" class="anlt_visitor_box_data">78</div>
@@ -288,9 +295,11 @@ function set_outlink_data() {
 
 // 명예의 전당 div Insert-------------------------------------------------
 function insert_hall() {
+	let info = `사용자들이 SOOJLE에서 최고 기록을 갱신하신 분야에 대해서 분석해드립니다.`;
 	let div = 	`
 				<div id="anlt_postdata_wrap" class="anlt_visitor_wrap">
 					<div class="anlt_visitor_title noselect">명예의 전당</div>\
+					<div class="anlt_realtime_subtitle noselect">${info}</div>\
 					<div class="anlt_visitor_box noselect">
 						<div class="anlt_visitor_box_title">외부사이트</div>
 						<div id="anlt_outlink_text_max_data" class="anlt_top_text_data">대양휴머니티칼리지</div>
