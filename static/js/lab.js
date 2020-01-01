@@ -10,6 +10,7 @@ function Go_lab() {
 	window.scrollTo(0,0);
 	menu_modal_onoff();
 	set_lab();
+	insert_lab_soojle();
 }
 
 function set_lab() {
@@ -21,4 +22,13 @@ function set_lab() {
 				</div>`;
 	$("#posts_target").append(div);
 	$("#posts_creating_loading").addClass("display_none");
+}
+
+function insert_lab_soojle() {
+	let div =	`<div class="lab_soojle_contents_wrap">
+					<div class="lab_soojle_content pointer">
+
+					</div>
+				</div>`;
+	$("#posts_target").append(div);
 }
