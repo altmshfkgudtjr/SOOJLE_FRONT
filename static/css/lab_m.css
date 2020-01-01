@@ -1,0 +1,21 @@
+.lab_title_wrap {
+	position: relative;
+	width: 95%;
+	height: auto;
+	margin-bottom: 20px;
+	margin-left: 2.5%;
+	border: none;
+}
+.lab_title {
+	position: relative;
+	width: 100%;
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+.lab_subtitle {
+	position: relative;
+	width: 100%;
+	font-size: 16px;
+	margin-bottom: 20px;
+}

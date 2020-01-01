@@ -977,10 +977,8 @@ html, body {
 	border-radius: 3px 30px 30px 3px;
 	transition: .1s ease-in-out;
 }
-@media screen and (min-width: 1200px) {
-	.post_block:hover {
-		border: 2px solid black;
-	}
+.post_block:hover {
+	border: 2px solid black;
 }
 .post_block_img_cont {
 	position: relative;
