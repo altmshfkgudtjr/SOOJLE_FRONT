@@ -71,7 +71,7 @@ function set_lab() {
 
 function insert_lab_service() {
 	let div =	`<div id="lab_service_contents_wrap" class="lab_service_contents_wrap">
-					<div class="lab_category_title noselect">서비스를 도전!</div>
+					<div class="lab_category_title noselect">새로운 서비스를 도전!</div>
 					<div class="lab_category_subtitle noselect">수즐팀 또는 인재들의 야심찬 서비스입니다.</div>
 				</div>
 				<div id="lab_function_contents_wrap" class="lab_service_contents_wrap">
@@ -80,6 +80,7 @@ function insert_lab_service() {
 				</div>`;
 	$("#posts_target").append(div);
 	set_lab_service();
+	set_lab_function();
 }
 function set_lab_service() {
 	let title = `모닥불`;
@@ -98,4 +99,6 @@ function set_lab_service() {
 						</div>
 					</div>`;
 	$("#lab_service_contents_wrap").append(content);
+}
+function set_lab_function() {
 }
