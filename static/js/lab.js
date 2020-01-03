@@ -48,7 +48,7 @@ function set_lab_service() {
 							<div class="lab_service_content_subtitle">${subtitle}</div>
 						</div>
 						<div class="lab_service_choice_wrap pointer">
-							<div class="lab_service_choice_number">1,000</div>
+							<div class="lab_service_choice_number">1,470</div>
 							<div class="lab_service_choice_content">좋은 기능이에요.</div>
 						</div>
 					</div>`;
