@@ -114,7 +114,6 @@ function set_weather() {
 							, "Get", null, null);
 	$.when(weather_ajax).done(function () {
 		let json = weather_ajax.responseJSON;
-		console.log(json);
 	});
 }
 

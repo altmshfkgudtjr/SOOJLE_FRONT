@@ -680,7 +680,6 @@ function more_posts(target_num, is_fav_cnt = 1) {
 					check = 1;
 				}
 				/* tag 에다가 레이아웃 배치할 것 */
-				console.log(url);
 				if (img.length < 10 || img.length == undefined && check == 0) {
 						tag = `<div class="post_block" p-id="${id}">
 								<a href="${url}" target="_blank">
