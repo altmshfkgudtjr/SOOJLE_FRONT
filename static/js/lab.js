@@ -12,6 +12,51 @@ function Go_lab() {
 	set_lab();
 	insert_lab_service();
 }
+function Go_service(tag) {
+	let url = $(tag).attr("target");
+	window.open('about:blank').location.href = url;
+}
+function number_plus_comma(num) {
+	num = num.toString();
+	let output = "";
+	for (let i = num.length - 1; i >= 0; i--) {
+		if ((num.length - i - 1) % 3 == 0 && num.length - 1 != i)
+			output = num[i] + ',' + output;
+		else
+			output = num[i] + output;
+	}
+	return output;
+}
+function service_like_button(tag) {
+	let id = $(tag).parent('div').attr("id_");
+	let num = Number($(tag).find(".lab_service_choice_number").text().replace(/,/gi, ""));
+	let output = "";
+	// 서비스 관심 취소
+	if ($(tag).find(".lab_service_choice_content").hasClass("lab_service_choice_content_checked")){
+		$(tag).find(".lab_service_choice_content").removeClass("lab_service_choice_content_checked");
+		num = (num - 1);
+		output = number_plus_comma(num);
+		$(tag).find(".lab_service_choice_number").text(output);
+	// 서비스 관심 동작
+	} else {
+		$(tag).find(".lab_service_choice_content").addClass("lab_service_choice_content_checked");
+		num = (num + 1);
+		output = number_plus_comma(num);
+		$(tag).find(".lab_service_choice_number").text(output);
+		/*$.when(
+			A_JAX("http://"+host_ip+"/post_like/"+id, "GET", null, null)
+		).done(function() {
+			if (this.responseJSON['result'] == 'success') {
+
+			} else {
+				Snackbar("서버와의 통신이 원활하지 않습니다.");
+				num = (num - 1);
+				output = number_plus_comma(num);
+				$(tag).find(".lab_service_choice_number").text(output);
+			}
+		});*/
+	}
+}
 
 function set_lab() {
 	let div = 	`<div class="lab_title_wrap">
@@ -39,15 +84,15 @@ function insert_lab_service() {
 function set_lab_service() {
 	let title = `모닥불`;
 	let subtitle = `세종대학교소프트웨어융합대학 홈페이지 2020 개편.`;
-	let content = 	`<div class="lab_service_content noselect">
-						<div class="lab_service_info_wrap pointer">
+	let content = 	`<div class="lab_service_content noselect" id_="31bB8df00fdi9fdf121">
+						<div class="lab_service_info_wrap pointer" onclick="Go_service(this)" target="https://bonfire-2.gitbook.io/modakbul/">
 							<div class="lab_service_content_img_wrapper">
 								<img class="lab_service_content_img" src="./static/saves/modakbul.png">
 							</div>
 							<div class="lab_service_content_title">${title}</div>
 							<div class="lab_service_content_subtitle">${subtitle}</div>
 						</div>
-						<div class="lab_service_choice_wrap pointer">
+						<div class="lab_service_choice_wrap pointer" onclick="service_like_button(this)">
 							<div class="lab_service_choice_number">1,470</div>
 							<div class="lab_service_choice_content">좋은 기능이에요.</div>
 						</div>

@@ -110,6 +110,10 @@
 	font-size: 14px;
 	line-height: 20px;
 	color: rgba(0,0,0,.7);
+	transition: .1s ease-in-out;
+}
+.lab_service_choice_content_checked {
+	color: #c30e2e;
 }
 .lab_category_title {
 	position: relative;
