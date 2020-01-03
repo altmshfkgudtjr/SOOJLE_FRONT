@@ -1061,5 +1061,6 @@ function category_select(tag) {
 function out_of_search() {
 	search_open = 1;
 	$("#mobile_search_input").val("");
+	$("#pc_search_input").val("");
 	mobile_search_modal_close();
 }
