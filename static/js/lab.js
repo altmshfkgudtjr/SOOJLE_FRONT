@@ -45,8 +45,8 @@ function service_like_button(tag) {
 		$(tag).find(".lab_service_choice_number").text(output);
 		/*$.when(
 			A_JAX("http://"+host_ip+"/post_like/"+id, "GET", null, null)
-		).done(function() {
-			if (this.responseJSON['result'] == 'success') {
+		).done(function(data) {
+			if (data.responseJSON['result'] == 'success') {
 
 			} else {
 				Snackbar("서버와의 통신이 원활하지 않습니다.");

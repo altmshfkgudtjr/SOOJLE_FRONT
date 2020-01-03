@@ -306,6 +306,7 @@ $(document).ready(function(){
 });
 // After login, setting user information.
 async function After_login(dict) {
+	check_manager_qualification();
 	$("#login_button").addClass("display_none");
 	$("#view_button").removeClass("display_none");
 	$("#like_button").removeClass("display_none");
