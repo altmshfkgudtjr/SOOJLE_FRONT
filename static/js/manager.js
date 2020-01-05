@@ -29,16 +29,19 @@ function Go_management() {
 	$("#posts_creating_loading").removeClass("display_none");
 	window.scrollTo(0,0);
 	menu_modal_onoff();
-	set_management();
+	insert_management();
 }
 
-function set_management() {
+function insert_management() {
 	let div = 	`<div class="setting_subject_wrap">
 					<div class="setting_title noselect">관리자 도구</div>
 					<div class="setting_title_info noselect">
 						SOOJLE 관리자님, 관리자 모드에 오신 것을 환영합니다.
 					</div>
-				</div>`;
+				</div>
+				<div class="setting_subtitle noselect">블랙리스트</div>
+				<div class="setting_subtitle_info">SOOJLE 이용자의 학번 또는 IP를 블랙합니다.</div>
+				`;
 	$("#posts_target").append(div);
 	$("#posts_creating_loading").addClass("display_none");
 }

@@ -283,12 +283,14 @@ function insert_visitor_div() {
 							<div class="anlt_visitor_box_title_big noselect">학번별 방문수</div>
 							<canvas id="visitor_number_distribution" class="anlt_visitor_chart_element" width="auto" height="auto"></canvas>
 						</div>\
+					</div>
+				`;
+				/*
 						<div class="anlt_visitor_chart_box">
 							<div class="anlt_visitor_box_title_big noselect">학과별 방문수</div>
 							<canvas id="visitor_major_distribution" class="anlt_visitor_chart_element" width="auto" height="auto"></canvas>
 						</div>\
-					</div>
-				`;
+				*/
 	$("#posts_target").append(div);
 	set_visitor_data();
 }
@@ -314,10 +316,10 @@ function set_visitor_data() {
 		['19', '18', '17', '16', '15', '14', '13', '12'],
 		[5, 4, 3, 1, 5, 2, 4, 10]
 	);
-	get_bar("visitor_major_distribution",
+	/*get_bar("visitor_major_distribution",
 		['컴퓨터공학과', '무용학과', '호텔관광경영학과', '데이터사이언스학과', '지능기전공학부', '물리학과', "패션디자인학과"],
 		[5, 4, 10, 8, 1, 3, 9]
-	);
+	);*/
 }
 
 // 게시글 분석 div Insert------------------------------------------------

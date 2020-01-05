@@ -98,7 +98,15 @@ function set_lab_service() {
 							<div class="lab_service_choice_content">좋은 기능이에요.</div>
 						</div>
 					</div>`;
-	$("#lab_service_contents_wrap").append(content);
+	//$("#lab_service_contents_wrap").append(content);
+	let nothing =	`<div class="lab_nothing noselect">
+						더 나은 서비스를 위해 준비중입니다.
+					</div>`;
+	$("#lab_service_contents_wrap").append(nothing);
 }
 function set_lab_function() {
+	let nothing =	`<div class="lab_nothing noselect">
+						더 나은 서비스를 위해 준비중입니다.
+					</div>`;
+	$("#lab_function_contents_wrap").append(nothing);
 }

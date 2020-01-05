@@ -49,8 +49,8 @@ function insert_user_custom_setting() {
 	let title_info_2 = "사용자 계정에 대한 정보 관리 및 설정";
 	let st_2 = "계정삭제";
 	let st_info_2 = "사용자의 정보를 SOOJLE 데이터베이스에서 완전 삭제합니다.";
-	let st_3 = "모바일 전체화면";
-	let st_info_3 = "전체화면을 통하여 보다 넓은 화면에서 SOOJLE을 사용합니다."
+	let st_3 = "관심도 초기화";
+	let st_info_3 = "사용자의 모든 기록을 삭제하여, 사용자 관심도를 초기화합니다.";
 	// Tag
 	let autologin_div = ``;
 	let user_information_div = ``;
@@ -69,12 +69,22 @@ function insert_user_custom_setting() {
 								<div class="setting_subject_wrap">
 									<div class="setting_title noselect">개인정보 설정</div>
 									<div class="setting_title_info noselect">${title_info_2}</div>
-									<div class="setting_subtitle noselect">${st_2}</div>
-									<input type="checkbox" id="user_data_delete" onchange="change_userdelete_st()">
-									<div class="setting_toggle_red">
-										<label for="user_data_delete"></label>
+									<div>
+										<div class="setting_subtitle noselect">${st_2}</div>
+										<input type="checkbox" id="user_data_delete" onchange="change_userdelete_st()">
+										<div class="setting_toggle_red">
+											<label for="user_data_delete"></label>
+										</div>
+										<div class="setting_subtitle_info noselect">${st_info_2}</div>
 									</div>
-									<div class="setting_subtitle_info noselect">${st_info_2}</div>
+									<div>
+										<div class="setting_subtitle noselect">${st_3}</div>
+										<input type="checkbox" id="user_data_reset" onchange="change_userreset_st()">
+										<div class="setting_toggle_red">
+											<label for="user_data_reset"></label>
+										</div>
+										<div class="setting_subtitle_info noselect">${st_info_3}</div>
+									</div>
 								</div>
 								`
 	}
@@ -105,6 +115,10 @@ function change_autologin_st(){
 }
 // 사용자 정보 삭제
 function change_userdelete_st() {
+	$("#user_data_delete_info").empty();
+	$("#user_data_delete_info").append(`계정을 삭제하기 위해서는 "<span style="font-weight: bold">SOOJLE 계정삭제</span>"를 입력한 다음에 확인을 눌러주세요.`);
+	$("#user_data_delete_button_ok").attr("onclick", "user_data_delete_button_ok()");
+	$("#user_data_delete_button_cancel").attr("onclick", "user_data_delete_button_cancel()");
 	$("#user_data_modal_container").removeClass("display_none");
 	$("body").css("overflow", "hidden");
 	$("#user_data_delete_input").focus();
@@ -132,4 +146,36 @@ function user_data_delete_button_cancel() {
 	$("#user_data_modal_container").addClass("display_none");
 	$("body").removeAttr("style");
 	$("#user_data_delete").prop("checked", false);
+}
+// 사용자 정보 초기화
+function change_userreset_st() {
+	$("#user_data_delete_info").empty();
+	$("#user_data_delete_info").append(`관심도를 초기화하기 위해서는 "<span style="font-weight: bold">관심도 초기화</span>"를 입력한 다음에 확인을 눌러주세요.`);
+	$("#user_data_delete_button_ok").attr("onclick", "user_data_reset_button_ok()");
+	$("#user_data_delete_button_cancel").attr("onclick", "user_data_reset_button_cancel()");
+	$("#user_data_modal_container").removeClass("display_none");
+	$("body").css("overflow", "hidden");
+	$("#user_data_delete_input").focus();	
+}
+function user_data_reset_button_ok() {
+	let val = $("#user_data_delete_input").val();
+	if (val != "관심도 초기화") {
+		Snackbar("입력이 잘못되었습니다.");
+		$("#user_data_delete_input").focus();
+		return;
+	}
+	let user_data_delete_ajax = A_JAX("http://"+host_ip+"/reset_user_measurement", "GET", null, null);
+	$.when(user_data_delete_ajax).done(function() {
+		if(user_data_delete_ajax.responseJSON['result'] == 'success') {
+			Snackbar("관심도가 초기화 되었습니다.");
+			user_data_reset_button_cancel();
+		} else {
+			Snackbar("통신이 원활하지 않습니다.");
+		}
+	});
+}
+function user_data_reset_button_cancel() {
+	$("#user_data_modal_container").addClass("display_none");
+	$("body").removeAttr("style");
+	$("#user_data_reset").prop("checked", false);
 }
