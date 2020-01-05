@@ -1425,6 +1425,21 @@ html, body {
 	color: rgba(0,0,0,.7);
 	margin-bottom: 30px;
 }
+.setting_blacklist_wrapper {
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+.setting_writing_post_wrapper {
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+.setting_blacklist_input {
+	position: relative;
+	width: 100%;
+
+}
 
 
 input[type="checkbox"],

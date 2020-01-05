@@ -388,6 +388,10 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			date = post_one['date'].$date;
 			//date = new Date(date).SetTime();
 			date = change_date_realative(date);
+			if (post_one['end_date']) {
+				date = post_one['end_date'].$date;
+				date = date.toString + " 까지";
+			}
 			url = post_one['url'];
 			domain = url.split('/');
 			domain = domain[0] + '//' + domain[2];
@@ -462,6 +466,10 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			date = post_one['date'].$date;
 			//date = new Date(date).SetTime();
 			date = change_date_realative(date);
+			if (post_one['end_date']) {
+				date = post_one['end_date'].$date;
+				date = date.toString + " 까지";
+			}
 			url = post_one['url'];
 			domain = url.split('/');
 			domain = domain[0] + '//' + domain[2];

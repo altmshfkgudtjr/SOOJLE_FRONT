@@ -941,6 +941,18 @@
 		border-bottom: 1px solid #ebebeb;
 		margin-bottom: 15px;
 	}
+	.setting_blacklist_wrapper {
+		position: relative;
+		width: 95%;
+		height: auto;
+		margin-left: 2.5%;
+	}
+	.setting_writing_post_wrapper {
+		position: relative;
+		width: 95%;
+		height: auto;
+		margin-left: 2.5%;
+	}
 }
 /*=============================================================================*/
 /*                                    840px                                    */
@@ -1085,8 +1097,9 @@
 	}
 	.setting_subject_wrap {
 		position: relative;
-		width: 100%;
+		width: 95%;
 		height: auto;
+		margin-left: 2.5%;
 		margin-bottom: 100px;
 		margin-top: 10px;
 	}
@@ -1117,8 +1130,9 @@
 		position: relative;
 		display: inline-block;
 		left: 0;
-		width: auto;
+		width: 95%;
 		height: auto;
+		margin-left: 2.5%;
 		font-size: 20px;
 		font-weight: bold;
 		line-height: 40px;
@@ -1128,8 +1142,9 @@
 		position: relative;
 		display: inline-block;
 		left: 0;
-		width: 100%;
+		width: 95%;
 		height: auto;
+		margin-left: 2.5%;
 		font-size: 14px;
 		line-height: 20px;
 		color: rgba(0,0,0,.7);
@@ -1138,6 +1153,10 @@
 	.setting_toggle {
 		transform: scale(0.8) translate(5px, 1px);
 		margin-top: 4px;
+	}
+	.setting_toggle_red {
+		transform: scale(0.8) translate(5px, 1px);
+		margin-top: 4px;	
 	}
 	.user_data_delete_container {
 		position: absolute;

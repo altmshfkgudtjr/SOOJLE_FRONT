@@ -42,10 +42,10 @@ function insert_management() {
 				</div>
 				<div class="setting_subtitle noselect">블랙리스트</div>
 				<div class="setting_subtitle_info noselect">SOOJLE 이용자의 학번 또는 IP를 블랙합니다.</div>
-				<div id="setting_blacklist_wrapper"></div>
+				<div id="setting_blacklist_wrapper" class="setting_blacklist_wrapper"></div>
 				<div class="setting_subtitle noselect">게시글 작성</div>
 				<div class="setting_subtitle_info noselect">공지사항 및 일반 게시글을 작성합니다.</div>
-				<div id="setting_writing_post_wrapper"></div>
+				<div id="setting_writing_post_wrapper" class="setting_writing_post_wrapper"></div>
 				`;
 	$("#posts_target").append(div);
 	$("#posts_creating_loading").addClass("display_none");
@@ -53,8 +53,11 @@ function insert_management() {
 // 블랙리스트 Div 생성
 function insert_blacklist_div() {
 	let target = $("#setting_blacklist_wrapper");
+	let div =	`<input type="text" id="setting_blacklist_input" class="setting_blacklist_input" autocomplete="off">
+				`;
 }
 // 게시글 작성 Div 생성
 function insert_wrting_div() {
 	let target = $("#setting_writing_post_wrapper");
+
 }
