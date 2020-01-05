@@ -1,3 +1,4 @@
+// 관리자 Check
 function check_manager_qualification() {
 	let lst = sessionStorage.getItem('sj-state');
 	$.when(
@@ -17,7 +18,7 @@ function check_manager_qualification() {
 		} 
 	});
 }
-
+// 관리자 도구 이동
 function Go_management() {
 	out_of_search();
 	now_topic = "Admin";
@@ -31,7 +32,7 @@ function Go_management() {
 	menu_modal_onoff();
 	insert_management();
 }
-
+// 동적 생성
 function insert_management() {
 	let div = 	`<div class="setting_subject_wrap">
 					<div class="setting_title noselect">관리자 도구</div>
@@ -40,8 +41,20 @@ function insert_management() {
 					</div>
 				</div>
 				<div class="setting_subtitle noselect">블랙리스트</div>
-				<div class="setting_subtitle_info">SOOJLE 이용자의 학번 또는 IP를 블랙합니다.</div>
+				<div class="setting_subtitle_info noselect">SOOJLE 이용자의 학번 또는 IP를 블랙합니다.</div>
+				<div id="setting_blacklist_wrapper"></div>
+				<div class="setting_subtitle noselect">게시글 작성</div>
+				<div class="setting_subtitle_info noselect">공지사항 및 일반 게시글을 작성합니다.</div>
+				<div id="setting_writing_post_wrapper"></div>
 				`;
 	$("#posts_target").append(div);
 	$("#posts_creating_loading").addClass("display_none");
+}
+// 블랙리스트 Div 생성
+function insert_blacklist_div() {
+	let target = $("#setting_blacklist_wrapper");
+}
+// 게시글 작성 Div 생성
+function insert_wrting_div() {
+	let target = $("#setting_writing_post_wrapper");
 }
