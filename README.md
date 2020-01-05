@@ -11,3 +11,5 @@
   python3 application.py
   ~~~
 * Connect Host, Port = 80 or not
+
+### Making for Sejong University members.
