@@ -33,7 +33,7 @@ function Go_management() {
 }
 
 function set_management() {
-	let div = 	`<div class="lab_title_wrap">
+	let div = 	`<div class="setting_subject_wrap">
 					<div class="setting_title noselect">관리자 도구</div>
 					<div class="setting_title_info noselect">
 						SOOJLE 관리자님, 관리자 모드에 오신 것을 환영합니다.

@@ -16,17 +16,59 @@ function set_analysistic() {
 	let div = `<div id="anlt_time_weather_wrap" class="anlt_time_weather_wrap"></div>`;
 	$("#posts_target").append(div);
 	$("#posts_creating_loading").addClass("display_none");
-	insert_time_div();
-	insert_weather_div();
-	insert_realtimesearch_div();
-	insert_hall();
-	insert_visitor_div();
-	insert_post_div();
-	insert_outlink_div();
-	insert_device_div();
+	insert_greeting_div();			// 소개
+	insert_time_div();				// 시간
+	insert_weather_div();			// 날씨
+	insert_realtimesearch_div();	// 실시간 검색어
+	//insert_hall();				// 명예의 전당
+	insert_visitor_div();			// 방문자 분석
+	insert_post_div();				// 게시글 분석
+	//insert_outlink_div();			// 외부사이트 분석
+	insert_device_div();			// 디바이스 분석
 }
 
-// 시각 div Insert---------------------------------------------------
+// 소개 div Insert----------------------------------------------------
+function insert_greeting_div() {
+	let posts_num = 337300;
+	let actions_num = 121;
+	let view_num = 2300;
+	let div =	`<div id="anlt_greeting_wrapper" class="anlt_greeting_wrapper">
+					<div class="anlt_greeting_text noselect">
+						사용자는 <span style="font-weight:500; color: #c30e2e;">${posts_num}</span> 개의 포스트에서 정보를 찾아볼 수 있습니다.
+					</div>\
+					<div class="anlt_greeting_text noselect">
+						사용자와 SOOJLE은 1초에 평균 <span style="font-weight:500; color: #c30e2e;">${actions_num}</span> 번의 소통을 하고있습니다.
+					</div>\
+					<div class="anlt_greeting_text noselect">
+						사용자들은 SOOJLE을 통해서 <span style="font-weight:500; color: #c30e2e;">${view_num}</span> 번의 정보를 찾았습니다.
+					</div>\
+				</div>`;
+	let m_div = `<div id="anlt_greeting_wrapper" class="anlt_greeting_wrapper">
+					<div class="anlt_greeting_text noselect">
+						SOOJLE 정보량 <span style="font-weight:500; color: #c30e2e;">${posts_num}</span>
+					</div>\
+					<div class="anlt_greeting_text noselect">
+						1초 평균 <span style="font-weight:500; color: #c30e2e;">${actions_num}</span> 의 소통
+					</div>\
+					<div class="anlt_greeting_text noselect">
+						<span style="font-weight:500; color: #c30e2e;">${view_num}</span> 번의 정보 발견.
+					</div>\
+				</div>`;
+	if (mobilecheck()) $("#posts_target").append(m_div);
+	else $("#posts_target").append(div);
+	greeting_enlargement();
+}
+let greeting_anlt_num = 0;
+function greeting_enlargement() {
+	$(".anlt_greeting_text").removeClass("anlt_greeting_text_checked");
+	$(".anlt_greeting_text").eq(greeting_anlt_num).addClass('anlt_greeting_text_checked');
+	setTimeout(function() {
+		greeting_anlt_num = (greeting_anlt_num + 1) % 3;
+		greeting_enlargement();
+	}, 3000);
+}
+
+// 시각 div Insert----------------------------------------------------
 var time_event = {
 					'1225': `<span style="color: green">행복한</span> <span style="color:red">메리크리스마스!</span>`,
 					'11': `새해<span style="font-weight:bold; color:red;">복</span> 많이 받으세요!`,
