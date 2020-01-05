@@ -953,6 +953,12 @@
 		height: auto;
 		margin-left: 2.5%;
 	}
+	.setting_blacklist_input_wrap {
+		position: relative;
+		width: 95%;
+		height: 30px;
+		margin-left: 2.5%;
+	}
 }
 /*=============================================================================*/
 /*                                    840px                                    */

@@ -37,7 +37,7 @@ function insert_management() {
 	let div = 	`<div class="setting_subject_wrap">
 					<div class="setting_title noselect">관리자 도구</div>
 					<div class="setting_title_info noselect">
-						SOOJLE 관리자님, 관리자 모드에 오신 것을 환영합니다.
+						이 곳은 SOOJLE 서비스의 관리를 담당하는 곳입니다.
 					</div>
 				</div>
 				<div class="setting_subtitle noselect">블랙리스트</div>
@@ -49,13 +49,39 @@ function insert_management() {
 				`;
 	$("#posts_target").append(div);
 	$("#posts_creating_loading").addClass("display_none");
+	insert_blacklist_div();
+	insert_wrting_div();
 }
 // 블랙리스트 Div 생성
 function insert_blacklist_div() {
 	let target = $("#setting_blacklist_wrapper");
-	let div =	`<input type="text" id="setting_blacklist_input" class="setting_blacklist_input" autocomplete="off">
+	let div =	`<input type="text" id="setting_blacklist_input" class="setting_blacklist_input" autocomplete="off" placeholder="입력">\
+				<div class="setting_blacklist_btn_ok pointer" onclick="write_blacklist();">추가</div>
+				<div class="setting_blacklist_btn_cancel pointer" onclick="cancel_blacklist();">삭제</div>
 				`;
+	target.append(div);
 }
+// 블랙리스트 추가 API
+function write_blacklist() {
+	let target = $("#setting_blacklist_input").val();
+	if (target == "") {
+		Snackbar("대상을 입력해주세요.");
+		$("#setting_blacklist_input").focus();
+		return;
+	}
+
+}
+// 블랙리스트 삭제 API
+function cancel_blacklist() {
+	let target = $("#setting_blacklist_input").val();
+	if (target == "") {
+		Snackbar("대상을 입력해주세요.");
+		$("#setting_blacklist_input").focus();
+		return;
+	}
+
+}
+
 // 게시글 작성 Div 생성
 function insert_wrting_div() {
 	let target = $("#setting_writing_post_wrapper");

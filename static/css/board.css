@@ -1423,12 +1423,13 @@ html, body {
 	font-size: 16px;
 	line-height: 30px;
 	color: rgba(0,0,0,.7);
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 }
 .setting_blacklist_wrapper {
 	position: relative;
 	width: 100%;
 	height: auto;
+	margin-bottom: 40px;
 }
 .setting_writing_post_wrapper {
 	position: relative;
@@ -1437,10 +1438,48 @@ html, body {
 }
 .setting_blacklist_input {
 	position: relative;
-	width: 100%;
-
+	display: inline-block;
+	left: 0;
+	width: 50%;
+	height: 30px;
+	font-size: 20px;
+	line-height: 30px;
+	box-sizing: border-box;
+	padding: 0 20px;
+	border: none;
+	border-left: 2px solid rgba(0,0,0,.8);
+	background-color: transparent;
+	transition: .1s ease-in-out;
 }
-
+.setting_blacklist_input:focus {
+	border-left: 2px solid #c30e2e;
+}
+.setting_blacklist_btn_ok {
+	position: relative;
+	display: inline-block;
+	right: 0;
+	font-size: 18px;
+	line-height: 30px;
+	color: black;
+	transition: .1s ease-in-out;
+	margin: 0 20px;
+}
+.setting_blacklist_btn_ok:hover {
+	color: #c30e2e;
+}
+.setting_blacklist_btn_cancel {
+	position: relative;
+	display: inline-block;
+	right: 0;
+	font-size: 18px;
+	line-height: 30px;
+	color: black;
+	transition: .1s ease-in-out;
+	margin: 0 20px;
+}
+.setting_blacklist_btn_cancel:hover {
+	color: #c30e2e;
+}
 
 input[type="checkbox"],
 input[type="checkbox"]:checked,
