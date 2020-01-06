@@ -1487,6 +1487,7 @@ html, body {
 	box-sizing: border-box;
 	border: 2px solid black;
 	margin-top: 20px;
+	border-radius: 5px;
 }
 .setting_blacklist_black_box {
 	position: relative;
@@ -1509,6 +1510,63 @@ html, body {
 }
 .setting_blacklist_user:hover {
 	border-left: 2px solid #c30e2e;
+}
+.setting_writing_post_title {
+	position: relative;
+	width: 100%;
+	height: 40px;
+	box-sizing: border-box;
+	border: 2px solid black;
+	border-radius: 30px;
+	margin-bottom: 10px;
+	padding: 0 20px;
+	line-height: 40px;
+	font-size: 20px;
+	transition: .1s ease-in-out;
+}
+.setting_writing_post_title:focus {
+	border: 2px solid #c30e2e;
+}
+.setting_writing_post_pharagh {
+	position: relative;
+	width: 100%;
+	min-height: 300px;
+	box-sizing: border-box;
+	border: 2px solid black;
+	border-radius: 10px;
+	padding: 20px;
+	font-size: 16px;
+	line-height: 20px;
+	resize: vertical;
+	transition: .1s ease-in-out;
+}
+.setting_writing_post_pharagh:focus {
+	border: 2px solid #C30E2E;
+}
+.setting_writing_post_checkbox_info {
+	position: relative;
+	float: right;
+	font-size: 22px;
+	line-height: 34px;
+	padding-right: 10px;
+	margin-top: 6px;
+}
+.setting_writing_post_btn_ok {
+	position: relative;
+	width: 100px;
+	height: 40px;
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	color: #c30e2e;
+	font-size: 20px;
+	line-height: 40px;
+	text-align: center;
+	transition: .1s ease-in-out;
+	font-weight: bold;
+}
+.setting_writing_post_btn_ok:hover {
+	color: black;
 }
 
 input[type="checkbox"],

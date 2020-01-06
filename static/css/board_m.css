@@ -953,6 +953,14 @@
 		height: auto;
 		margin-left: 2.5%;
 	}
+	.setting_writing_post_checkbox_info {
+		position: relative;
+		float: right;
+		font-size: 16px;
+		line-height: 26px;
+		padding-right: 0;
+		margin-top: 6px;
+	}
 }
 /*=============================================================================*/
 /*                                    840px                                    */
