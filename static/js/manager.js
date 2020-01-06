@@ -58,8 +58,22 @@ function insert_blacklist_div() {
 	let div =	`<input type="text" id="setting_blacklist_input" class="setting_blacklist_input" autocomplete="off" placeholder="입력">\
 				<div class="setting_blacklist_btn_ok pointer" onclick="write_blacklist();">추가</div>
 				<div class="setting_blacklist_btn_cancel pointer" onclick="cancel_blacklist();">삭제</div>
+				<div class="setting_blacklist_box">
+					<div id="setting_blacklist_black_box" class="setting_blacklist_black_box"></div>
+				</div>
 				`;
 	target.append(div);
+	set_blacklist();
+}
+function set_blacklist() {
+	let user =	`<div class="setting_blacklist_user pointer" onclick="click_blacklist(this)">16011075</div>
+	<div class="setting_blacklist_user pointer" onclick="click_blacklist(this)">16011089</div>
+	<div class="setting_blacklist_user pointer" onclick="click_blacklist(this)">16011092</div>`;
+	$("#setting_blacklist_black_box").append(user);
+}
+function click_blacklist(tag) {
+	let text = $(tag).text().trim();
+	$("#setting_blacklist_input").val(text);
 }
 // 블랙리스트 추가 API
 function write_blacklist() {
@@ -71,7 +85,7 @@ function write_blacklist() {
 	}
 
 }
-// 블랙리스트 삭제 API
+// 블랙리스트 취소 API
 function cancel_blacklist() {
 	let target = $("#setting_blacklist_input").val();
 	if (target == "") {

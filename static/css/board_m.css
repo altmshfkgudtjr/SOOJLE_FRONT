@@ -953,12 +953,6 @@
 		height: auto;
 		margin-left: 2.5%;
 	}
-	.setting_blacklist_input_wrap {
-		position: relative;
-		width: 95%;
-		height: 30px;
-		margin-left: 2.5%;
-	}
 }
 /*=============================================================================*/
 /*                                    840px                                    */
@@ -1106,7 +1100,7 @@
 		width: 95%;
 		height: auto;
 		margin-left: 2.5%;
-		margin-bottom: 100px;
+		margin-bottom: 40px;1
 		margin-top: 10px;
 	}
 	.setting_title {
@@ -1418,7 +1412,7 @@
 	}
 	.setting_subject_wrap {
 		margin-top: 20px;
-		margin-bottom: 80px;
+		margin-bottom: 10px;
 	}
 }
 /*=============================================================================*/

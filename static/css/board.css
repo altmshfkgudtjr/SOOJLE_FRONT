@@ -1480,6 +1480,36 @@ html, body {
 .setting_blacklist_btn_cancel:hover {
 	color: #c30e2e;
 }
+.setting_blacklist_box {
+	position: relative;
+	width: 100%;
+	height: 200px;
+	box-sizing: border-box;
+	border: 2px solid black;
+	margin-top: 20px;
+}
+.setting_blacklist_black_box {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+}
+.setting_blacklist_user {
+	position: relative;
+	width: auto;
+	height: 20px;
+	line-height: 24px;
+	font-size: 16px;
+	padding: 0 5px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+	border-left: 2px solid #ebebeb;
+	transition: .1s ease-in-out;
+}
+.setting_blacklist_user:hover {
+	border-left: 2px solid #c30e2e;
+}
 
 input[type="checkbox"],
 input[type="checkbox"]:checked,
