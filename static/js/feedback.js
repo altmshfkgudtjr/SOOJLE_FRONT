@@ -9,10 +9,20 @@ function Go_feedback() {
 	$("#posts_creating_loading").removeClass("display_none");
 	window.scrollTo(0,0);
 	menu_modal_onoff();
-	insert_feedbacl_div();
+	insert_feedback_div();
 }
 
-function insert_feedbacl_div() {
+function insert_feedback_div() {
+	let feedback_placeholder = 
+`내용을 입력해주세요.
+
+반드시 위 구분을 선택하여 작성해주세요.
+버그 및 오류 피드백일 경우에는 상세하게 작성해주시면 감사합니다.
+
+※입력예시
+- 검색에서 버그가 발생했어요! (X)
+- 검색과정에서 탭을 연속적으로 클릭하면 게시글이 삭제되요! (O)
+`;
 	let div =	`<div class="setting_subject_wrap">
 					<div class="setting_title noselect">사용자 피드백</div>
 					<div class="setting_title_info noselect">
@@ -32,16 +42,18 @@ function insert_feedbacl_div() {
 							<li id="feedback_hack">취약점 및 보안 개선</li>
 							<li id="feedback_design">디자인 개선 아이디어</li>
 							<li id="feedback_function">기능 개선 아이디어</li>
+							<li id="feedback_function">기타</li>
 						</ul>
 					</div>
 				</div>
-				<div></div>
+				<textarea id="feedback_box" class="feedback_box" placeholder="${feedback_placeholder}"></textarea>
+				<div class="feedback_send_btn pointer" onclick="feedback_send();">전송하기</div>
 				`;
 	$("#posts_target").append(div);
 	$("#posts_creating_loading").addClass("display_none");
 	selectbox_action();
 }
-
+let selectbox_input = "구분";
 // Select Box JS
 function selectbox_action() {
 	/*Dropdown Menu*/
@@ -59,8 +71,33 @@ function selectbox_action() {
 	        $(this).parents('.selectbox_dropdown').find('input').attr('value', $(this).attr('id'));
 	    });
 	/*End Dropdown Menu*/
-	$('.dropdown-menu li').click(function () {
-	  var input = '<strong>' + $(this).parents('.selectbox_dropdown').find('input').val() + '</strong>',
-	      msg = '<span class="msg">Hidden input value: ';
+	$('.selectbox_dropdown-menu li').click(function () {
+		selectbox_input = $(this).attr("id");
+		if (selectbox_input == "feedback_pc_bug") selectbox_input = "데스크탑 버그 및 오류";
+		else if (selectbox_input == "feedback_mobile_bug") selectbox_input= "모바일/태블릿 버그 및 오류";
+		else if (selectbox_input == "feedback_hack") selectbox_input = "취약점 및 보안 개선";
+		else if (selectbox_input == "feedback_design") selectbox_input = "디자인 개선 아이디어";
+		else if (selectbox_input == "feedback_function") selectbox_input = "기능 개선 아이디어";
+		else if (selectbox_input == "feedback_function") selectbox_input = "기타";
+		else selectbox_input = "Abnormal approach:404";
 	});
+}
+
+function feedback_send() {
+	if (selectbox_input == "구분") {
+		Snackbar("피드백 구분을 선택해주세요.");
+		return;
+	}
+	let send_data = {};
+	let phragh = $("#feedback_box").val();
+	if (phragh == "") {
+		Snackbar("내용을 입력해주세요.");
+		$("#feedback_box").focus();
+		return;
+	}
+	send_data["type"] = selectbox_input;
+	send_data["post"] = phragh;
+	/*
+	피드백 AJAX 요청
+	*/
 }
