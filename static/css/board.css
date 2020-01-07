@@ -1,3 +1,6 @@
+* {
+	outline: none;
+}
 html {
 	background-color: white;
 }
@@ -1485,9 +1488,13 @@ html, body {
 	width: 100%;
 	height: 200px;
 	box-sizing: border-box;
-	border: 2px solid black;
+	border: 2px solid rgb(197, 197, 197);
 	margin-top: 20px;
 	border-radius: 5px;
+	transition: .1s ease-in-out;
+}
+.setting_blacklist_box:hover {
+	border: 2px solid black;
 }
 .setting_blacklist_black_box {
 	position: relative;
@@ -1516,23 +1523,23 @@ html, body {
 	width: 100%;
 	height: 40px;
 	box-sizing: border-box;
-	border: 2px solid black;
+	border: 2px solid rgb(197, 197, 197);
 	border-radius: 30px;
 	margin-bottom: 10px;
 	padding: 0 20px;
-	line-height: 40px;
-	font-size: 20px;
+	line-height: 38px;
+	font-size: 16px;
 	transition: .1s ease-in-out;
 }
 .setting_writing_post_title:focus {
-	border: 2px solid #c30e2e;
+	border: 2px solid black;
 }
 .setting_writing_post_pharagh {
 	position: relative;
 	width: 100%;
 	min-height: 300px;
 	box-sizing: border-box;
-	border: 2px solid black;
+	border: 2px solid rgb(197, 197, 197);
 	border-radius: 10px;
 	padding: 20px;
 	font-size: 16px;
@@ -1541,7 +1548,7 @@ html, body {
 	transition: .1s ease-in-out;
 }
 .setting_writing_post_pharagh:focus {
-	border: 2px solid #C30E2E;
+	border: 2px solid black;
 }
 .setting_writing_post_checkbox_info {
 	position: relative;
@@ -1770,4 +1777,91 @@ input[type="checkbox"]:checked ~ .setting_toggle_red label::after{
 .user_data_delete_button:hover {
 	text-decoration: underline;
 	text-underline-position: under;
+}
+
+
+span.selectbox_choose {
+	color: #555;
+	padding: 5px 0 10px;
+	display: inherit
+}
+.selectbox_container {
+	width: 100%;
+	text-align: left;
+	margin-top: 25px;
+}
+/*Styling Selectbox*/
+.selectbox_dropdown {
+	width: 300px;
+	display: inline-block;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 2px rgb(100,100,100);
+	transition: all .5s ease;
+	position: relative;
+	font-size: 14px;
+	color: #474747;
+	height: 100%;
+	text-align: left
+}
+.selectbox_dropdown .selectbox_select {
+	cursor: pointer;
+	display: block;
+	padding: 10px
+}
+.selectbox_dropdown .selectbox_select > i {
+	font-size: 13px;
+	color: #888;
+	cursor: pointer;
+	transition: all .3s ease-in-out;
+	float: right;
+	line-height: 20px
+}
+.selectbox_dropdown:hover {
+	box-shadow: 0 0 4px rgb(204, 204, 204)
+}
+.selectbox_dropdown:active {
+	background-color: #f8f8f8
+}
+.selectbox_dropdown.active:hover,
+.selectbox_dropdown.active {
+	box-shadow: 0 0 4px rgb(204, 204, 204);
+	border-radius: 5px 5px 0 0;
+	background-color: #f8f8f8
+}
+.selectbox_dropdown.selectbox_active .selectbox_select > i {
+	transform: rotate(-90deg)
+}
+.selectbox_dropdown-menu::-webkit-scrollbar {
+	display: none;
+	background: transparent;  /* Optional: just make scrollbar invisible */
+}
+.selectbox_dropdown .selectbox_dropdown-menu {
+	position: absolute;
+	background-color: #fff;
+	width: 100%;
+	left: 0;
+	margin-top: 1px;
+	box-shadow: 0 1px 2px rgb(204, 204, 204);
+	border-radius: 0 1px 5px 5px;
+	overflow: hidden;
+	display: none;
+	max-height: 144px;
+	overflow-y: auto;
+	z-index: 9
+}
+.selectbox_dropdown .selectbox_dropdown-menu li {
+	padding: 10px;
+	transition: all .2s ease-in-out;
+	cursor: pointer
+} 
+.selectbox_dropdown .selectbox_dropdown-menu {
+	padding: 0;
+	list-style: none
+}
+.selectbox_dropdown .selectbox_dropdown-menu li:hover {
+	background-color: #f2f2f2
+}
+.selectbox_dropdown .selectbox_dropdown-menu li:active {
+	background-color: #e2e2e2
 }
