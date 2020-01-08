@@ -1252,6 +1252,15 @@
 	.selectbox_dropdown {
 		width: 200px;
 	}
+	.license_block {
+		position: relative;
+		width: 95%;
+		margin-left: 2.5%;
+		height: auto;
+		margin-bottom: 40px;
+		font-size: 12px;
+		line-height: 20px;
+	}
 }
 /*=============================================================================*/
 /*                                    450px                                    */

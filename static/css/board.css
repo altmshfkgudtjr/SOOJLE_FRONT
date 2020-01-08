@@ -1610,7 +1610,14 @@ html, body {
 .feedback_send_btn:hover {
 	color: black;
 }
-
+.license_block {
+	position: relative;
+	width: 100%;
+	height: auto;
+	margin-bottom: 40px;
+	font-size: 12px;
+	line-height: 20px;
+}
 
 input[type="checkbox"],
 input[type="checkbox"]:checked,
