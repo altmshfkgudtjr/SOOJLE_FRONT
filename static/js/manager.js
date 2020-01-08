@@ -20,6 +20,7 @@ function check_manager_qualification() {
 }
 // 관리자 도구 이동
 function Go_management() {
+	location.replace("/board#soojle");
 	out_of_search();
 	now_topic = "Admin";
 	where_topic = "Admin";

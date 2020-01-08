@@ -1,4 +1,5 @@
 function Go_analysistic() {
+	location.replace("/board#analysistics");
 	out_of_search();
 	now_topic = "통계";
 	where_topic = "통계";
