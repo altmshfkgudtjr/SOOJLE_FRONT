@@ -23,6 +23,7 @@ function get_recommend_posts(is_first = 0) {
 	where_topic = "뉴스피드";
 	posts_update = 0;
 	now_state = now_topic;	// now state changing
+	location.replace("/board#recommend");
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
@@ -59,6 +60,7 @@ function get_popularity_posts() {
 	where_topic = "뉴스피드";
 	posts_update = 0;
 	now_state = now_topic;	// now state changing
+	location.replace("/board#popularity");
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
@@ -96,6 +98,7 @@ function get_topic_posts(tag) {
 	else topic = tag.children('div').text();
 	now_topic = topic;
 	now_state = now_topic;	// now state changing
+	location.replace("/board#topic");
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");

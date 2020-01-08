@@ -35,7 +35,7 @@ async function URL_Select() {
 	else if (url_target == "license") Insert_license();
 	else if (url_target == "serviceagreement") Insert_serviceaggrement();
 	else if (url_target == "privacy") Insert_privacy();
-	else get_recommend_posts(1);
+	// Else : Nothing Do.
 }
 //----------------------------------------------------------------------------------
 function Go_introduce() {
