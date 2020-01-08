@@ -374,7 +374,6 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 	// 속도향상을 위한 선언
 	let check;
 	let id, fav_cnt, title, date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
-	let onerror = `./static/image/shortcut_black_mobile.png`;
 	//if (w < 1200) {
 	if (mobilecheck()) {
 		for (post_one of posts) {
@@ -410,49 +409,50 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			}
 			/* tag 에다가 레이아웃 배치할 것 */
 			if (img.length < 10 || img.length == undefined && check == 0) {
-					tag = `<div class="post_block" p-id="${id}">
-							<a href="${url}" target="_blank">
-								<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
-									<div class="post_title">${title}</div>
-								</div>
-							</a>
-							<a href="${url}" target="_blank">
-								<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
-									<div class="post_url">${domain}</div>
-									<div class="post_date">${date}</div>
-								</div>
-							</a>
-							<div class="post_block_set_cont_noimg noselect">
-								<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-								${fav_cnt_block}
+				tag = `<div class="post_block" p-id="${id}">
+						<a href="${url}" target="_blank">
+							<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
+								<div class="post_title">${title}</div>
 							</div>
-							<div class="post_menu noselect" onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-						</div>`
+						</a>
+						<a href="${url}" target="_blank">
+							<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
+								<div class="post_url">${domain}</div>
+								<div class="post_date">${date}</div>
+							</div>
+						</a>
+						<div class="post_block_set_cont_noimg noselect">
+							<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
+							${fav_cnt_block}
+						</div>
+						<div class="post_menu noselect" onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
+					</div>`
 			} else {
-					tag = `<div class="post_block" p-id="${id}">
-							<a href="${url}" target="_blank">
-								<div class="post_title_cont pointer" onmousedown="post_view($(this))">
-									<div class="post_title">${title}</div>
-								</div>
-							</a>
-							<a href="${url}" target="_blank">
-								<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url(${img}), url(${onerror})"></div>
-							</a>
-							<a href="${url}" target="_blank">
-								<div class="post_block_cont pointer" onmousedown="post_view($(this))">
-									<div class="post_url">${domain}</div>
-									<div class="post_date">${date}</div>
-								</div>
-							</a>
-							<div class="post_block_set_cont noselect">
-								<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-								${fav_cnt_block}
+				tag = `<div class="post_block" p-id="${id}">
+						<a href="${url}" target="_blank">
+							<div class="post_title_cont pointer" onmousedown="post_view($(this))">
+								<div class="post_title">${title}</div>
 							</div>
-							<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-						</div>`
+						</a>
+						<a href="${url}" target="_blank">
+							<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url(${img})"></div>
+						</a>
+						<a href="${url}" target="_blank">
+							<div class="post_block_cont pointer" onmousedown="post_view($(this))">
+								<div class="post_url">${domain}</div>
+								<div class="post_date">${date}</div>
+							</div>
+						</a>
+						<div class="post_block_set_cont noselect">
+							<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
+							${fav_cnt_block}
+						</div>
+						<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
+					</div>`
 			}
 			if (now_creating_state == now_state)
 				target.append($(tag));
+			check_image(tag);
 		}
 	} else {
 		for (post_one of posts) {
@@ -508,7 +508,7 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			} else {
 				tag = `<div class="post_block" p-id="${id}">
 						<a href="${url}" target="_blank">
-							<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url(${img}), url(${onerror})"></div>
+							<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url(${img})"></div>
 						</a>
 						<a href="${url}" target="_blank">
 							<div class="post_title_cont pointer" onmousedown="post_view($(this))">
@@ -530,6 +530,7 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			}
 			if (now_creating_state == now_state)
 				target.append($(tag));
+			check_image(tag);
 		}
 	}
 	// 로딩 모달 제거
@@ -689,3 +690,18 @@ function get_user_view_posts() {
 	});
 }
 
+function check_image(tag) {
+	let onerror = `./static/image/shortcut_black_mobile.png`;
+	if ($(tag).find("div.post_block_img_cont") == undefined) return false;
+	if ($(tag).find("div.post_block_img_cont").css("background-image") == undefined) return false;
+	let img_url = $(tag).find("div.post_block_img_cont").css("background-image").slice(5, -2);
+	let checkimg = new Image();
+	let p_id = $(tag).attr("p-id");
+	checkimg.onerror = function() {
+		$("#posts_target").find(`div[p-id=${p_id}]`).find("div.post_block_img_cont").css("background-image", `url(${onerror})`);
+	}
+	checkimg.onload = function() {
+		// Image Loading Success
+	}
+	checkimg.src = img_url;
+}
