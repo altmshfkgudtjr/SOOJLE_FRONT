@@ -298,6 +298,10 @@ $(document).ready(function(){
 	});
 });
 function post_view(tag) {
+	if (mobilecheck() && tag.parent('a').attr("href").indexOf("educe") != -1) {
+		alert("해당 사이트는 모바일에서 정상적인 접속이 되지않을 수도 있습니다.")
+			window.open(tag.parent('a').attr("href"), '_blank');	
+	}
 	// 위의 document ready 함수의 속도를 위해서 지연시간 400 설정
 	setTimeout(function() {
 		if (mouse_which == 3) return;
@@ -305,14 +309,6 @@ function post_view(tag) {
 		let e = mouse_which;
 		if (e == 1 || e == 2) {
 			let a_jax = A_JAX("http://"+host_ip+"/post_view/"+id, "GET", null, null);
-			$.when(a_jax).done(function () {
-				let json = a_jax.responseJSON;
-				if (json['result'] == 'success') {
-					/* 토픽별 뉴스피드 불러오기 성공 */
-				} else if (json['result'] == 'fail') {
-				} else {
-				}
-			});
 		}
 	}, 400);
 }
