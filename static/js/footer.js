@@ -15,34 +15,54 @@ function URL_Detection() {
 	$(".mobile_controller").removeAttr("style");
 	$("#none_click").addClass("display_none");
 
+	$("#menu_container").removeClass("menu_container_fixed");
+	//$("#menu_container").removeAttr("style");
+	$("#posts_creating_loading").addClass("display_none");
+	$("#board_container").removeClass("board_container_fixed");
+
 	URL_Select();	
 }
-function URL_Select() {
+async function URL_Select() {
 	let url_target = window.location.href.split("#")[1];
-    if (url_target == "license") Insert_license();
-    else if (url_target == "serviceagreement") Insert_serviceaggrement();
-    else if (url_target == "privacy") Insert_privacy();
+	if (url_target == undefined || url_target == "") get_recommend_posts(1);
+	else if (url_target.startsWith("search?")) {
+		let text = decodeURI(window.location.href);
+		text = text.split("#search?")[1];
+		text = text.split("/")[0];
+		text = text.replace(/\+/g, " ");
+		await search_text(text);
+	}
+	else if (url_target == "license") Insert_license();
+	else if (url_target == "serviceagreement") Insert_serviceaggrement();
+	else if (url_target == "privacy") Insert_privacy();
+	else get_recommend_posts(1);
 }
 //----------------------------------------------------------------------------------
 function Go_introduce() {
-	window.location.href = "/introduce";
+	//window.location.href = "/introduce";
+	location.replace("/introduce");
 }
 function Go_programmer() {
-	window.location.href = "/programmer";
+	//window.location.href = "/programmer";
+	location.replace("/programmer");
 }
 function Go_advertisement() {
-	window.location.href = "/advertisement";
+	//window.location.href = "/advertisement";
+	location.replace("/advertisement");
 }
 function Go_privacy() {
-	window.location.href = "/board#privacy";
+	//window.location.href = "/board#privacy";
+	location.replace("/board#privacy");
 	URL_Select();
 }
 function Go_serviceagreement() {
-	window.location.href = "/board#serviceagreement";
+	//window.location.href = "/board#serviceagreement";
+	location.replace("/board#serviceagreement");
 	URL_Select();
 }
 function Go_license() {
-	window.location.href = "/board#license";
+	//window.location.href = "/board#license";
+	location.replace("/board#license");
 	URL_Select();
 }
 //----------------------------------------------------------------------------------

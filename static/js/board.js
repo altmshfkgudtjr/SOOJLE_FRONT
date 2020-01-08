@@ -186,7 +186,7 @@ async function auto_login() {
 				$("#none_click").addClass("display_none");
 				let text = decodeURI(window.location.href);
 				text = text.split("#search?")[1];
-				window.location.href = "/board#";
+				//cwindow.location.href = "/board#";
 				text = text.split("/")[0];
 				text = text.replace(/"+"/g, " ");
 				await search_text(text);
@@ -337,9 +337,9 @@ async function After_login(dict) {
 		$("#none_click").addClass("display_none");
 		let text = decodeURI(window.location.href);
 		text = text.split("#search?")[1];
-		window.location.href = "/board#";
+		//window.location.href = "/board#";
 		text = text.split("/")[0];
-		text = text.replace(/"+"/g, " ");
+		text = text.replace(/\+/g, " ");
 		await search_text(text);
 	} else if (window.location.href.search("#") != -1) {
 		await URL_Detection();

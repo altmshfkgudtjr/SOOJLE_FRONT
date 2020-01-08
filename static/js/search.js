@@ -13,7 +13,7 @@ function search_focus(keyCode, tag) {
 	}
 	//KeyUp 38 or KeyDown 40
 	if (keyCode == 13) {
-		search_button(tag);
+		search_button();
 		search_blur();
 	} else if (keyCode == 38 || keyCode == 40) {
 		$(`.search_result:nth-child(${now})`).removeClass("search_target");
@@ -93,6 +93,7 @@ function search_blur() {
 		}
 	}
 }
+/*search 클릭 작업============================================================*/
 function search_button() {	// 검색작업 data = 글자
 	let data;
 	let w = $(document).width();
@@ -111,9 +112,11 @@ function search_button() {	// 검색작업 data = 글자
 	}
 	$("#mobile_search_recommend_box").addClass("display_none");
 	//mobile_search_modal_close();
-	search_text(data);	// 검색 함수 실행
+	//search_text(data);	// 검색 함수 실행
 
-	/*search 클릭 작업============================================================*/
+	data = data.replace(/ /g, "+");
+	//window.location.href = "/board#search?" + data + '/'
+	location.replace("/board#search?" + data + '/')
 }
 var search_open = 0;
 function mobile_search_modal_open() {
@@ -158,7 +161,7 @@ function search_result_click(tag) {
 	} else {
 		$("#pc_search_input").val(data);
 	}
-	search_button(data);
+	search_button();
 }
 $(document).on('touchend', function(e) {
 	if (search_open == 1) {
@@ -204,9 +207,7 @@ function search_text(text) {
 		Snackbar("검색어를 입력해주세요.");
 		is_searching = 0;
 		return;
-	} else {
-		text = text.toLowerCase();
-	}
+	} 
 	// search_input box text input
 	if (mobilecheck()) {
 		$("#mobile_search_input").val(text);
@@ -233,7 +234,7 @@ function search_text(text) {
 						</div>`;
 	$("#posts_target").append(category_tabs);
 	$("#posts_target").append(`<div id="search_posts_target"></div>`);
-	let send_data = {search: text};
+	let send_data = {search: text.toLowerCase()};
 	let a_jax_domain = A_JAX("http://"+host_ip+"/domain_search", "POST", null, send_data);
 	let a_jax0 = A_JAX("http://"+host_ip+"/priority_search/200", "POST", null, send_data);
 	let a_jax1 = A_JAX("http://"+host_ip+"/category_search/1/200", "POST", null, send_data);
