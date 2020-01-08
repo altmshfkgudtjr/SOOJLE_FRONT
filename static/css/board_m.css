@@ -1157,7 +1157,7 @@
 		position: relative;
 		display: inline-block;
 		left: 0;
-		width: 95%;
+		width: auto;
 		height: auto;
 		margin-left: 2.5%;
 		font-size: 20px;

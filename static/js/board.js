@@ -190,9 +190,9 @@ async function auto_login() {
 				text = text.split("/")[0];
 				text = text.replace(/"+"/g, " ");
 				await search_text(text);
-				//await Promise.all([search_text(text), mobile_search_modal_open()]);
-			}
-			else {// 메인에서 검색을 하지않았다면 추천 뉴스피드 호출
+			} else if (window.location.href.search("#") != -1) {
+				await URL_Detection();
+			} else { // 메인에서 검색을 하지않았다면 추천 뉴스피드 호출
 				get_recommend_posts(1);
 			}
 			return;
@@ -341,8 +341,9 @@ async function After_login(dict) {
 		text = text.split("/")[0];
 		text = text.replace(/"+"/g, " ");
 		await search_text(text);
-	}
-	else {// 메인에서 검색을 하지않았다면 추천 뉴스피드 호출
+	} else if (window.location.href.search("#") != -1) {
+		await URL_Detection();
+	} else { // 메인에서 검색을 하지않았다면 추천 뉴스피드 호출
 		get_recommend_posts(1);
 	}
 }

@@ -30,9 +30,7 @@ function get_recommend_posts(is_first = 0) {
 	$("#posts_target").empty();
 	$("#pc_search_input").val("");
 	$("#mobile_search_input").val("");
-	$("#board_info_text").empty();
 	$("#board_info_text").text("SOOJLE의 추천");
-	$("#board_info_board").empty();
 	$("#board_info_board").text("뉴스피드");
 	if (is_first == 1)
 		menu_modal_onoff(2);
