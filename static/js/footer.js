@@ -71,6 +71,7 @@ function Insert_license() {
 	now_topic = "License";
 	where_topic = "License";
 	now_state = "License";
+	let now_creating_state = now_state;		// 이거 중요함. 안 겹치게 함.
 	$("#board_info_board").text("LICENSE");
 	$("#board_info_text").text("오픈 라이센스");
 	$("#posts_target").empty();
@@ -92,6 +93,7 @@ function Insert_serviceaggrement() {
 	now_topic = "Serviceagreement";
 	where_topic = "Serviceagreement";
 	now_state = "Serviceagreement";
+	let now_creating_state = now_state;
 	$("#board_info_board").text("SOOJLE");
 	$("#board_info_text").text("서비스이용약관");
 	$("#posts_target").empty();
@@ -113,6 +115,7 @@ function Insert_privacy() {
 	now_topic = "Privacy";
 	where_topic = "Privacy";
 	now_state = "Privacy";
+	let now_creating_state = now_state;
 	$("#board_info_board").text("SOOJLE");
 	$("#board_info_text").text("개인정보처리방침");
 	$("#posts_target").empty();
