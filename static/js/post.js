@@ -94,11 +94,11 @@ function get_topic_posts(tag) {
 	where_topic = "뉴스피드";
 	posts_update = 0;
 	let topic;
-	if (typeof(tag) == String) topic = tag;
+	if (typeof(tag) == String || typeof(tag) == "string") topic = tag;
 	else topic = tag.children('div').text();
 	now_topic = topic;
 	now_state = now_topic;	// now state changing
-	location.replace("/board#topic");
+	location.replace(`/board#topic?${now_topic}`);
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
@@ -585,6 +585,10 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 3 : 검색
 */
 // 좋아요 게시물 보기
+function click_user_like_posts() {
+	menu_modal_onoff();
+	location.replace("/board#userlike");
+}
 function get_user_like_posts() {
 	out_of_search();
 	window.scroll(0,0);
@@ -636,6 +640,10 @@ function get_user_like_posts() {
 	});
 }
 // 최근 본 게시물 보기
+function click_user_view_posts() {
+	menu_modal_onoff();
+	location.replace("/board#userview");
+}
 function get_user_view_posts() {
 	out_of_search();
 	window.scroll(0,0);

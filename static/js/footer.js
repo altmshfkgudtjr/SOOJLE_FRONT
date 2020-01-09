@@ -20,7 +20,7 @@ function URL_Detection() {
 	$("#posts_creating_loading").addClass("display_none");
 	$("#board_container").removeClass("board_container_fixed");
 
-	URL_Select();	
+	URL_Select();
 }
 async function URL_Select() {
 	let url_target = window.location.href.split("#")[1];
@@ -35,6 +35,38 @@ async function URL_Select() {
 	else if (url_target == "license") Insert_license();
 	else if (url_target == "serviceagreement") Insert_serviceaggrement();
 	else if (url_target == "privacy") Insert_privacy();
+	else if (url_target == "recommend") get_recommend_posts(1);
+	else if (url_target == "popularity") get_popularity_posts();
+	else if (url_target == "userlike") {
+		menu_open = 1;
+		get_user_like_posts();
+	}
+	else if (url_target == "userview") {
+		menu_open = 1;
+		get_user_view_posts();
+	}
+	else if (url_target.startsWith("topic?")) {
+		menu_open = 1;
+		let text = decodeURI(window.location.href);
+		let target_topic = text.split("topic?")[1];
+		get_topic_posts(target_topic);
+	}
+	else if (url_target == "lab") {
+		menu_open = 1;
+		Go_lab();
+	}
+	else if (url_target == "analysistics") {
+		menu_open = 1;
+		Go_analysistic();
+	}
+	else if (url_target == "setting") {
+		menu_open = 1;
+		Go_setting();
+	}
+	else if (url_target == "feedback") {
+		menu_open = 1;
+		Go_feedback();
+	}
 	// Else : Nothing Do.
 }
 //----------------------------------------------------------------------------------
