@@ -1002,3 +1002,116 @@ body {
 		z-index: 50;
 	}
 }
+
+
+
+/*Congratulations CSS=====================================*/
+.congratulations_wrapper {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	transform: translate(0, -100%);
+	background-color: #3d3d3d;
+	box-sizing: border-box;
+	border: none;
+	z-index: 2000;
+	transition: 1.2s ease-in-out;
+}
+#cake {
+  display: block;
+  position: center;
+  margin: -160px auto 0 auto;
+}
+/*
+ Candle
+*/
+.candle {
+  background: #fbf090;
+  border-radius: 10px;
+  position: absolute;
+  top: 228px;
+  left: 50%;
+  margin-left: -2.4px;
+  margin-top: -8.33333333px;
+  width: 5px;
+  height: 35px;
+  transform: translateY(-300px);
+  backface-visibility: hidden;
+  animation: in 500ms 6s ease-out forwards;
+}
+.candle:after,
+.candle:before {
+  background: rgba(28, 235, 38, 0.4);
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2.22222222px;
+}
+.candle:after {
+  top: 25%;
+  left: 0;
+}
+.candle:before {
+  top: 45%;
+  left: 0;
+}
+/* 
+ Fire
+*/
+.fire {
+  border-radius: 100%;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  margin-left: -2.6px;
+  width: 6.66666667px;
+  height: 18px;
+}
+.fire:nth-child(1) {
+  animation: fire 2s 6.5s infinite;
+}
+.fire:nth-child(2) {
+  animation: fire 1.5s 6.5s infinite;
+}
+.fire:nth-child(3) {
+  animation: fire 1s 6.5s infinite;
+}
+.fire:nth-child(4) {
+  animation: fire 0.5s 6.5s infinite;
+}
+.fire:nth-child(5) {
+  animation: fire 0.2s 6.5s infinite;
+}
+/* 
+ Animation Fire
+*/
+@keyframes fire {
+  0%, 100% {
+    background: rgba(254, 248, 97, 0.5);
+    box-shadow: 0 0 40px 10px rgba(248, 233, 209, 0.2);
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    background: rgba(255, 50, 0, 0.1);
+    box-shadow: 0 0 40px 20px rgba(248, 233, 209, 0.2);
+    transform: translateY(-20px) scale(0);
+  }
+}
+@keyframes in {
+  to {
+    transform: translateY(0);
+  }
+}
+.text {
+  color: white;
+  font-weight: 300;
+  text-align: center;
+  font-size: 20px;
+}
+.text > h1 {
+  color: #ffe0c0;
+  font-size: 30px;
+  margin-bottom: 10px;
+}

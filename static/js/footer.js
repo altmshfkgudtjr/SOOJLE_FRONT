@@ -67,6 +67,9 @@ async function URL_Select() {
 		menu_open = 1;
 		Go_feedback();
 	}
+	else if (url_target == "soojle") {
+		check_managet_qualification_reload();
+	}
 	// Else : Nothing Do.
 }
 //----------------------------------------------------------------------------------

@@ -6,8 +6,7 @@ function A_JAX(url, type, nope, data){
     } else {
         authorization = {};
     }
-    let ajax_;
-    ajax_ = $.ajax({
+    let ajax_ = $.ajax({
         headers: authorization,
         type: type,
         url: url,
@@ -29,8 +28,7 @@ function A_JAX_FILE(url, type, nope, data){
     } else {
         authorization = {};
     }
-    let ajax_;
-    ajax_ = $.ajax({
+    let ajax_ = $.ajax({
         headers: authorization,
         type: type,
         url: url,
@@ -38,6 +36,20 @@ function A_JAX_FILE(url, type, nope, data){
         dataType : "json",
         processData : false,
         contentType : false,
+        success: function(res){
+        },
+        error: function(res){
+        }
+    });
+    return ajax_;
+}
+
+function A_JAX_CORS(url, type){
+    let ajax_ = $.ajax({
+        crossOrigin : true,
+        type: type,
+        url: url,
+        dataType : "json",
         success: function(res){
         },
         error: function(res){
