@@ -1115,3 +1115,13 @@ body {
   font-size: 30px;
   margin-bottom: 10px;
 }
+
+/*Privacy style*/
+ul { margin-left: 21px; }
+ol { margin-left: 15px; }
+.privacy_officer_info {
+	position: relative;
+	display: block;
+	margin-left: 15px;
+	margin-bottom: 5px;
+}
