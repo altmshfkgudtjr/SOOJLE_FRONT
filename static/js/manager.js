@@ -17,9 +17,6 @@ function check_manager_qualification() {
 					$("#sm_target").before(menu);
 				} 
 			}
-			if (data['user_id'] == '16011092' && new Date().getDate() == 11) {
-				Congratulations();
-			}
 		});
 	}
 }
