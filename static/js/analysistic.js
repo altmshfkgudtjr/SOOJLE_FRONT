@@ -197,13 +197,13 @@ function set_realtimesearch() {
 					word = realtime_words_list[i - 1][0];
 					if (i == 1) {
 						div = `<div class="anlt_realtime_word pointer" onclick="realtime_word_search($(this))">\
-									<span class="anlt_realtime_word_num noselect">${i}.</span>
+									<span class="anlt_realtime_word_num noselect">${i}</span>
 									<span class="anlt_realtime_word_real" style="color:#c30e2e">${word}</span>\
 								</div>`;
 					}
 					else {
 						div = `<div class="anlt_realtime_word pointer" onclick="realtime_word_search($(this))">\
-									<span class="anlt_realtime_word_num noselect">${i}.</span>
+									<span class="anlt_realtime_word_num noselect">${i}</span>
 									<span class="anlt_realtime_word_real">${word}</span>\
 								</div>`;
 					}
