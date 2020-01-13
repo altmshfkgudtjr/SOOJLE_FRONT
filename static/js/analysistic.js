@@ -1,5 +1,11 @@
-function Go_analysistic() {
+function Click_analysistic() {
 	location.replace("/board#analysistics");
+	if (menu_open == 1) {
+		menu_modal_onoff();
+	}
+}
+
+function Go_analysistic() {
 	out_of_search();
 	now_topic = "통계";
 	where_topic = "통계";
@@ -191,12 +197,12 @@ function set_realtimesearch() {
 					word = realtime_words_list[i - 1][0];
 					if (i == 1) {
 						div = `<div class="anlt_realtime_word pointer" onclick="realtime_word_search($(this))">\
-									<span style="font-weight:bold">${i}.</span> <span style="color:#c30e2e">${word}</span>\
+									<span style="font-weight:bold">${i}.</span>&nbsp; <span style="color:#c30e2e">${word}</span>\
 								</div>`;
 					}
 					else {
 						div = `<div class="anlt_realtime_word pointer" onclick="realtime_word_search($(this))">\
-									<span style="font-weight:bold">${i}.</span> <span>${word}</span>\
+									<span style="font-weight:bold">${i}.</span>&nbsp; <span>${word}</span>\
 								</div>`;
 					}
 					if (i < 6) target = $('#anlt_reatime_word_1to5');
@@ -214,8 +220,9 @@ function set_realtimesearch() {
 	$("#anlt_realtime_standard").append(standard);
 }
 function realtime_word_search(tag) {
-	let text = tag.text().trim().slice(3);
-	search_text(text);
+	let text = tag.text().trim().slice(4);
+	//search_text(text);
+	location.replace(`/board#search?${text}/`);
 	if (mobilecheck()) {
 		mobile_search_modal_open();
 	}
@@ -614,4 +621,56 @@ function Dectection_Device() {
 			Snackbar("통신이 원활하지 않습니다.");
 		}
 	});*/
+}
+
+var menu_realtime_init = 0;
+if (!mobilecheck()) menu_realtime_searchword();
+function menu_realtime_searchword() {
+	let target = $("#menu_realtime_searchwords_wrapper");
+	menu_realtime_init = 1;
+	target.css("top", "0");
+	setTimeout(function() {
+		menu_realtime_init = 0;
+		let realtime_ajax = A_JAX("http://"+host_ip+"/get_search_realtime", "GET", null, null);
+		$.when(realtime_ajax).done(function () {
+			let json = realtime_ajax.responseJSON;
+			if (json['result'] == 'success') {
+				target.empty();
+				let realtime_words_list = json['search_realtime'];
+				let div, i;
+				if (realtime_words_list.length == 0) {
+					div = `<div class="menu_realtime_word noselect">\
+							<span>검색이 필요해요!</span>\
+						</div>`;
+					target.append(div);
+				} else { 
+					for (i = 1; i <= realtime_words_list.length; i++) {
+						let word;
+						if (realtime_words_list[i - 1] != undefined)
+							word = realtime_words_list[i - 1][0];
+							div = `<div class="menu_realtime_word noselect">\
+										<span style="font-weight:bold; color: #c30e2e">${i}</span>&nbsp;&nbsp;&nbsp;<span>${word}</span>\
+									</div>`;
+							target.append(div);
+					}
+				}
+			} else {
+				div = `<div class="menu_realtime_word noselect"">\
+							<span>검색이 필요해요!</span>\
+						</div>`;
+				target.append(div);
+			}
+		});
+		menu_realtime_moving(0);
+	}, 4000);
+	//setTimeout(function() {menu_realtime_searchword()}, 35000); // 5 Minutes Cycle Updating
+}
+function menu_realtime_moving(block_h) {
+	if (menu_realtime_init == 1) return;
+	setTimeout(function() {
+		$("#menu_realtime_searchwords_wrapper").css("top", -1 * block_h * 40);
+		setTimeout(function() {
+			menu_realtime_moving((block_h + 1) % $(".menu_realtime_word ").length);
+		}, 500);
+	}, 3000);
 }

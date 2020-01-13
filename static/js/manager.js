@@ -31,11 +31,6 @@ function check_managet_qualification_reload() {
 					|| data['user_id'] == '16011075'
 					|| data['user_id'] == '16011089'
 					|| data['user_id'] == '16011092') {
-					let menu =	`<div class="menu_container_button pointer" onclick="Go_management()">
-									<img src="/static/image/shortcut_mobile.png" class="menu_container_button_icon noselect">
-									<div class="menu_container_button_text noselect">관리자 도구</div>
-								</div>`;
-					$("#sm_target").before(menu);
 					menu_open = 1;
 					Go_management();
 				}

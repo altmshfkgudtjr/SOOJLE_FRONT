@@ -1500,3 +1500,7 @@
 		z-index: 50;
 	}
 }
+
+.menu_realtime_searchwords {
+	display: none;
+}
