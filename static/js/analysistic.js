@@ -197,12 +197,14 @@ function set_realtimesearch() {
 					word = realtime_words_list[i - 1][0];
 					if (i == 1) {
 						div = `<div class="anlt_realtime_word pointer" onclick="realtime_word_search($(this))">\
-									<span style="font-weight:bold">${i}.</span>&nbsp; <span style="color:#c30e2e">${word}</span>\
+									<span class="anlt_realtime_word_num noselect">${i}.</span>
+									<span class="anlt_realtime_word_real" style="color:#c30e2e">${word}</span>\
 								</div>`;
 					}
 					else {
 						div = `<div class="anlt_realtime_word pointer" onclick="realtime_word_search($(this))">\
-									<span style="font-weight:bold">${i}.</span>&nbsp; <span>${word}</span>\
+									<span class="anlt_realtime_word_num noselect">${i}.</span>
+									<span class="anlt_realtime_word_real">${word}</span>\
 								</div>`;
 					}
 					if (i < 6) target = $('#anlt_reatime_word_1to5');
@@ -674,3 +676,12 @@ function menu_realtime_moving(block_h) {
 		}, 500);
 	}, 3000);
 }
+
+$("#menu_realtime_searchwords").on({
+	"mouseenter": function() {	// 메뉴 실시간 검색어 mouseenter
+		
+	},
+	"mouseleave": function() {	// 메뉴 실시간 검색어 mouseleave
+		
+	}
+});

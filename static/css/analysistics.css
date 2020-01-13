@@ -104,7 +104,26 @@
 .anlt_realtime_word:first-child {
 	margin-top: 10px;
 }
-.anlt_realtime_word:hover {
+.anlt_realtime_word_num {
+	position: absolute;
+	left: 5%;
+	font-size: 18px;
+	line-height: 24px;
+	font-weight:bold;
+}
+.anlt_realtime_word_real {
+	position: relative;
+	width: 100%;
+	display: inline-block;
+	line-height: 24px;
+	font-size: 18px;
+	padding-left: 33px;
+	box-sizing: border-box;
+}
+.anlt_realtime_word_real:first-child {
+	margin-top: 10px;
+}
+.anlt_realtime_word_real:hover {
 	text-decoration: underline;
 }
 .anlt_visitor_wrap {

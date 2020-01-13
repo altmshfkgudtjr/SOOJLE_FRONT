@@ -39,7 +39,8 @@
 	top: auto;
 	right: auto;
 }
-#anlt_reatime_word_6to10 > .anlt_realtime_word  {
+#anlt_reatime_word_6to10 > .anlt_realtime_word,
+#anlt_reatime_word_6to10 > .anlt_realtime_word_real {
 	margin-top: 0;
 }
 .anlt_visitor_wrap {
