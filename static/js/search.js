@@ -234,7 +234,7 @@ function search_text(text) {
 						</div>`;
 	$("#posts_target").append(category_tabs);
 	$("#posts_target").append(`<div id="search_posts_target"></div>`);
-	let send_data = {search: text.toLowerCase()};
+	let send_data = {search: text.trim().toLowerCase()};
 	let a_jax_domain = A_JAX("http://"+host_ip+"/domain_search", "POST", null, send_data);
 	let a_jax0 = A_JAX("http://"+host_ip+"/priority_search/200", "POST", null, send_data);
 	let a_jax1 = A_JAX("http://"+host_ip+"/category_search/1/200", "POST", null, send_data);
