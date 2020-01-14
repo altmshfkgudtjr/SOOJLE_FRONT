@@ -1959,3 +1959,47 @@ span.selectbox_choose {
 	font-size: 14px;
 	color: #606060;
 }
+.realtime_searchwords_table {
+	position: absolute;
+	width: 260px;
+	height: auto;
+	min-height: 210px;
+	margin-top: 40px;
+	padding: 10px;
+	background-color: white;
+	border: 2px solid black;
+}
+.realtime_searchwords_table_title {
+	position: relative;
+	font-size: 18px;
+	font-weight: bold;
+	font-style: italic;
+	margin-bottom: 20px;
+}
+.realtime_searchwords_table_word {
+	position: relative;
+	width: 100%;
+	display: inline-block;
+	line-height: 24px;
+	margin-bottom: 10px;
+	font-size: 16px;
+}
+.realtime_searchwords_table_num {
+	position: absolute;
+	font-size: 16px;
+	line-height: 24px;
+	font-weight: bold;
+	font-style: italic;
+}
+.realtime_searchwords_table_text {
+	position: relative;
+	width: 100%;
+	display: inline-block;
+	line-height: 24px;
+	font-size: 18px;
+	padding-left: 30px;
+	box-sizing: border-box;
+}
+.realtime_searchwords_table_text:hover {
+	text-decoration: underline;
+}

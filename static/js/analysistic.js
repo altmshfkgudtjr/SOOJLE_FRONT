@@ -629,6 +629,7 @@ var menu_realtime_init = 0;
 if (!mobilecheck()) menu_realtime_searchword();
 function menu_realtime_searchword() {
 	let target = $("#menu_realtime_searchwords_wrapper");
+	let target2 = $("#realtime_searchwords_table_words");
 	menu_realtime_init = 1;
 	target.css("top", "0");
 	setTimeout(function() {
@@ -638,6 +639,7 @@ function menu_realtime_searchword() {
 			let json = realtime_ajax.responseJSON;
 			if (json['result'] == 'success') {
 				target.empty();
+				target2.empty();
 				let realtime_words_list = json['search_realtime'];
 				let div, i;
 				if (realtime_words_list.length == 0) {
@@ -645,15 +647,25 @@ function menu_realtime_searchword() {
 							<span>검색이 필요해요!</span>\
 						</div>`;
 					target.append(div);
-				} else { 
+				} else {
 					for (i = 1; i <= realtime_words_list.length; i++) {
-						let word;
-						if (realtime_words_list[i - 1] != undefined)
-							word = realtime_words_list[i - 1][0];
+						if (realtime_words_list[i - 1] != undefined) {
+							let word = realtime_words_list[i - 1][0];
 							div = `<div class="menu_realtime_word noselect">\
 										<span style="font-weight:bold; color: #c30e2e">${i}</span>&nbsp;&nbsp;&nbsp;<span>${word}</span>\
 									</div>`;
 							target.append(div);
+						}
+					}
+					for (i = 1; i <= realtime_words_list.length; i++) {
+						if (realtime_words_list[i - 1] != undefined) {
+							let word = realtime_words_list[i - 1][0];
+							div = `<div class="realtime_searchwords_table_word pointer" onclick="realtime_word_search($(this))">
+										<span class="realtime_searchwords_table_num noselect">${i}</span>
+										<span class="realtime_searchwords_table_text pointer" onclick="realtime_word_search($(this))">${word}</span>
+									</div>`;
+							target2.append(div);
+						}
 					}
 				}
 			} else {
@@ -665,7 +677,25 @@ function menu_realtime_searchword() {
 		});
 		menu_realtime_moving(0);
 	}, 4000);
-	//setTimeout(function() {menu_realtime_searchword()}, 35000); // 5 Minutes Cycle Updating
+	let day_name = ["일", "월", "화", "수", "목", "금", "토"];
+	let time = new Date();
+	let year = time.getFullYear();
+	let month = time.getMonth() + 1;
+	let date = time.getDate();
+	let day = time.getDay();
+	let hour = addZeros(time.getHours(),2); 
+	let minute = addZeros(time.getMinutes(),2);
+	let second = addZeros(time.getSeconds(),2);
+	let ampm = "AM";
+	if (hour > 12) {
+		hour -= 12;
+		ampm = "PM";
+	}
+	let now_date = year + '-' + month + '-' + date + " " + day_name[day] + "요일";
+	let now_time = hour + ':' + minute + ':' + second;
+	let standard = `${now_date} ${ampm} ${now_time} 기준`;
+	$("#realtime_searchwords_table_time").append(standard);
+
 }
 function menu_realtime_moving(block_h) {
 	if (menu_realtime_init == 1) return;
@@ -677,11 +707,14 @@ function menu_realtime_moving(block_h) {
 	}, 3000);
 }
 
+
 $("#menu_realtime_searchwords").on({
 	"mouseenter": function() {	// 메뉴 실시간 검색어 mouseenter
-		
-	},
+		$("#realtime_searchwords_table").removeClass("display_none");
+	}
+});
+$("#realtime_searchwords_table").on({
 	"mouseleave": function() {	// 메뉴 실시간 검색어 mouseleave
-		
+		$("#realtime_searchwords_table").addClass("display_none");
 	}
 });
