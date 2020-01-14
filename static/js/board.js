@@ -344,7 +344,8 @@ async function After_login(dict) {
 	} else if (window.location.href.search("#") != -1) {
 		await URL_Detection();
 	} else { // 메인에서 검색을 하지않았다면 추천 뉴스피드 호출
-		get_recommend_posts(1);
+		//get_recommend_posts(1);
+		location.replace("/board#recommend");
 	}
 }
 
