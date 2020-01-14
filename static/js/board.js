@@ -314,6 +314,8 @@ async function After_login(dict) {
 	let w = $(document).width();
 	let id = dict["user_id"];
 	let major = dict["user_major"];
+	if (major.length > 10)
+		major = major.slice(0, 8) + "..." + major.slice(-2);
 	let name = dict["user_name"];
 	greetings.push(major + ",");
 	let hello = greetings[Math.floor(Math.random() * greetings.length)];

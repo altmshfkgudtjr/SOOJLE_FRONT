@@ -764,6 +764,9 @@ html, body {
 	font-size: 20px;
 	line-height: 40px;
 	color: black;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .menu_container_button_small {
 	position: relative;
