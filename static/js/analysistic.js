@@ -1,3 +1,5 @@
+let analysis_data;
+
 function Click_analysistic() {
 	location.replace("/board#analysistics");
 	if (menu_open == 1) {
@@ -20,25 +22,30 @@ function Go_analysistic() {
 }
 
 function set_analysistic() {
-	let div = `<div id="anlt_time_weather_wrap" class="anlt_time_weather_wrap"></div>`;
-	$("#posts_target").append(div);
-	$("#posts_creating_loading").addClass("display_none");
-	insert_greeting_div();			// 소개
-	insert_time_div();				// 시간
-	insert_weather_div();			// 날씨
-	insert_realtimesearch_div();	// 실시간 검색어
-	//insert_hall();				// 명예의 전당
-	insert_visitor_div();			// 방문자 분석
-	insert_post_div();				// 게시글 분석
-	//insert_outlink_div();			// 외부사이트 분석
-	insert_device_div();			// 디바이스 분석
+	$.when(A_JAX("http://"+host_ip+"/get_analysis", "GET", null, null)).done(function(data) {
+		if (data['result'] == 'success'){
+			analysis_data = data['analysis'];
+			let div = `<div id="anlt_time_weather_wrap" class="anlt_time_weather_wrap"></div>`;
+			$("#posts_target").append(div);
+			$("#posts_creating_loading").addClass("display_none");
+			insert_greeting_div();			// 소개
+			insert_time_div();				// 시간
+			insert_weather_div();			// 날씨
+			insert_realtimesearch_div();	// 실시간 검색어
+			//insert_hall();				// 명예의 전당
+			insert_visitor_div();			// 방문자 분석
+			insert_post_div();				// 게시글 분석
+			//insert_outlink_div();			// 외부사이트 분석
+			insert_device_div();			// 디바이스 분석
+		}
+	});
 }
 
 // 소개 div Insert----------------------------------------------------
 function insert_greeting_div() {
-	let posts_num = 337300;
+	let posts_num = analysis_data['posts_count'];
 	let actions_num = 121;
-	let view_num = 2300;
+	let view_num = analysis_data['total_view'];
 	let div =	`<div id="anlt_greeting_wrapper" class="anlt_greeting_wrapper">
 					<div class="anlt_greeting_text noselect">
 						사용자는 <span style="font-weight:500; color: #c30e2e;">${posts_num}</span> 개의 포스트에서 정보를 찾아볼 수 있습니다.
@@ -271,19 +278,19 @@ function insert_visitor_div() {
 						<div class="anlt_realtime_subtitle noselect">${info}</div>\
 						<div class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">오늘 방문자수</div>
-							<div id="anlt_today_visitor_data" class="anlt_visitor_box_data">18</div>
+							<div id="anlt_today_visitor_data" class="anlt_visitor_box_data">${analysis_data['today_visitor']}</div>
 						</div>\
 						<div class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">총 방문자수</div>
-							<div id="anlt_all_visitor_data" class="anlt_visitor_box_data">238</div>
+							<div id="anlt_all_visitor_data" class="anlt_visitor_box_data">${analysis_data['total_visitor']}</div>
 						</div>\
 						<div class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">하루 평균 방문자수</div>
-							<div id="anlt_today_visitor_average_data" class="anlt_visitor_box_data">31</div>
+							<div id="anlt_today_visitor_average_data" class="anlt_visitor_box_data">${analysis_data['day_avg_visitor']}</div>
 						</div>\
 						<div class="anlt_visitor_box noselect">
 							<div class="anlt_visitor_box_title">하루 최고 방문자수</div>
-							<div id="anlt_all_visitor_max_data" class="anlt_visitor_box_data">45</div>
+							<div id="anlt_all_visitor_max_data" class="anlt_visitor_box_data">${analysis_data['highest_day_visitor']}</div>
 						</div>\
 						<div class="anlt_visitor_chart_box">
 							<div class="anlt_visitor_box_title_big noselect">사용 시간대 분석</div>
