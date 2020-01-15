@@ -152,7 +152,7 @@ $(document).scroll(function() {
 				$("#posts_creating_loading").removeClass("display_none");
 				//$("#board_container").addClass("board_container_fixed");
 				setTimeout(function() {
-					get_posts_more();
+					get_posts_more(now_state);
 					setTimeout(function() {
 						now_creating = 0;
 					}, 200);
@@ -162,12 +162,12 @@ $(document).scroll(function() {
 	}
 });
 // 포스트 더보기
-function get_posts_more() {
+function get_posts_more(before_state) {
 	if (save_posts.length == 0) return;
 	setTimeout(function() {
 		let output = save_posts.slice(0,30);
 		save_posts = save_posts.slice(30);
-		creating_post(output, now_state);
+		creating_post(output, before_state);
 	}, 500);
 }
 
