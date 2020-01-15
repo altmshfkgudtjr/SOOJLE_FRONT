@@ -1882,6 +1882,9 @@ span.selectbox_choose {
 	display: none;
 	background: transparent;  /* Optional: just make scrollbar invisible */
 }
+.selectbox_dropdown-menu {
+	margin-left: 0;
+}
 .selectbox_dropdown .selectbox_dropdown-menu {
 	position: absolute;
 	background-color: #fff;

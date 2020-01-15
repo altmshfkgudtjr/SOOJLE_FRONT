@@ -177,8 +177,6 @@ async function auto_login() {
 		token = localStorage.getItem('sj-state');
 		if (token == null || token == undefined || token == 'undefined') {
 			localStorage.removeItem('sj-state');
-	
-		return jsonify(result = "fail")		// 메인에서 검색을 했다면 검색 결과 호출
 			if (window.location.href.search("#search?") != -1) {
 				// 로딩 모달 제거
 				$("#mobile_controller_none").addClass("display_none");
