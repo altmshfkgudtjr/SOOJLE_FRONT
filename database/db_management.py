@@ -205,4 +205,15 @@ def update_posts_highest_fav_cnt(db):
 
 	db['variable'].update({'_id': ObjectId(highest_fav_cnt_id['_id'])}, {'$set': {'value': highest_fav_cnt}})
 	
-	return "success"	
+	return "success"
+
+
+#피드백 전송
+def send_user_feedback(db, feedback):
+	db['feedback'].insert_one({
+		'author': feedback['author'],
+		'type': feedback['type'],
+		'time': feedback['time'],
+		'post': feedback['post']
+	})
+	return "success"

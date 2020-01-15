@@ -98,7 +98,14 @@ function feedback_send() {
 	}
 	send_data["type"] = selectbox_input;
 	send_data["post"] = phragh;
-	/*
-	피드백 AJAX 요청
-	*/
+	
+	let a_jax = A_JAX("http://"+host_ip+"/send_feedback", "POST", null, send_data);
+	$.when(a_jax).done(function () {
+		if (a_jax.responseJSON['result'] = 'success') {
+			Snackbar("피드백을 전송하였습니다.");
+			$("#feedback_box").val("");
+		} else {
+			Snackbar("통신이 원활하지 않습니다.");
+		}
+	});
 }
