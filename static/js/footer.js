@@ -36,7 +36,10 @@ async function URL_Select() {
 	else if (url_target == "serviceagreement") Insert_serviceaggrement();
 	else if (url_target == "privacy") Insert_privacy();
 	else if (url_target == "recommend") get_recommend_posts(1);
-	else if (url_target == "popularity") get_popularity_posts();
+	else if (url_target == "popularity") {
+		menu_open = 1;
+		get_popularity_posts();
+	}
 	else if (url_target == "userlike") {
 		menu_open = 1;
 		get_user_like_posts();
@@ -75,15 +78,15 @@ async function URL_Select() {
 //----------------------------------------------------------------------------------
 function Go_introduce() {
 	//window.location.href = "/introduce";
-	location.replace("/introduce");
+	location.href = "/introduce";
 }
 function Go_programmer() {
 	//window.location.href = "/programmer";
-	location.replace("/programmer");
+	location.href = "/programmer";
 }
 function Go_advertisement() {
 	//window.location.href = "/advertisement";
-	location.replace("/advertisement");
+	location.href = "/advertisement";
 }
 function Go_privacy() {
 	//window.location.href = "/board#privacy";

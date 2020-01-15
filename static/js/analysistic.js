@@ -44,7 +44,7 @@ function set_analysistic() {
 // 소개 div Insert----------------------------------------------------
 function insert_greeting_div() {
 	let posts_num = analysis_data['posts_count'];
-	let actions_num = analysis_data['communication_avg'] / 86400;
+	let actions_num = analysis_data['communication_avg']/86400;
 	let view_num = analysis_data['total_view'];
 	let div =	`<div id="anlt_greeting_wrapper" class="anlt_greeting_wrapper">
 					<div class="anlt_greeting_text noselect">

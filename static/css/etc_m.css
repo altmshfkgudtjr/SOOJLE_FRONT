@@ -1,0 +1,51 @@
+@media screen and (max-width: 800px) {
+	.body_cont {
+		position: relative;
+		width: 100%;
+		max-width: 2000px;
+		height: 400px;
+		box-sizing: border-box;
+		margin: 0 auto 0 auto;
+		background-image: url("../../static/image/infographic.png");
+		background-size: cover;
+		background-position: center;
+	}
+	.body_text {
+		font-family: "AppleSdNeo";
+		position: absolute;
+		background-color: rgba(255,255,255,.2);
+		height: 90px;
+		font-size: 1vw;
+		line-height: 90px;
+		color: white;
+		width: 100%;
+		bottom: 0;
+		text-align: center;
+	}
+	.info_cont01 {
+		position: relative;
+		width: 100%;
+		height: auto;
+		box-sizing: border-box;
+		padding: 10px 10%;
+	}
+	.box_area {
+		float: left;
+		width: 100%;
+		height: auto;
+		box-sizing: border-box;
+		padding: 10px 0;
+	}
+	.info_categroy {
+		position: relative;
+		font-size: 17px;
+		line-height: 24px;
+		color: rgba(0,0,0,.4);
+	}
+	.info_title {
+		position: relative;
+		font-size: 24px;
+		line-height: 40px;
+		margin-top: 15px;
+	}
+}
