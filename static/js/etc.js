@@ -5,11 +5,11 @@ window.mobilecheck = function() {
     return isMobile;
 };
 
+function Go_home(){ window.location.href = "/"; }
 // mobiel일 경우 logo small size로 교체
 $("document").ready(function() {
 	if(mobilecheck()) $("#header_img").attr("src", "./static/image/SOOJLE_LOGO_BIG_mobile.png");
 });
-
 $("#header_img").on({
 	"click": function() {
 		location.reload();
@@ -20,3 +20,49 @@ $("#body_info").on({
 		$('html').animate({scrollTop: $("#info_cont01").offset().top}, 100, 'linear');
 	}
 });
+$("#CI_AI").on({
+	"click": function() {
+		download_file("/static/saves/soojle_logo.ai", "SOOJLE_LOGO");
+	}
+});
+$("#CI_PNG").on({
+	"click": function() {
+		download_file("/static/saves/soojle_logo.png", "SOOJLE_LOGO");
+	}
+});
+$("#GoFeedback").on({
+	"click": function() {
+		window.location.href = "/board#feedback";
+	}
+});
+
+// 파일 다운로드 function
+function download_file(fileURL, fileName) {
+    // for non-IE
+    if (!window.ActiveXObject) {
+        var save = document.createElement('a');
+        save.href = fileURL;
+        save.target = '_blank';
+        var filename = fileURL.substring(fileURL.lastIndexOf('/')+1);
+        save.download = fileName || filename;
+	    if ( navigator.userAgent.toLowerCase().match(/(ipad|iphone|safari)/) && navigator.userAgent.search("Chrome") < 0) {
+			document.location = save.href; 
+		// window event not working here
+		}else{
+		    var evt = new MouseEvent('click', {
+		        'view': window,
+		        'bubbles': true,
+		        'cancelable': false
+		    });
+		    save.dispatchEvent(evt);
+		    (window.URL || window.webkitURL).revokeObjectURL(save.href);
+		}	
+    }
+    // for IE < 11
+    else if ( !! window.ActiveXObject && document.execCommand)     {
+        var _window = window.open(fileURL, '_blank');
+        _window.document.close();
+        _window.document.execCommand('SaveAs', true, fileName || fileURL)
+        _window.close();
+    }
+}
