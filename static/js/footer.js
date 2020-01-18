@@ -33,7 +33,6 @@ async function URL_Select() {
 		await search_text(text);
 	}
 	else if (url_target == "license") Insert_license();
-	else if (url_target == "serviceagreement") Insert_serviceaggrement();
 	else if (url_target == "privacy") Insert_privacy();
 	else if (url_target == "recommend") get_recommend_posts(1);
 	else if (url_target == "popularity") {
@@ -93,11 +92,6 @@ function Go_privacy() {
 	location.replace("/board#privacy");
 	URL_Select();
 }
-function Go_serviceagreement() {
-	//window.location.href = "/board#serviceagreement";
-	location.replace("/board#serviceagreement");
-	URL_Select();
-}
 function Go_license() {
 	//window.location.href = "/board#license";
 	location.replace("/board#license");
@@ -131,27 +125,6 @@ function Insert_license() {
 	$("#posts_creating_loading").addClass("display_none");
 }
 
-function Insert_serviceaggrement() {
-	out_of_search();
-	now_topic = "Serviceagreement";
-	where_topic = "Serviceagreement";
-	now_state = "Serviceagreement";
-	let now_creating_state = now_state;
-	$("#board_info_board").text("SOOJLE");
-	$("#board_info_text").text("서비스이용약관");
-	$("#posts_target").empty();
-	$("#posts_creating_loading").removeClass("display_none");
-	window.scrollTo(0,0);
-
-	let div = 	`<div class="lab_title_wrap">
-					<div class="lab_title noselect">서비스이용약관</div>
-					<div class="lab_subtitle noselect">
-						다음은 SOOJLE 서비스이용약관입니다.
-					</div>
-				</div>`;
-	$("#posts_target").append(div);
-	$("#posts_creating_loading").addClass("display_none");
-}
 
 function Insert_privacy() {
 	out_of_search();
