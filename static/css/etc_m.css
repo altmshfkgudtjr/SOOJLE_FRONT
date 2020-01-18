@@ -1,3 +1,45 @@
+@media screen and (max-width: 1400px) {
+	.body_cont {
+		position: relative;
+		width: 100%;
+		max-width: 2000px;
+		height: 600px;
+		box-sizing: border-box;
+		margin: 0 auto 0 auto;
+		background-image: url("../../static/image/infographic.png");
+		background-size: cover;
+		background-position: center;
+	}
+	.body_text {
+		font-family: "AppleSdNeo";
+		position: absolute;
+		background-color: rgba(255,255,255,.2);
+		height: 120px;
+		font-size: 21px;
+		line-height: 120px;
+		color: white;
+		width: 100%;
+		bottom: 0;
+		text-align: center;
+		border-top: 3px solid white;
+	}
+	.info_cont {
+		position: relative;
+		width: 100%;
+		height: auto;
+		box-sizing: border-box;
+		padding: 30px 10% 10px 10%;
+		border-top: 2px solid #adadad;
+		margin: 0;
+	}
+	.info_title {
+		position: relative;
+		font-size: 2.5vw;
+		line-height: 40px;
+		margin-top: 15px;
+		margin-bottom: 20px;
+	}
+}
 @media screen and (max-width: 800px) {
 	.body_cont {
 		position: relative;
@@ -15,19 +57,20 @@
 		position: absolute;
 		background-color: rgba(255,255,255,.2);
 		height: 90px;
-		font-size: 1vw;
+		font-size: 2vw;
 		line-height: 90px;
 		color: white;
 		width: 100%;
 		bottom: 0;
 		text-align: center;
 	}
-	.info_cont01 {
+	.info_cont {
 		position: relative;
 		width: 100%;
 		height: auto;
 		box-sizing: border-box;
-		padding: 10px 10%;
+		padding: 30px 10% 10px 10%;
+		border-top: 2px solid #adadad;
 	}
 	.box_area {
 		float: left;
@@ -35,6 +78,15 @@
 		height: auto;
 		box-sizing: border-box;
 		padding: 10px 0;
+		margin-bottom: 30px;
+	}
+	.box_area_big {
+		float: left;
+		width: 100%;
+		height: auto;
+		box-sizing: border-box;
+		padding: 10px 0;
+		margin-bottom: 50px;
 	}
 	.info_categroy {
 		position: relative;
@@ -45,7 +97,106 @@
 	.info_title {
 		position: relative;
 		font-size: 24px;
-		line-height: 40px;
+		line-height: 30px;
 		margin-top: 15px;
+	}
+	.info_post {
+		position: relative;
+		font-size: 15px;
+		line-height: 30px;
+		color: gray;
+		margin-top: 10px;
+	}
+	.timeline {
+		position: relative;
+		float: left;
+		width: 100%;
+		height: auto;
+		margin-top: 40px;
+	}
+	.timeline:after {
+		content: '';
+		position: absolute;
+		width: 4px;
+		background-color: black;
+		top: 0;
+		bottom: 0;
+		left: 10px;
+		border-radius: 50px;
+	}
+	.timelineEvent {
+		position: relative;
+		float: left;
+		width: 100%;
+		height: auto;
+		box-sizing: border-box;
+		padding-left: 40px;
+		margin-bottom: 20px;
+	}
+	.timelineEvent::after {
+		content: '';
+		position: absolute;
+		width: 12px;
+		height: 12px;
+		left: 2px;
+		top: 10px;
+		background-color: white;
+		border: 4px solid black;
+		border-radius: 50%;
+		z-index: 1;
+	}
+	.timelineEvent_Year {
+		position: relative;
+		font-size: 24px;
+		font-weight: bold;
+		line-height: 30px;
+		padding-top: 7px;
+		margin-bottom: 20px;
+	}
+	.timelineEvent_Inbox {
+		position: relative;
+		width: 100%;
+		height: auto;
+		box-sizing: border-box;
+		padding-bottom: 20px;
+		padding-left: 0;
+		border-bottom: none;
+		margin-bottom: 0;
+		margin-left: 0;
+	}
+	.timelineEvent_Month {
+		position: absolute;
+		font-size: 20px;
+		color: gray;
+	}
+	.timelineEvent_Post {
+		position: relative;
+		box-sizing: border-box;
+		width: 100%;
+		padding-left: 40px;
+		height: auto;
+		font-size: 15px;
+		line-height: 25px;
+	}
+	.CI_img {
+		position: relative;
+		float: left;
+		width: 90%;
+		max-width: 400px;
+		height: auto;
+		margin-top: 50px;
+		left: 50%;
+		transform: translate(-50%, 0);
+	}
+	.CI_info {
+		position: relative;
+		float: left;
+		width: 100%;
+		height: auto;
+		box-sizing: border-box;
+		font-size: 16px;
+		line-height: 20px;
+		color: gray;
+		margin-top: 30px;
 	}
 }

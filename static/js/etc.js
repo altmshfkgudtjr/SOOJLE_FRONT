@@ -17,6 +17,6 @@ $("#header_img").on({
 });
 $("#body_info").on({
 	"click": function() {
-		$('html').animate({scrollTop: $("#info_cont01").offset().top}, 100);
+		$('html').animate({scrollTop: $("#info_cont01").offset().top}, 100, 'linear');
 	}
 });
