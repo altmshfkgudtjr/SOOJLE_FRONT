@@ -183,7 +183,7 @@
 	.info_post {
 		position: relative;
 		font-size: 15px;
-		line-height: 30px;
+		line-height: 26px;
 		color: gray;
 		margin-top: 10px;
 	}
@@ -275,10 +275,33 @@
 		height: auto;
 		box-sizing: border-box;
 		font-size: 16px;
-		line-height: 20px;
+		line-height: 26px;
 		color: gray;
 		margin-top: 30px;
 		margin-bottom: 30px;
+	}
+	.CI_download {
+		position: relative;
+		float: left;
+		width: 140px;
+		height: 40px;
+		margin-right: 20px;
+		cursor: pointer;
+		transition: .1s ease-in-out;
+		border: 1px solid black;
+		padding: 0 20px;
+		font-size: 16px;
+		line-height: 42px;
+		background-color: white;
+		color: black;
+		left: 50%;
+		transform: translate(-50%, 0);
+		margin-bottom: 20px;
+	}
+	.donwload_icon {
+		position: absolute;
+		right: 20px;
+		top: 12.5px;
 	}
 	.soojle_title {
 		position: relative;
