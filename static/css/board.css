@@ -972,7 +972,7 @@ html, body {
 	transform: translate(-50%, 0);
 	-webkit-transform: translate(-50%, 0);
 	height: auto;
-	min-height: 300px;
+	min-height: 500px;
 }
 .post_block {
 	position: relative;
