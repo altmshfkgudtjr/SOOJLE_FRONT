@@ -12,14 +12,40 @@ body {
 	height: 100%;
 }
 
+/*Drag Color Changed*/
+::selection {
+    background:#adadad;
+    color: #FFF;
+    text-shadow: none;
+}
+::-moz-selection {
+    background:#adadad;
+    color: #FFF;
+    text-shadow: none;
+}
+::-webkit-selection {
+    background:#adadad;
+    color: #FFF;
+    text-shadow: none;
+}
+
 .blackFont { color: black !important }
 
+/*Introduce---------------------------------------------*/
 .header {
 	position: relative;
 	width: 100%;
 	height: 65px;
 	border-bottom: 1px solid #dcdde0;
 	background-color: white;
+	box-sizing: border-box;
+}
+.header_black {
+	position: relative;
+	width: 100%;
+	height: 65px;
+	border-bottom: 1px solid #dcdde0;
+	background-color: black;
 	box-sizing: border-box;
 }
 .header_img {
@@ -62,6 +88,9 @@ body {
 	padding: 50px 10%;
 	margin: 0 15%;
 	border-top: 2px solid #adadad;
+}
+.info_cont:nth-child(3) {
+	border-top: 2px solid white;
 }
 .box_area {
 	float: left;
@@ -317,4 +346,92 @@ body {
 	margin-top: 20px;
 	margin-bottom: 50px;
 	word-break: keep-all;
+}
+/*Developer---------------------------------------------*/
+.d_cont {
+	float: left;
+	width: 80%;
+	height: auto;
+	box-sizing: border-box;
+	padding: 50px 10%;
+	margin: 0 10%;
+}
+.d_title_cont {
+	position: relative;
+	width: 100%;
+	height: 100px;
+	margin: auto;
+	margin-top: 40px;
+	font-size: 30px;
+	font-weight: bold;
+	line-height: 40px;
+	text-align: center;
+	color: rgba(0,0,0,.8);
+}
+.d_title_cursor {
+	position: relative;
+	display: inline-block;
+	width: 10px;
+	margin-left: 2px;
+	font-size: 40px;
+	font-weight: normal;
+	top: 2.5px;
+	transition: .1s ease-in-out;
+}
+.d_title_info {
+	position: relative;
+	width: 100%;
+	height: auto;
+	text-align: center;
+	font-size: 16px;
+	line-height: 30px;
+	color: gray;
+	word-break: keep-all;
+	text-align: center;
+}
+.profile {
+	position: relative;
+	width: 70%;
+	height: auto;
+	margin: 0 15% 50px 15%;
+	box-sizing: border-box;
+	padding: 30px 0 10px 0;
+}
+.p_start {
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 12px;
+	color: #adadad;
+}
+.p_end {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	font-size: 12px;
+	color: #adadad;
+}
+.profile_img {
+	float: left;
+	height: 78px;
+	width: auto;
+	border-radius: 50%;
+	margin-right: 20px;
+}
+.profile_cont {
+	position: relative;
+	display: inline-block;
+	width: auto;
+}
+.profile_name {
+	position: relative;
+	font-size: 24px;
+	line-height: 30px;
+	margin-bottom: 20px;
+}
+.profile_info {
+	position: relative;
+	font-size: 16px;
+	line-height: 20px;
+	margin-bottom: 10px;
 }

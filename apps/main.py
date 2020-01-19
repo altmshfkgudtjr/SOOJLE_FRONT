@@ -15,7 +15,7 @@ def main_home():
 def go_introduce():
 	return render_template('etc/introduce.html')
 
-@BP.route('/programmers')
+@BP.route('/programmer')
 def go_programmers():
 	return render_template('etc/programmers.html')
 

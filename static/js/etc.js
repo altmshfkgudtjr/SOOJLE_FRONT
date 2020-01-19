@@ -66,3 +66,22 @@ function download_file(fileURL, fileName) {
         _window.close();
     }
 }
+
+$("body").ready(function() {
+	var $cursor = $("#d_title_cursor")
+	setInterval(function() {
+		if ($cursor.css('opacity') === "0") {
+			$cursor.css({opacity: 1});
+		} else {
+			$cursor.css({opacity: 0}, 300);
+		}
+	}, 500);
+});
+$(".d_person").on({
+	"mouseover": function() {
+		$(this).children("div").css("opacity", "1");
+	},
+	"mouseleave": function() {
+		$(this).children("div").css("opacity", "0");
+	}
+});
