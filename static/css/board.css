@@ -1613,6 +1613,13 @@ html, body {
 .feedback_send_btn:hover {
 	color: black;
 }
+.feedback_email {
+	position: relative;
+	margin-top: 10px;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgba(0,0,0,.7);
+}
 .license_block {
 	position: relative;
 	width: 100%;
