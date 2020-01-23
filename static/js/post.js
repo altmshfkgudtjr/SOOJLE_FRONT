@@ -329,6 +329,9 @@ function change_date_realative(dt) {
 		(d.getMinutes() > 9 ? '' : '0') +  d.getMinutes() + ':'  + 
 		(d.getSeconds() > 9 ? '' : '0') +  d.getSeconds(),
 		'formatted': '',
+		'string_raw': d.getFullYear() + '년 ' + 
+		(d.getMonth() + 1 > 9 ? '' : '0') + (d.getMonth() + 1) + '월 ' + 
+		(d.getDate() > 9 ? '' : '0') +  d.getDate() + '일 '
 	};
 	if (minsAgo < 60 && minsAgo >= 0) { // 1시간 내
 		result.formatted = minsAgo + '분 전';
@@ -343,7 +346,7 @@ function change_date_realative(dt) {
 	} else if (minsAgo >= 0) { // 한달 이상
 		result.formatted = Math.floor(minsAgo / 60 / 24 / 7 / 4 / 12) + '년 전';
 	} else {
-		result.formatted = result.raw;
+		result.formatted = result.string_raw + "까지";
 	}
 	return result.formatted;
 }
@@ -386,7 +389,7 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			date = change_date_realative(date);
 			if (post_one['end_date']) {
 				date = post_one['end_date'].$date;
-				date = date.toString + " 까지";
+				date = date.toString + "까지";
 			}
 			url = post_one['url'];
 			domain = url.split('/');
