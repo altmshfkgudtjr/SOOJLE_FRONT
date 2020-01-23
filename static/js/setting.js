@@ -77,7 +77,7 @@ function insert_user_custom_setting() {
 									<div class="setting_title noselect">개인정보 설정</div>
 									<div class="setting_title_info noselect">${title_info_2}</div>
 									<div>
-										<div class="setting_subtitle noselect">${st_2}</div>
+										<div class="setting_subtitle noselect" style="color:#c30e2e">${st_2}</div>
 										<input type="checkbox" id="user_data_delete" onchange="change_userdelete_st()">
 										<div class="setting_toggle_red">
 											<label for="user_data_delete"></label>

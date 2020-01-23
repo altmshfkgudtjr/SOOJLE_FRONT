@@ -131,7 +131,7 @@ function mobile_search_modal_open() {
 			scroll(0,0);
 			$("#board_logo").css({"left": "10px",
 								"transform": "translate(0, 0)",
-								"-webkit-transform": "translate(0, 0)"})
+								"-webkit-transform": "translate(0, 0)"});
 			$("body").css({"position": "fixed","overflow": "hidden"});
 			$("#mobile_search").removeClass("display_none");
 			$("#mobile_search_input").focus();
@@ -139,8 +139,11 @@ function mobile_search_modal_open() {
 			$("#mobile_search_recommend_box").removeClass("display_none");
 		}
 	} else {
-		//if (w < 1200) {
-		if (mobilecheck()) {
+		if (mobilecheck() && $("#mobile_search_input").val() != "") {
+			$("#mobile_search_input").focus();
+			$("#mobile_search_recommend_box").removeClass("display_none");
+		}
+		else if (mobilecheck()) {
 			mobile_search_modal_close();
 		}
 	}
@@ -165,12 +168,15 @@ function search_result_click(tag) {
 }
 $(document).on('touchend', function(e) {
 	if (search_open == 1) {
-		if($(e.target.classList)[0]  == 'mobile_search_header' ||
+		if ($(e.target.classList)[0]  == 'mobile_search_header' ||	// nothing
 			$(e.target.classList)[0] == 'mobile_search_button_modal' ||
 			$(e.target.classList)[0] == 'result_target' ||
 			$(e.target.classList)[0] == 'mobile_search_input' ||
 			$(e.target.classList)[0] == 'mobile_search_icon_modal') {
-			// nothing
+		} else if (mobilecheck() && $("#mobile_search_input").val() != "") {
+			//search_open = 0;
+			$("body").removeAttr("style");
+			$("#mobile_search_input").blur();
 		} else {
 			mobile_search_modal_close();
 		}
@@ -210,9 +216,9 @@ function search_text(text) {
 	} 
 	// search_input box text input
 	if (mobilecheck()) {
-		$("#mobile_search_input").val(text);
+		$("#mobile_search_input").val(text.replace(/\+/g, " "));
 	} else {
-		$("#pc_search_input").val(text);
+		$("#pc_search_input").val(text.replace(/\+/g, " "));
 	}
 	$("#posts_creating_loading").removeClass("display_none");
 	$("#posts_target").empty();

@@ -4,11 +4,13 @@ window.mobilecheck = function() {
 	    isMobile = true;
     return isMobile;
 };
-
 function Go_home(){ window.location.href = "/"; }
 // mobiel일 경우 logo small size로 교체
 $("document").ready(function() {
-	if(mobilecheck()) $("#header_img").attr("src", "./static/image/SOOJLE_LOGO_BIG_mobile.png");
+	if(mobilecheck() && $("#header_img").attr("src").indexOF("BLACK") == -1)
+		$("#header_img").attr("src", "./static/image/SOOJLE_LOGO_BIG_mobile.png");
+	else 
+		$("#header_img").attr("src", "./static/image/SOOJLE_LOGO_BIG_BLACK_mobile.png");
 });
 $("#header_img").on({
 	"click": function() {
