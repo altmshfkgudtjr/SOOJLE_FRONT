@@ -242,13 +242,16 @@ function Sign_in(){
 			a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
 			$.when(a_jax).done(function () {
 				if (a_jax.responseJSON['result'] == 'success') {
-					Snackbar("맞춤 서비스를 시작합니다.");
+					login_modal_onoff();
 					$("#user_id").val("");
 					$("#user_pw").val("");
+					//if (첫번째)
+					first_login(a_jax.responseJSON);	// 개인정보처리방침 모달
+					//else (첫로그인이 아닐시)
+					/*
 					if (a_jax.responseJSON['auto_login'] == 1)
 						localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
-					After_login(a_jax.responseJSON);
-					login_modal_onoff();
+					After_login(a_jax.responseJSON);*/
 				} else if (a_jax.responseJSON['result'] == 'not found') {
 					Snackbar("비정상적인 접근입니다.");
 					localStorage.removeItem('sj-state');

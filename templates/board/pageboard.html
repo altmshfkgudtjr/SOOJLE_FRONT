@@ -441,6 +441,20 @@
 			<div id="user_data_delete_button_cancel" class="user_data_delete_button pointer">취소</div>
 		</div>
 	</div>
+	<div id="user_agreement_modal" class="privacy_modal wow display_none" data-wow-duration="0.4s">
+		<div class="empty_block">
+			<img id="empty_block_logo" src="/static/image/SOOJLE_LOGO_BIG.png" class="empty_block_logo pointer noselect" onclick="Goboard()">
+		</div>
+		<div class="lab_title_wrap">
+			<div class="lab_title noselect">개인정보처리방침</div>
+			<div class="lab_subtitle noselect">SOOJLE 서비스를 이용하기 위한 개인정보처리방침 동의서입니다.<br>동의하지 않으시면 서비스를 정상적으로 이용하실 수 없습니다.</div>
+			<div id="license_block" class="empty_block_privacy"></div>
+		</div>
+		<div class="privacy_agree_btns noselect">
+			<div id="privacy_ok_btn" class="privacy_ok_btn">동의합니다</div>
+			<div id="privacy_no_btn" class="privacy_no_btn">동의하지 않습니다</div>
+		</div>
+	</div>
 	<div id="snackbar_target" class="snackbar_target"></div>
 </body>
 
@@ -457,6 +471,7 @@
 <!-- Ajax JS -->
 <script src="/static/js/ajax.js"></script>
 <!-- MAIN JS -->
+<script src="/static/js/user.js"></script>
 <script src="/static/js/manager.js"></script>
 <script src="/static/js/board.js"></script>
 <script src="/static/js/post.js"></script>
@@ -466,5 +481,4 @@
 <script src="/static/js/lab.js"></script>
 <script src="/static/js/feedback.js"></script>
 <script src="/static/js/footer.js"></script>
-<script src="/static/js/user.js"></script>
 </html>

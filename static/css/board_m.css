@@ -983,6 +983,16 @@
 		line-height: 20px;
 		box-sizing: border-box;
 	}
+	.privacy_modal {
+		min-width: auto;
+	}
+	.empty_block_logo {
+		top: 10px;
+		width: 100px;
+		height: auto;
+		z-index: 10;
+	}
+
 }
 /*=============================================================================*/
 /*                                    840px                                    */

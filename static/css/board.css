@@ -2016,3 +2016,88 @@ span.selectbox_choose {
 .realtime_searchwords_table_text:hover {
 	text-decoration: underline;
 }
+
+.empty_block {
+	position: relative;
+	width: 100%;
+	height: 90px;
+}
+.empty_block_logo {
+	position: relative;
+	display: block;
+	top: 13px;
+	width: 120px;
+	height: auto;
+	z-index: 10;
+	margin: auto;
+}
+.empty_block_privacy {
+	position: relative;
+	width: 100%;
+	height: auto;
+	box-sizing: border-box;
+	padding: 0 20%;
+	margin-bottom: 40px;
+	font-size: 12px;
+	line-height: 20px;
+}
+.privacy_modal {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	min-width: 600px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	top: 0;
+	left: 0;
+	background-color: white;
+	transition: .1s ease-in-out;
+	z-index: 30;
+	border-top: 2px solid black;
+}
+.privacy_agree_btns {
+	position: relative;
+	width: 100%;
+	height: 50px;
+	box-sizing: border-box;
+	margin-top: 70px;
+	margin-bottom: 90px;
+	text-align: center;
+}
+.privacy_ok_btn {
+	position: relative;
+	display: inline-block;
+	width: 140px;
+	height: 30px;
+	border: 2px solid black;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 16px;
+	line-height: 30px;
+	cursor: pointer;
+	margin-right: 20px;
+	transition: .1s ease-in-out;
+}
+.privacy_ok_btn:hover {
+	background-color: black;
+	color: white;
+}
+.privacy_no_btn {
+	position: relative;
+	display: inline-block;
+	width: 140px;
+	height: 30px;
+	border: 2px solid #c30e2e;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 16px;
+	line-height: 30px;
+	cursor: pointer;
+	color: #c30e2e;
+	margin-left: 20px;
+	transition: .1s ease-in-out;
+}
+.privacy_no_btn:hover {
+	background-color: #c30e2e;
+	color: white;
+}

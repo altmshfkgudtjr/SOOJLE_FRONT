@@ -331,7 +331,7 @@ function change_date_realative(dt) {
 		'formatted': '',
 		'string_raw': d.getFullYear() + '년 ' + 
 		(d.getMonth() + 1 > 9 ? '' : '0') + (d.getMonth() + 1) + '월 ' + 
-		(d.getDate() > 9 ? '' : '0') +  d.getDate() + '일 '
+		(d.getDate() > 9 ? '' : '0') +  d.getDate() + '일'
 	};
 	if (minsAgo < 60 && minsAgo >= 0) { // 1시간 내
 		result.formatted = minsAgo + '분 전';
