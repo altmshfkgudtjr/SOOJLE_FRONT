@@ -237,33 +237,33 @@ function Sign_in(){
 	$.when(a_jax).done(function () {
 		$("#loading_modal").addClass("loading_modal_unvisible");
 		if (a_jax.responseJSON['result'] == 'success') {
-			let token = a_jax.responseJSON['access_token'];
-			sessionStorage.setItem('sj-state', token);
-			a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-			$.when(a_jax).done(function () {
-				if (a_jax.responseJSON['result'] == 'success') {
-					login_modal_onoff();
-					$("#user_id").val("");
-					$("#user_pw").val("");
-					//if (첫번째)
-					first_login(a_jax.responseJSON);	// 개인정보처리방침 모달
-					//else (첫로그인이 아닐시)
-					/*
-					if (a_jax.responseJSON['auto_login'] == 1)
-						localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
-					After_login(a_jax.responseJSON);*/
-				} else if (a_jax.responseJSON['result'] == 'not found') {
-					Snackbar("비정상적인 접근입니다.");
-					localStorage.removeItem('sj-state');
-					sessionStorage.removeItem('sj-state');
-				} else if (a_jax['status'].toString().startswith('4')) {
-					Snackbar("올바르지 않은 접근입니다.");
-					sessionStorage.removeItem('sj-state');
-					localStorage.removeItem('sj-state');
-				} else {
-					Snackbar("통신이 원활하지 않습니다.");
-				}
-			});
+			if (true)	// 첫로그인 신호
+				first_login(a_jax.responseJSON);	// 개인정보처리방침 모달
+			else { 		// 첫로그인이 아닐시 신호
+				let token = a_jax.responseJSON['access_token'];
+				sessionStorage.setItem('sj-state', token);
+				a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
+				$.when(a_jax).done(function () {
+					if (a_jax.responseJSON['result'] == 'success') {
+						login_modal_onoff();
+						$("#user_id").val("");
+						$("#user_pw").val("");
+						if (a_jax.responseJSON['auto_login'] == 1)
+							localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
+						After_login(a_jax.responseJSON);
+					} else if (a_jax.responseJSON['result'] == 'not found') {
+						Snackbar("비정상적인 접근입니다.");
+						localStorage.removeItem('sj-state');
+						sessionStorage.removeItem('sj-state');
+					} else if (a_jax['status'].toString().startswith('4')) {
+						Snackbar("올바르지 않은 접근입니다.");
+						sessionStorage.removeItem('sj-state');
+						localStorage.removeItem('sj-state');
+					} else {
+						Snackbar("통신이 원활하지 않습니다.");
+					}
+				});
+			}
 		} else if (a_jax.responseJSON['result'] == 'not sejong') {
 			Snackbar("올바르지 않은 계정입니다.");
 			localStorage.removeItem('sj-state');
