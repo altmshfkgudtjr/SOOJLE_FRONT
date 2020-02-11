@@ -7,9 +7,9 @@ window.mobilecheck = function() {
 function Go_home(){ window.location.href = "/"; }
 // mobile일 경우 logo small size로 교체
 $("document").ready(function() {
-	if(mobilecheck() && $("#header_img").attr("src").indexOf("BLACK") == -1)
+	if ($("#header_img").attr("src").indexOf("BLACK") == -1)
 		$("#header_img").attr("src", "./static/image/SOOJLE_LOGO_BIG_mobile.png");
-	else 
+	else
 		$("#header_img").attr("src", "./static/image/SOOJLE_LOGO_BIG_BLACK_mobile.png");
 });
 $("#header_img").on({
