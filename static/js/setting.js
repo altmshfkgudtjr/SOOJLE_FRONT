@@ -35,7 +35,7 @@ function Go_setting() {
 					localStorage.removeItem('sj-state');
 					$("#autologin_toggle").prop("checked", false);
 				}
-			} else if (a_jax['status'].toString().startswith('4')) {
+			} else if (a_jax['status'].toString().startsWith('4')) {
 				sessionStorage.removeItem('sj-state');
 				localStorage.removeItem('sj-state');
 			} else {

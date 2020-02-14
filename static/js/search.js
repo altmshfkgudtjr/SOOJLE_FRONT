@@ -836,7 +836,7 @@ function more_posts(target_num, is_fav_cnt = 1) {
 							}
 						}
 					}
-				} else if (a_jax['status'].toString().startswith('4')) {
+				} else if (a_jax['status'].toString().startsWith('4')) {
 					Snackbar("올바르지 않은 접근입니다.");
 					sessionStorage.removeItem('sj-state');
 					localStorage.removeItem('sj-state');
@@ -897,7 +897,7 @@ function before_posts(target_num, is_fav_cnt = 1) {
 						}
 					}
 				}
-			} else if (a_jax_userinfo['status'].toString().startswith('4')) {
+			} else if (a_jax_userinfo['status'].toString().startsWith('4')) {
 				Snackbar("올바르지 않은 접근입니다.");
 				sessionStorage.removeItem('sj-state');
 				localStorage.removeItem('sj-state');
@@ -1037,7 +1037,7 @@ function check_search_results_sort() {
 						}
 					}
 				}
-			} else if (a_jax['status'].toString().startswith('4')) {
+			} else if (a_jax['status'].toString().startsWith('4')) {
 				Snackbar("올바르지 않은 접근입니다.");
 				sessionStorage.removeItem('sj-state');
 				localStorage.removeItem('sj-state');

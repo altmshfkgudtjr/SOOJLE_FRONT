@@ -557,7 +557,7 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 						}
 					}
 				}
-			} else if (a_jax['status'].toString().startswith('4')) {
+			} else if (a_jax['status'].toString().startsWith('4')) {
 				Snackbar("올바르지 않은 접근입니다.");
 				sessionStorage.removeItem('sj-state');
 				localStorage.removeItem('sj-state');

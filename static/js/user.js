@@ -39,7 +39,7 @@ $("#privacy_ok_btn").on({
 				Snackbar("비정상적인 접근입니다.");
 				localStorage.removeItem('sj-state');
 				sessionStorage.removeItem('sj-state');
-			} else if (a_jax['status'].toString().startswith('4')) {
+			} else if (a_jax['status'].toString().startsWith('4')) {
 				Snackbar("올바르지 않은 접근입니다.");
 				sessionStorage.removeItem('sj-state');
 				localStorage.removeItem('sj-state');

@@ -209,7 +209,12 @@ async function auto_login() {
 	$.when(a_jax).done(function () {
 		if (a_jax.responseJSON['result'] == 'success') {
 			After_login(a_jax.responseJSON);
-		} else if (a_jax['status'].toString().startswith('4')) {
+		} else if (a_jax.responseJSON['result'] == 'blacklist user') {
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+			alert("블랙리스트된 사용자입니다.");
+			location.reload();
+		} else if (a_jax['status'].toString().startsWith('4')) {
 			Snackbar("올바르지 않은 접근입니다.");
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
@@ -255,7 +260,7 @@ function Sign_in(){
 						Snackbar("비정상적인 접근입니다.");
 						localStorage.removeItem('sj-state');
 						sessionStorage.removeItem('sj-state');
-					} else if (a_jax['status'].toString().startswith('4')) {
+					} else if (a_jax['status'].toString().startsith('4')) {
 						Snackbar("올바르지 않은 접근입니다.");
 						sessionStorage.removeItem('sj-state');
 						localStorage.removeItem('sj-state');
@@ -275,10 +280,14 @@ function Sign_in(){
 			sessionStorage.removeItem('sj-state');
 		} else if (a_jax.responseJSON['result'] == 'api error') {
 			Snackbar("세종대학교 전산서비스 오류입니다.");
-		} else if (a_jax['status'].toString().startswith('4')) {
+		} else if (a_jax['status'].toString().startsWith('4')) {
 			Snackbar("올바르지 않은 접근입니다.");
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
+		} else if (a_jax.responseJSON['result'] == 'blacklist user') {
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+			Snackbar("블랙리스트된 사용자입니다.");
 		} else {
 			Snackbar("통신이 원활하지 않습니다.");
 		}

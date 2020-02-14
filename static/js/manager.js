@@ -3,19 +3,15 @@ function check_manager_qualification() {
 	let lst = sessionStorage.getItem('sj-state');
 	if (lst != null && lst != undefined && lst != 'undefined') {
 		$.when(
-			A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null)
+			A_JAX("http://"+host_ip+"/check_admin", "GET", null, null)
 		).done(function(data) {
 			if (data["result"] == 'success') {
-				if ("user_admin" in data 
-					|| data['user_id'] == '16011075'
-					|| data['user_id'] == '16011089'
-					|| data['user_id'] == '16011092') {
-					let menu =	`<div class="menu_container_button pointer" onclick="Go_management()">
-									<img src="/static/image/shortcut_mobile.png" class="menu_container_button_icon noselect">
-									<div class="menu_container_button_text noselect">관리자 도구</div>
-								</div>`;
-					$("#sm_target").before(menu);
-				} 
+				$('#AdminMenu').remove();
+				let menu =	`<div id="AdminMenu" class="menu_container_button pointer" onclick="Go_management()">
+								<img src="/static/image/shortcut_mobile.png" class="menu_container_button_icon noselect">
+								<div class="menu_container_button_text noselect">관리자 도구</div>
+							</div>`;
+				$("#sm_target").before(menu);
 			}
 		});
 	}
@@ -24,16 +20,19 @@ function check_managet_qualification_reload() {
 	let lst = sessionStorage.getItem('sj-state');
 	if (lst != null && lst != undefined && lst != 'undefined') {
 		$.when(
-			A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null)
+			A_JAX("http://"+host_ip+"/check_admin", "GET", null, null)
 		).done(function(data) {
 			if (data["result"] == 'success') {
-				if ("user_admin" in data 
-					|| data['user_id'] == '16011075'
-					|| data['user_id'] == '16011089'
-					|| data['user_id'] == '16011092') {
-					menu_open = 1;
-					Go_management();
-				}
+				$('#AdminMenu').remove();
+				let menu =	`<div id="AdminMenu" class="menu_container_button pointer" onclick="Go_management()">
+								<img src="/static/image/shortcut_mobile.png" class="menu_container_button_icon noselect">
+								<div class="menu_container_button_text noselect">관리자 도구</div>
+							</div>`;
+				$("#sm_target").before(menu);
+				insert_management();
+			} else {
+				$('#AdminMenu').remove();
+				location.href = "/";
 			}
 		});
 	} else {
@@ -57,6 +56,7 @@ function Go_management() {
 }
 // 동적 생성
 function insert_management() {
+	$("#posts_target").empty();
 	let div = 	`<div class="setting_subject_wrap">
 					<div class="setting_title noselect">관리자 도구</div>
 					<div class="setting_title_info noselect">
@@ -66,7 +66,7 @@ function insert_management() {
 				<div class="setting_subtitle noselect">블랙리스트</div>
 				<div class="setting_subtitle_info noselect">SOOJLE 이용자의 학번 또는 IP를 블랙합니다.</div>
 				<div id="setting_blacklist_wrapper" class="setting_blacklist_wrapper"></div>
-				<div class="setting_subtitle noselect">게시글 작성</div>
+				<div class="setting_subtitle noselect">공지사항 작성</div>
 				<div class="setting_subtitle_info noselect">공지사항 및 일반 게시글을 작성합니다.</div>
 				<div id="setting_writing_post_wrapper" class="setting_writing_post_wrapper"></div>
 				`;
@@ -89,10 +89,24 @@ function insert_blacklist_div() {
 	set_blacklist();
 }
 function set_blacklist() {
-	let user =	`<div class="setting_blacklist_user pointer" onclick="click_blacklist(this)">16011075</div>
-	<div class="setting_blacklist_user pointer" onclick="click_blacklist(this)">16011089</div>
-	<div class="setting_blacklist_user pointer" onclick="click_blacklist(this)">16011092</div>`;
-	$("#setting_blacklist_black_box").append(user);
+	$("#setting_blacklist_input").val("");
+	$.when(
+		A_JAX("http://"+host_ip+"/get_blacklist", "GET", null, null)
+	).done(function(data) {
+		if (data["result"] == 'success') {
+			$("#setting_blacklist_black_box").empty();
+			let user = "";
+			for (let i in data['blacklist']) {
+				user =	`<div class="setting_blacklist_user pointer" onclick="click_blacklist(this)">${data['blacklist'][i]['user_id']}</div>`;
+				$("#setting_blacklist_black_box").append(user);
+			}
+			
+		} else {
+			$("#setting_blacklist_black_box").empty();
+			alert("관리자 인증에 실패하였습니다.");
+			location.href = "/";
+		}
+	});
 }
 function click_blacklist(tag) {
 	let text = $(tag).text().trim();
@@ -106,7 +120,19 @@ function write_blacklist() {
 		$("#setting_blacklist_input").focus();
 		return;
 	}
-
+	$.when(
+		A_JAX("http://"+host_ip+"/push_blacklist/"+target, "GET", null, null)
+	).done(function(data) {
+		if (data["result"] == 'success') {
+			Snackbar(target+" 님을 블랙하였습니다.");
+			set_blacklist();
+		} else if (data["result"] == "Not found") {
+			Snackbar(target+" 님이 존재하지않습니다.");
+			$("#setting_blacklist_input").focus();
+		} else {
+			Snackbar("블랙리스트 추가에 실패하였습니다.");
+		}
+	});
 }
 // 블랙리스트 취소 API
 function cancel_blacklist() {
@@ -116,19 +142,31 @@ function cancel_blacklist() {
 		$("#setting_blacklist_input").focus();
 		return;
 	}
-
+	$.when(
+		A_JAX("http://"+host_ip+"/pop_blacklist/"+target, "GET", null, null)
+	).done(function(data) {
+		if (data["result"] == 'success') {
+			set_blacklist();
+			Snackbar(target+" 님을 석방시켰습니다.");
+			set_blacklist();
+		} else if (data["result"] == "Not found") {
+			Snackbar(target+" 님이 존재하지않습니다.");
+			$("#setting_blacklist_input").focus();
+		} else {
+			Snackbar("블랙리스트 추가에 실패하였습니다.");
+		}
+	});
 }
 
 // 게시글 작성 Div 생성
 function insert_wrting_div() {
 	let pharagh_placeholder = 
-`\
+`
 내용을 입력해주세요.
 
-만약 공지사항으로 올리고 싶으면 아래 공지사항 버튼을 클릭해주세요.
-게시글을 올릴 시, 다음 규칙을 확인하고 올려주세요.
+공지사항을 작성 시, 다음 규칙을 확인하고 올려주세요.
 
-[게시글 작성 유의사항]
+[공지사항 작성 유의사항]
 1. 욕설, 비하, 음란물, 개인정보가 포함된 게시물 게시.
 2. 특정인이나 단체/지역을 비방하는 행위.
 3. 기타 현행법에 어긋나는 행위.
@@ -141,11 +179,11 @@ function insert_wrting_div() {
 					<label for="post_notice_checkbox"></label>
 				</div>
 				<div class="setting_writing_post_checkbox_info noselect">공지사항</div>
-				<div class="setting_writing_post_btn_ok pointer" onclick="writing_post_admin()">작성하기</div>
+				<div class="setting_writing_post_btn_ok pointer" onclick="writing_notice_admin()">작성하기</div>
 				`;
 	target.append(div);
 }
-function writing_post_admin() {
+function writing_notice_admin() {
 	let title = $("#setting_writing_post_title").val();
 	if (title == "") {
 		Snackbar("제목을 입력해주세요.");
@@ -158,15 +196,19 @@ function writing_post_admin() {
 		$("#setting_writing_post_pharagh").focus();
 		return;
 	}
-	let notice = 0;
-	if($("#post_notice_checkbox").is(":checked")) notice = 1;
-	else notice = 0;
 	let send_data = {
 						"title": title, 
-						"post": pharagh,
-						"notice": notice
+						"post": pharagh
 					};
-	// 여기 에이작스
+	$.when(
+	A_JAX("http://"+host_ip+"/insert_notice", "POST", null, send_data)
+	).done(function(data) {
+		if (data["result"] == 'success') {
+			Snackbar("게시글 작성이 정상적으로 업르드되었습니다.");
+		} else {
+			Snackbar("게시글 작성이 실패하였습니다.");
+		}
+	});		
 }
 
 
