@@ -44,14 +44,14 @@ function set_analysistic() {
 // 소개 div Insert----------------------------------------------------
 function insert_greeting_div() {
 	let posts_num = analysis_data['posts_count'];
-	let actions_num = analysis_data['communication_avg']/86400;
+	let actions_num = analysis_data['communication_avg'];// /86400.toFixed(0); // 1일 == 86400초
 	let view_num = analysis_data['total_view'];
 	let div =	`<div id="anlt_greeting_wrapper" class="anlt_greeting_wrapper">
 					<div class="anlt_greeting_text noselect">
 						사용자는 <span style="font-weight:500; color: #c30e2e;">${number_unit(posts_num)}</span> 개의 포스트에서 정보를 찾아볼 수 있습니다.
 					</div>\
 					<div class="anlt_greeting_text noselect">
-						사용자와 SOOJLE은 1초에 평균 <span style="font-weight:500; color: #c30e2e;">${number_unit(actions_num)}</span> 번의 소통을 하고있습니다.
+						사용자와 SOOJLE은 하루 평균 <span style="font-weight:500; color: #c30e2e;">${number_unit(actions_num)}</span> 번의 소통을 하고있습니다.
 					</div>\
 					<div class="anlt_greeting_text noselect">
 						사용자들은 SOOJLE을 통해서 <span style="font-weight:500; color: #c30e2e;">${number_unit(view_num)}</span> 번의 정보를 찾았습니다.
