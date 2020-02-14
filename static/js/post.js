@@ -389,7 +389,7 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			date = change_date_realative(date);
 			if (post_one['end_date']) {
 				date = post_one['end_date'].$date;
-				date = date.toString + "까지";
+				date = change_date_realative(date);
 			}
 			url = post_one['url'];
 			domain = url.split('/');
@@ -468,7 +468,7 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			date = change_date_realative(date);
 			if (post_one['end_date']) {
 				date = post_one['end_date'].$date;
-				date = date.toString + " 까지";
+				date = change_date_realative(date);
 			}
 			url = post_one['url'];
 			domain = url.split('/');
