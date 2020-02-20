@@ -33,7 +33,7 @@ function set_analysistic() {
 			//insert_weather_div();			// 날씨
 			insert_realtimesearch_div();	// 실시간 검색어
 			//insert_hall();				// 명예의 전당
-			insert_visitor_div();			// 방문자 분석
+			//insert_visitor_div();			// 방문자 분석
 			insert_post_div();				// 게시글 분석
 			//insert_outlink_div();			// 외부사이트 분석
 			insert_device_div();			// 디바이스 분석
