@@ -1,17 +1,15 @@
 let modal_target = $("#user_agreement_modal");
 let agreement_open = 0;
-let agreement = undefined;
-function first_login(data) {
+function agreement() {
 	if (agreement_open == 0) {
 		agreement_open = !agreement_open;
 		$("body").css({"overflow": "hidden"});
 		$("#user_agreement_modal").removeClass("display_none");
 		$("#user_agreement_modal").addClass("fadeInUp animated");
 		$("#license_block").append(privacy_1);
-		agreement = data['access_token'];
 	} else {
 		agreement_open = !agreement_open;
-		$("body").removeAttr("style");
+		//$("body").removeAttr("style");
 		$("#user_agreement_modal").addClass("fadeOutDown");
 		setTimeout(function() {
 			$("#user_agreement_modal").removeClass("fadeOutDown animated");
@@ -24,8 +22,8 @@ function first_login(data) {
 $("#privacy_ok_btn").on({
 	"click": function() {
 		Snackbar("맞춤 서비스를 시작합니다.");
+		Sign_Up_Cancel();	// 회원가입 창 닫기
 		// 보내기 동의한다는 AJAX 날리기
-		sessionStorage.setItem('sj-state', agreement);
 		a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
 		$.when(a_jax).done(function () {
 			if (a_jax.responseJSON['result'] == 'success') {
@@ -47,14 +45,56 @@ $("#privacy_ok_btn").on({
 				Snackbar("통신이 원활하지 않습니다.");
 			}
 		});
-		first_login();
+		agreement();	// 개인정보처리방침 동의모달 닫기
 	}
-})
+});
 $("#privacy_no_btn").on({
 	"click": function() {
-		agreement = undefined;
-		Snackbar("맞춤 서비스를 중단합니다.");
-		first_login();
-		// 보내기 동의하지않는다는 AJAX 날리기
+		agreement();	// 개인정보처리방침 동의모달 닫기
 	}
-})
+});
+
+
+// 회원가입=========================================================================
+let SignUp_open = false;
+function Sign_Up() {		// 회원가입 완료 버튼
+	let id;
+	let pw;
+	let nickname;
+}
+
+function Sign_Up_Cancel() {	// 회원가입 취소 버튼
+	// 쓴거 다 비우고
+	Sign_Up_Modal_Onoff();
+}
+
+function Sign_Up_Modal_Onoff() {
+	if (SignUp_open == false) {	// Now : Close
+		menu_modal_onoff();
+		SignUp_open = !SignUp_open;
+		$("body").css({"overflow": "hidden"});
+		$("#signup_modal").removeClass("display_none");
+		$("#signup_modal").addClass("fadeInUp animated");
+			setTimeout(function() {
+				$("#signup_modal").removeClass("fadeInUp animated");
+			}, 400);
+	} else {					// Now : Open
+		SignUp_open = !SignUp_open;
+		$("body").removeAttr("style");
+		$("#signup_modal").addClass("fadeOutDown");
+		setTimeout(function() {
+			$("#signup_modal").removeClass("fadeOutDown animated");
+			$("#signup_modal").addClass("display_none");
+		}, 400);
+	}
+}
+
+
+// 회원정보찾기=====================================================================
+function Find_ID() {
+	login_modal_onoff();	// Off Login Modal
+}
+
+function Find_PW() {
+	login_modal_onoff();	// Off Login Modal
+}

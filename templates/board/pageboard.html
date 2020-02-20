@@ -56,6 +56,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
 </head>
 <body>
+	<!--Header-->
 	<div class="SJ_board_header header_down">
 		<div class="header_guideline">
 			<img id="board_logo" src="/static/image/SOOJLE_LOGO_BIG.png" class="board_logo pointer noselect" onclick="Goboard()">
@@ -77,6 +78,7 @@
 			</div>
 		</div>
 	</div>
+	<!--Body Guide Line-->
 	<div class="SJ_board_body">
 		<div class="body_guideline">
 			<div id="menu_container" class="menu_container menu_container_fixed">
@@ -115,6 +117,7 @@
 			</div>
 		</div>
 	</div>
+	<!--Footer-->
 	<div class="SJ_board_footer">
 		<div class="SJ_footer_background"></div>
 		<div class="SJ_footer_guideline">
@@ -127,6 +130,7 @@
 			<div class="SJ_footer_item noselect">©2019 TEAM IML</div>
 		</div>
 	</div>
+	<!--Mobile Contoroller-->
 	<div id="mobile_controller_none" class="mobile_controller_none"></div>
 	<div id="mobile_controller" class="mobile_controller">
 		<div class="mobile_controller_content pointer" onclick="menu_modal_onoff()">
@@ -147,7 +151,8 @@
 			</div>
 		</div>
 	</div>
-	<!--Modal-->
+	<!--------------------------- Modal -------------------------------->
+	<!--Login Modal-->
 	<div id="login_modal" class="login_modal wow display_none" data-wow-duration="0.4s">
 		<div class="login_container">
 			<div class="login_logo">SOOJLE</div>
@@ -160,9 +165,9 @@
 				<input type="password" id="user_pw" class="login_input" onkeyup="Enter_login()">
 				<p class="formLabel">비밀번호</p>
 			</div>
-			<div class="login_info">
+			<div class="login_info noselect">
 				계정을 모르시겠나요?<br>
-				<a href="https://portal.sejong.ac.kr">세종통합포털사이트</a> 계정을 찾아서 입력해주세요.
+				<span class="find_user_info_btn" onclick="Find_ID()">아이디 찾기</span> / <span class="find_user_info_btn" onclick="Find_PW()">비밀번호 찾기</span>
 			</div>
 			<div class="menu_container_button_ss_container">
 				<div class="menu_container_button_ss pointer" onclick="login_modal_onoff();">
@@ -170,12 +175,17 @@
 					<div class="menu_container_button_ss_text noselect">나가기</div>
 				</div>
 				<div class="menu_container_button_ss pointer" onclick="Sign_in()">
-					<img src="/static/icons/power.png" class="menu_container_button_ss_icon noselect">
+					<img src="/static/icons/right.png" class="menu_container_button_ss_icon noselect">
 					<div class="menu_container_button_ss_text noselect">로그인</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!--Sign Up Modal-->
+	<div id="signup_modal" class="signup_modal wow display_none" data-wow-duration="0.4s">
+		
+	</div>
+	<!--Grid Modal-->
 	<div id="grid_modal" class="grid_modal wow display_none" data-wow-duration="0.4s">
 		<div class="grid_item_container">
 			<a href="https://portal.sejong.ac.kr/" target="_blank">	
@@ -265,6 +275,7 @@
 		</div>
 		<div class="grid_modal_footer"></div>
 	</div>
+	<!--Menu Modal-->
 	<div id="menu_modal" class="menu_modal wow display_none animated" data-wow-duration="0.4s">
 		<div class="menu_guideline">
 			<div class="menu_container_title noselect">내 정보</div>
@@ -273,8 +284,12 @@
 				<div class="menu_container_button_text noselect">뒤로가기</div>
 			</div>
 			<div id="login_button" class="menu_container_button pointer" onclick="Login();">
-				<img src="/static/icons/power.png" class="menu_container_button_icon noselect">
+				<img src="/static/icons/user.png" class="menu_container_button_icon noselect">
 				<div class="menu_container_button_text noselect">로그인</div>
+			</div>
+			<div id="sign_up_button" class="menu_container_button pointer" onclick="Sign_Up_Modal_Onoff();">
+				<img src="/static/icons/power.png" class="menu_container_button_icon noselect">
+				<div class="menu_container_button_text noselect">회원가입</div>
 			</div>
 			<div id="view_button" class="menu_container_button display_none pointer" onclick="click_user_view_posts()">
 				<img src="/static/icons/time.png" class="menu_container_button_icon noselect">
@@ -342,6 +357,7 @@
 			<div id="sm_target" style="position: relative; float: left; width: 100%; height: 100px;"></div>
 		</div>
 	</div>
+	<!--Search Recommend Box Modal-->
 	<div id="search_recommend_box" class="search_remcommend_box_container display_none">
 		<div class="search_recommend_box">
 			<div class="search_result noselect" onmousedown="search_result_click($(this))">
@@ -364,12 +380,14 @@
 			</div>
 		</div>
 	</div>
+	<!--Post Menu Modal-->
 	<div id="post_menu_modal_container" class="post_menu_modal_container display_none" p-id="0" p-url="0">
 		<div id="post_menu_modal" class="post_menu_modal display_none wow animated" data-wow-duration="0.2s">
 			<div class="post_menu_content" onclick="post_url_copy($(this))">URL 복사</div>
 			<div class="post_menu_content" onclick="post_menu_close()">취소</div>
 		</div>
 	</div>
+	<!--Loading Modal-->
 	<div id="loading_modal" class="loading_modal loading_modal_unvisible">
 		<svg width="200" height="200" viewBox="0 0 100 100">
 			<polyline class="line-cornered stroke-still" points="0,0 100,0 100,100" stroke-width="5" fill="none"></polyline>
@@ -433,6 +451,7 @@
 			</div>
 		</div>
 	</div>
+	<!--Setting Modal-->
 	<div id="user_data_modal_container" class="post_menu_modal_container display_none">
 		<div class="user_data_delete_container">
 			<div id="user_data_delete_info" class="user_data_delete_info noselect"></div>
@@ -441,6 +460,7 @@
 			<div id="user_data_delete_button_cancel" class="user_data_delete_button pointer">취소</div>
 		</div>
 	</div>
+	<!--User Info Agreement Modal-->
 	<div id="user_agreement_modal" class="privacy_modal wow display_none" data-wow-duration="0.4s">
 		<div class="empty_block">
 			<img id="empty_block_logo" src="/static/image/SOOJLE_LOGO_BIG.png" class="empty_block_logo pointer noselect" onclick="Goboard()">
@@ -455,6 +475,7 @@
 			<div id="privacy_no_btn" class="privacy_no_btn">동의하지 않습니다</div>
 		</div>
 	</div>
+	<!--Snackbar Modal-->
 	<div id="snackbar_target" class="snackbar_target"></div>
 </body>
 

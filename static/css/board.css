@@ -943,7 +943,7 @@ html, body {
 	font-size: 16px;
 }
 .menu_container_button_ss:hover {
-	filter: invert(18%) sepia(24%) saturate(7110%) hue-rotate(335deg) brightness(103%) contrast(96%);
+	filter: invert(9%) sepia(72%) saturate(6871%) hue-rotate(341deg) brightness(94%) contrast(98%);
 }
 .menu_container_button_ss_icon {
 	position: absolute;
@@ -2102,4 +2102,27 @@ span.selectbox_choose {
 .privacy_no_btn:hover {
 	background-color: #c30e2e;
 	color: white;
+}
+
+.find_user_info_btn {
+	cursor: pointer;
+	transition: .1s ease-in-out;
+	color: #0071e3;
+}
+.find_user_info_btn:hover {
+	color: black;
+}
+.signup_modal {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	min-width: 600px;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	top: 0;
+	left: 0;
+	background-color: white;
+	transition: .1s ease-in-out;
+	z-index: 30;
+	border-top: 2px solid black;
 }

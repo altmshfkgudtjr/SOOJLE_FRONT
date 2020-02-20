@@ -92,7 +92,7 @@ var menu_open = 0;
 function menu_modal_onoff(is_menu_open = menu_open) {
 	menu_open = is_menu_open;
 	if (menu_open == 2) {
-		menu_open = 0;
+		//menu_open = 0;
 		return;
 	}
 	let w = $(document).width();
@@ -242,33 +242,29 @@ function Sign_in(){
 	$.when(a_jax).done(function () {
 		$("#loading_modal").addClass("loading_modal_unvisible");
 		if (a_jax.responseJSON['result'] == 'success') {
-			if (true)	// 첫로그인 신호
-				first_login(a_jax.responseJSON);	// 개인정보처리방침 모달
-			else { 		// 첫로그인이 아닐시 신호
-				let token = a_jax.responseJSON['access_token'];
-				sessionStorage.setItem('sj-state', token);
-				a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-				$.when(a_jax).done(function () {
-					if (a_jax.responseJSON['result'] == 'success') {
-						login_modal_onoff();
-						$("#user_id").val("");
-						$("#user_pw").val("");
-						if (a_jax.responseJSON['auto_login'] == 1)
-							localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
-						After_login(a_jax.responseJSON);
-					} else if (a_jax.responseJSON['result'] == 'not found') {
-						Snackbar("비정상적인 접근입니다.");
-						localStorage.removeItem('sj-state');
-						sessionStorage.removeItem('sj-state');
-					} else if (a_jax['status'].toString().startsith('4')) {
-						Snackbar("올바르지 않은 접근입니다.");
-						sessionStorage.removeItem('sj-state');
-						localStorage.removeItem('sj-state');
-					} else {
-						Snackbar("통신이 원활하지 않습니다.");
-					}
-				});
-			}
+			let token = a_jax.responseJSON['access_token'];
+			sessionStorage.setItem('sj-state', token);
+			a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
+			$.when(a_jax).done(function () {
+				if (a_jax.responseJSON['result'] == 'success') {
+					login_modal_onoff();
+					$("#user_id").val("");
+					$("#user_pw").val("");
+					if (a_jax.responseJSON['auto_login'] == 1)
+						localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
+					After_login(a_jax.responseJSON);
+				} else if (a_jax.responseJSON['result'] == 'not found') {
+					Snackbar("비정상적인 접근입니다.");
+					localStorage.removeItem('sj-state');
+					sessionStorage.removeItem('sj-state');
+				} else if (a_jax['status'].toString().startsith('4')) {
+					Snackbar("올바르지 않은 접근입니다.");
+					sessionStorage.removeItem('sj-state');
+					localStorage.removeItem('sj-state');
+				} else {
+					Snackbar("통신이 원활하지 않습니다.");
+				}
+			});
 		} else if (a_jax.responseJSON['result'] == 'not sejong') {
 			Snackbar("올바르지 않은 계정입니다.");
 			localStorage.removeItem('sj-state');
@@ -324,6 +320,7 @@ $(document).ready(function(){
 // After login, setting user information.
 async function After_login(dict) {
 	check_manager_qualification();
+	$("#sign_up_button").addClass("display_none");
 	$("#login_button").addClass("display_none");
 	$("#view_button").removeClass("display_none");
 	$("#like_button").removeClass("display_none");
