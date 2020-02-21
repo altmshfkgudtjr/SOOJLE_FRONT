@@ -204,7 +204,7 @@ function SignUp_pw_Check(tag) {					// 회원가입 PW 검사
 }
 function SignUp_pw_same_Check(pw_tag, tag) {	// 회원가입 PW 재확인 검사
 	let pw_before = $(pw_tag).val();
-	if ($(tag).val() === pw_before) {
+	if ($(tag).val() === pw_before && $(tag).val() != '') {
 		$(tag).css("border", "2px solid #22bf06");
 		$($(tag).next()[0]).css("color", "#22bf06");
 		return true;
