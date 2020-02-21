@@ -478,7 +478,7 @@ function insert_search_post(target_num, posts, now_creating_state = "", is_fav_c
 								</div>
 							</a>
 							<a href="${url}" target="_blank">
-								<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url(${img})"></div>
+								<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url('${img}')"></div>
 							</a>
 							<a href="${url}" target="_blank">
 								<div class="post_block_cont pointer" onmousedown="post_view($(this))">
@@ -548,7 +548,7 @@ function insert_search_post(target_num, posts, now_creating_state = "", is_fav_c
 			} else {
 				tag = `<div class="post_block" p-id="${id}">
 						<a href="${url}" target="_blank">
-							<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url(${img})"></div>
+							<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url('${img}')"></div>
 						</a>
 						<a href="${url}" target="_blank">
 							<div class="post_title_cont pointer" onmousedown="post_view($(this))">
@@ -723,7 +723,7 @@ function more_posts(target_num, is_fav_cnt = 1) {
 									</div>
 								</a>
 								<a href="${url}" target="_blank">
-									<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url(${img})"></div>
+									<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url('${img}')"></div>
 								</a>
 								<a href="${url}" target="_blank">
 									<div class="post_block_cont pointer" onmousedown="post_view($(this))">
@@ -794,7 +794,7 @@ function more_posts(target_num, is_fav_cnt = 1) {
 				} else {
 					tag = `<div class="post_block" p-id="${id}">
 							<a href="${url}" target="_blank">
-								<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url(${img})"></div>
+								<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url('${img}')"></div>
 							</a>
 							<a href="${url}" target="_blank">
 								<div class="post_title_cont pointer" onmousedown="post_view($(this))">

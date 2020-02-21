@@ -92,7 +92,7 @@ var menu_open = 0;
 function menu_modal_onoff(is_menu_open = menu_open) {
 	menu_open = is_menu_open;
 	if (menu_open == 2) {
-		//menu_open = 0;
+		menu_open = 0;
 		return;
 	}
 	let w = $(document).width();
