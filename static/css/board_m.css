@@ -585,6 +585,11 @@
 		transform: translate(-50%, 0);
 		-webkit-transform: translate(-50%, 0);
 	}
+	.login_title {
+		height: 35px;
+		font-size: 35px;
+		line-height: 35px;
+	}
 	.login_info {
 		font-size: 16px;
 	}

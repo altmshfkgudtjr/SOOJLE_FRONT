@@ -845,17 +845,32 @@ html, body {
 	font-size: 14px;
 	line-height: 40px;
 }
+.select_form {
+	position: relative;
+	width: 400px;
+	height: 50px;
+	margin: 0 auto;
+	padding: 5px 0;
+	text-align: center;
+	font-size: 40px;
+	line-height: 40px;
+	font-weight: bold;
+}
 .login_title {
 	position: relative;
-	width: 250px;
-	height: 45px;
+	display: inline-block;
+	width: 200px;
+	height: 40px;
 	margin-left: auto;
 	margin-right: auto;
-	padding-bottom: 5px;
-	text-align: center;
-	font-size: 45px;
-	line-height: 45px;
-	font-weight: bold;
+	cursor: pointer;
+	transition: .1s ease-in-out;
+	opacity: .2;
+}
+.login_title:hover {
+	opacity: 1;
+}
+.login_title_select {
 	opacity: 1;
 }
 
@@ -869,6 +884,10 @@ html, body {
 	left: 50%;
 	transform: translate(-50%, 0);
 	-webkit-transform: translate(-50%, 0);
+	color:#bbb;
+}
+.login_input_container_password {
+	margin-bottom: 5px;
 }
 .login_input{
 	color:#8a8a8a;
@@ -895,22 +914,27 @@ html, body {
 }
 .login_input_container .login_input:focus{
 	outline: none;
-	border:2px solid #C30E2E;
-	color:#000000;
+	border: 2px solid #C30E2E;
+	color: #000000;
 }
 .login_input_container p.formLabel {
 	position: absolute;
 	left:26px;
 	top:12px;
 	transition:all .4s ease;
-	color:#bbb;
+}
+.input_form_check_not {
+	color: #c30e2e;
+}
+.input_form_check_ok {
+	color: #22bf06;
 }
 .formTop{
 	top:-11px !important; left:26px;
 	background-color: #fff;
 	padding:0 5px;
 	font-size: 14px;
-	color:#C30E2E !important;
+	color:#C30E2E;
 }
 .login_info {
 	position: relative;

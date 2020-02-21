@@ -134,9 +134,15 @@ function menu_modal_off() {
 
 // Login modal on off function
 let login_open = 0;
-function login_modal_onoff() {
+function login_modal_onoff(callback) {
+	// 로그인폼 비우기
 	$("#user_id").val("");
 	$("#user_pw").val("");
+	// 회원가입폼 비우기
+	$("#signup_id").val("");
+	$("#signup_nickname").val("");
+	$("#signup_pw").val("");
+	$("#signup_pw_check").val("");
 	let formInputs = $('#user_id,#user_pw');
 	formInputs.focusout();
 	let w = $(document).width();
@@ -144,7 +150,6 @@ function login_modal_onoff() {
 		$("body").css({"overflow": "hidden"});
 		$("#login_modal").removeClass("display_none");
 		$("#login_modal").addClass("fadeInUp animated");
-		$("#user_id").focus();
 		setTimeout(function() {
 			$("#login_modal").removeClass("fadeInUp animated");
 		}, 400);
@@ -158,11 +163,14 @@ function login_modal_onoff() {
 		}, 400);
 		login_open = 0;
 	}
+	if(typeof callback === 'function') {	// Callback함수 실행
+        callback();
+    }
 }
 function open_login_or_setting() {
 	let token = sessionStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') {
-		login_modal_onoff();
+		Login_open();
 	} else {
 		menu_open = 1;
 		Go_setting();
@@ -292,7 +300,7 @@ function Sign_in(){
 function Enter_login() {
 	if (window.event.keyCode == 13) {
         if ($("#user_id").val() == "") {
-        	Snackbar("학번 또는 교번을 입력해주세요.");
+        	Snackbar("아이디를 입력해주세요.");
         	$("#user_id").focus();
         } else if ($("#user_pw").val() == "") {
         	Snackbar("비밀번호를 다시 입력해주세요.");
@@ -302,21 +310,9 @@ function Enter_login() {
         }
     }
 }
-// login modal input event
-$(document).ready(function(){
-	let formInputs = $('#user_id,#user_pw');
-	formInputs.focus(function() {
-       $(this).parent().children('p.formLabel').addClass('formTop');
-	});
-	formInputs.focusout(function() {
-		if ($.trim($(this).val()).length == 0){
-			$(this).parent().children('p.formLabel').removeClass('formTop');
-		}
-	});
-	$('p.formLabel').click(function(){
-		 $(this).parent().children('.login_input').focus();
-	});
-});
+
+
+
 // After login, setting user information.
 async function After_login(dict) {
 	check_manager_qualification();
@@ -410,7 +406,7 @@ function Go_home() {
 
 function Login() {
 	menu_modal_onoff();
-	login_modal_onoff();
+	SignUp_open();
 }
 function Logout() {
 	localStorage.removeItem("sj-state");
