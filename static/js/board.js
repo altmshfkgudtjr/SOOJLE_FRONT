@@ -173,6 +173,7 @@ function open_login_or_setting() {
 		Login_open();
 	} else {
 		menu_open = 1;
+		location.replace("/board#setting");
 		Go_setting();
 	}
 }
@@ -227,7 +228,7 @@ async function auto_login() {
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
 		} else {
-			Snackbar("통신이 원활하지 않습니다.");
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
 		}
 	});
 }
@@ -270,7 +271,7 @@ function Sign_in(){
 					sessionStorage.removeItem('sj-state');
 					localStorage.removeItem('sj-state');
 				} else {
-					Snackbar("통신이 원활하지 않습니다.");
+					Snackbar("서버와의 연결이 원활하지 않습니다.");
 				}
 			});
 		} else if (a_jax.responseJSON['result'] == 'not sejong') {
@@ -293,7 +294,7 @@ function Sign_in(){
 			localStorage.removeItem('sj-state');
 			Snackbar("블랙리스트된 사용자입니다.");
 		} else {
-			Snackbar("통신이 원활하지 않습니다.");
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
 		}
 	});
 }

@@ -1031,7 +1031,16 @@
 		font-size: 12px;
 		line-height: 20px;
 	}
-
+	.setting_edit {
+		font-size: 25px;
+	}
+	.setting_btn {
+		height: 25px;
+		width: 100px;
+		margin-top: 8px;
+		line-height: 25px;
+		font-size: 14px;
+	}
 }
 /*=============================================================================*/
 /*                                    840px                                    */

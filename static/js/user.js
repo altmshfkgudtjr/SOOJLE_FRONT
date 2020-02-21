@@ -1,8 +1,8 @@
-const ABORT_ID = ['admin', '관리자', 'soojle', '수즐'];
+const ABORT_ID = ['admin', '관리자', 'soojle', '수즐'];	// 불가능한 ID 및 닉네임
 let agreement_open = 0;
 
 
-
+// 개인정좁처리방침 동의 모달 On/Off
 function agreement() {
 	if (agreement_open == 0) {
 		agreement_open = !agreement_open;
@@ -160,6 +160,11 @@ function SignUp_nickname_Check(tag) {			// 회원가입 닉네임 검사
 	}
 	return false;
 }
+function Change_nickname_Check(str) {
+	if (str.length >= 2 && str.length <= 30 && ABORT_ID.indexOf(str.toLowerCase()) == -1)
+		return true;
+	return false;
+}
 function SignUp_pw_Check(tag) {					// 회원가입 PW 검사
 	let check_num = 0;
 	// 공백 확인
@@ -258,14 +263,14 @@ function Sign_Up() {		// 회원가입 완료 버튼
 	sendData['nickname'] = $("#signup_nickname").val();
 	sendData['pw'] = $("#signup_pw").val();
 	return;	// 임시 Code
-	$.when(A_JAX("http://"+host_ip+"/<회원가입 API>", "GET", null, null)).done(function () {
+	$.when(A_JAX("http://"+host_ip+"/<회원가입 API>", "GET", null, sendData)).done(function () {
 		if (a_jax.responseJSON['result'] == 'success') {
 			let token = a_jax.responseJSON['access-token'];
 			sessionStorage.setItem('sj-state', token);
 			localStorage.setItem('sj-state', token);
 			login_modal_onoff();
 		} else {
-			Snackbar("서버와의 통신에 실패하였습니다.");
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
 			return;
 		}
 	});

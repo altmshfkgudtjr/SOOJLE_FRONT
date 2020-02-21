@@ -46,21 +46,16 @@ function Go_setting() {
 	menu_modal_onoff();
 }
 
-// 사용자 맞춤 설정 관련
+// 사용자 맞춤 설정 Insert
 function insert_user_custom_setting() {
 	let token = sessionStorage.getItem('sj-state');
 	// Title & Subtitle
 	let title_info_1 = "각 사용자에게 맞는 SOOJLE 서비스 환경설정";
 	let st_1 = "자동로그인"
 	let st_info_1 = "로그인을 자동화해 SOOJLE 서비스 이용을 간편하게 합니다.";
-	let title_info_2 = "사용자 계정에 대한 정보 관리 및 설정";
-	let st_2 = "계정삭제";
-	let st_info_2 = "사용자의 정보를 SOOJLE 데이터베이스에서 완전 삭제합니다.";
-	let st_3 = "관심도 초기화";
-	let st_info_3 = "사용자의 모든 기록을 삭제하여, 사용자 관심도를 초기화합니다.";
-	// Tag
-	let autologin_div = ``;
-	let user_information_div = ``;
+	// Tag================================================================
+	// 자동로그인 옵션
+	let autologin_div = ``;	
 	if (token != null && token != undefined && token != 'undefined' && token != 'null') {
 		autologin_div = `
 						<div>
@@ -72,28 +67,6 @@ function insert_user_custom_setting() {
 							<div class="setting_subtitle_info noselect">${st_info_1}</div>
 						</div>
 						`;
-		user_information_div = `
-								<div class="setting_subject_wrap">
-									<div class="setting_title noselect">개인정보 설정</div>
-									<div class="setting_title_info noselect">${title_info_2}</div>
-									<div>
-										<div class="setting_subtitle noselect" style="color:#c30e2e">${st_2}</div>
-										<input type="checkbox" id="user_data_delete" onchange="change_userdelete_st()">
-										<div class="setting_toggle_red">
-											<label for="user_data_delete"></label>
-										</div>
-										<div class="setting_subtitle_info noselect">${st_info_2}</div>
-									</div>
-									<div>
-										<div class="setting_subtitle noselect">${st_3}</div>
-										<input type="checkbox" id="user_data_reset" onchange="change_userreset_st()">
-										<div class="setting_toggle_red">
-											<label for="user_data_reset"></label>
-										</div>
-										<div class="setting_subtitle_info noselect">${st_info_3}</div>
-									</div>
-								</div>
-								`
 	}
 	let div =	`
 					<div class="setting_subject_wrap">
@@ -101,14 +74,65 @@ function insert_user_custom_setting() {
 						<div class="setting_title_info noselect">${title_info_1}</div>
 						${autologin_div}
 					</div>
+					
+				`;
+	$("#setting_box").append(div);
+}
+// 사용자 개인정보 설정 Insert
+function insert_user_information_setting() {
+	let token = sessionStorage.getItem('sj-state');
+	// Title & Subtitle
+	let title_info_1 = "사용자 계정에 대한 정보 관리 및 설정";
+	let st_1 = "계정삭제";
+	let st_info_1 = "사용자의 정보를 SOOJLE 데이터베이스에서 완전 삭제합니다.";
+	let st_2 = "관심도 초기화";
+	let st_info_2 = "사용자의 모든 기록을 삭제하여, 사용자 관심도를 초기화합니다.";
+	let st_3 = "닉네임 변경";
+	let st_info_3 = "사용자의 닉네임을 변경합니다.";
+
+	// 로그인이 되어있지 않으면 return
+	if (token == null || token == undefined || token == 'undefined' || token == 'null') return;
+	// Tag================================================================
+	let user_information_div = `
+								<div class="setting_subject_wrap">
+									<div class="setting_title noselect">개인정보 설정</div>
+									<div class="setting_title_info noselect">${title_info_1}</div>
+
+									<div>
+										<div class="setting_subtitle noselect">${st_3}</div>
+										<div id="setting_nickname_cancel" class="setting_edit_cancel display_none" onclick="Cancel_nickname()"><i class="fas fa-times"></i></div>
+										<div id="setting_nickname_check" class="setting_edit_check display_none" onclick="Change_nickname()"><i class="fas fa-check"></i></div>
+										<div id="setting_nickname_edit" class="setting_edit" onclick="Edit_nickname()"><i class="fas fa-pen-fancy"></i></div>
+										<div class="setting_subtitle_info noselect">${st_info_3}</div>
+										<div class="setting_nickname_container">
+											<div id="setting_nickname_guideline" class="setting_nickname_guideline noselect">NB</div>
+											<input type="text" id="setting_nickname_edit_guideline" class="setting_nickname_guideline_input display_none">
+										</div>
+									</div>
+
+									<div>
+										<div class="setting_subtitle noselect" style="color:#c30e2e">${st_2}</div>
+										<div id="user_data_reset" class="setting_btn" onclick="change_userreset_st()">초기화</div>
+										<div class="setting_subtitle_info noselect">${st_info_2}</div>
+									</div>
+									
+									<div>
+										<div class="setting_subtitle noselect" style="color:#c30e2e">${st_1}</div>
+										<div id="user_data_delete" class="setting_btn" onclick="change_userdelete_st()">삭제</div>
+										<div class="setting_subtitle_info noselect">${st_info_1}</div>
+									</div>
+								</div>
+								`
+
+	let div = 	`
 					${user_information_div}
 				`;
 	$("#setting_box").append(div);
 }
-// 사용자 개인정보 설정 관련
-function insert_user_information_setting() {
 
-}
+
+
+// 사용자 맞춤 설정 관련===================================================================
 
 // 자동로그인 옵션화
 function change_autologin_st(){
@@ -120,6 +144,55 @@ function change_autologin_st(){
 		a_jax = A_JAX("http://"+host_ip+"/update_auto_login/" + 0, "GET", null, null);
 	}
 }
+
+
+// 사용자 개인정보 설정 관련================================================================
+
+// 사용자 닉네임 변경준비
+function Edit_nickname() {
+	$("#setting_nickname_edit").addClass("display_none");
+	$("#setting_nickname_guideline").addClass("display_none");
+	$("#setting_nickname_check").removeClass("display_none");
+	$("#setting_nickname_cancel").removeClass("display_none");
+	$("#setting_nickname_edit_guideline").removeClass("display_none");
+	$("#setting_nickname_edit_guideline").val($("#setting_nickname_guideline").text());
+	$("#setting_nickname_edit_guideline").focus();
+}
+// 사용자 닉네임 변경수신
+function Change_nickname() {
+	let nickname = $("#setting_nickname_edit_guideline").val();
+	if (!Change_nickname_Check(nickname)) {
+		Snackbar("잘못된 닉네임입니다.");
+		return;
+	}
+	let sendData = {};
+	sendData['nickname'] = nickname;
+	/*===========임시 코드==============*/
+	Snackbar("서버와의 연결이 원활하지 않습니다.");
+	Cancel_nickname();
+	return;
+	/*===========여기 까지==============*/
+	$.when(A_JAX("http://"+host_ip+"/<닉네임 변경 API>", "POST", null, sendData)).done(function () {
+		if (a_jax.responseJSON['result'] == 'success') {
+			$("#setting_nickname_guideline").text(nickname);
+			Snackbar("닉네임 변경이 완료되었습니다.");
+			Cancel_nickname();
+		} else {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
+			return;
+		}
+	});
+}
+// 사용자 닉네임 변경취소
+function Cancel_nickname() {
+	$("#setting_nickname_edit").removeClass("display_none");
+	$("#setting_nickname_guideline").removeClass("display_none");
+	$("#setting_nickname_check").addClass("display_none");
+	$("#setting_nickname_cancel").addClass("display_none");
+	$("#setting_nickname_edit_guideline").addClass("display_none");
+	$("#setting_nickname_edit_guideline").val("");
+}
+
 // 사용자 정보 삭제
 function change_userdelete_st() {
 	$("#user_data_delete_info").empty();
@@ -154,6 +227,7 @@ function user_data_delete_button_cancel() {
 	$("body").removeAttr("style");
 	$("#user_data_delete").prop("checked", false);
 }
+
 // 사용자 정보 초기화
 function change_userreset_st() {
 	$("#user_data_delete_info").empty();
