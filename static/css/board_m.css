@@ -1031,7 +1031,7 @@
 		font-size: 12px;
 		line-height: 20px;
 	}
-	.setting_edit {
+	.setting_edit, .setting_edit_check, .setting_edit_cancel {
 		font-size: 25px;
 	}
 	.setting_btn {
