@@ -291,7 +291,6 @@ function Find_PW() {
 function Get_UserInfo(callback) {
 	let token = sessionStorage.getItem('sj-state');
     if (token == null || token == undefined || token == 'undefined') {
-    	Snackbar("올바른 회원정보가 아닙니다.");
     	sessionStorage.removeItem('sj-state');
 		localStorage.removeItem('sj-state');
     	return false;
