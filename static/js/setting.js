@@ -128,6 +128,8 @@ function insert_user_information_setting() {
 					${user_information_div}
 				`;
 	$("#setting_box").append(div);
+	// 닉네임 Input Event Binding
+	Keyup_nickname();
 }
 
 
@@ -191,6 +193,16 @@ function Cancel_nickname() {
 	$("#setting_nickname_cancel").addClass("display_none");
 	$("#setting_nickname_edit_guideline").addClass("display_none");
 	$("#setting_nickname_edit_guideline").val("");
+}
+// 사용자 닉네임 Key Up Binding
+function Keyup_nickname() {
+	$("#setting_nickname_edit_guideline").keyup(function() {
+		console.log("hello");
+		if (window.event.keyCode == 13 &&
+			$("#setting_nickname_edit_guideline").val() != '') {
+			Change_nickname();
+		}
+	});
 }
 
 // 사용자 정보 삭제
