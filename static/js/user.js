@@ -1,8 +1,8 @@
 const ABORT_ID = ['admin', '관리자', 'soojle', '수즐'];	// 불가능한 ID 및 닉네임
 let agreement_open = 0;
 
-
-// 개인정좁처리방침 동의 모달 On/Off
+// 개인정보처리방침 동의===========================================================
+// 모달 On/Off
 function agreement() {
 	if (agreement_open == 0) {
 		agreement_open = !agreement_open;
@@ -21,7 +21,7 @@ function agreement() {
 		}, 400);
 	}
 }
-
+// 버튼 Event
 $("#privacy_ok_btn").on({
 	"click": function() {
 		Snackbar("맞춤 서비스를 시작합니다.");
@@ -278,11 +278,41 @@ function Sign_Up() {		// 회원가입 완료 버튼
 
 
 
-// 회원정보찾기=====================================================================
+// 회원정보=========================================================================
+// ID 찾기
 function Find_ID() {
 	login_modal_onoff();	// Off Login Modal
 }
-
+// PW 찾기
 function Find_PW() {
 	login_modal_onoff();	// Off Login Modal
+}
+// 회원정보 반환 (callback(<userdata>))
+function Get_UserInfo(callback) {
+	let token = sessionStorage.getItem('sj-state');
+    if (token == null || token == undefined || token == 'undefined') {
+    	Snackbar("올바른 회원정보가 아닙니다.");
+    	sessionStorage.removeItem('sj-state');
+		localStorage.removeItem('sj-state');
+    	return false;
+    }
+    let output = {};
+	a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
+	$.when(a_jax).done(function () {
+		if (a_jax.responseJSON['result'] == 'success') {
+			output = a_jax.responseJSON;
+			//## ======== ##//
+			// 콜백함수, 인자로 User Information을 넣어준다.
+			if (typeof(callback) == 'function') {
+				callback(output);
+			}
+		} else if (a_jax['status'].toString().startsWith('4')) {
+			Snackbar("통신이 원활하지 않습니다.");
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+		} else {
+			Snackbar("통신이 원활하지 않습니다.");
+		}
+	});
+	return output;
 }

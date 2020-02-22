@@ -11,9 +11,10 @@ window.mobilecheck = function() {
 // now state
 let now_state = "";
 // Greetings Array
-let greetings = ["반갑습니다!", "환영합니다!", "좋은 하루입니다.", "세종대학교."];
+const greetings = ["반갑습니다!", "환영합니다!", "좋은 하루입니다.", "세종대학교."];
 // Error Imoticon
-let imoticons = ["ᵒ̌ ᴥ ᵒ̌ ", "(。・_・。)", "˚ᆺ˚", "( ˃̣̣̥᷄⌓˂̣̣̥᷅ )"];
+const imoticons = ["ᵒ̌ ᴥ ᵒ̌ ", "(。・_・。)", "˚ᆺ˚", "( ˃̣̣̥᷄⌓˂̣̣̥᷅ )"];
+
 // Loading Modal
 let is_loading = 1;
 window.onkeydown = function(e) { 
@@ -23,14 +24,8 @@ window.onkeydown = function(e) {
 window.setTimeout(function() {
 	is_loading = 0;
 }, 1000);
-let filter = "win16|win32|win64|mac|macintel";
-/*
-// 좋아요 마우스 hover
-if (filter.indexOf(navigator.platform.toLowerCase()) < 0) { // mobile
-	
-} else { // pc
-	
-}*/
+
+
 
 function Goboard() {
 	window.location.href = "/board";

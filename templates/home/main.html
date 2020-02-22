@@ -41,7 +41,17 @@
 	</style>
 </head>
 <body style="overflow-y: hidden; overflow-x: hidden;">
+	<!--메인 첫페이지-->
 	<div class="page_section">
+		<div class="main_user_controller">
+			<div class="main_user_controller_board" onclick="Goboard()">
+				뉴스피드
+			</div>
+			<div id="main_login_btn" class="main_user_controller_user" onclick="GoLogin()">
+				로그인
+			</div>
+			<div id="main_user_btn" class="main_user_controller_user display_none" onclick="GoSetting()"></div>
+		</div>
 		<div class="SJ_main_page1_logo_container_box">
 			<img src="/static/image/SOOJLE_LOGO_BIG.png" class="SJ_main_page1_logo_container pointer" onclick="Goboard()">
 			<div id="SJ_main_page1_search_container" class="SJ_main_page1_search_container">
@@ -64,6 +74,7 @@
 		</div>
 		<div class="search_info_text pointer noselect" onclick="next_page(2)">알아보기</div>
 	</div>
+	<!--메인 소개글-->
 	<div class="page_section">
 		<div class="SJ_info_blank"></div>
 		<div class="Sj_info_subtitle">세종대학교의 <span style="color: white">정보</span>를 <span style="color: white">체계화</span>하여<br><span style="color: white">모두가 편리</span>하게 <span style="color: white">이용</span>할 수 있도록 합니다.</div>
@@ -117,9 +128,11 @@
 			</div>
 		</div>
 	</div>
+	<!--Empty Div-->
 	<div id="last_blank" class="SJ_info_blank"></div>
 	<div class="Sj_info_subtitle">SOOJLE</div>
 	<div class="SJ_info_title noselect pointer" onclick="Goboard()">시작합니다</div>
+	<!--Footer-->
 	<div class="SJ_board_footer">
 		<div class="SJ_footer_background"></div>
 		<div class="SJ_footer_guideline">
@@ -132,6 +145,7 @@
 			<div class="SJ_footer_item noselect">©2019 TEAM IML</div>
 		</div>
 	</div>
+	<!--모바일 검색 모달-->
 	<div id="mobile_search_modal" class="mobile_search_modal display_none">
 		<div class="mobile_search_body">
 			<div id="mobile_search_recommend_box" class="SJ_main_page1_search_list_box">
@@ -153,6 +167,7 @@
 			</div>
 		</div>
 	</div>
+	<!--로딩 모달-->
 	<div id="loading" class="loading_modal">
 		<svg width="200" height="200" viewBox="0 0 100 100">
 			<polyline class="line-cornered stroke-still" points="0,0 100,0 100,100" stroke-width="5" fill="none"></polyline>
@@ -161,6 +176,7 @@
 			<polyline class="line-cornered stroke-animation" points="0,0 0,100 100,100" stroke-width="5" fill="none"></polyline>
 		</svg>
 	</div>
+	<!--스낵바-->
 	<div id="snackbar_target" class="snackbar_target"></div>
 </body>
 
@@ -176,6 +192,7 @@
 <!-- Snackbar JS -->
 <script src="/static/js/snackbar.js"></script>
 <!-- MAIN JS -->
+<script src="/static/js/user.js"></script>
 <script src="/static/js/main.js"></script>
 <script src="/static/js/footer.js"></script>
 </html>

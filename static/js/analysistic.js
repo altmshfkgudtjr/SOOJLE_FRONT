@@ -754,7 +754,7 @@ function menu_realtime_searchword() {
 			}
 		});
 		menu_realtime_moving(0);
-	}, 4000);
+	}, 10);
 	let day_name = ["일", "월", "화", "수", "목", "금", "토"];
 	let time = new Date();
 	let year = time.getFullYear();

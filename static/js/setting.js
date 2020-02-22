@@ -24,24 +24,19 @@ function Go_setting() {
 	now_state = now_topic;
 	if (token == null || token == undefined || token == 'undefined') {
 	} else {
-		a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-		$.when(a_jax).done(function () {
-			if (a_jax.responseJSON['result'] == 'success') {
-				let json = a_jax.responseJSON;
-				if (json['auto_login'] == 1){
+		Get_UserInfo(function(result) {	// result == 유저정보
+			if (result) {
+				// 자동로그인 Option Setting
+				if (result['auto_login'] == 1) {
 					$("#autologin_toggle").prop("checked", true);
-				}
-				else {
+				} else {
 					localStorage.removeItem('sj-state');
 					$("#autologin_toggle").prop("checked", false);
 				}
-			} else if (a_jax['status'].toString().startsWith('4')) {
-				sessionStorage.removeItem('sj-state');
-				localStorage.removeItem('sj-state');
-			} else {
-				Snackbar("통신이 원활하지 않습니다.");
+				// 닉네임 Setting
+				Set_nickname(result['user_nickname']+'');
 			}
-		});
+		})
 	}
 	menu_modal_onoff();
 }
@@ -105,7 +100,7 @@ function insert_user_information_setting() {
 										<div id="setting_nickname_edit" class="setting_edit" onclick="Edit_nickname()"><i class="fas fa-pen-fancy"></i></div>
 										<div class="setting_subtitle_info noselect">${st_info_3}</div>
 										<div class="setting_nickname_container">
-											<div id="setting_nickname_guideline" class="setting_nickname_guideline noselect">NB</div>
+											<div id="setting_nickname_guideline" class="setting_nickname_guideline noselect"></div>
 											<input type="text" id="setting_nickname_edit_guideline" class="setting_nickname_guideline_input display_none">
 										</div>
 									</div>
@@ -149,7 +144,10 @@ function change_autologin_st(){
 
 
 // 사용자 개인정보 설정 관련================================================================
-
+// 사용자 닉네임 표시
+function Set_nickname(nickname) {
+	$("#setting_nickname_guideline").text(nickname);
+}
 // 사용자 닉네임 변경준비
 function Edit_nickname() {
 	$("#setting_nickname_edit").addClass("display_none");

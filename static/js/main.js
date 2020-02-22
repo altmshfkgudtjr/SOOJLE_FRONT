@@ -1,9 +1,4 @@
-$(window).ready(function() {
-	$("#loading").css({"top": $(document).scrollTop()});
-});
-
-
-// Mobile Device Checked
+// Mobile Device Checked====================================================
 window.mobilecheck = function() {
 	var isMobile = false;
 	if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
@@ -12,8 +7,10 @@ window.mobilecheck = function() {
 	}
     return isMobile;
 };
+// 호출: mobilecheck();
 
-// 메인페이지 검색 focus 함수
+
+// 메인페이지 검색===========================================================
 function searching_focus() {
 	$("#SJ_main_page1_search_bar").addClass("SJ_main_page1_search_bar_checked");
 	$("#SJ_main_page1_search_list_box").css({"width": $("#SJ_main_page1_search_box").width()});
@@ -36,8 +33,9 @@ function search_blur() {
 }
 let search_cache = "";	// 이전 검색어
 let search_target = "";	// 목표 검색어
-let now = 0;	// 현재 화살표로 선택한 div 위치
-let all = 0;	// 검색결과 수
+let now = 0;			// 현재 화살표로 선택한 div 위치
+let all = 0;			// 검색결과 수
+let search_open = 0; 	// 검색 모달 Open 여부
 function search_focus(keyCode, tag) {
 	let w = $(document).width();
 	//if (w < 1200 && search_open == 0) {
@@ -104,7 +102,6 @@ function search_focus(keyCode, tag) {
 		}
 	}
 }
-let search_open = 0;
 function mobile_search_modal_open() {
 	let w = $(document).width();
 	if (search_open == 0) {
@@ -170,9 +167,6 @@ function search_blur() {
 		}
 	}
 }
-
-
-
 function search_text(text) {
 	if (text == "") {
 		Snackbar("검색어를 입력해주세요.");
@@ -183,19 +177,25 @@ function search_text(text) {
 }
 
 
-function Gohome(){
-	window.location.href = "/";
-}
-function Goboard() {
-	window.location.href = "/board";
-}
+// 페이지 이동 버튼==========================================================
+function Gohome(){ window.location.href = "/"; }
+function Goboard() { window.location.href = "/board"; }
+function GoLogin() { window.location.href = "/board#login"; }
+function GoSetting() { window.location.href = "/board#setting"; }
 
-// Loading Setting
+// 로딩=====================================================================
+/*
+$(window).ready(function() {
+	$("#loading").css({"top": $(document).scrollTop()});
+});
+*/
 setTimeout(function() {
 	$("body").removeAttr("style");
 	$("#loading").addClass("display_none");
-}, 0);	// setting time
+}, 0);
 
+
+// 메인 페이지 설명 스크롤===================================================
 function next_page(n) {
 	let target = $(`.page_section:nth-child(${n})`).offset().top;
 	$('html,body').animate({scrollTop: target}, 10);
@@ -206,3 +206,13 @@ function last_page() {
 }
 
 
+// 메인 페이지 로그인=========================================================
+$(window).ready(function() {
+	Get_UserInfo(function(result) {	// result == 유저정보
+		if (result) {
+			$("#main_user_btn").text(result['user_nickname']+'');
+			$("#main_user_btn").removeClass("display_none");
+			$("#main_login_btn").addClass("display_none");
+		}
+	});
+});
