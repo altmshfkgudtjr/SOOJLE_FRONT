@@ -2143,7 +2143,7 @@ span.selectbox_choose {
 	height: 40px;
     width: auto;
     padding: 0 10px;
-    color: black;
+    color: #bbb;
     font-size: 30px;
     line-height: 40px;
     transition: .1s ease-in-out;
@@ -2152,7 +2152,7 @@ span.selectbox_choose {
     cursor: pointer;
 }
 .setting_edit:hover {
-	color: #c30e2e;
+	color: black;
 }
 .setting_edit_check {
 	position: relative;
