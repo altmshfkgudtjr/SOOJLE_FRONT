@@ -203,14 +203,41 @@ function Keyup_nickname() {
 	});
 }
 
+// 사용자 정보 초기화
+function change_userreset_st() {
+	$("#user_data_delete_info").empty();
+	$("#user_data_delete_info").append(`관심도를 초기화하기 위해서는 "<span style="font-weight: bold">관심도 초기화</span>"를 입력한 다음에 확인을 눌러주세요.`);
+	$("#user_data_delete_button_ok").attr("onclick", "user_data_reset_button_ok()");
+	$("#user_data_modal_container").removeClass("display_none");
+	$("body").css("overflow", "hidden");
+	$("#user_data_delete_input").val("");
+	$("#user_data_delete_input").focus();
+}
+function user_data_reset_button_ok() {
+	let val = $("#user_data_delete_input").val();
+	if (val != "관심도 초기화") {
+		Snackbar("입력이 잘못되었습니다.");
+		$("#user_data_delete_input").focus();
+		return;
+	}
+	let user_data_delete_ajax = A_JAX("http://"+host_ip+"/reset_user_measurement", "GET", null, null);
+	$.when(user_data_delete_ajax).done(function() {
+		if(user_data_delete_ajax.responseJSON['result'] == 'success') {
+			Snackbar("관심도가 초기화 되었습니다.");
+			user_data_modal_cancel();
+		} else {
+			Snackbar("통신이 원활하지 않습니다.");
+		}
+	});
+}
 // 사용자 정보 삭제
 function change_userdelete_st() {
 	$("#user_data_delete_info").empty();
 	$("#user_data_delete_info").append(`계정을 삭제하기 위해서는 "<span style="font-weight: bold">SOOJLE 계정삭제</span>"를 입력한 다음에 확인을 눌러주세요.`);
 	$("#user_data_delete_button_ok").attr("onclick", "user_data_delete_button_ok()");
-	$("#user_data_delete_button_cancel").attr("onclick", "user_data_delete_button_cancel()");
 	$("#user_data_modal_container").removeClass("display_none");
 	$("body").css("overflow", "hidden");
+	$("#user_data_delete_input").val("");
 	$("#user_data_delete_input").focus();
 }
 function user_data_delete_button_ok() {
@@ -232,41 +259,20 @@ function user_data_delete_button_ok() {
 		}
 	});
 }
-function user_data_delete_button_cancel() {
+// 사용자 정보 모달 취소 버튼
+function user_data_modal_cancel() {
 	$("#user_data_modal_container").addClass("display_none");
 	$("body").removeAttr("style");
-	$("#user_data_delete").prop("checked", false);
 }
-
-// 사용자 정보 초기화
-function change_userreset_st() {
-	$("#user_data_delete_info").empty();
-	$("#user_data_delete_info").append(`관심도를 초기화하기 위해서는 "<span style="font-weight: bold">관심도 초기화</span>"를 입력한 다음에 확인을 눌러주세요.`);
-	$("#user_data_delete_button_ok").attr("onclick", "user_data_reset_button_ok()");
-	$("#user_data_delete_button_cancel").attr("onclick", "user_data_reset_button_cancel()");
-	$("#user_data_modal_container").removeClass("display_none");
-	$("body").css("overflow", "hidden");
-	$("#user_data_delete_input").focus();	
-}
-function user_data_reset_button_ok() {
-	let val = $("#user_data_delete_input").val();
-	if (val != "관심도 초기화") {
-		Snackbar("입력이 잘못되었습니다.");
-		$("#user_data_delete_input").focus();
-		return;
-	}
-	let user_data_delete_ajax = A_JAX("http://"+host_ip+"/reset_user_measurement", "GET", null, null);
-	$.when(user_data_delete_ajax).done(function() {
-		if(user_data_delete_ajax.responseJSON['result'] == 'success') {
-			Snackbar("관심도가 초기화 되었습니다.");
-			user_data_reset_button_cancel();
-		} else {
-			Snackbar("통신이 원활하지 않습니다.");
+// 사용자 정보 초기화/삭제 키 입력
+$("#user_data_delete_input").on({	// 회원가입 폼 선택
+	"keyup": function() {
+		if (window.event.keyCode == 13) {
+			if ($("#user_data_delete_button_cancel").attr("onclick") == 'user_data_reset_button_cancel()') {
+				user_data_reset_button_ok();	
+			} else {
+				user_data_delete_button_ok();
+			}
 		}
-	});
-}
-function user_data_reset_button_cancel() {
-	$("#user_data_modal_container").addClass("display_none");
-	$("body").removeAttr("style");
-	$("#user_data_reset").prop("checked", false);
-}
+	}
+});
