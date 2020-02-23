@@ -97,23 +97,22 @@ function search_blur() {
 function search_button() {	// 검색작업 data = 글자
 	let data;
 	let w = $(document).width();
-	//if (w < 1200) {
 	if (mobilecheck()) {
 		data = $("#mobile_search_input").val();
 		$("#mobile_search_input").blur();
 		search_blur();
 		$("body").removeAttr("style");
-		//$("#board_logo").removeAttr("style");
-		//$("#mobile_search").addClass("display_none");
 		search_open = 0;
 	} else {
 		data = $("#pc_search_input").val();
 		$("#pc_search_input").blur();
 	}
 	$("#mobile_search_recommend_box").addClass("display_none");
-	//mobile_search_modal_close();
-	//search_text(data);	// 검색 함수 실행
-
+	if (data == ""){
+		Snackbar("검색어를 입력해주세요.");
+		is_searching = 0;
+		return;
+	} 
 	data = data.replace(/ /g, "+");
 	//window.location.href = "/board#search?" + data + '/'
 	location.replace("/board#search?" + data + '/')

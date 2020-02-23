@@ -593,17 +593,6 @@ body {
     height: 50px;
     background-color: rgba(0,0,0,0);
 }
-@media screen and (max-width: 450px) {
-	.mobile_search_header {
-		position: relative;
-		display: inline-block;
-		float: right;
-		margin-right: 10px;
-		width: 70%;
-		height: 50px;
-		background-color: rgba(0,0,0,0);
-	}
-}
 .mobile_search_body {
 	position: absolute;
 	width: 100%;
@@ -1162,13 +1151,10 @@ ol { margin-left: 15px; }
 	font-size: 16px;
 	line-height: 30px;
 	font-weight: bold;
-	color: #0270e0;
+	color: black;
 	overflow: hidden;
 	transition: .1s ease-in-out;
 	-webkit-transition: .1s ease-in-out;
-}
-.main_user_controller_board:hover {
-	color: #C30E2E;
 }
 .main_user_controller_user {
 	display: inline-block;
@@ -1183,14 +1169,16 @@ ol { margin-left: 15px; }
 	font-size: 16px;
 	line-height: 30px;
 	font-weight: bold;
+	color: #C30E2E;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	transition: .1s ease-in-out;
 	-webkit-transition: .1s ease-in-out;
 }
-.main_user_controller_user:hover {
-	color: #C30E2E;
+.main_user_controller_user:hover, .main_user_controller_board:hover {
+	text-decoration: underline;
+	text-underline-position: under;
 }
 @media screen and (max-width: 800px) {
 	.main_user_controller {

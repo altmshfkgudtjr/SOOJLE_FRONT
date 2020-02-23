@@ -133,14 +133,16 @@ function search_button() {	// 검색작업 data = 글자
 		$("#pc_search_input").val(data);
 		search_blur();
 		$("body").removeAttr("style");
-		//$("#board_logo").removeAttr("style");
-		//$("#mobile_search").addClass("display_none");
 		search_open = 0;
 	} else {
 		data = $("#pc_search_input").val();
 		$("#pc_search_input").blur();
 	}
-	//mobile_search_modal_close();
+	if (data == ""){
+		Snackbar("검색어를 입력해주세요.");
+		is_searching = 0;
+		return;
+	}
 	search_text(data);	// 검색 함수 실행
 
 	/*search 클릭 작업============================================================*/
@@ -180,7 +182,7 @@ function search_text(text) {
 // 페이지 이동 버튼==========================================================
 function Gohome(){ window.location.href = "/"; }
 function Goboard() { window.location.href = "/board"; }
-function GoLogin() { window.location.href = "/board#login"; }
+function GoLogin() { window.location.href = "/board#signinup"; }
 function GoSetting() { window.location.href = "/board#setting"; }
 
 // 로딩=====================================================================
