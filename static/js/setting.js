@@ -156,6 +156,7 @@ function Edit_nickname() {
 	$("#setting_nickname_cancel").removeClass("display_none");
 	$("#setting_nickname_edit_guideline").removeClass("display_none");
 	$("#setting_nickname_edit_guideline").val($("#setting_nickname_guideline").text());
+	$("#setting_nickname_edit_guideline").select();
 	$("#setting_nickname_edit_guideline").focus();
 }
 // 사용자 닉네임 변경수신
@@ -163,25 +164,25 @@ function Change_nickname() {
 	let nickname = $("#setting_nickname_edit_guideline").val();
 	if (!Change_nickname_Check(nickname)) {
 		Snackbar("잘못된 닉네임입니다.");
-		return;
+		return false;
 	}
 	let sendData = {};
-	sendData['nickname'] = nickname;
-	/*===========임시 코드==============*/
-	Snackbar("서버와의 연결이 원활하지 않습니다.");
-	Cancel_nickname();
-	return;
-	/*===========여기 까지==============*/
-	$.when(A_JAX("http://"+host_ip+"/<닉네임 변경 API>", "POST", null, sendData)).done(function () {
-		if (a_jax.responseJSON['result'] == 'success') {
+	sendData['new_nickname'] = nickname;
+	$.when(a_jax = A_JAX("http://"+host_ip+"/change_nickname", "POST", null, sendData)).done(function (data) {
+		if (data['result'] == 'success') {
 			$("#setting_nickname_guideline").text(nickname);
-			Snackbar("닉네임 변경이 완료되었습니다.");
+			Menu_User_Info_Change(nickname);
+			Snackbar("닉네임이 변경되었습니다.");
 			Cancel_nickname();
+		} else if (data['result'] == 'rewrite_nickname') {
+			Snackbar("닉네임 최대길이를 초과하였습니다.");
+			return false;
 		} else {
-			Snackbar("서버와의 연결이 원활하지 않습니다.");
-			return;
+			Snackbar("서버와의 통신이 원활하지 않습니다.");
+			return false;
 		}
 	});
+	return true;
 }
 // 사용자 닉네임 변경취소
 function Cancel_nickname() {
@@ -195,7 +196,6 @@ function Cancel_nickname() {
 // 사용자 닉네임 Key Up Binding
 function Keyup_nickname() {
 	$("#setting_nickname_edit_guideline").keyup(function() {
-		console.log("hello");
 		if (window.event.keyCode == 13 &&
 			$("#setting_nickname_edit_guideline").val() != '') {
 			Change_nickname();

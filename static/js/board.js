@@ -11,7 +11,7 @@ window.mobilecheck = function() {
 // now state
 let now_state = "";
 // Greetings Array
-const greetings = ["반갑습니다!", "환영합니다!", "좋은 하루입니다.", "세종대학교."];
+const greetings = ["반갑습니다!", "환영합니다!", "좋은 하루입니다."];
 // Error Imoticon
 const imoticons = ["ᵒ̌ ᴥ ᵒ̌ ", "(。・_・。)", "˚ᆺ˚", "( ˃̣̣̥᷄⌓˂̣̣̥᷅ )"];
 
@@ -189,7 +189,6 @@ async function auto_login() {
 				$("#none_click").addClass("display_none");
 				let text = decodeURI(window.location.href);
 				text = text.split("#search?")[1];
-				//cwindow.location.href = "/board#";
 				text = text.split("/")[0];
 				text = text.replace(/\+/g, " ");
 				$("#board_logo").css({"left": "10px",
@@ -209,87 +208,18 @@ async function auto_login() {
 			sessionStorage.setItem('sj-state', localStorage.getItem('sj-state'));
 		}
 	}
-	a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-	$.when(a_jax).done(function () {
-		if (a_jax.responseJSON['result'] == 'success') {
-			After_login(a_jax.responseJSON);
-		} else if (a_jax.responseJSON['result'] == 'blacklist user') {
-			sessionStorage.removeItem('sj-state');
-			localStorage.removeItem('sj-state');
-			alert("블랙리스트된 사용자입니다.");
-			location.reload();
-		} else if (a_jax['status'].toString().startsWith('4')) {
-			Snackbar("올바르지 않은 접근입니다.");
-			sessionStorage.removeItem('sj-state');
-			localStorage.removeItem('sj-state');
-		} else {
-			Snackbar("서버와의 연결이 원활하지 않습니다.");
-		}
-	});
-}
-// Login fucntion
-function Sign_in(){
-	let user_id = $("#user_id").val();
-	let user_pw = $("#user_pw").val();
-	if ($("#user_id").val() == "") {
-		Snackbar("학번 또는 교번을 입력해주세요.");
-		$("#user_id").focus();
-		return;
-	} else if ($("#user_pw").val() == "") {
-		Snackbar("비밀번호를 입력해주세요.");
-		$("#user_pw").focus();
-		return;
-	}
-	let send_data = {id: user_id, pw: user_pw};
-	$("#loading_modal").removeClass("loading_modal_unvisible");
-	let a_jax = A_JAX("http://"+host_ip+"/sign_in_up", "POST", null, send_data);
-	$.when(a_jax).done(function () {
-		$("#loading_modal").addClass("loading_modal_unvisible");
-		if (a_jax.responseJSON['result'] == 'success') {
-			let token = a_jax.responseJSON['access_token'];
-			sessionStorage.setItem('sj-state', token);
-			a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-			$.when(a_jax).done(function () {
-				if (a_jax.responseJSON['result'] == 'success') {
-					login_modal_onoff();
-					$("#user_id").val("");
-					$("#user_pw").val("");
-					if (a_jax.responseJSON['auto_login'] == 1)
-						localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
-					After_login(a_jax.responseJSON);
-				} else if (a_jax.responseJSON['result'] == 'not found') {
-					Snackbar("비정상적인 접근입니다.");
-					localStorage.removeItem('sj-state');
-					sessionStorage.removeItem('sj-state');
-				} else if (a_jax['status'].toString().startsith('4')) {
-					Snackbar("올바르지 않은 접근입니다.");
-					sessionStorage.removeItem('sj-state');
-					localStorage.removeItem('sj-state');
-				} else {
-					Snackbar("서버와의 연결이 원활하지 않습니다.");
-				}
-			});
-		} else if (a_jax.responseJSON['result'] == 'not sejong') {
-			Snackbar("올바르지 않은 계정입니다.");
-			localStorage.removeItem('sj-state');
-			sessionStorage.removeItem('sj-state');
-
-		} else if (a_jax.responseJSON['result'] == 'incorrect pw') {
-			Snackbar("비밀번호를 다시 입력해주세요.");
-			localStorage.removeItem('sj-state');
-			sessionStorage.removeItem('sj-state');
-		} else if (a_jax.responseJSON['result'] == 'api error') {
-			Snackbar("세종대학교 전산서비스 오류입니다.");
-		} else if (a_jax['status'].toString().startsWith('4')) {
-			Snackbar("올바르지 않은 접근입니다.");
-			sessionStorage.removeItem('sj-state');
-			localStorage.removeItem('sj-state');
-		} else if (a_jax.responseJSON['result'] == 'blacklist user') {
-			sessionStorage.removeItem('sj-state');
-			localStorage.removeItem('sj-state');
-			Snackbar("블랙리스트된 사용자입니다.");
-		} else {
-			Snackbar("서버와의 연결이 원활하지 않습니다.");
+	Get_UserInfo(function(result) {
+		if (result) {
+			if (result['result'] == 'success') {
+				After_login(result);
+			} else if (result['result'] == 'blacklist user') {
+				sessionStorage.removeItem('sj-state');
+				localStorage.removeItem('sj-state');
+				alert("블랙리스트된 사용자입니다.");
+				location.reload();	
+			} else {
+				Snackbar("서버와의 연결이 원활하지 않습니다.");
+			}
 		}
 	});
 }
@@ -308,8 +238,13 @@ function Enter_login() {
 }
 
 
-
 // After login, setting user information.
+function Menu_User_Info_Change(str) {
+	let hello = greetings[Math.floor(Math.random() * greetings.length)];
+	hello = str + "님, " + hello;
+	$("#user_info").text(hello);
+	$("#user_info_mobile").text(hello);
+}
 async function After_login(dict) {
 	check_manager_qualification();
 	$("#sign_up_button").addClass("display_none");
@@ -319,15 +254,8 @@ async function After_login(dict) {
 	$("#logout_button").removeClass("display_none");
 	let w = $(document).width();
 	let id = dict["user_id"];
-	let major = dict["user_major"];
-	if (major.length > 10)
-		major = major.slice(0, 8) + "..." + major.slice(-2);
-	let name = dict["user_name"];
-	greetings.push(major + ",");
-	let hello = greetings[Math.floor(Math.random() * greetings.length)];
-	hello = hello + " " + dict['user_name'] + "님";
-	$("#user_info").text(hello);
-	$("#user_info_mobile").text(hello);
+	let nickname = dict["user_nickname"];
+	Menu_User_Info_Change(nickname);	// 좌측 메뉴 닉네임 변경
 	//if (w < 1200) {
 	if (mobilecheck()) {
 		$("#user_login_mobile").addClass("display_none");

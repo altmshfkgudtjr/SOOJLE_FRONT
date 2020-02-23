@@ -110,6 +110,65 @@ function SignUp_open() {
 		$("#signup_id").focus();
 	});
 }
+function Sign_in_check() {
+	if ($("#user_id").val() == "") {
+		Snackbar("학번 또는 교번을 입력해주세요.");
+		$("#user_id").focus();
+		return false;
+	} else if ($("#user_pw").val() == "") {
+		Snackbar("비밀번호를 입력해주세요.");
+		$("#user_pw").focus();
+		return false;
+	}
+	return true;						// 로그인란 공백 검사
+}
+function Sign_in() {
+	if (Sign_in_check) {
+		let user_id = $("#user_id").val();
+		let user_pw = $("#user_pw").val();
+		let send_data = {id: user_id, pw: user_pw};
+		$("#loading_modal").removeClass("loading_modal_unvisible");
+		$.when(A_JAX("http://"+host_ip+"/sign_in", "POST", null, send_data)).done(function (data) {
+			$("#loading_modal").addClass("loading_modal_unvisible");
+			if (data['result'] == 'success') {
+				let token = data['access_token'];
+				sessionStorage.setItem('sj-state', token);
+				Get_UserInfo(function(result) {
+					if (result) {
+						login_modal_onoff();
+						$("#user_id").val("");
+						$("#user_pw").val("");
+						if (result['auto_login'] == 1)
+							localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
+						After_login(data);
+					} else {
+						Snackbar("서버와의 연결이 원활하지 않습니다.");
+						localStorage.removeItem('sj-state');
+						sessionStorage.removeItem('sj-state');
+					}
+				});
+			} else if (data['result'] == 'not sejong') {
+				Snackbar("올바르지 않은 계정입니다.");
+				localStorage.removeItem('sj-state');
+				sessionStorage.removeItem('sj-state');
+
+			} else if (data['result'] == 'incorrect pw') {
+				Snackbar("비밀번호를 다시 입력해주세요.");
+				localStorage.removeItem('sj-state');
+				sessionStorage.removeItem('sj-state');
+			} else if (data['result'] == 'api error') {
+				Snackbar("세종대학교 전산서비스 오류입니다.");
+			} else if (data['result'] == 'blacklist user') {
+				sessionStorage.removeItem('sj-state');
+				localStorage.removeItem('sj-state');
+				Snackbar("블랙리스트된 사용자입니다.");
+			} else {
+				Snackbar("서버와의 연결이 원활하지 않습니다.");
+			}
+		});
+	}
+	return false;							// 로그인 함수
+}
 
 
 // 회원가입=========================================================================
@@ -160,8 +219,8 @@ function SignUp_nickname_Check(tag) {			// 회원가입 닉네임 검사
 	}
 	return false;
 }
-function Change_nickname_Check(str) {
-	if (str.length >= 2 && str.length <= 30 && ABORT_ID.indexOf(str.toLowerCase()) == -1)
+function Change_nickname_Check(str) {			// 닉네임 공백란 검사
+	if (str.length >= 1 && str.length <= 16 && ABORT_ID.indexOf(str.toLowerCase()) == -1)
 		return true;
 	return false;
 }
@@ -262,13 +321,13 @@ function Sign_Up() {		// 회원가입 완료 버튼
 	sendData['id'] = $("#signup_id").val();
 	sendData['nickname'] = $("#signup_nickname").val();
 	sendData['pw'] = $("#signup_pw").val();
-	return;	// 임시 Code
-	$.when(A_JAX("http://"+host_ip+"/<회원가입 API>", "GET", null, sendData)).done(function () {
-		if (a_jax.responseJSON['result'] == 'success') {
-			let token = a_jax.responseJSON['access-token'];
+	sendData['pw_check'] = $("#signup_pw_check").val();
+	$.when(A_JAX("http://"+host_ip+"/sign_up", "POST", null, sendData)).done(function (data) {
+		if (data['result'] == 'success') {
+			let token = data['access_token'];
 			sessionStorage.setItem('sj-state', token);
 			localStorage.setItem('sj-state', token);
-			login_modal_onoff();
+			location.reload();
 		} else {
 			Snackbar("서버와의 연결이 원활하지 않습니다.");
 			return;
@@ -305,12 +364,23 @@ function Get_UserInfo(callback) {
 			if (typeof(callback) == 'function') {
 				callback(output);
 			}
+		} else if (a_jax.responseJSON['result'] == 'No member') {
+			Snackbar("회원정보가 없습니다.");
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+			return;
+		} else if (a_jax.responseJSON['result'] == 'bad token') {
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+			return false;
 		} else if (a_jax['status'].toString().startsWith('4')) {
 			Snackbar("통신이 원활하지 않습니다.");
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
+			return false;
 		} else {
 			Snackbar("통신이 원활하지 않습니다.");
+			return false;
 		}
 	});
 	return output;
