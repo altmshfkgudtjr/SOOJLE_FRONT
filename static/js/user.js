@@ -110,7 +110,10 @@ function SignUp_open() {
 		$("#signup_id").focus();
 	});
 }
-function Sign_in_check() {
+
+
+// 로그인==========================================================================
+function Sign_in_check() {								// 로그인란 공백 검사
 	if ($("#user_id").val() == "") {
 		Snackbar("학번 또는 교번을 입력해주세요.");
 		$("#user_id").focus();
@@ -122,7 +125,7 @@ function Sign_in_check() {
 	}
 	return true;						// 로그인란 공백 검사
 }
-function Sign_in() {
+function Sign_in() {									// 로그인 완료 버튼
 	if (Sign_in_check) {
 		let user_id = $("#user_id").val();
 		let user_pw = $("#user_pw").val();
@@ -140,7 +143,7 @@ function Sign_in() {
 						$("#user_pw").val("");
 						if (result['auto_login'] == 1)
 							localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
-						After_login(data);
+						After_login();
 					} else {
 						Snackbar("서버와의 연결이 원활하지 않습니다.");
 						localStorage.removeItem('sj-state');
@@ -167,9 +170,59 @@ function Sign_in() {
 			}
 		});
 	}
-	return false;							// 로그인 함수
+	return false;
 }
-
+function SignIn_id_Check(tag) {							// 로그인 ID 검사
+	// ID 길이는 6~30자 사이
+	if ($(tag).val().length >= 2
+	 && $(tag).val().length <= 30
+	 && ABORT_ID.indexOf($(tag).val().toLowerCase()) == -1) {
+		$(tag).css("border", "2px solid #22bf06");
+		$($(tag).next()[0]).css("color", "#22bf06");
+		return true;
+	} else {
+		$(tag).removeAttr("style");
+		$($(tag).next()[0]).removeAttr("style");
+	}
+	return false;
+}
+function SignIn_pw_Check(tag) {							// 로그인 PW 검사
+	if ($(tag).val().length >= 8) {
+		$(tag).css("border", "2px solid #22bf06");
+		$($(tag).next()[0]).css("color", "#22bf06");
+		return true;
+	} else {
+		$(tag).removeAttr("style");
+		$($(tag).next()[0]).removeAttr("style");
+	}
+	return false;
+}
+function Enter_login() {								// 로그인 키 입력
+	SignIn_id_Check($("#user_id"));
+	SignIn_pw_Check($("#user_pw"));
+	if (window.event.getModifierState("CapsLock")		// CapsLock
+	 && window.event.target.id == "user_pw") {
+		CapsLock_Check($(window.event.target));
+	}
+	// Enter 누를 시
+	if (window.event.keyCode == 13) {
+        if ($("#user_id").val() == "") {
+        	Snackbar("아이디를 입력해주세요.");
+        	$("#user_id").focus();
+        } else if ($("#user_pw").val() == "") {
+        	Snackbar("비밀번호를 다시 입력해주세요.");
+        	$("#user_pw").focus();
+        } else {
+        	Sign_in();
+        }
+    }
+}
+function CapsLock_Check(tag) {							// CapsLock 검사
+	Snackbar("CapsLock이 켜져있습니다.");	// 임시 코드
+}
+$("#user_id, #user_pw").keyup(function() {
+	Enter_login();
+});
 
 // 회원가입=========================================================================
 function SignUp_blank_Check() {					// 회원가입란 공백 검사
@@ -207,8 +260,8 @@ function SignUp_id_Check(tag) {					// 회원가입 ID 검사
 	return false;
 }
 function SignUp_nickname_Check(tag) {			// 회원가입 닉네임 검사
-	if ($(tag).val().length >= 2
-	 && $(tag).val().length <= 30
+	if ($(tag).val().length >= 1
+	 && $(tag).val().length <= 16
 	 && ABORT_ID.indexOf($(tag).val().toLowerCase()) == -1) {
 		$(tag).css("border", "2px solid #22bf06");
 		$($(tag).next()[0]).css("color", "#22bf06");
@@ -290,8 +343,14 @@ function Key_Signup() {		// 회원가입 키 입력
 			SignUp_nickname_Check(now_tag);
 		} else if (now_tag.id == "signup_pw") {
 			SignUp_pw_Check(now_tag);
+			if (window.event.getModifierState("CapsLock")) {	// CapsLock
+				CapsLock_Check($(now_tag));
+			}
 		} else if (now_tag.id == "signup_pw_check") {
 			SignUp_pw_same_Check(document.querySelector('#signup_pw'), now_tag);
+			if (window.event.getModifierState("CapsLock")) {	// CapsLock
+				CapsLock_Check($(now_tag));
+			}
 		}
 	}
 }
@@ -299,22 +358,22 @@ function Sign_Up() {		// 회원가입 완료 버튼
 	if (!SignUp_blank_Check()) return;	// 빈 칸 확인
 	if (!SignUp_id_Check(document.querySelector('#signup_id'))) {
 		Snackbar("아이디를 다시 입력해주세요.");
-		$("#signup_id").focus();
+		$("#signup_id").select().focus();
 		return;
 	}
 	if (!SignUp_nickname_Check(document.querySelector('#signup_nickname'))) {
 		Snackbar("닉네임을 다시 입력해주세요.");
-		$("#signup_nickname").focus();
+		$("#signup_nickname").select().focus();
 		return;
 	}
 	if (!SignUp_pw_Check(document.querySelector('#signup_pw'))) {
 		Snackbar("비밀번호를 다시 입력해주세요.");
-		$("#signup_pw").focus();
+		$("#signup_pw").select().focus();
 		return;
 	}
 	if (!SignUp_pw_same_Check(document.querySelector('#signup_pw'), document.querySelector('#signup_pw_check'))) {
 		Snackbar("동일한 비밀번호를 입력해주세요.");
-		$("#signup_pw_check").focus();
+		$("#signup_pw_check").select().focus();
 		return;
 	}
 	let sendData = {};
@@ -328,12 +387,20 @@ function Sign_Up() {		// 회원가입 완료 버튼
 			sessionStorage.setItem('sj-state', token);
 			localStorage.setItem('sj-state', token);
 			location.reload();
+		} else if (data['result'] == 'already id') {
+			Snackbar("이미 존재하는 아이디입니다.");
+			$("#signup_id").select().focus();
+			return;
 		} else {
 			Snackbar("서버와의 연결이 원활하지 않습니다.");
 			return;
 		}
 	});
 }
+// 회원가입란 Event Binding
+$("#signup_id,#signup_nickname,#signup_pw,#signup_pw_check").keyup(function() {
+	Key_Signup();
+});
 
 
 

@@ -224,19 +224,6 @@ async function auto_login() {
 		}
 	});
 }
-function Enter_login() {
-	if (window.event.keyCode == 13) {
-        if ($("#user_id").val() == "") {
-        	Snackbar("아이디를 입력해주세요.");
-        	$("#user_id").focus();
-        } else if ($("#user_pw").val() == "") {
-        	Snackbar("비밀번호를 다시 입력해주세요.");
-        	$("#user_pw").focus();
-        } else {
-        	Sign_in();
-        }
-    }
-}
 
 
 // After login, setting user information.
@@ -246,7 +233,7 @@ function Menu_User_Info_Change(str) {
 	$("#user_info").text(hello);
 	$("#user_info_mobile").text(hello);
 }
-async function After_login(dict) {
+async function After_login() {
 	check_manager_qualification();
 	$("#sign_up_button").addClass("display_none");
 	$("#login_button").addClass("display_none");
@@ -254,9 +241,11 @@ async function After_login(dict) {
 	$("#like_button").removeClass("display_none");
 	$("#logout_button").removeClass("display_none");
 	let w = $(document).width();
-	let id = dict["user_id"];
-	let nickname = dict["user_nickname"];
-	Menu_User_Info_Change(nickname);	// 좌측 메뉴 닉네임 변경
+	Get_UserInfo(function(result) {
+		if (result) {
+			Menu_User_Info_Change(result['user_nickname']);	// 좌측 메뉴 닉네임 변경
+		}
+	});
 	//if (w < 1200) {
 	if (mobilecheck()) {
 		$("#user_login_mobile").addClass("display_none");
@@ -287,8 +276,7 @@ async function After_login(dict) {
 		await search_text(text);
 	} else if (window.location.href.search("#") != -1) {
 		await URL_Detection();
-	} else { // 메인에서 검색을 하지않았다면 추천 뉴스피드 호출
-		//get_recommend_posts(1);
+	} else {
 		location.replace("/board#recommend");
 	}
 }
