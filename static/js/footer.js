@@ -24,7 +24,9 @@ function URL_Detection() {
 }
 async function URL_Select() {
 	let url_target = window.location.href.split("#")[1];
-	if (url_target == undefined || url_target == "" || url_target == "recommend") get_recommend_posts(1);
+	if (url_target == undefined || url_target == "" || url_target == "recommend") {
+		get_recommend_posts(1);
+	}
 	else if (url_target.startsWith("search?")) {
 		let text = decodeURI(window.location.href);
 		text = text.split("#search?")[1];
@@ -71,6 +73,9 @@ async function URL_Select() {
 	}
 	else if (url_target == "soojle") {
 		check_managet_qualification_reload();
+	} else if (url_target == "signinup") {
+		get_recommend_posts(1);
+		Login_open();
 	}
 	// Else : Nothing Do.
 }

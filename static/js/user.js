@@ -98,7 +98,7 @@ function Login_open() {
 	$("#select_login_form").addClass("login_title_select");
 	$("#select_signup_form").removeClass("login_title_select");
 	login_modal_onoff(function() {
-		$("#user_id").focus();
+		setTimeout(function() {$("#user_id").focus();}, 100);
 	});
 }
 function SignUp_open() {

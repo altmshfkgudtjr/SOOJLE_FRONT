@@ -16,6 +16,10 @@ var where_topic;
 
 
 // 추천 뉴스피드 불러오기 함수
+function click_recommend_posts() {
+	location.replace("/board#recommend");
+	menu_modal_onoff();
+}
 function get_recommend_posts(is_first = 0) {
 	out_of_search();
 	window.scrollTo(0,0);
@@ -23,7 +27,7 @@ function get_recommend_posts(is_first = 0) {
 	where_topic = "뉴스피드";
 	posts_update = 0;
 	now_state = now_topic;	// now state changing
-	location.replace("/board#recommend");
+	//location.replace("/board#recommend");
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
@@ -37,16 +41,13 @@ function get_recommend_posts(is_first = 0) {
 		menu_modal_onoff(2);
 	else
 		menu_modal_onoff();
-	let a_jax = A_JAX("http://"+host_ip+"/get_recommendation_newsfeed", "GET", null, null);
-	$.when(a_jax).done(function () {
-		let json = a_jax.responseJSON;
-		if (json['result'] == 'success') {
-			let output = JSON.parse(json["newsfeed"]);
+	$.when(A_JAX("http://"+host_ip+"/get_recommendation_newsfeed", "GET", null, null)).done(function (data) {
+		if (data['result'] == 'success') {
+			let output = JSON.parse(data["newsfeed"]);
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
 			creating_post(output, "추천");
 			$("html, body").animate({scrollTop: 0}, 400);
-			// Modal Remove
 		} else {
 			Snackbar("다시 접속해주세요!");
 		}
@@ -539,13 +540,12 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 		$(".mobile_controller").removeAttr("style");
 		$("#none_click").addClass("display_none");
 	}, 200);
-	// 로딩 제거
+	// 좋아요 표시
 	let token = sessionStorage.getItem('sj-state');
-	if (token == null || token == undefined || token == 'undefined') {} 
+	if (token == null || token == undefined || token == 'undefined') {}
 	else {
-		let a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-		$.when(a_jax).done(function () {
-			if (a_jax.responseJSON['result'] == 'success') {
+		Get_UserInfo(function(result) {
+			if (result) {
 				let posts = $(".post_block");
 				let post_one;
 				for (post_one of posts) {
@@ -556,17 +556,12 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 						}
 					}
 				}
-			} else if (a_jax['status'].toString().startsWith('4')) {
-				Snackbar("올바르지 않은 접근입니다.");
-				sessionStorage.removeItem('sj-state');
-				localStorage.removeItem('sj-state');
 			} else {
 				Snackbar("통신이 원활하지 않습니다.");
 			}
 		});
 	}
 	$("#menu_container").removeClass("menu_container_fixed");
-	//$("#menu_container").removeAttr("style");
 	$("#posts_creating_loading").addClass("display_none");
 	$("#board_container").removeClass("board_container_fixed");
 }

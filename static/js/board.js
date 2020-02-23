@@ -127,6 +127,7 @@ function menu_modal_off() {
 	}
 }
 
+
 // Login modal on off function
 let login_open = 0;
 function login_modal_onoff(callback) {
