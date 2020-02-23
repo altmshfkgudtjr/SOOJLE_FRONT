@@ -213,12 +213,14 @@ async function auto_login() {
 		if (result) {
 			if (result['result'] == 'success') {
 				After_login(result);
+				Menu_User_Info_Change(result['user_nickname']);	// 좌측 메뉴 닉네임 변경
 			} else if (result['result'] == 'blacklist user') {
 				sessionStorage.removeItem('sj-state');
 				localStorage.removeItem('sj-state');
 				alert("블랙리스트된 사용자입니다.");
 				location.reload();	
 			} else {
+				Menu_User_Info_Change("사용자");	// 좌측 메뉴 닉네임 변경
 				Snackbar("서버와의 연결이 원활하지 않습니다.");
 			}
 		}
@@ -227,11 +229,11 @@ async function auto_login() {
 
 
 // After login, setting user information.
-function Menu_User_Info_Change(str) {
+function Menu_User_Info_Change(nickname) {
 	let hello = greetings[Math.floor(Math.random() * greetings.length)];
-	hello = str + "님, " + hello;
-	$("#user_info").text(hello);
-	$("#user_info_mobile").text(hello);
+	nickname = nickname + "님, " + hello;
+	$("#user_info").text(nickname);
+	$("#user_info_mobile").text(nickname);
 }
 async function After_login() {
 	check_manager_qualification();
@@ -241,11 +243,6 @@ async function After_login() {
 	$("#like_button").removeClass("display_none");
 	$("#logout_button").removeClass("display_none");
 	let w = $(document).width();
-	Get_UserInfo(function(result) {
-		if (result) {
-			Menu_User_Info_Change(result['user_nickname']);	// 좌측 메뉴 닉네임 변경
-		}
-	});
 	//if (w < 1200) {
 	if (mobilecheck()) {
 		$("#user_login_mobile").addClass("display_none");
