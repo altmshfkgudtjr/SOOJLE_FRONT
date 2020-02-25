@@ -452,3 +452,53 @@ function Get_UserInfo(callback) {
 	});
 	return output;
 }
+// 최근 본 게시글 반환 (callback(<userdata>))
+function Get_Recently_View_Post(callback) {
+	let a_jax = A_JAX("http://"+host_ip+"/get_specific_userinfo/"+2, "GET", null, null);
+	$.when(a_jax).done(function () {
+		let json = a_jax.responseJSON;
+		let output = [];
+		if (json['result'] == 'success') {
+			output = JSON.parse(json["user"]);
+			output = output['view_list'];
+			if (typeof(callback) == 'function') {
+				callback(output);
+			}
+		} else {
+			Snackbar("다시 접속해주세요!");
+		}
+		return output;
+	}).fail(function(xhr, status, err) {	//////////////////////
+		if(err == "UNAUTHORIZED") {			/*	    실패 시		*/
+			alert("다시 로그인해주세요.");	//////////////////////
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+			window.location.reload();
+		}
+	});
+}
+// 좋아요 게시글 반환 (callback(<userdata>))
+function Get_Like_Post(callback) {
+	let a_jax = A_JAX("http://"+host_ip+"/get_specific_userinfo/"+1, "GET", null, null);
+	$.when(a_jax).done(function () {
+		let json = a_jax.responseJSON;
+		let output = [];
+		if (json['result'] == 'success') {
+			output = JSON.parse(json["user"]);
+			output = output['fav_list'];
+			if (typeof(callback) == 'function') {
+				callback(output);
+			}
+		} else {
+			Snackbar("다시 접속해주세요!");
+		}
+		return output;
+	}).fail(function(xhr, status, err) {	//////////////////////
+		if(err == "UNAUTHORIZED") {			/*	    실패 시		*/
+			alert("다시 로그인해주세요.");	//////////////////////
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+			window.location.reload();
+		}
+	});
+}

@@ -147,7 +147,7 @@ $(document).scroll(function() {
 		header_scrolling = 0;
 	}
 	if (where_topic == "뉴스피드"){
-		if ($(window).scrollTop() + $(window).height() >= $(document).height()- 400){
+		if ($(window).scrollTop() + $(window).height() >= $(document).height() - 400){
 			if (save_posts.length == 0) return;
 			if (now_creating == 0) {
 				now_creating = 1;
@@ -612,36 +612,29 @@ function get_user_like_posts() {
 	$("#board_info_text").text("관심 게시글");
 	$("#board_info_board").empty();
 	$("#board_info_board").text("내 정보");
-	let a_jax = A_JAX("http://"+host_ip+"/get_specific_userinfo/"+1, "GET", null, null);
-	$.when(a_jax).done(function () {
-		let json = a_jax.responseJSON;
-		if (json['result'] == 'success') {
-			let output = JSON.parse(json["user"]);
-			if (output["fav_list"].length == 0) {
-				$("#menu_container").addClass("menu_container_searching");
-				$("#menu_container").removeAttr("style");
-				let target = $("#posts_target");
-				let imoticon = imoticons[Math.floor(Math.random() * imoticons.length)];
-				//<img src="./static/image/none_posts.png" class="sr_none_posts_img">
-				let no_posts_tag = `
-					<div class="sr_none_posts_cont">
-						<div class="sr_none_posts_img noselect">${imoticon}</div>
-						<div class="sr_none_posts_text">관심있는 게시글이 없네요!</div>
-					</div>`;
-				if (now_creating_state == now_state)
-					target.append(no_posts_tag);
-				$("#posts_creating_loading").addClass('display_none');
-				$("#board_container").removeClass("board_container_fixed");
-				$("#menu_container").removeClass('menu_container_searching');
-				$("#menu_container").removeClass('menu_container_fixed');
-			} else {
-				output = output["fav_list"].reverse();
-				save_posts = output.slice(30);
-				output = output.slice(0, 30);
-				creating_post(output, now_creating_state, 0);
-			}
+	// 좋아요 게시글 반환
+	Get_Like_Post(function(posts) {
+		if (posts.length == 0) {
+			$("#menu_container").addClass("menu_container_searching");
+			$("#menu_container").removeAttr("style");
+			let target = $("#posts_target");
+			let imoticon = imoticons[Math.floor(Math.random() * imoticons.length)];
+			//<img src="./static/image/none_posts.png" class="sr_none_posts_img">
+			let no_posts_tag = `
+				<div class="sr_none_posts_cont">
+					<div class="sr_none_posts_img noselect">${imoticon}</div>
+					<div class="sr_none_posts_text">관심있는 게시글이 없네요!</div>
+				</div>`;
+			if (now_creating_state == now_state)
+				target.append(no_posts_tag);
+			$("#posts_creating_loading").addClass('display_none');
+			$("#board_container").removeClass("board_container_fixed");
+			$("#menu_container").removeClass('menu_container_searching');
+			$("#menu_container").removeClass('menu_container_fixed');
 		} else {
-			Snackbar("다시 접속해주세요!");
+			save_posts = posts.slice(30);
+			posts = posts.slice(0, 30);
+			creating_post(posts, now_creating_state, 0);
 		}
 	});
 }
@@ -667,36 +660,29 @@ function get_user_view_posts() {
 	$("#board_info_text").text("최근 본 게시글");
 	$("#board_info_board").empty();
 	$("#board_info_board").text("내 정보");
-	let a_jax = A_JAX("http://"+host_ip+"/get_specific_userinfo/"+2, "GET", null, null);
-	$.when(a_jax).done(function () {
-		let json = a_jax.responseJSON;
-		if (json['result'] == 'success') {
-			let output = JSON.parse(json["user"]);
-			if (output["view_list"].length == 0) {
-				$("#menu_container").addClass("menu_container_searching");
-				$("#menu_container").removeAttr("style");
-				let target = $("#posts_target");
-				//<img src="./static/image/none_posts.png" class="sr_none_posts_img">
-				let imoticon = imoticons[Math.floor(Math.random() * imoticons.length)];
-				let no_posts_tag = `
-					<div class="sr_none_posts_cont">
-						<div class="sr_none_posts_img noselect">${imoticon}</div>
-						<div class="sr_none_posts_text">최근 본 글이 존재하지 않아요!</div>
-					</div>`;
-				if (now_creating_state == now_state)
-					target.append(no_posts_tag);
-				$("#posts_creating_loading").addClass('display_none');
-				$("#board_container").removeClass("board_container_fixed");
-				$("#menu_container").removeClass('menu_container_searching');
-				$("#menu_container").removeClass('menu_container_fixed');
-			} else {
-				output = output["view_list"].reverse();
-				save_posts = output.slice(30);
-				output = output.slice(0, 30);
-				creating_post(output, now_creating_state, 0);
-			}
+	// 최근 본 게시글 반환
+	Get_Recently_View_Post(function(posts) {
+		if (posts.length == 0) {
+			$("#menu_container").addClass("menu_container_searching");
+			$("#menu_container").removeAttr("style");
+			let target = $("#posts_target");
+			let imoticon = imoticons[Math.floor(Math.random() * imoticons.length)];
+			//<img src="./static/image/none_posts.png" class="sr_none_posts_img">
+			let no_posts_tag = `
+				<div class="sr_none_posts_cont">
+					<div class="sr_none_posts_img noselect">${imoticon}</div>
+					<div class="sr_none_posts_text">관심있는 게시글이 없네요!</div>
+				</div>`;
+			if (now_creating_state == now_state)
+				target.append(no_posts_tag);
+			$("#posts_creating_loading").addClass('display_none');
+			$("#board_container").removeClass("board_container_fixed");
+			$("#menu_container").removeClass('menu_container_searching');
+			$("#menu_container").removeClass('menu_container_fixed');
 		} else {
-			Snackbar("다시 접속해주세요!");
+			save_posts = posts.slice(30);
+			posts = posts.slice(0, 30);
+			creating_post(posts, now_creating_state, 0);
 		}
 	});
 }
