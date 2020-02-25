@@ -24,30 +24,18 @@ function agreement() {
 // 버튼 Event
 $("#privacy_ok_btn").on({
 	"click": function() {
-		Snackbar("맞춤 서비스를 시작합니다.");
 		Sign_Up_Cancel();	// 회원가입 창 닫기
 		// 보내기 동의한다는 AJAX 날리기
-		a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-		$.when(a_jax).done(function () {
-			if (a_jax.responseJSON['result'] == 'success') {
+		Get_UserInfo(function(result) {
+			if (result) {
 				login_modal_onoff();
 				$("#user_id").val("");
 				$("#user_pw").val("");
-				if (a_jax.responseJSON['auto_login'] == 1)
+				if (result['auto_login'] == 1)
 					localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
-				After_login(a_jax.responseJSON);
-			} else if (a_jax.responseJSON['result'] == 'not found') {
-				Snackbar("비정상적인 접근입니다.");
-				localStorage.removeItem('sj-state');
-				sessionStorage.removeItem('sj-state');
-			} else if (a_jax['status'].toString().startsWith('4')) {
-				Snackbar("올바르지 않은 접근입니다.");
-				sessionStorage.removeItem('sj-state');
-				localStorage.removeItem('sj-state');
-			} else {
-				Snackbar("통신이 원활하지 않습니다.");
+				After_login();
 			}
-		});
+		})
 		agreement();	// 개인정보처리방침 동의모달 닫기
 	}
 });
@@ -453,6 +441,13 @@ function Get_UserInfo(callback) {
 		} else {
 			Snackbar("통신이 원활하지 않습니다.");
 			return false;
+		}
+	}).fail(function(xhr, status, err) {	//////////////////////
+		if(err == "UNAUTHORIZED") {			/*	    실패 시		*/
+			alert("다시 로그인해주세요.");	//////////////////////
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+			window.location.reload();
 		}
 	});
 	return output;

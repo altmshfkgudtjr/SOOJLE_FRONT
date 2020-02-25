@@ -371,6 +371,7 @@ Date.prototype.SetTime = function()
 }
 // 3000년 게시글인지 확인 : Custom 기능
 function IsContest(dt) {
+	if (!dt) return false;
 	let d = new Date(dt);
 	if (d.getFullYear() == 3000) return false;
 	return true;
@@ -393,8 +394,8 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			fav_cnt = post_one['fav_cnt'];
 			title = post_one['title'];
 			date = post_one['date'].$date;
-			if (IsContest(post_one['end_date'].$date)) {
-				date = post_one['end_date'].$date;
+			if (IsContest(post_one['end_date'])) {
+				date = post_one['end_date'];
 				date = change_date_realative(date);
 			} else {
 				date = change_date_realative(date);
@@ -472,8 +473,8 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			fav_cnt = post_one['fav_cnt'];
 			title = post_one['title'];
 			date = post_one['date'].$date;
-			if (IsContest(post_one['end_date'].$date)) {
-				date = post_one['end_date'].$date;
+			if (IsContest(post_one['end_date'])) {
+				date = post_one['end_date'];
 				date = change_date_realative(date);
 			} else {
 				date = change_date_realative(date);

@@ -827,25 +827,18 @@ function more_posts(target_num, is_fav_cnt = 1) {
 		let token = sessionStorage.getItem('sj-state');
 		if (token == null || token == undefined || token == 'undefined') {} 
 		else {
-			a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-			$.when(a_jax).done(function () {
-				if (a_jax.responseJSON['result'] == 'success') {
+			Get_UserInfo(function(result) {
+				if (result) {
 					let posts = $(".post_block");
 					let post_one;
 					for (post_one of posts) {
-						for (let fav_post of a_jax.responseJSON["user_fav_list"]) {
+						for (let fav_post of result["user_fav_list"]) {
 							if ($(post_one).attr("p-id") == fav_post["_id"]) {
 								$(post_one).children('div').children('div.post_like').css("color", "#f00730");
 								$(post_one).children('div').children('div.post_like').attr("ch", "1");
 							}
 						}
 					}
-				} else if (a_jax['status'].toString().startsWith('4')) {
-					Snackbar("올바르지 않은 접근입니다.");
-					sessionStorage.removeItem('sj-state');
-					localStorage.removeItem('sj-state');
-				} else {
-					Snackbar("통신이 원활하지 않습니다.");
 				}
 			});
 		}
@@ -888,25 +881,18 @@ function before_posts(target_num, is_fav_cnt = 1) {
 	let token = sessionStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') {} 
 	else {
-		a_jax_userinfo = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-		$.when(a_jax_userinfo).done(function () {
-			if (a_jax_userinfo.responseJSON['result'] == 'success') {
+		Get_UserInfo(function(result) {
+			if (result) {
 				let posts = $(".post_block");
 				let post_one;
 				for (post_one of posts) {
-					for (let fav_post of a_jax_userinfo.responseJSON["user_fav_list"]) {
+					for (let fav_post of result["user_fav_list"]) {
 						if ($(post_one).attr("p-id") == fav_post["_id"]) {
 							$(post_one).children('div').children('div.post_like').css("color", "#f00730");
 							$(post_one).children('div').children('div.post_like').attr("ch", "1");
 						}
 					}
 				}
-			} else if (a_jax_userinfo['status'].toString().startsWith('4')) {
-				Snackbar("올바르지 않은 접근입니다.");
-				sessionStorage.removeItem('sj-state');
-				localStorage.removeItem('sj-state');
-			} else {
-				Snackbar("통신이 원활하지 않습니다.");
 			}
 		});
 	}
@@ -1028,25 +1014,18 @@ function check_search_results_sort() {
 	let token = sessionStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') {} 
 	else {
-		a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-		$.when(a_jax).done(function () {
-			if (a_jax.responseJSON['result'] == 'success') {
+		Get_UserInfo(function(result) {
+			if (result) {
 				let posts = $(".post_block");
 				let post_one;
 				for (post_one of posts) {
-					for (let fav_post of a_jax.responseJSON["user_fav_list"]) {
+					for (let fav_post of result["user_fav_list"]) {
 						if ($(post_one).attr("p-id") == fav_post["_id"]) {
 							$(post_one).children('div').children('div.post_like').css("color", "#f00730");
 							$(post_one).children('div').children('div.post_like').attr("ch", "1");
 						}
 					}
 				}
-			} else if (a_jax['status'].toString().startsWith('4')) {
-				Snackbar("올바르지 않은 접근입니다.");
-				sessionStorage.removeItem('sj-state');
-				localStorage.removeItem('sj-state');
-			} else {
-				Snackbar("통신이 원활하지 않습니다.");
 			}
 		});
 	}
