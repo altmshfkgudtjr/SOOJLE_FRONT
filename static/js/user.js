@@ -136,8 +136,11 @@ function Sign_in() {									// 로그인 완료 버튼
 			if (data['result'] == 'success') {
 				let token = data['access_token'];
 				sessionStorage.setItem('sj-state', token);
+				window.location.replace("/board#recommend");
 				Get_UserInfo(function(result) {
+					nickname = "사용자"
 					if (result) {
+						nickname = result["user_nickname"];
 						login_modal_onoff();
 						$("#user_id").val("");
 						$("#user_pw").val("");
@@ -149,6 +152,7 @@ function Sign_in() {									// 로그인 완료 버튼
 						localStorage.removeItem('sj-state');
 						sessionStorage.removeItem('sj-state');
 					}
+					Menu_User_Info_Change(nickname);
 				});
 			} else if (data['result'] == 'not sejong') {
 				Snackbar("올바르지 않은 계정입니다.");
@@ -386,6 +390,7 @@ function Sign_Up() {		// 회원가입 완료 버튼
 			let token = data['access_token'];
 			sessionStorage.setItem('sj-state', token);
 			localStorage.setItem('sj-state', token);
+			window.location.replace("/board#recommend");
 			location.reload();
 		} else if (data['result'] == 'already id') {
 			Snackbar("이미 존재하는 아이디입니다.");

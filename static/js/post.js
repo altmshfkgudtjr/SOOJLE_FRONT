@@ -126,6 +126,7 @@ function get_topic_posts(tag) {
 		}
 	});
 }
+// 스크롤 이벤트
 let now_creating = 0;
 let header_scrolling = 0;
 $(document).scroll(function() {
@@ -368,6 +369,12 @@ Date.prototype.SetTime = function()
     		(mm[1] ? mm : '0'+ mm[0]) + ":" + 
     		(ss[1] ? ss : '0'+ ss[0]);
 }
+// 3000년 게시글인지 확인 : Custom 기능
+function IsContest(dt) {
+	let d = new Date(dt);
+	if (d.getFullYear() == 3000) return false;
+	return true;
+}
 // 게시글 제작 함수
 function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 	let target = $("#posts_target");
@@ -386,10 +393,10 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			fav_cnt = post_one['fav_cnt'];
 			title = post_one['title'];
 			date = post_one['date'].$date;
-			//date = new Date(date).SetTime();
-			date = change_date_realative(date);
-			if (post_one['end_date']) {
+			if (IsContest(post_one['end_date'].$date)) {
 				date = post_one['end_date'].$date;
+				date = change_date_realative(date);
+			} else {
 				date = change_date_realative(date);
 			}
 			url = post_one['url'];
@@ -465,9 +472,10 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 			fav_cnt = post_one['fav_cnt'];
 			title = post_one['title'];
 			date = post_one['date'].$date;
-			date = change_date_realative(date);
-			if (post_one['end_date']) {
+			if (IsContest(post_one['end_date'].$date)) {
 				date = post_one['end_date'].$date;
+				date = change_date_realative(date);
+			} else {
 				date = change_date_realative(date);
 			}
 			url = post_one['url'];
