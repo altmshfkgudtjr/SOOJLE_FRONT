@@ -146,9 +146,8 @@ function login_modal_onoff(callback) {
 	$("#signup_nickname").val("");
 	$("#signup_pw").val("");
 	$("#signup_pw_check").val("");
-	let formInputs = $('#user_id,#user_pw');
+	let formInputs = $('#user_id,#user_pw,#signup_id,#signup_nickname,#signup_pw,#signup_pw_check');
 	formInputs.focusout();
-	let w = $(document).width();
 	if (login_open == 0) {
 		$("body").css({"overflow": "hidden"});
 		$("#login_modal").removeClass("display_none");
