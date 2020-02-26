@@ -46,7 +46,7 @@ function get_recommend_posts(is_first = 0) {
 			let output = JSON.parse(data["newsfeed"]);
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
-			creating_post(output, "추천");
+			creating_post($("#posts_target"), output, "추천");
 			$("html, body").animate({scrollTop: 0}, 400);
 		} else {
 			Snackbar("다시 접속해주세요!");
@@ -81,7 +81,7 @@ function get_popularity_posts() {
 			let output = JSON.parse(json["newsfeed"]);
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
-			creating_post(output, "인기");
+			creating_post($("#posts_target"), output, "인기");
 			$("html, body").animate({scrollTop: 0}, 400);
 		} else {
 			Snackbar("다시 접속해주세요!");
@@ -119,7 +119,7 @@ function get_topic_posts(tag) {
 			let output = JSON.parse(json["newsfeed"]);
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
-			creating_post(output, topic);
+			creating_post($("#posts_target"), output, topic);
 			$("html, body").animate({scrollTop: 0}, 400);
 		} else {
 			Snackbar("다시 접속해주세요!");
@@ -130,8 +130,6 @@ function get_topic_posts(tag) {
 let now_creating = 0;
 let header_scrolling = 0;
 $(document).scroll(function() {
-	let w = $(document).width();
-	//if (w > 1200 && $(window).scrollTop() > 60) {
 	if (!mobilecheck() && $(window).scrollTop() == 0) {
 		$("#menu_container").removeAttr("style").css("transition", "0s ease-in-out");
 	} else if (!mobilecheck() && $(window).scrollTop() > 60) {
@@ -141,12 +139,12 @@ $(document).scroll(function() {
 			header_scrolling = 1;
 		}
 		setTimeout(function() {$("#menu_container").css("transition", "0s ease-in-out")}, 400);
-	} //else if (w > 1200 && $(window).scrollTop() < 60) {
+	}
 	else if (!mobilecheck() && $(window).scrollTop() < 60) {
 		$("#menu_container").removeAttr("style").css("transition", ".2s ease-in-out");
 		header_scrolling = 0;
 	}
-	if (where_topic == "뉴스피드"){
+	if (where_topic == "뉴스피드" || where_topic == "SOOJLE 엔진"){
 		if ($(window).scrollTop() + $(window).height() >= $(document).height() - 400){
 			if (save_posts.length == 0) return;
 			if (now_creating == 0) {
@@ -154,7 +152,10 @@ $(document).scroll(function() {
 				$("#posts_creating_loading").removeClass("display_none");
 				//$("#board_container").addClass("board_container_fixed");
 				setTimeout(function() {
-					get_posts_more(now_state);
+					if (where_topic == "뉴스피드")
+						get_posts_more(now_state, $("#posts_target"));
+					else
+						get_posts_more(now_state, $("#search_posts_target"));
 					setTimeout(function() {
 						now_creating = 0;
 					}, 200);
@@ -164,12 +165,12 @@ $(document).scroll(function() {
 	}
 });
 // 포스트 더보기
-function get_posts_more(before_state) {
+function get_posts_more(before_state, target) {
 	if (save_posts.length == 0) return;
 	setTimeout(function() {
 		let output = save_posts.slice(0,30);
 		save_posts = save_posts.slice(30);
-		creating_post(output, before_state);
+		creating_post(target, output, before_state);
 	}, 500);
 }
 
@@ -335,19 +336,24 @@ function change_date_realative(dt) {
 		(d.getMonth() + 1 > 9 ? '' : '0') + (d.getMonth() + 1) + '월 ' + 
 		(d.getDate() > 9 ? '' : '0') +  d.getDate() + '일'
 	};
-	if (minsAgo < 60 && minsAgo >= 0) { // 1시간 내
+	if (minsAgo < 60 && minsAgo >= 0) { 										// 1시간 내
 		result.formatted = minsAgo + '분 전';
-	} else if (minsAgo < 60 * 24 && minsAgo >= 0) { // 하루 내
+	} else if (minsAgo < 60 * 24 && minsAgo >= 0) { 							// 하루 내
 		result.formatted = Math.floor(minsAgo / 60) + '시간 전';
-	} else if (minsAgo < 60 * 25 * 7 && minsAgo >= 0) {
+	} else if (minsAgo >= 0) {													// 하루 이후
+		result.formatted = result.string_raw;
+	}
+	/*else if (minsAgo < 60 * 25 * 7 && minsAgo >= 0) {							// 7일 내
 		result.formatted = Math.floor(minsAgo / 60 / 24) + '일 전';
-	} else if (minsAgo < 60 * 25 * 7 * 4 && minsAgo >= 0) {
+	} 
+	else if (minsAgo < 60 * 25 * 7 * 4 && minsAgo >= 0) {						// 한달 내
 		result.formatted = Math.floor(minsAgo / 60 / 24 / 7) + '주 전';
-	} else if (minsAgo < 60 * 25 * 7 * 4 * 13 && minsAgo >= 0) {
+	} else if (minsAgo < 60 * 25 * 7 * 4 * 13 && minsAgo >= 0) {				// 1년 내
 		result.formatted = Math.floor(minsAgo / 60 / 24 / 7 / 4) + '달 전';
-	} else if (minsAgo >= 0) { // 한달 이상
+	} else if (minsAgo >= 0) { 													// 1년 이상
 		result.formatted = Math.floor(minsAgo / 60 / 24 / 7 / 4 / 12) + '년 전';
-	} else {
+	}*/
+	 else {																	// 현재 이후
 		result.formatted = result.string_raw + "까지";
 	}
 	return result.formatted;
@@ -378,179 +384,214 @@ function IsContest(dt) {
 	return true;
 }
 // 게시글 제작 함수
-function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
-	let target = $("#posts_target");
-	let w = $(document).width();
-	// 속도향상을 위한 선언
-	let check;
-	let id, fav_cnt, title, date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
-	//if (w < 1200) {
-	if (mobilecheck()) {
-		for (post_one of posts) {
-			check = 0;
-			if (is_fav_cnt == 0)
-				id = post_one["_id"];
-			else
-				id = post_one["_id"].$oid;	
-			fav_cnt = post_one['fav_cnt'];
-			title = post_one['title'];
-			date = post_one['date'].$date;
-			if (IsContest(post_one['end_date'])) {
-				date = post_one['end_date'].$date;
-				date = change_date_realative(date);
+function creating_post(target_tag, posts, now_creating_state = "", is_fav_cnt = 1, callback) {
+	let target = target_tag;
+	new Promise(function(resolve, reject) {
+		$("#posts_creating_loading").removeClass("display_none");
+		if (mobilecheck()) Creating_mobile_post(posts, '', is_fav_cnt, function(result){ resolve(result); });
+		else Creating_pc_post(posts, '', is_fav_cnt, function(result){ resolve(result); });
+	}).then(function(result) {
+		if (now_creating_state == now_state){
+			if (typeof(callback) == 'function') {
+				callback(result);					// For Search Functin
 			} else {
-				date = change_date_realative(date);
+				target.append($(result));			// For Others
+				Do_Like_Sign();
 			}
-			url = post_one['url'];
-			domain = url.split('/');
-			domain = domain[0] + '//' + domain[2];
-			img = post_one['img'];
-			if (is_fav_cnt == 1) {
-				fav_cnt_block = `<div class="post_like_cnt">${fav_cnt}</div>`;
-			} else {
-				fav_cnt_block = ``;
-			}
-			if (img.toString().indexOf("everytime") != -1) {
-				img = "./static/image/everytime.jpg";
-				check = 1;
-			} else if (img.toString().indexOf("daum") != -1) {
-				img = "./static/image/sjstation.png";
-				check = 1;
-			}
-			/* tag 에다가 레이아웃 배치할 것 */
-			if (img.length < 10 || img.length == undefined && check == 0) {
-				tag = `<div class="post_block" p-id="${id}">
-						<a href="${url}" target="_blank">
-							<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
-								<div class="post_title">${title}</div>
-							</div>
-						</a>
-						<a href="${url}" target="_blank">
-							<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
-								<div class="post_url">${domain}</div>
-								<div class="post_date">${date}</div>
-							</div>
-						</a>
-						<div class="post_block_set_cont_noimg noselect">
-							<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-							${fav_cnt_block}
-						</div>
-						<div class="post_menu noselect" onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-					</div>`
-			} else {
-				tag = `<div class="post_block" p-id="${id}">
-						<a href="${url}" target="_blank">
-							<div class="post_title_cont pointer" onmousedown="post_view($(this))">
-								<div class="post_title">${title}</div>
-							</div>
-						</a>
-						<a href="${url}" target="_blank">
-							<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url('${img}')"></div>
-						</a>
-						<a href="${url}" target="_blank">
-							<div class="post_block_cont pointer" onmousedown="post_view($(this))">
-								<div class="post_url">${domain}</div>
-								<div class="post_date">${date}</div>
-							</div>
-						</a>
-						<div class="post_block_set_cont noselect">
-							<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-							${fav_cnt_block}
-						</div>
-						<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-					</div>`
-			}
-			if (now_creating_state == now_state)
-				target.append($(tag));
-			check_image(tag);
 		}
-	} else {
-		for (post_one of posts) {
-			check = 0;
-			if (is_fav_cnt == 0)
-				id = post_one["_id"];
-			else
-				id = post_one["_id"].$oid;
-			fav_cnt = post_one['fav_cnt'];
-			title = post_one['title'];
-			date = post_one['date'].$date;
-			if (IsContest(post_one['end_date'])) {
-				date = post_one['end_date'].$date;
-				date = change_date_realative(date);
-			} else {
-				date = change_date_realative(date);
-			}
-			url = post_one['url'];
-			domain = url.split('/');
-			domain = domain[0] + '//' + domain[2];
-			img = post_one['img'];
-			if (is_fav_cnt == 1) {
-				fav_cnt_block = `<div class="post_like_cnt">${fav_cnt}</div>`;
-			} else {
-				fav_cnt_block = ``;
-			}
-			if (img.toString().indexOf("everytime") != -1) {
-				img = "./static/image/everytime.jpg";
-				check = 1;
-			} else if (img.toString().indexOf("daum") != -1) {
-				img = "./static/image/sjstation.png";
-				check = 1;
-			}
-			if (img.length < 10 || img.length == undefined && check == 0) {
-				tag = `<div class="post_block" p-id="${id}">
-						<a href="${url}" target="_blank">
-							<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
-								<div class="post_title">${title}</div>
-							</div>
-						</a>
-						<a href="${url}" target="_blank">
-							<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
-								<div class="post_url">${domain}</div>
-								<div class="post_date">${date}</div>
-							</div>
-						</a>
-						<div class="post_block_set_cont_noimg noselect">
-							<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-							${fav_cnt_block}
-						</div>
-						<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-					</div>`
-			} else {
-				tag = `<div class="post_block" p-id="${id}">
-						<a href="${url}" target="_blank">
-							<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url('${img}')"></div>
-						</a>
-						<a href="${url}" target="_blank">
-							<div class="post_title_cont pointer" onmousedown="post_view($(this))">
-								<div class="post_title">${title}</div>
-							</div>
-						</a>
-						<a href="${url}" target="_blank">
-							<div class="post_block_cont pointer" onmousedown="post_view($(this))">
-								<div class="post_url">${domain}</div>
-								<div class="post_date">${date}</div>
-							</div>
-						</a>
-						<div class="post_block_set_cont noselect">
-							<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-							${fav_cnt_block}
-						</div>
-						<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-					</div>`
-			}
-			if (now_creating_state == now_state)
-				target.append($(tag));
-			check_image(tag);
-		}
-	}
-	// 로딩 모달 제거
-	window.setTimeout(function() {
+	}).then(function() {
 		$("#mobile_controller_none").addClass("display_none");
 		$("#board_loading_modal").addClass("board_loading_modal_unvisible");
 		$(".mobile_controller").removeAttr("style");
 		$("#none_click").addClass("display_none");
-	}, 200);
-	// 좋아요 표시
+
+		$("#menu_container").removeClass("menu_container_fixed");
+		$("#posts_creating_loading").addClass("display_none");
+		$("#board_container").removeClass("board_container_fixed");
+	});
+}
+// 모바일 태그 만들기
+function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback) {
+	let check;
+	let id, fav_cnt, title, date, end_date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
+	for (post_one of posts) {
+		check = 0;
+		if (post_one['_id'].$oid) id = post_one['_id'].$oid;
+		else id = post_one['_id'];
+		fav_cnt = post_one['fav_cnt'];
+		title = post_one['title'];
+		if (post_one['date'].$date) date = post_one['date'].$date;
+		else date = post_one['date'];
+		if (post_one['end_date']) {
+			if (post_one['end_date'].$date) end_date = post_one['end_date'].$date;
+			else end_date = post_one['end_date'];
+			if (IsContest(end_date)) {					// 공모전 게시글 판별
+				date = change_date_realative(end_date);
+			} else {
+				date = change_date_realative(date);
+			}
+		} else {
+			date = change_date_realative(date);
+		}
+		url = post_one['url'];
+		domain = url.split('/');
+		domain = domain[0] + '//' + domain[2];
+		img = post_one['img'];
+		if (is_fav_cnt == 1) {
+			fav_cnt_block = `<div class="post_like_cnt">${fav_cnt}</div>`;
+		} else {
+			fav_cnt_block = ``;
+		}
+		if (img.toString().indexOf("everytime") != -1) {
+			img = "./static/image/everytime.jpg";
+			check = 1;
+		} else if (img.toString().indexOf("daum") != -1) {
+			img = "./static/image/sjstation.png";
+			check = 1;
+		}
+		if (img.length < 10 || img.length == undefined && check == 0) {
+			tag = `<div class="post_block" p-id="${id}">
+					<a href="${url}" target="_blank">
+						<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
+							<div class="post_title">${title}</div>
+						</div>
+					</a>
+					<a href="${url}" target="_blank">
+						<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
+							<div class="post_url">${domain}</div>
+							<div class="post_date">${date}</div>
+						</div>
+					</a>
+					<div class="post_block_set_cont_noimg noselect">
+						<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
+						${fav_cnt_block}
+					</div>
+					<div class="post_menu noselect" onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
+				</div>`
+		} else {
+			tag = `<div class="post_block" p-id="${id}">
+					<a href="${url}" target="_blank">
+						<div class="post_title_cont pointer" onmousedown="post_view($(this))">
+							<div class="post_title">${title}</div>
+						</div>
+					</a>
+					<a href="${url}" target="_blank">
+						<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url('${img}')"></div>
+					</a>
+					<a href="${url}" target="_blank">
+						<div class="post_block_cont pointer" onmousedown="post_view($(this))">
+							<div class="post_url">${domain}</div>
+							<div class="post_date">${date}</div>
+						</div>
+					</a>
+					<div class="post_block_set_cont noselect">
+						<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
+						${fav_cnt_block}
+					</div>
+					<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
+				</div>`
+		}
+		target_tag += tag;
+		check_image(tag);
+	}
+	// Callback Function
+	if (typeof(callback) == 'function') {
+		callback(target_tag);
+	}
+	return target_tag;
+}
+// PC 태그 만들기
+function Creating_pc_post(posts = [], target_tag = '', is_fav_cnt, callback) {
+	let check;
+	let id, fav_cnt, title, date, end_date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
+	for (post_one of posts) {
+		check = 0;
+		if (post_one['_id'].$oid) id = post_one['_id'].$oid;
+		else id = post_one['_id'];
+		fav_cnt = post_one['fav_cnt'];
+		title = post_one['title'];
+		if (post_one['date'].$date) date = post_one['date'].$date;
+		else date = post_one['date'];
+		if (post_one['end_date']) {
+			if (post_one['end_date'].$date) end_date = post_one['end_date'].$date;
+			else end_date = post_one['end_date'];
+			if (IsContest(end_date)) {					// 공모전 게시글 판별
+				date = change_date_realative(end_date);
+			} else {
+				date = change_date_realative(date);
+			}
+		} else {
+			date = change_date_realative(date);
+		}
+		url = post_one['url'];
+		domain = url.split('/');
+		domain = domain[0] + '//' + domain[2];
+		img = post_one['img'];
+		if (is_fav_cnt == 1) {
+			fav_cnt_block = `<div class="post_like_cnt">${fav_cnt}</div>`;
+		} else {
+			fav_cnt_block = ``;
+		}
+		if (img.toString().indexOf("everytime") != -1) {
+			img = "./static/image/everytime.jpg";
+			check = 1;
+		} else if (img.toString().indexOf("daum") != -1) {
+			img = "./static/image/sjstation.png";
+			check = 1;
+		}
+		if (img.length < 10 || img.length == undefined && check == 0) {
+			tag = `<div class="post_block" p-id="${id}">
+					<a href="${url}" target="_blank">
+						<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
+							<div class="post_title">${title}</div>
+						</div>
+					</a>
+					<a href="${url}" target="_blank">
+						<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
+							<div class="post_url">${domain}</div>
+							<div class="post_date">${date}</div>
+						</div>
+					</a>
+					<div class="post_block_set_cont_noimg noselect">
+						<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
+						${fav_cnt_block}
+					</div>
+					<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
+				</div>`
+		} else {
+			tag = `<div class="post_block" p-id="${id}">
+					<a href="${url}" target="_blank">
+						<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url('${img}')"></div>
+					</a>
+					<a href="${url}" target="_blank">
+						<div class="post_title_cont pointer" onmousedown="post_view($(this))">
+							<div class="post_title">${title}</div>
+						</div>
+					</a>
+					<a href="${url}" target="_blank">
+						<div class="post_block_cont pointer" onmousedown="post_view($(this))">
+							<div class="post_url">${domain}</div>
+							<div class="post_date">${date}</div>
+						</div>
+					</a>
+					<div class="post_block_set_cont noselect">
+						<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
+						${fav_cnt_block}
+					</div>
+					<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
+				</div>`
+		}
+		target_tag += tag;
+		check_image(tag);
+	}
+	// Callback Function
+	if (typeof(callback) == 'function') {
+		callback(target_tag);
+	}
+	return target_tag;
+}
+// 게시글에 좋아요 표시 함수
+function Do_Like_Sign() {
 	let token = sessionStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') {}
 	else {
@@ -566,24 +607,29 @@ function creating_post(posts, now_creating_state = "", is_fav_cnt = 1) {
 						}
 					}
 				}
-			} else {
-				Snackbar("통신이 원활하지 않습니다.");
 			}
 		});
 	}
-	$("#menu_container").removeClass("menu_container_fixed");
-	$("#posts_creating_loading").addClass("display_none");
-	$("#board_container").removeClass("board_container_fixed");
 }
-	
-/*{
-"_id":<obi>,
-"fav_cnt":<int>,
-"date":<int>,
-"title":<string>,
-"url":<string>,
-"img":<json_array:string>
-}*/
+function check_image(tag) {
+	let onerror = `./static/image/shortcut_black_mobile.png`;
+	if ($(tag).find("div.post_block_img_cont") == undefined) return false;
+	if ($(tag).find("div.post_block_img_cont").css("background-image") == undefined) return false;
+	let img_url = $(tag).find("div.post_block_img_cont").css("background-image").slice(5, -2);
+	let checkimg = new Image();
+	let p_id = $(tag).attr("p-id");
+	checkimg.onerror = function() {
+		try {
+			$("#posts_target").find(`div[p-id=${p_id}]`).find("div.post_block_img_cont").css("background-image", `url(${onerror})`);
+		} catch(e) {
+			console.log(e);
+		}
+	}
+	checkimg.onload = function() {
+		// Image Loading Success
+	}
+	checkimg.src = img_url;
+}
 
 /* 
 0 : 좋아요, 뷰, 검색
@@ -635,7 +681,7 @@ function get_user_like_posts() {
 		} else {
 			save_posts = posts.slice(30);
 			posts = posts.slice(0, 30);
-			creating_post(posts, now_creating_state, 0);
+			creating_post($("#posts_target"), posts, now_creating_state, 0);
 		}
 	});
 }
@@ -683,23 +729,7 @@ function get_user_view_posts() {
 		} else {
 			save_posts = posts.slice(30);
 			posts = posts.slice(0, 30);
-			creating_post(posts, now_creating_state, 0);
+			creating_post($("#posts_target"), posts, now_creating_state, 0);
 		}
 	});
-}
-
-function check_image(tag) {
-	let onerror = `./static/image/shortcut_black_mobile.png`;
-	if ($(tag).find("div.post_block_img_cont") == undefined) return false;
-	if ($(tag).find("div.post_block_img_cont").css("background-image") == undefined) return false;
-	let img_url = $(tag).find("div.post_block_img_cont").css("background-image").slice(5, -2);
-	let checkimg = new Image();
-	let p_id = $(tag).attr("p-id");
-	checkimg.onerror = function() {
-		$("#posts_target").find(`div[p-id=${p_id}]`).find("div.post_block_img_cont").css("background-image", `url(${onerror})`);
-	}
-	checkimg.onload = function() {
-		// Image Loading Success
-	}
-	checkimg.src = img_url;
 }

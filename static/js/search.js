@@ -240,16 +240,10 @@ function search_text(text) {
 	$("#posts_target").append(category_tabs);
 	$("#posts_target").append(`<div id="search_posts_target"></div>`);
 	let send_data = {search: text.trim().toLowerCase()};
-	let a_jax_domain = A_JAX("http://"+host_ip+"/domain_search", "POST", null, send_data);
-	let a_jax0 = A_JAX("http://"+host_ip+"/priority_search/200", "POST", null, send_data);
-	let a_jax1 = A_JAX("http://"+host_ip+"/category_search/1/200", "POST", null, send_data);
-	let a_jax2 = A_JAX("http://"+host_ip+"/category_search/2/200", "POST", null, send_data);
-	let a_jax3 = A_JAX("http://"+host_ip+"/category_search/3/200", "POST", null, send_data);
-	let a_jax4 = A_JAX("http://"+host_ip+"/category_search/4/200", "POST", null, send_data);
 	// 연관검색어 임시 중단
 	//let a_jax_recommend = A_JAX("http://"+host_ip+"/get_similarity_words", "POST", null, send_data);
-	$.when(a_jax_domain).done(function () {
-		let json = a_jax_domain.responseJSON;
+	$.when(A_JAX("http://"+host_ip+"/domain_search", "POST", null, send_data)).done(function (data) {
+		let json = data;
 		if (json['result'] == 'success') {
 			domain_posts = json["search_result"];
 			insert_domain_post(json["search_result"], now_creating_state);
@@ -258,8 +252,8 @@ function search_text(text) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	$.when(a_jax0).done(function () {
-		let json = a_jax0.responseJSON;
+	$.when(A_JAX("http://"+host_ip+"/priority_search/200", "POST", null, send_data)).done(function (data) {
+		let json = data;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(0, json["search_result"]);
 			//insert_search_post(0, output, now_creating_state);
@@ -269,8 +263,8 @@ function search_text(text) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	$.when(a_jax1).done(function () {
-		let json = a_jax1.responseJSON;
+	$.when(A_JAX("http://"+host_ip+"/category_search/1/200", "POST", null, send_data)).done(function (data) {
+		let json = data;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(1, json["search_result"]);
 			//insert_search_post(1, output, now_creating_state);
@@ -280,8 +274,8 @@ function search_text(text) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	$.when(a_jax2).done(function () {
-		let json = a_jax2.responseJSON;
+	$.when(A_JAX("http://"+host_ip+"/category_search/2/200", "POST", null, send_data)).done(function (data) {
+		let json = data;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(2, json["search_result"]);
 			//insert_search_post(2, output, now_creating_state);
@@ -291,8 +285,8 @@ function search_text(text) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	$.when(a_jax3).done(function () {
-		let json = a_jax3.responseJSON;
+	$.when(a_jax3 = A_JAX("http://"+host_ip+"/category_search/3/200", "POST", null, send_data)).done(function (data) {
+		let json = data;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(3, json["search_result"]);
 			//insert_search_post(3, output, now_creating_state);
@@ -302,8 +296,8 @@ function search_text(text) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	$.when(a_jax4).done(function () {
-		let json = a_jax4.responseJSON;
+	$.when(a_jax4 = A_JAX("http://"+host_ip+"/category_search/4/200", "POST", null, send_data)).done(function (data) {
+		let json = data;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(4, json["search_result"]);
 			//insert_search_post(4, output, now_creating_state);
@@ -412,177 +406,20 @@ function insert_search_post(target_num, posts, now_creating_state = "", is_fav_c
 	else if (Number(target_name) == 2) {target_name = "행사&모임";}
 	else if (Number(target_name) == 3) {target_name = "일반";}
 	else {target_name = "커뮤니티";}
-	let w = $(document).width();
-	// 속도향상을 위한 선언
-	let check;
-	let id, fav_cnt, title, date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
 	let target_tag = `<div class="sr_title">${target_name}</div>`;
-	//if (w < 1200) {
-	if (mobilecheck()) {
-		for (post_one of posts) {
-			check = 0;
-			if (is_fav_cnt == 0)
-				id = post_one["_id"];
-			else
-				id = post_one["_id"];
-			fav_cnt = post_one['fav_cnt'];
-			title = post_one['title'];
-			date = post_one['date'];
-			if (IsContest(post_one['end_date'])) {
-				date = post_one['end_date'];
-				date = change_date_realative(date);
-			} else {
-				date = change_date_realative(date);
-			}
-			url = post_one['url'];
-			domain = url.split('/');
-			domain = domain[0] + '//' + domain[2];
-			img = post_one['img'];
-			if (is_fav_cnt == 1) {
-				fav_cnt_block = `<div class="post_like_cnt">${fav_cnt}</div>`;
-			} else {
-				fav_cnt_block = ``;
-			}
-			if (img.toString().indexOf("everytime") != -1) {
-				img = "./static/image/everytime.jpg";
-				check = 1;
-			} else if (img.toString().indexOf("daum") != -1) {
-				img = "./static/image/sjstation.png";
-				check = 1;
-			}
-			/* tag 에다가 레이아웃 배치할 것 */
-			if (img.length < 10 || img.length == undefined && check == 0) {
-					tag = `<div class="post_block" p-id="${id}">
-							<a href="${url}" target="_blank">
-								<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
-									<div class="post_title">${title}</div>
-								</div>
-							</a>
-							<a href="${url}" target="_blank">
-								<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
-									<div class="post_url">${domain}</div>
-									<div class="post_date">${date}</div>
-								</div>
-							</a>
-							<div class="post_block_set_cont_noimg noselect">
-								<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-								${fav_cnt_block}
-							</div>
-							<div class="post_menu noselect" onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-						</div>`
-			} else {
-					tag = `<div class="post_block" p-id="${id}">
-							<a href="${url}" target="_blank">
-								<div class="post_title_cont pointer" onmousedown="post_view($(this))">
-									<div class="post_title">${title}</div>
-								</div>
-							</a>
-							<a href="${url}" target="_blank">
-								<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url('${img}')"></div>
-							</a>
-							<a href="${url}" target="_blank">
-								<div class="post_block_cont pointer" onmousedown="post_view($(this))">
-									<div class="post_url">${domain}</div>
-									<div class="post_date">${date}</div>
-								</div>
-							</a>
-							<div class="post_block_set_cont noselect">
-								<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-								${fav_cnt_block}
-							</div>
-							<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-						</div>`
-			}
-			target_tag += tag;
+	creating_post($("#search_posts_target"), posts, now_creating_state, is_fav_cnt, function(tag_str) {
+		let line = `<div class="sr_line"></div>`;
+		let more;
+		if (posts_len == 0) { is_posts_there.a += 1; }
+		else if (posts_len < 6) {more = ``;}
+		else {more = `<div class="sr_more" onclick="more_posts(${target_num})">더 보기</div>`;}
+		tag_str = target_tag + tag_str + more + line;
+		if (now_creating_state == now_state){
+			target.append($(tag_str));
 		}
-	} else {
-		for (post_one of posts) {
-			check = 0;
-			if (is_fav_cnt == 0)
-				id = post_one["_id"];
-			else
-				id = post_one["_id"];
-			fav_cnt = post_one['fav_cnt'];
-			title = post_one['title'];
-			date = post_one['date'];
-			if (IsContest(post_one['end_date'])) {
-				date = post_one['end_date'];
-				date = change_date_realative(date);
-			} else {
-				date = change_date_realative(date);
-			}
-			url = post_one['url'];
-			domain = url.split('/');
-			domain = domain[0] + '//' + domain[2];
-			img = post_one['img'];
-			if (is_fav_cnt == 1) {
-				fav_cnt_block = `<div class="post_like_cnt">${fav_cnt}</div>`;
-			} else {
-				fav_cnt_block = ``;
-			}
-			if (img.toString().indexOf("everytime") != -1) {
-				img = "./static/image/everytime.jpg";
-				check = 1;
-			} else if (img.toString().indexOf("daum") != -1) {
-				img = "./static/image/sjstation.png";
-				check = 1;
-			}
-			if (img.length < 10 || img.length == undefined && check == 0) {
-				tag = `<div class="post_block" p-id="${id}">
-						<a href="${url}" target="_blank">
-							<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
-								<div class="post_title">${title}</div>
-							</div>
-						</a>
-						<a href="${url}" target="_blank">
-							<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
-								<div class="post_url">${domain}</div>
-								<div class="post_date">${date}</div>
-							</div>
-						</a>
-						<div class="post_block_set_cont_noimg noselect">
-							<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-							${fav_cnt_block}
-						</div>
-						<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-					</div>`
-			} else {
-				tag = `<div class="post_block" p-id="${id}">
-						<a href="${url}" target="_blank">
-							<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url('${img}')"></div>
-						</a>
-						<a href="${url}" target="_blank">
-							<div class="post_title_cont pointer" onmousedown="post_view($(this))">
-								<div class="post_title">${title}</div>
-							</div>
-						</a>
-						<a href="${url}" target="_blank">
-							<div class="post_block_cont pointer" onmousedown="post_view($(this))">
-								<div class="post_url">${domain}</div>
-								<div class="post_date">${date}</div>
-							</div>
-						</a>
-						<div class="post_block_set_cont noselect">
-							<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-							${fav_cnt_block}
-						</div>
-						<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-					</div>`
-			}
-			target_tag += tag;
-		}
-	}
-	let line = `<div class="sr_line"></div>`;
-	let more;
-	if (posts_len == 0) { is_posts_there.a += 1; }
-	else if (posts_len < 6) {more = ``;}
-	else {more = `<div class="sr_more" onclick="more_posts(${target_num})">더 보기</div>`;}
-	target_tag = target_tag + more + line;
-	if (now_creating_state == now_state)
-		target.append(target_tag);
-	//if (w > 1200) {
+	});
+
 	if (!mobilecheck()) {
-		//$("#menu_container").removeClass("menu_container_searching");
 		setTimeout(function() {$("#menu_container").css({"transition": ".2s ease-in-out"});}, 200);
 	}
 }
@@ -636,7 +473,7 @@ function recommend_word_click(tag) {
 }
 
 // a_jax_posts[i] 0, 1, 2, 3, 4
-// more posts function
+// 검색결과 페이지에서 카테고리 선택
 function more_posts(target_num, is_fav_cnt = 1) {
 	$(".category_checked").removeClass("category_checked");
 	$(`#category${target_num + 1}`).addClass("category_checked");
@@ -649,209 +486,25 @@ function more_posts(target_num, is_fav_cnt = 1) {
 	let more_left_tag = `<img src="/static/icons/back.png" class="sr_more_to_before noselect" onclick="before_posts(${target_num});">${target_name}`;
 	$("#board_info_text").empty();
 	$("#board_info_text").append(more_left_tag);
-	if (a_jax_posts[target_num].length == 0) return 1;
+	if (a_jax_posts[target_num] != undefined && a_jax_posts[target_num].length == 0) return 1;	// 아무 포스트가 없음
 	let now_creating_state = now_state;
 	is_posts_done.a = 1;
 	window.scroll(0, 0);
-	$("#posts_creating_loading").removeClass("display_none");
-	//$("#menu_container").addClass("menu_container_searching");
 	$("#menu_container").removeAttr("style");
-	let posts = a_jax_posts[target_num];
 	$("#search_posts_target").empty();
-	let target = $("#search_posts_target");
-	let w = $(document).width();
-	// 속도향상을 위한 선언
-	let check;
-	let id, fav_cnt, title, date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
+	
+	save_posts = a_jax_posts[target_num];	///////////////////
+	let posts = save_posts.slice(0,30);		/*	 30개 분할   */
+	save_posts = save_posts.slice(30);		//////////////////
+	creating_post($("#search_posts_target"), posts, now_creating_state, is_fav_cnt);
+
 	setTimeout(function() {
-		//if (w < 1200) {
-		if (mobilecheck()) {
-			for (post_one of posts) {
-				check = 0;
-				if (is_fav_cnt == 0)
-					id = post_one["_id"];
-				else
-					id = post_one["_id"];	
-				fav_cnt = post_one['fav_cnt'];
-				title = post_one['title'];
-				date = post_one['date'];
-				if (IsContest(post_one['end_date'])) {
-					date = post_one['end_date'];
-					date = change_date_realative(date);
-				} else {
-					date = change_date_realative(date);
-				}
-				url = post_one['url'];
-				domain = url.split('/');
-				domain = domain[0] + '//' + domain[2];
-				img = post_one['img'];
-				if (is_fav_cnt == 1) {
-					fav_cnt_block = `<div class="post_like_cnt">${fav_cnt}</div>`;
-				} else {
-					fav_cnt_block = ``;
-				}
-				if (img.toString().indexOf("everytime") != -1) {
-					img = "./static/image/everytime.jpg";
-					check = 1;
-				} else if (img.toString().indexOf("daum") != -1) {
-					img = "./static/image/sjstation.png";
-					check = 1;
-				}
-				/* tag 에다가 레이아웃 배치할 것 */
-				if (img.length < 10 || img.length == undefined && check == 0) {
-						tag = `<div class="post_block" p-id="${id}">
-								<a href="${url}" target="_blank">
-									<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
-										<div class="post_title">${title}</div>
-									</div>
-								</a>
-								<a href="${url}" target="_blank">
-									<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
-										<div class="post_url">${domain}</div>
-										<div class="post_date">${date}</div>
-									</div>
-								</a>
-								<div class="post_block_set_cont_noimg noselect">
-									<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-									${fav_cnt_block}
-								</div>
-								<div class="post_menu noselect" onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-							</div>`
-				} else {
-						tag = `<div class="post_block" p-id="${id}">
-								<a href="${url}" target="_blank">
-									<div class="post_title_cont pointer" onmousedown="post_view($(this))">
-										<div class="post_title">${title}</div>
-									</div>
-								</a>
-								<a href="${url}" target="_blank">
-									<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url('${img}')"></div>
-								</a>
-								<a href="${url}" target="_blank">
-									<div class="post_block_cont pointer" onmousedown="post_view($(this))">
-										<div class="post_url">${domain}</div>
-										<div class="post_date">${date}</div>
-									</div>
-								</a>
-								<div class="post_block_set_cont noselect">
-									<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-									${fav_cnt_block}
-								</div>
-								<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-							</div>`
-				}
-				if (now_creating_state == now_state)
-					target.append($(tag));
-			}
-		} else {
-			for (post_one of posts) {
-				check = 0;
-				if (is_fav_cnt == 0)
-					id = post_one["_id"];
-				else
-					id = post_one["_id"];
-				fav_cnt = post_one['fav_cnt'];
-				title = post_one['title'];
-				date = post_one['date'];
-				if (IsContest(post_one['end_date'])) {
-					date = post_one['end_date'];
-					date = change_date_realative(date);
-				} else {
-					date = change_date_realative(date);
-				}
-				url = post_one['url'];
-				domain = url.split('/');
-				domain = domain[0] + '//' + domain[2];
-				img = post_one['img'];
-				if (is_fav_cnt == 1) {
-					fav_cnt_block = `<div class="post_like_cnt">${fav_cnt}</div>`;
-				} else {
-					fav_cnt_block = ``;
-				}
-				if (img.toString().indexOf("everytime") != -1) {
-					img = "./static/image/everytime.jpg";
-					check = 1;
-				} else if (img.toString().indexOf("daum") != -1) {
-					img = "./static/image/sjstation.png";
-					check = 1;
-				}
-				if (img.length < 10 || img.length == undefined && check == 0) {
-					tag = `<div class="post_block" p-id="${id}">
-							<a href="${url}" target="_blank">
-								<div class="post_title_cont_noimg pointer" onmousedown="post_view($(this))">
-									<div class="post_title">${title}</div>
-								</div>
-							</a>
-							<a href="${url}" target="_blank">
-								<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
-									<div class="post_url">${domain}</div>
-									<div class="post_date">${date}</div>
-								</div>
-							</a>
-							<div class="post_block_set_cont_noimg noselect">
-								<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-								${fav_cnt_block}
-							</div>
-							<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-						</div>`
-				} else {
-					tag = `<div class="post_block" p-id="${id}">
-							<a href="${url}" target="_blank">
-								<div class="post_block_img_cont" onmousedown="post_view($(this))" style="background-image: url('${img}')"></div>
-							</a>
-							<a href="${url}" target="_blank">
-								<div class="post_title_cont pointer" onmousedown="post_view($(this))">
-									<div class="post_title">${title}</div>
-								</div>
-							</a>
-							<a href="${url}" target="_blank">
-								<div class="post_block_cont pointer" onmousedown="post_view($(this))">
-									<div class="post_url">${domain}</div>
-									<div class="post_date">${date}</div>
-								</div>
-							</a>
-							<div class="post_block_set_cont noselect">
-								<div class="post_like" ch="0" onclick="post_like_button($(this))"><i class="far fa-heart"></i></div>
-								${fav_cnt_block}
-							</div>
-							<div class="post_menu " onclick="post_menu_open($(this))"><i class="fas fa-ellipsis-h"></i></div>
-						</div>`
-				}
-				if (now_creating_state == now_state)
-					target.append($(tag));
-			}
-		}
-	}, 100);
-	setTimeout(function() {
-		// 로딩 제거
-		let token = sessionStorage.getItem('sj-state');
-		if (token == null || token == undefined || token == 'undefined') {} 
-		else {
-			Get_UserInfo(function(result) {
-				if (result) {
-					let posts = $(".post_block");
-					let post_one;
-					for (post_one of posts) {
-						for (let fav_post of result["user_fav_list"]) {
-							if ($(post_one).attr("p-id") == fav_post["_id"]) {
-								$(post_one).children('div').children('div.post_like').css("color", "#f00730");
-								$(post_one).children('div').children('div.post_like').attr("ch", "1");
-							}
-						}
-					}
-				}
-			});
-		}
-	}, 700);
-	$("#posts_creating_loading").addClass("display_none");
-	setTimeout(function() {
-		//if (w > 1200) {
 		if (!mobilecheck()) {
 			$("#menu_container").removeAttr("style");//.removeClass("menu_container_searching");
 		}
 	}, 1000);
 }
-// back to search selection page
+// 검색 카테고리페이지에서 뒤로가기 클릭
 function before_posts(target_num, is_fav_cnt = 1) {
 	$(".category_checked").removeClass("category_checked");
 	$("#category0").addClass("category_checked");
@@ -877,25 +530,7 @@ function before_posts(target_num, is_fav_cnt = 1) {
 			is_posts_there.a += 1;
 		}
 	}
-	// 로딩 제거
-	let token = sessionStorage.getItem('sj-state');
-	if (token == null || token == undefined || token == 'undefined') {} 
-	else {
-		Get_UserInfo(function(result) {
-			if (result) {
-				let posts = $(".post_block");
-				let post_one;
-				for (post_one of posts) {
-					for (let fav_post of result["user_fav_list"]) {
-						if ($(post_one).attr("p-id") == fav_post["_id"]) {
-							$(post_one).children('div').children('div.post_like').css("color", "#f00730");
-							$(post_one).children('div').children('div.post_like').attr("ch", "1");
-						}
-					}
-				}
-			}
-		});
-	}
+	Do_Like_Sign();			// 로딩 제거
 	is_searching = 0;
 	$("#posts_creating_loading").addClass("display_none");
 }
@@ -952,7 +587,6 @@ let is_posts_there = {
 	}
 }
 is_posts_done.registerListener(function(val) {
-	// fixed 제거 sticky으로 변경
 	if (val == 6) {
 		setTimeout(function() {
 			check_search_results_sort();
@@ -996,8 +630,7 @@ function similarity_sort(index, sum) {
 }
 let index = [0, 1, 2, 3, 4], sum = [0, 0, 0, 0, 0];
 function check_search_results_sort() {
-	index = [0, 1, 2, 3, 4];
-	sum = [0, 0, 0, 0, 0];
+	idx = [0, 1, 2, 3, 4];
 	for (let i = 0; i < 5; i++) {
 		if (a_jax_posts[i] != undefined){
 			for (let j = 0; j<5; j++){
@@ -1006,29 +639,11 @@ function check_search_results_sort() {
 			}
 		}
 	}
-	index = similarity_sort(index, sum);
+	index = similarity_sort(idx, sum);
 	for (let i = 0; i< 5; i++) {
 		insert_search_post(index[i], a_jax_posts[index[i]], now_state);
 	}
-	// 로딩 제거
-	let token = sessionStorage.getItem('sj-state');
-	if (token == null || token == undefined || token == 'undefined') {} 
-	else {
-		Get_UserInfo(function(result) {
-			if (result) {
-				let posts = $(".post_block");
-				let post_one;
-				for (post_one of posts) {
-					for (let fav_post of result["user_fav_list"]) {
-						if ($(post_one).attr("p-id") == fav_post["_id"]) {
-							$(post_one).children('div').children('div.post_like').css("color", "#f00730");
-							$(post_one).children('div').children('div.post_like').attr("ch", "1");
-						}
-					}
-				}
-			}
-		});
-	}
+	Do_Like_Sign();			// 로딩 제거
 	is_searching = 0;
 	$("#posts_creating_loading").addClass("display_none");
 }
@@ -1063,4 +678,44 @@ function out_of_search() {
 	$("#mobile_search_input").val("");
 	$("#pc_search_input").val("");
 	mobile_search_modal_close();
+}
+
+// 검색 디버깅 함수
+function test_search() {
+	send_data = {search: "최유경 교수"};
+	$.when(A_JAX("http://"+host_ip+"/priority_search/200", "POST", null, send_data)).done(function (data) {
+		if (data['result'] == "success") {
+			console.log("priority, ", data["search_result"].length);
+		} else {
+			console.log("priority Failed");
+		}
+	});
+	$.when(A_JAX("http://"+host_ip+"/category_search/1/200", "POST", null, send_data)).done(function (data) {
+		if (data['result'] == "success") {
+			console.log("catogory1, ", data["search_result"].length);
+		} else {
+			console.log("catogory1 Failed");
+		}
+	});
+	$.when(A_JAX("http://"+host_ip+"/category_search/2/200", "POST", null, send_data)).done(function (data) {
+		if (data['result'] == "success") {
+			console.log("catogory2, ", data["search_result"].length);
+		} else {
+			console.log("catogory2 Failed");
+		}
+	});
+	$.when(a_jax3 = A_JAX("http://"+host_ip+"/category_search/3/200", "POST", null, send_data)).done(function (data) {
+		if (data['result'] == "success") {
+			console.log("catogory3, ", data["search_result"].length);
+		} else {
+			console.log("catogory3 Failed");
+		}
+	});
+	$.when(a_jax4 = A_JAX("http://"+host_ip+"/category_search/4/200", "POST", null, send_data)).done(function (data) {
+		if (data['result'] == "success") {
+			console.log("catogory4, ", data["search_result"].length);
+		} else {
+			console.log("catogory4 Failed");
+		}
+	});
 }
