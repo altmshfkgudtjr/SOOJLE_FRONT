@@ -890,12 +890,13 @@ html, body {
 	margin-bottom: 5px;
 }
 .login_input{
+	box-sizing: border-box;
 	color:#8a8a8a;
 	display: block;
-	width: 85%;
+	width: 100%;
 	max-width: 500px;
-	height: 30px;
-	padding: 5px 5%;
+	height: 45px;
+	padding: 5px 45px 5px 5%;
 	border: 2px solid #ccc;
 	-moz-border-radius: 27px;
 	-webkit-border-radius: 27px;
@@ -2325,4 +2326,19 @@ span.selectbox_choose {
 }
 .search_option_select > .search_option_round {
 	background-color: #C30E2E;
+}
+.signup_check_img {
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	font-size: 16px;
+	top: 12px;
+	right: 20px;
+	transition: .1s ease-in-out;
+}
+.signup_check_img_warning {
+	color: #C30E2E;
+}
+.signup_check_img_ok {
+	color: #22bf06;
 }

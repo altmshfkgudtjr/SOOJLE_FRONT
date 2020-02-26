@@ -244,28 +244,44 @@ function SignUp_blank_Check() {					// 회원가입란 공백 검사
 }
 function SignUp_id_Check(tag) {					// 회원가입 ID 검사
 	// ID 길이는 6~30자 사이
-	if ($(tag).val().length >= 6
+	if ($(tag).val().length == 0) {
+		$(tag).removeAttr("style");
+		$($(tag).next()[0]).removeAttr("style");
+		$($(tag).siblings(":last")[0]).empty();
+	} else if ($(tag).val().length >= 6
 	 && $(tag).val().length <= 30
 	 && ABORT_ID.indexOf($(tag).val().toLowerCase()) == -1) {
 		$(tag).css("border", "2px solid #22bf06");
 		$($(tag).next()[0]).css("color", "#22bf06");
+		$($(tag).siblings(":last")[0]).empty();
+		$($(tag).siblings(":last")[0]).append(`<i class="fas fa-check-circle signup_check_img_ok"></i>`);
 		return true;
 	} else {
 		$(tag).removeAttr("style");
 		$($(tag).next()[0]).removeAttr("style");
+		$($(tag).siblings(":last")[0]).empty();
+		$($(tag).siblings(":last")[0]).append(`<i class="fas fa-exclamation-triangle signup_check_img_warning"></i>`);
 	}
 	return false;
 }
 function SignUp_nickname_Check(tag) {			// 회원가입 닉네임 검사
-	if ($(tag).val().length >= 1
+	if ($(tag).val().length == 0) {
+		$(tag).removeAttr("style");
+		$($(tag).next()[0]).removeAttr("style");
+		$($(tag).siblings(":last")[0]).empty();
+	} else if ($(tag).val().length >= 1
 	 && $(tag).val().length <= 16
 	 && ABORT_ID.indexOf($(tag).val().toLowerCase()) == -1) {
 		$(tag).css("border", "2px solid #22bf06");
 		$($(tag).next()[0]).css("color", "#22bf06");
+		$($(tag).siblings(":last")[0]).empty();
+		$($(tag).siblings(":last")[0]).append(`<i class="fas fa-check-circle signup_check_img_ok"></i>`);
 		return true;
 	} else {
 		$(tag).removeAttr("style");
 		$($(tag).next()[0]).removeAttr("style");
+		$($(tag).siblings(":last")[0]).empty();
+		$($(tag).siblings(":last")[0]).append(`<i class="fas fa-exclamation-triangle signup_check_img_warning"></i>`);
 	}
 	return false;
 }
@@ -276,7 +292,13 @@ function Change_nickname_Check(str) {			// 닉네임 공백란 검사
 }
 function SignUp_pw_Check(tag) {					// 회원가입 PW 검사
 	let check_num = 0;
-	// 공백 확인
+	if ($(tag).val().length == 0) {
+		$(tag).removeAttr("style");
+		$($(tag).next()[0]).removeAttr("style");
+		$($(tag).siblings(":last")[0]).empty();
+		return false;
+	}
+	// 공백 포함 확인
 	if($(tag).val().search(/\s/) != -1) {
 		$(tag).removeAttr("style");
 		$($(tag).next()[0]).removeAttr("style");
@@ -309,22 +331,34 @@ function SignUp_pw_Check(tag) {					// 회원가입 PW 검사
 	if (check_num == 3) {
 		$(tag).css("border", "2px solid #22bf06");
 		$($(tag).next()[0]).css("color", "#22bf06");
+		$($(tag).siblings(":last")[0]).empty();
+		$($(tag).siblings(":last")[0]).append(`<i class="fas fa-check-circle signup_check_img_ok"></i>`);
 		return true;
 	} else {
 		$(tag).removeAttr("style");
 		$($(tag).next()[0]).removeAttr("style");
+		$($(tag).siblings(":last")[0]).empty();
+		$($(tag).siblings(":last")[0]).append(`<i class="fas fa-exclamation-triangle signup_check_img_warning"></i>`);
 	}
 	return false;
 }
 function SignUp_pw_same_Check(pw_tag, tag) {	// 회원가입 PW 재확인 검사
 	let pw_before = $(pw_tag).val();
-	if ($(tag).val() === pw_before && $(tag).val() != '') {
+	if ($(tag).val().length == 0) {
+		$(tag).removeAttr("style");
+		$($(tag).next()[0]).removeAttr("style");
+		$($(tag).siblings(":last")[0]).empty();
+	} else if ($(tag).val() === pw_before) {
 		$(tag).css("border", "2px solid #22bf06");
 		$($(tag).next()[0]).css("color", "#22bf06");
+		$($(tag).siblings(":last")[0]).empty();
+		$($(tag).siblings(":last")[0]).append(`<i class="fas fa-check-circle signup_check_img_ok"></i>`);
 		return true;
 	} else {
 		$(tag).removeAttr("style");
 		$($(tag).next()[0]).removeAttr("style");
+		$($(tag).siblings(":last")[0]).empty();
+		$($(tag).siblings(":last")[0]).append(`<i class="fas fa-exclamation-triangle signup_check_img_warning"></i>`);
 	}
 	return false;
 }
