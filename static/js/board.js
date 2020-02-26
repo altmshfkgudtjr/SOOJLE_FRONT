@@ -129,7 +129,7 @@ function menu_modal_off() {
 // 모바일에서 현재 카테고리 클릭하면 메뉴 열리는 함수
 function Mobile_menu_modal_onoff() {
 	let now = $("#board_info_board").text();
-	if(mobilecheck() && now != "SOOJLE 엔진" || mobilecheck() && ) {
+	if(mobilecheck() && now != "SOOJLE 엔진") {
 		menu_modal_onoff();
 	}
 }

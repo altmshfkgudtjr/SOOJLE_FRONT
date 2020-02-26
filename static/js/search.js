@@ -199,13 +199,11 @@ function search_text(text) {
 	now_state = text;
 	let now_creating_state = now_state;
 	// 좌측 메뉴 버그 수정 fixed
-	//$("#menu_container").addClass("menu_container_searching");
 	$("#menu_container").removeAttr("style");
 	$("#menu_container").removeClass("menu_container_fixed");
 	// 현재 검색 중이면 차단
 	if (is_searching == 1) return;
 	is_searching = 1;
-
 	is_posts_there.a = 0;
 	is_posts_done.a = 0;
 	if (text == ""){
@@ -242,11 +240,11 @@ function search_text(text) {
 	let search_option_div = `
 								<div id="search_option_container" class="search_option_container display_none">
 									<div class="search_option_title noselect">검색옵션</div>
-									<div id="search_option_sort_date" class="search_option_sort pointer" onclick="Search_Option_Sort()">
+									<div id="search_option_sort_date" class="search_option_sort pointer" onclick="Search_Option_Sort_Date()">
 										<div class="search_option_round"></div>
 										<span>최신순</span>
 									</div>
-									<div id="search_option_sort_relevance" class="search_option_sort pointer search_option_select" onclick="Search_Option_Sort()">
+									<div id="search_option_sort_relevance" class="search_option_sort pointer search_option_select" onclick="Search_Option_Sort_Relevance()">
 										<div class="search_option_round"></div>
 										<span>관련도순</span>
 									</div>
@@ -254,74 +252,14 @@ function search_text(text) {
 							`;
 	$("#posts_target").append(search_option_div);
 	$("#posts_target").append(`<div id="search_posts_target"></div>`);
-	let send_data = {search: text.trim().toLowerCase()};
+	let send_data = {};
+	send_data["search"] = text.trim().toLowerCase();
+	send_data["opiton"] = {
+		"sort": 'trend'
+	}
+	Get_Search_Posts(send_data, now_creating_state);	// 검색 API 호출
 	// 연관검색어 임시 중단
 	//let a_jax_recommend = A_JAX("http://"+host_ip+"/get_similarity_words", "POST", null, send_data);
-	$.when(A_JAX("http://"+host_ip+"/domain_search", "POST", null, send_data)).done(function (data) {
-		let json = data;
-		if (json['result'] == 'success') {
-			domain_posts = json["search_result"];
-			insert_domain_post(json["search_result"], now_creating_state);
-		} else {
-			is_posts_done.a += 1;
-			Snackbar("다시 접속해주세요!");
-		}
-	});
-	$.when(A_JAX("http://"+host_ip+"/priority_search/200", "POST", null, send_data)).done(function (data) {
-		let json = data;
-		if (json['result'] == 'success') {
-			let output = remove_duplicated(0, json["search_result"]);
-			//insert_search_post(0, output, now_creating_state);
-			a_jax_posts[0] = output;
-		} else {
-			is_posts_done.a += 1;
-			Snackbar("다시 접속해주세요!");
-		}
-	});
-	$.when(A_JAX("http://"+host_ip+"/category_search/1/200", "POST", null, send_data)).done(function (data) {
-		let json = data;
-		if (json['result'] == 'success') {
-			let output = remove_duplicated(1, json["search_result"]);
-			//insert_search_post(1, output, now_creating_state);
-			a_jax_posts[1] = output;
-		} else {
-			is_posts_done.a += 1;
-			Snackbar("다시 접속해주세요!");
-		}
-	});
-	$.when(A_JAX("http://"+host_ip+"/category_search/2/200", "POST", null, send_data)).done(function (data) {
-		let json = data;
-		if (json['result'] == 'success') {
-			let output = remove_duplicated(2, json["search_result"]);
-			//insert_search_post(2, output, now_creating_state);
-			a_jax_posts[2] = output;
-		} else {
-			is_posts_done.a += 1;
-			Snackbar("다시 접속해주세요!");
-		}
-	});
-	$.when(a_jax3 = A_JAX("http://"+host_ip+"/category_search/3/200", "POST", null, send_data)).done(function (data) {
-		let json = data;
-		if (json['result'] == 'success') {
-			let output = remove_duplicated(3, json["search_result"]);
-			//insert_search_post(3, output, now_creating_state);
-			a_jax_posts[3] = output;
-		} else {
-			is_posts_done.a += 1;
-			Snackbar("다시 접속해주세요!");
-		}
-	});
-	$.when(a_jax4 = A_JAX("http://"+host_ip+"/category_search/4/200", "POST", null, send_data)).done(function (data) {
-		let json = data;
-		if (json['result'] == 'success') {
-			let output = remove_duplicated(4, json["search_result"]);
-			//insert_search_post(4, output, now_creating_state);
-			a_jax_posts[4] = output;
-		} else {
-			is_posts_done.a += 1;
-			Snackbar("다시 접속해주세요!");
-		}
-	});
 	// 연관검색어 임시중지
 	/*$.when(a_jax_recommend).done(function () {
 		let json = a_jax_recommend.responseJSON;
@@ -333,6 +271,69 @@ function search_text(text) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});*/
+}
+// 검색 API 호출
+function Get_Search_Posts(sendData, now_creating_state) {
+	$.when(A_JAX("http://"+host_ip+"/domain_search", "POST", null, sendData)).done(function (data) {
+		let json = data;
+		if (json['result'] == 'success') {
+			domain_posts = json["search_result"];
+			insert_domain_post(json["search_result"], now_creating_state);
+		} else {
+			is_posts_done.a += 1;
+			Snackbar("다시 접속해주세요!");
+		}
+	});
+	$.when(A_JAX("http://"+host_ip+"/priority_search/200", "POST", null, sendData)).done(function (data) {
+		let json = data;
+		if (json['result'] == 'success') {
+			let output = remove_duplicated(0, json["search_result"]);
+			a_jax_posts[0] = output;
+		} else {
+			is_posts_done.a += 1;
+			Snackbar("다시 접속해주세요!");
+		}
+	});
+	$.when(A_JAX("http://"+host_ip+"/category_search/1/200", "POST", null, sendData)).done(function (data) {
+		let json = data;
+		if (json['result'] == 'success') {
+			let output = remove_duplicated(1, json["search_result"]);
+			a_jax_posts[1] = output;
+		} else {
+			is_posts_done.a += 1;
+			Snackbar("다시 접속해주세요!");
+		}
+	});
+	$.when(A_JAX("http://"+host_ip+"/category_search/2/200", "POST", null, sendData)).done(function (data) {
+		let json = data;
+		if (json['result'] == 'success') {
+			let output = remove_duplicated(2, json["search_result"]);
+			a_jax_posts[2] = output;
+		} else {
+			is_posts_done.a += 1;
+			Snackbar("다시 접속해주세요!");
+		}
+	});
+	$.when(a_jax3 = A_JAX("http://"+host_ip+"/category_search/3/200", "POST", null, sendData)).done(function (data) {
+		let json = data;
+		if (json['result'] == 'success') {
+			let output = remove_duplicated(3, json["search_result"]);
+			a_jax_posts[3] = output;
+		} else {
+			is_posts_done.a += 1;
+			Snackbar("다시 접속해주세요!");
+		}
+	});
+	$.when(a_jax4 = A_JAX("http://"+host_ip+"/category_search/4/200", "POST", null, sendData)).done(function (data) {
+		let json = data;
+		if (json['result'] == 'success') {
+			let output = remove_duplicated(4, json["search_result"]);
+			a_jax_posts[4] = output;
+		} else {
+			is_posts_done.a += 1;
+			Snackbar("다시 접속해주세요!");
+		}
+	});
 }
 // 검색 창 구성 함수
 function search_container_set() {
@@ -402,7 +403,7 @@ function insert_domain_post(posts, now_creating_state = "") {
 // 검색 결과를 해당 div에 넣어줌
 function insert_search_post(target_num, posts, now_creating_state = "", is_fav_cnt = 1) {
 	is_posts_done.a += 1;
-	a_jax_posts[target_num] = posts;	// posts 저장
+	a_jax_posts[target_num] = posts;		// posts 저장
 	let posts_len = 0;
 	if (posts == undefined) posts_len = 0;
 	else {
@@ -498,7 +499,7 @@ function more_posts(target_num, is_fav_cnt = 1) {
 	else if (Number(target_num) == 2) {target_name = "행사&모임";}
 	else if (Number(target_num) == 3) {target_name = "일반";}
 	else {target_name = "커뮤니티";}
-	let more_left_tag = `<img src="/static/icons/back.png" class="sr_more_to_before noselect" onclick="before_posts(${target_num});">${target_name}`;
+	let more_left_tag = `<img src="/static/icons/back.png" class="sr_more_to_before noselect" onclick="before_posts();">${target_name}`;
 	$("#board_info_text").empty();
 	$("#board_info_text").append(more_left_tag);
 	if (a_jax_posts[target_num] != undefined && a_jax_posts[target_num].length == 0) return 1;	// 아무 포스트가 없음
@@ -520,7 +521,7 @@ function more_posts(target_num, is_fav_cnt = 1) {
 	}, 1000);
 }
 // 검색 카테고리페이지에서 뒤로가기 클릭
-function before_posts(target_num, is_fav_cnt = 1) {
+function before_posts(is_fav_cnt = 1) {
 	$(".category_checked").removeClass("category_checked");
 	$("#category0").addClass("category_checked");
 	is_posts_there.a = 0;
@@ -695,6 +696,71 @@ function out_of_search() {
 	mobile_search_modal_close();
 }
 
+
+let search_option_open = false;
+
+// 검색 옵션========================================================================
+function Search_Option() {
+	if (search_option_open) {
+		search_option_open = !search_option_open;
+		$("#search_option_container").addClass("display_none");
+	} else {
+		search_option_open = !search_option_open;
+		$("#search_option_container").removeClass("display_none");
+	}
+}
+// 최신순 정렬
+function Search_Option_Sort_Date() {
+	let date_sort = $("#search_option_sort_date").hasClass("search_option_select");
+	if (!date_sort) {
+		$("#search_option_sort_relevance").removeClass("search_option_select");
+		$("#search_option_sort_date").addClass("search_option_select");
+		for (let i in a_jax_posts) {
+			a_jax_posts[i].sort(function(a, b){
+				return new Date(b.date) - new Date(a.date);
+			});
+		}
+	}
+	Search_Option_Sort();
+}
+// 관련도순 정렬
+function Search_Option_Sort_Relevance() {
+	let relevance_sort = $("#search_option_sort_relevance").hasClass("search_option_select");
+	if (!relevance_sort) {
+		$("#search_option_sort_relevance").addClass("search_option_select");
+		$("#search_option_sort_date").removeClass("search_option_select");
+		for (let i in a_jax_posts) {
+			a_jax_posts[i].sort(function(a, b){
+				return b.similarity - a.similarity;
+			});
+		}
+	}
+	Search_Option_Sort();
+}
+// 정렬된 데이터 적용
+function Search_Option_Sort() {
+	let target = $(".category_checked").text();
+	// 변경된 순서 적용
+	if (target == "통합 검색") {
+		before_posts();
+	} else if (target == "최근 트렌드") {
+		category_select($("#category1"));
+	} else if (target == "진로&구인") {
+		category_select($("#category2"));
+	} else if (target == "행사&모임") {
+		category_select($("#category3"));
+	} else if (target == "일반") {
+		category_select($("#category4"));
+	} else if (target == "커뮤니티") {
+		category_select($("#category5"));
+	}
+}
+
+
+
+
+
+
 // 검색 디버깅 함수
 function test_search() {
 	send_data = {search: "최유경 교수"};
@@ -733,31 +799,4 @@ function test_search() {
 			console.log("catogory4 Failed");
 		}
 	});
-}
-
-let search_option_open = false;
-
-// 검색 옵션========================================================================
-function Search_Option() {
-	if (search_option_open) {
-		search_option_open = !search_option_open;
-		$("#search_option_container").addClass("display_none");
-	} else {
-		search_option_open = !search_option_open;
-		$("#search_option_container").removeClass("display_none");
-	}
-}
-// 검색 정렬 함수
-function Search_Option_Sort() {
-	let date_sort = $("#search_option_sort_date").hasClass("search_option_select");
-	let relevance_sort = $("#search_option_sort_relevance").hasClass("search_option_select");
-	if (date_sort == false) {							// 관련도순 -> 최신순
-		$("#search_option_sort_relevance").removeClass("search_option_select");
-		$("#search_option_sort_date").addClass("search_option_select");
-		console.log("최신순 검색");
-	} else {											// 최신순 -> 관련도순
-		$("#search_option_sort_relevance").addClass("search_option_select");
-		$("#search_option_sort_date").removeClass("search_option_select");
-		console.log("관련도순 검색");
-	}
 }

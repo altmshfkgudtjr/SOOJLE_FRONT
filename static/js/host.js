@@ -2,4 +2,4 @@
 const server_ip = "203.250.148.39:8080"
 const Jungmin_ip = "221.146.111.9:5000"
 const host_ip = "203.250.148.39:8080"
-//const host_ip = "172.20.10.3:5000"
+//const host_ip = "172.30.1.53:5000"
