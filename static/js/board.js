@@ -126,6 +126,12 @@ function menu_modal_off() {
 		menu_open = 0;
 	}
 }
+// 모바일에서 현재 카테고리 클릭하면 메뉴 열리는 함수
+function Mobile_menu_modal_onoff() {
+	if(mobilecheck()) {
+		menu_modal_onoff();
+	}
+}
 
 
 // Login modal on off function
