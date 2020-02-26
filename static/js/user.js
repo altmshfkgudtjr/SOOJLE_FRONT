@@ -296,6 +296,9 @@ function SignUp_pw_Check(tag) {					// 회원가입 PW 검사
 		$(tag).removeAttr("style");
 		$($(tag).next()[0]).removeAttr("style");
 		$($(tag).siblings(":last")[0]).empty();
+		$("#pwleast").removeAttr("style");
+		$("#pwletternum").removeAttr("style");
+		$("#pwsymbol").removeAttr("style");
 		return false;
 	}
 	// 공백 포함 확인
