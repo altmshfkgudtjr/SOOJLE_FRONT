@@ -1,4 +1,18 @@
-let analysis_data;
+let analysis_data = {};
+const time_event = {
+					'1225': `<span style="color: green">행복한</span> <span style="color:red">메리크리스마스!</span>`,
+					'11': `새해<span style="font-weight:bold; color:red;">복</span> 많이 받으세요!`,
+					'1224': `<span style="color:red">크리스마스</span>를 <span style="color:green">준비</span>하세요!`,
+					'1111': `11월 11일은 <span sytle="font-weight:bold">'가래떡데이'</span>랍니다.`,
+					'55': `<span style="color:green">동심</span>으로 돌아가볼까요?`,
+					'214': `카카오 100% 함유 <span color="green">초콜릿</span>은 어떤가요?`,
+					'31': `3.1절의 정식명칭은 <span style="font-weight:bold">독립선언일</span>이라는거 알고계셨나요?`,
+					'66': `애국선열과 국군장병들의 충절을 추모합니다`,
+					'815': `<span style="font-weight:bold">광복절.</span> 대한민국 독립일`,
+					'103': `단군이 고조선을 처음 건국한 날입니다.`,
+					'109': `한국어는 자랑스러운 <span style="color:red">대한민국</span>의 언어입니다.`,
+					'314': `달콤한 <span color="green">사탕</span>.. 저도 먹고싶네요!`
+				}
 
 function Click_analysistic() {
 	location.replace("/board#analysistics");
@@ -83,19 +97,6 @@ function greeting_enlargement() {
 }
 
 // 시각 div Insert----------------------------------------------------
-var time_event = {
-					'1225': `<span style="color: green">행복한</span> <span style="color:red">메리크리스마스!</span>`,
-					'11': `새해<span style="font-weight:bold; color:red;">복</span> 많이 받으세요!`,
-					'1224': `<span style="color:red">크리스마스</span>를 <span style="color:green">준비</span>하세요!`,
-					'1111': `11월 11일은 <span sytle="font-weight:bold">'가래떡데이'</span>랍니다.`,
-					'55': `<span style="color:green">동심</span>으로 돌아가볼까요?`,
-					'214': `달콤한 <span color="green">초콜릿</span>을 드셔보세요!`,
-					'31': `3.1절의 정식명칭은 <span style="font-weight:bold">독립선언일</span>이라는거 알고계셨나요?`,
-					'66': `애국선열과 국군장병들의 충절을 추모합니다`,
-					'815': `<span style="font-weight:bold">광복절.</span> 대한민국 독립일`,
-					'103': `단군이 고조선을 처음 건국한 날입니다.`,
-					'109': `한국어는 자랑스러운 <span style="color:red">대한민국</span>의 언어입니다.`
-				}
 function insert_time_div() {
 	let div = `
 				<div class="anlt_time_wrap">
@@ -703,7 +704,7 @@ function Detection_Device() {
 	});
 }
 
-var menu_realtime_init = 0;
+let menu_realtime_init = 0;
 if (!mobilecheck()) menu_realtime_searchword();
 function menu_realtime_searchword() {
 	let target = $("#menu_realtime_searchwords_wrapper");

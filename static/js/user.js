@@ -24,19 +24,8 @@ function agreement() {
 // 버튼 Event
 $("#privacy_ok_btn").on({
 	"click": function() {
-		Sign_Up_Cancel();	// 회원가입 창 닫기
-		// 보내기 동의한다는 AJAX 날리기
-		Get_UserInfo(function(result) {
-			if (result) {
-				login_modal_onoff();
-				$("#user_id").val("");
-				$("#user_pw").val("");
-				if (result['auto_login'] == 1)
-					localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
-				After_login();
-			}
-		})
 		agreement();	// 개인정보처리방침 동의모달 닫기
+		Sign_Up_Send();
 	}
 });
 $("#privacy_no_btn").on({
@@ -121,7 +110,6 @@ function Sign_in() {									// 로그인 완료 버튼
 		$("#loading_modal").removeClass("loading_modal_unvisible");
 		$.when(A_JAX("http://"+host_ip+"/sign_in", "POST", null, send_data)).done(function (data) {
 			$("#loading_modal").addClass("loading_modal_unvisible");
-			console.log(data['result']);
 			if (data['result'] == 'success') {
 				let token = data['access_token'];
 				sessionStorage.setItem('sj-state', token);
@@ -368,7 +356,7 @@ function SignUp_pw_same_Check(pw_tag, tag) {	// 회원가입 PW 재확인 검사
 
 function Key_Signup() {		// 회원가입 키 입력
 	if (window.event.keyCode == 13) {
-		if (!SignUp_blank_Check()) Sign_Up();
+		if (SignUp_blank_Check()) Sign_Up();
 	} else {
 		let now_tag = window.event.target;
 		if (now_tag.id == "signup_id") {
@@ -410,6 +398,9 @@ function Sign_Up() {		// 회원가입 완료 버튼
 		$("#signup_pw_check").select().focus();
 		return;
 	}
+	agreement();
+}
+function Sign_Up_Send() {	// 회원가입 API 호출
 	let sendData = {};
 	sendData['id'] = $("#signup_id").val();
 	sendData['nickname'] = $("#signup_nickname").val();

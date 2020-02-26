@@ -253,6 +253,7 @@ function user_data_delete_button_ok() {
 			Snackbar("계정이 삭제되었습니다.");
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
+			location.replace("/board#recommend");
 			location.reload();
 		} else {
 			Snackbar("통신이 원활하지 않습니다.");
