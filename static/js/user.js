@@ -114,13 +114,14 @@ function Sign_in_check() {								// 로그인란 공백 검사
 	return true;						// 로그인란 공백 검사
 }
 function Sign_in() {									// 로그인 완료 버튼
-	if (Sign_in_check) {
+	if (Sign_in_check()) {
 		let user_id = $("#user_id").val();
 		let user_pw = $("#user_pw").val();
 		let send_data = {id: user_id, pw: user_pw};
 		$("#loading_modal").removeClass("loading_modal_unvisible");
 		$.when(A_JAX("http://"+host_ip+"/sign_in", "POST", null, send_data)).done(function (data) {
 			$("#loading_modal").addClass("loading_modal_unvisible");
+			console.log(data['result']);
 			if (data['result'] == 'success') {
 				let token = data['access_token'];
 				sessionStorage.setItem('sj-state', token);
@@ -157,6 +158,10 @@ function Sign_in() {									// 로그인 완료 버튼
 				sessionStorage.removeItem('sj-state');
 				localStorage.removeItem('sj-state');
 				Snackbar("블랙리스트된 사용자입니다.");
+			} else if (data['result'] == 'No member') {
+				sessionStorage.removeItem('sj-state');
+				localStorage.removeItem('sj-state');
+				Snackbar("존재하지 않는 회원입니다.");
 			} else {
 				Snackbar("서버와의 연결이 원활하지 않습니다.");
 			}
