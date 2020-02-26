@@ -2240,3 +2240,89 @@ span.selectbox_choose {
 	font-size: 20px;
 	line-height: 40px;
 }
+/* Contest Post Done, -ing Display CSS */
+.contest_status_box_ing {
+	position: relative;
+	display: inline-block;
+	width: auto;
+	height: 14px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	border: 1px solid #C30E2E;
+	border-radius: 5px;
+	text-align: center;
+	line-height: 14px;
+	font-size: 10px;
+}
+.contest_status_box_done {
+	position: relative;
+	display: inline-block;
+	width: auto;
+	height: 14px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	border: 1px solid #49A844;
+	border-radius: 5px;
+	text-align: center;
+	line-height: 14px;
+	font-size: 10px;
+}
+
+.search_option_btn {
+	position: relative;
+	display: inline-block;
+	width: auto;
+	padding: 0 20px;
+	font-size: 20px;
+	line-height: 30px;
+	color: #bbb;
+	border-bottom: 2px solid rgba(0,0,0,0);
+	transition: .1s ease-in-out;
+}
+.search_option_btn:hover {
+	color: black;
+}
+.search_option_container {
+	position: relative;
+	width: 100%;
+	height: 35px;
+	font-size: 16px;
+	border-bottom: 1px solid #ebebeb;
+	margin-bottom: 15px;
+}
+.search_option_title {
+	position: relative;
+	display: inline-block;
+	box-sizing: border-box;
+	width: auto;
+	height: 20px;
+	padding: 0 10px;
+	font-weight: bold;
+}
+.search_option_sort {
+	position: relative;
+	display: inline-block;
+	box-sizing: border-box;
+	width: auto;
+	height: 20px;
+	padding: 0 20px;
+	color: #bbb;
+}
+.search_option_round {
+	position: relative;
+	display: inline-block;
+	box-sizing: border-box;
+	width: 6px;
+	height: 6px;
+	margin: 0 4px 2px 0;
+	border-radius: 50%;
+	background-color: #bbb;
+	border: none;
+	line-height: 20px;
+}
+.search_option_select {
+	color: black;
+}
+.search_option_select > .search_option_round {
+	background-color: #C30E2E;
+}

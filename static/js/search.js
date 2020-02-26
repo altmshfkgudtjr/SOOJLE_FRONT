@@ -236,8 +236,23 @@ function search_text(text) {
 							<div id="category3" class="category_tab pointer" onclick="category_select($(this))">행사&모임</div>\
 							<div id="category4" class="category_tab pointer" onclick="category_select($(this))">일반</div>\
 							<div id="category5" class="category_tab pointer" onclick="category_select($(this))">커뮤니티</div>\
+							<div class="search_option_btn pointer" onclick="Search_Option()"><i class="fas fa-ellipsis-h"></i></div>\
 						</div>`;
 	$("#posts_target").append(category_tabs);
+	let search_option_div = `
+								<div id="search_option_container" class="search_option_container display_none">
+									<div class="search_option_title noselect">검색옵션</div>
+									<div id="search_option_sort_date" class="search_option_sort pointer" onclick="Search_Option_Sort()">
+										<div class="search_option_round"></div>
+										<span>최신순</span>
+									</div>
+									<div id="search_option_sort_relevance" class="search_option_sort pointer search_option_select" onclick="Search_Option_Sort()">
+										<div class="search_option_round"></div>
+										<span>관련도순</span>
+									</div>
+								</div>
+							`;
+	$("#posts_target").append(search_option_div);
 	$("#posts_target").append(`<div id="search_posts_target"></div>`);
 	let send_data = {search: text.trim().toLowerCase()};
 	// 연관검색어 임시 중단
@@ -718,4 +733,31 @@ function test_search() {
 			console.log("catogory4 Failed");
 		}
 	});
+}
+
+let search_option_open = false;
+
+// 검색 옵션========================================================================
+function Search_Option() {
+	if (search_option_open) {
+		search_option_open = !search_option_open;
+		$("#search_option_container").addClass("display_none");
+	} else {
+		search_option_open = !search_option_open;
+		$("#search_option_container").removeClass("display_none");
+	}
+}
+// 검색 정렬 함수
+function Search_Option_Sort() {
+	let date_sort = $("#search_option_sort_date").hasClass("search_option_select");
+	let relevance_sort = $("#search_option_sort_relevance").hasClass("search_option_select");
+	if (date_sort == false) {							// 관련도순 -> 최신순
+		$("#search_option_sort_relevance").removeClass("search_option_select");
+		$("#search_option_sort_date").addClass("search_option_select");
+		console.log("최신순 검색");
+	} else {											// 최신순 -> 관련도순
+		$("#search_option_sort_relevance").addClass("search_option_select");
+		$("#search_option_sort_date").removeClass("search_option_select");
+		console.log("관련도순 검색");
+	}
 }

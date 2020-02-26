@@ -413,7 +413,7 @@ function creating_post(target_tag, posts, now_creating_state = "", is_fav_cnt = 
 // 모바일 태그 만들기
 function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback) {
 	let check;
-	let id, fav_cnt, title, date, end_date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
+	let id, fav_cnt, title, date, end_date, url, domain, img, subimg, tag, post_one, fav_cnt_block, contest_block;
 	for (post_one of posts) {
 		check = 0;
 		if (post_one['_id'].$oid) id = post_one['_id'].$oid;
@@ -503,7 +503,7 @@ function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback)
 // PC 태그 만들기
 function Creating_pc_post(posts = [], target_tag = '', is_fav_cnt, callback) {
 	let check;
-	let id, fav_cnt, title, date, end_date, url, domain, img, subimg, tag, post_one, fav_cnt_block;
+	let id, fav_cnt, title, date, end_date, url, domain, img, subimg, tag, post_one, fav_cnt_block, contest_block;
 	for (post_one of posts) {
 		check = 0;
 		if (post_one['_id'].$oid) id = post_one['_id'].$oid;

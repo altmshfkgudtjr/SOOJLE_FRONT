@@ -936,7 +936,6 @@
 		display: inline-block;
 		width: auto;
 		padding: 0 10px 5px 10px;
-		font-size: 12px;
 		font-size: 16px;
 		line-height: 20px;
 		border-bottom: 2px solid rgba(0,0,0,0);
@@ -1018,6 +1017,11 @@
 		margin-top: 8px;
 		line-height: 25px;
 		font-size: 14px;
+	}
+	.search_option_btn {
+		padding: 0 15px;
+		font-size: 16px;
+		line-height: 20px;
 	}
 }
 /*=============================================================================*/
