@@ -72,7 +72,7 @@ async function URL_Select() {
 		Go_feedback();
 	}
 	else if (url_target == "soojle") {
-		check_managet_qualification_reload();
+		Go_management();
 	} else if (url_target == "signinup") {
 		get_recommend_posts(1);
 		Login_open();
