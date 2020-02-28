@@ -16,6 +16,7 @@ var where_topic;
 
 // 게시글이 없을 때, 실행
 function No_posts(target) {
+	target.empty();
 	$("#posts_creating_loading").addClass("display_none");
 	let imoticon = imoticons[Math.floor(Math.random() * imoticons.length)];
 	//<img src="./static/image/none_posts.png" class="sr_none_posts_img">
