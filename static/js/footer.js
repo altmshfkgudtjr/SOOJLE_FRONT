@@ -73,9 +73,14 @@ async function URL_Select() {
 	}
 	else if (url_target == "soojle") {
 		Go_management();
-	} else if (url_target == "signinup") {
+	}
+	else if (url_target == "signinup") {
 		get_recommend_posts(1);
 		Login_open();
+	}
+	else if (url_target == "dvnote") {
+		menu_open = 1;
+		Go_dvnote();
 	}
 	// Else : Nothing Do.
 }

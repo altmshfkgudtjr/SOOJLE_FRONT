@@ -14,7 +14,18 @@ let posts_update = 1;
 var now_topic;
 var where_topic;
 
-
+// 게시글이 없을 때, 실행
+function No_posts(target) {
+	$("#posts_creating_loading").addClass("display_none");
+	let imoticon = imoticons[Math.floor(Math.random() * imoticons.length)];
+	//<img src="./static/image/none_posts.png" class="sr_none_posts_img">
+	let no_posts_tag = `
+		<div class="sr_none_posts_cont">
+			<div class="sr_none_posts_img noselect">${imoticon}</div>
+			<div class="sr_none_posts_text">포스트가 존재하지 않습니다!</div>
+		</div>`;
+	target.append(no_posts_tag);
+}
 // 추천 뉴스피드 불러오기 함수
 function click_recommend_posts() {
 	location.replace("/board#recommend");
@@ -117,9 +128,14 @@ function get_topic_posts(tag) {
 		let json = a_jax.responseJSON;
 		if (json['result'] == 'success') {
 			let output = JSON.parse(json["newsfeed"]);
-			save_posts = output.slice(30);
-			output = output.slice(0, 30);
-			creating_post($("#posts_target"), output, topic);
+			if (output.length == 0) {
+				No_posts($("#posts_target"));
+
+			} else {
+				save_posts = output.slice(30);
+				output = output.slice(0, 30);	
+				creating_post($("#posts_target"), output, topic);
+			}
 			$("html, body").animate({scrollTop: 0}, 400);
 		} else {
 			Snackbar("다시 접속해주세요!");
@@ -334,26 +350,27 @@ function change_date_realative(dt) {
 		(d.getSeconds() > 9 ? '' : '0') +  d.getSeconds(),
 		'formatted': '',
 		'string_raw': d.getFullYear() + '년 ' + 
-		(d.getMonth() + 1 > 9 ? '' : '0') + (d.getMonth() + 1) + '월 ' + 
-		(d.getDate() > 9 ? '' : '0') +  d.getDate() + '일'
+		/*(d.getMonth() + 1 > 9 ? '' : '0') +*/ (d.getMonth() + 1) + '월 ' + 
+		/*(d.getDate() > 9 ? '' : '0') +*/  d.getDate() + '일'
 	};
+	if (c.getFullYear() == d.getFullYear()) {
+		result['string_relative'] = (d.getMonth() + 1) + '월 ' + d.getDate() + '일'
+	} else {
+		result['string_relative'] = result.string_raw;
+	}
 	if (minsAgo < 60 && minsAgo >= 0) { 										// 1시간 내
 		result.formatted = minsAgo + '분 전';
 	} else if (minsAgo < 60 * 24 && minsAgo >= 0) { 							// 하루 내
 		result.formatted = Math.floor(minsAgo / 60) + '시간 전';
-	} else if (minsAgo >= 0) {													// 하루 이후
-		result.formatted = result.string_raw;
-	}
-	/*else if (minsAgo < 60 * 25 * 7 && minsAgo >= 0) {							// 7일 내
-		result.formatted = Math.floor(minsAgo / 60 / 24) + '일 전';
-	} 
-	else if (minsAgo < 60 * 25 * 7 * 4 && minsAgo >= 0) {						// 한달 내
-		result.formatted = Math.floor(minsAgo / 60 / 24 / 7) + '주 전';
+	} else if (minsAgo < 60 * 25 * 7 && minsAgo >= 0) {							// 7일 내
+		result.formatted = Math.floor(minsAgo / 60 / 24) + '일 전 ';
+	} else if (minsAgo < 60 * 25 * 7 * 4 && minsAgo >= 0) {						// 한달 내
+		result.formatted = Math.floor(minsAgo / 60 / 24 / 7) + '주 전 ';
 	} else if (minsAgo < 60 * 25 * 7 * 4 * 13 && minsAgo >= 0) {				// 1년 내
-		result.formatted = Math.floor(minsAgo / 60 / 24 / 7 / 4) + '달 전';
+		result.formatted = Math.floor(minsAgo / 60 / 24 / 7 / 4) + '개월 전 ';
 	} else if (minsAgo >= 0) { 													// 1년 이상
-		result.formatted = Math.floor(minsAgo / 60 / 24 / 7 / 4 / 12) + '년 전';
-	}*/
+		result.formatted = Math.floor(minsAgo / 60 / 24 / 7 / 4 / 12) + '년 전 ';
+	}
 	 else {																	// 현재 이후
 		result.formatted = result.string_raw + "까지";
 	}

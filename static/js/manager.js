@@ -188,6 +188,10 @@ function insert_wrting_div() {
 	target.append(div);
 }
 
+function writing_notice_reset() {
+	$("#setting_writing_post_title").val("");
+	$("#setting_writing_post_pharagh").val("");
+}
 function writing_notice_admin() {
 	check_managet_qualification_reload(function() {
 		let title = $("#setting_writing_post_title").val();
@@ -210,9 +214,11 @@ function writing_notice_admin() {
 		A_JAX("http://"+host_ip+"/insert_notice", "POST", null, send_data)
 		).done(function(data) {
 			if (data["result"] == 'success') {
-				Snackbar("게시글 작성이 정상적으로 업르드되었습니다.");
+				writing_notice_reset();
+				Snackbar("게시글이 정상적으로 업로드되었습니다.");
+
 			} else {
-				Snackbar("게시글 작성이 실패하였습니다.");
+				Snackbar("업로드를 실패하였습니다.");
 			}
 		});
 	});
