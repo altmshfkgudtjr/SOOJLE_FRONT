@@ -163,7 +163,7 @@ $(document).scroll(function() {
 	}
 	if (where_topic == "뉴스피드" || (where_topic == "SOOJLE 엔진"
 	 && $("#board_info_text").text() != "검색 결과입니다!")){
-		if ($(window).scrollTop() + $(window).height() >= $(document).height() - 400){
+		if ($(window).scrollTop() + $(window).height() >= $(document).height() - 50){
 			if (save_posts.length == 0) return;
 			if (now_creating == 0) {
 				now_creating = 1;
