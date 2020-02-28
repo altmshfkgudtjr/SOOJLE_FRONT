@@ -415,7 +415,7 @@ function creating_post(target_tag, posts, now_creating_state = "", is_fav_cnt = 
 function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback) {
 	let check;
 	let id, fav_cnt, title, date, end_date, url, domain, img, subimg, tag, post_one, fav_cnt_block, contest_block;
-	for (post_one of z) {
+	for (post_one of posts) {
 		check = 0;
 		if (post_one['_id'].$oid) id = post_one['_id'].$oid;
 		else id = post_one['_id'];

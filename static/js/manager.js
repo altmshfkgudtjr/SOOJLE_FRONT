@@ -171,8 +171,7 @@ function cancel_blacklist() {
 // 게시글 작성 Div 생성
 function insert_wrting_div() {
 	let pharagh_placeholder = 
-`
-내용을 입력해주세요.
+`내용을 입력해주세요.
 
 공지사항을 작성 시, 다음 규칙을 확인하고 올려주세요.
 
@@ -184,15 +183,11 @@ function insert_wrting_div() {
 	let target = $("#setting_writing_post_wrapper");
 	let div =	`<input type="text" id="setting_writing_post_title" class="setting_writing_post_title" placeholder="제목을 입력해주세요.">
 				<textarea id="setting_writing_post_pharagh" class="setting_writing_post_pharagh" placeholder="${pharagh_placeholder}"></textarea>
-				<input type="checkbox" id="post_notice_checkbox" name="post_notice_checkbox">
-				<div class="setting_toggle">
-					<label for="post_notice_checkbox"></label>
-				</div>
-				<div class="setting_writing_post_checkbox_info noselect">공지사항</div>
 				<div class="setting_writing_post_btn_ok pointer" onclick="writing_notice_admin()">작성하기</div>
 				`;
 	target.append(div);
 }
+
 function writing_notice_admin() {
 	check_managet_qualification_reload(function() {
 		let title = $("#setting_writing_post_title").val();
