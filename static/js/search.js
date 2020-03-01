@@ -114,8 +114,8 @@ function search_button() {	// 검색작업 data = 글자
 		return;
 	} 
 	data = data.replace(/ /g, "+");
-	//window.location.href = "/board#search?" + data + '/'
-	location.replace("/board#search?" + data + '/')
+	window.location.href = "/board#search?" + data + '/'
+	//location.replace("/board#search?" + data + '/')
 }
 var search_open = 0;
 function mobile_search_modal_open() {

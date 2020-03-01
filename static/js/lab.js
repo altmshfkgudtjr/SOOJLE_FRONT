@@ -1,5 +1,5 @@
 function Go_lab() {
-	location.replace("/board#lab");
+	location.href = "/board#lab";
 	out_of_search();
 	now_topic = "Lab";
 	where_topic = "Lab";

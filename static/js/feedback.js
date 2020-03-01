@@ -1,5 +1,5 @@
 function Go_feedback() {
-	location.replace("/board#feedback");
+	location.href = "/board#feedback";
 	out_of_search();
 	now_topic = "Feedback";
 	where_topic = "Feedback";

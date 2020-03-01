@@ -15,7 +15,7 @@ const time_event = {
 				}
 
 function Click_analysistic() {
-	location.replace("/board#analysistics");
+	location.href = "/board#analysistics";
 	if (menu_open == 1) {
 		menu_modal_onoff();
 	}

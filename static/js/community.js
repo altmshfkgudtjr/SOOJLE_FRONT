@@ -1,6 +1,6 @@
 // 공지사항으로 이동
 function Go_dvnote() {
-	location.replace("/board#dvnote");
+	location.href = "/board#dvnote";
 	out_of_search();
 	now_topic = "개발자노트";
 	where_topic = "개발자노트";
