@@ -294,7 +294,7 @@ function Get_Search_Posts(sendData, now_creating_state) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	$.when(A_JAX("http://"+host_ip+"/category_search/진로_구인/200", "POST", null, sendData)).done(function (data) {
+	$.when(A_JAX("http://"+host_ip+"/category_search/진로&구인/200", "POST", null, sendData)).done(function (data) {
 		let json = data;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(1, json["search_result"]);
@@ -304,7 +304,7 @@ function Get_Search_Posts(sendData, now_creating_state) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	$.when(A_JAX("http://"+host_ip+"/category_search/공모전_행사/200", "POST", null, sendData)).done(function (data) {
+	$.when(A_JAX("http://"+host_ip+"/category_search/공모전&행사/200", "POST", null, sendData)).done(function (data) {
 		let json = data;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(2, json["search_result"]);
@@ -760,14 +760,14 @@ function test_search() {
 			console.log("priority Failed");
 		}
 	});
-	$.when(A_JAX("http://"+host_ip+"/category_search/진로_구인/200", "POST", null, send_data)).done(function (data) {
+	$.when(A_JAX("http://"+host_ip+"/category_search/진로&구인/200", "POST", null, send_data)).done(function (data) {
 		if (data['result'] == "success") {
 			console.log("catogory1, ", data["search_result"].length);
 		} else {
 			console.log("catogory1 Failed");
 		}
 	});
-	$.when(A_JAX("http://"+host_ip+"/category_search/행사_모임/200", "POST", null, send_data)).done(function (data) {
+	$.when(A_JAX("http://"+host_ip+"/category_search/행사&모임/200", "POST", null, send_data)).done(function (data) {
 		if (data['result'] == "success") {
 			console.log("catogory2, ", data["search_result"].length);
 		} else {

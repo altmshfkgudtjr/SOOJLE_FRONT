@@ -33,6 +33,7 @@ function click_recommend_posts() {
 	menu_modal_onoff();
 }
 function get_recommend_posts(is_first = 0) {
+	menu_open = 0;
 	out_of_search();
 	window.scrollTo(0,0);
 	now_topic = "추천";
@@ -66,7 +67,12 @@ function get_recommend_posts(is_first = 0) {
 	});
 }
 // 인기 뉴스피드 불러오기 함수
+function click_popularity_posts() {
+	location.replace("/board#popularity");
+	menu_modal_onoff();
+}
 function get_popularity_posts() {
+	menu_open = 0;
 	out_of_search();
 	window.scrollTo(0,0);
 	now_topic = "인기";
@@ -85,7 +91,6 @@ function get_popularity_posts() {
 	$("#board_info_text").text("인기");
 	$("#board_info_board").empty();
 	$("#board_info_board").text("뉴스피드");
-	menu_modal_onoff();
 	let a_jax = A_JAX("http://"+host_ip+"/get_popularity_newsfeed", "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
@@ -100,8 +105,16 @@ function get_popularity_posts() {
 		}
 	});
 }
+function click_topic_posts(tag) {
+	let topic_click = '';
+	if (typeof(tag) == String || typeof(tag) == "string") topic_click = tag;
+	else topic_click = tag.children('div').text();
+	location.replace(`/board#topic?${topic_click}`);
+	menu_modal_onoff();
+}
 // 토픽별 뉴스피드 불러오기 함수
 function get_topic_posts(tag) {
+	menu_open = 0;
 	out_of_search();
 	window.scrollTo(0,0);
 	where_topic = "뉴스피드";
@@ -111,7 +124,6 @@ function get_topic_posts(tag) {
 	else topic = tag.children('div').text();
 	now_topic = topic;
 	now_state = now_topic;	// now state changing
-	location.replace(`/board#topic?${now_topic}`);
 	// 좌측 메뉴 버그 수정 fixed
 	$("#menu_container").addClass("menu_container_fixed");
 	$("#posts_creating_loading").removeClass("display_none");
@@ -123,7 +135,6 @@ function get_topic_posts(tag) {
 	$("#board_info_text").text(topic);
 	$("#board_info_board").empty();
 	$("#board_info_board").text("뉴스피드");
-	menu_modal_onoff();
 	let a_jax = A_JAX("http://"+host_ip+"/get_newsfeed_of_topic/"+topic, "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;

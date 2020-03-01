@@ -1,5 +1,6 @@
 function Click_setting() {
-	location.replace("/board#setting");
+	location.href = "/board#setting";
+	//location.replace("/board#setting");
 	if (menu_open == 1) {
 		menu_modal_onoff();
 	}
