@@ -606,7 +606,7 @@ body {
 .mobile_search_input {
 	position: relative;
     float: right;
-    top: 15px;
+    top: 16px;
     height: 20px;
     width: 84%;
     border: none;
@@ -614,20 +614,6 @@ body {
     font-size: 16px;
     line-height: 25px;
     background-color: rgba(0,0,0,0);
-}
-@media screen and (max-width: 450px) {
-	.mobile_search_input {
-		position: relative;
-		float: right;
-		top: 15px;
-		height: 20px;
-		width: 70%;
-		border: none;
-		padding: 0 10px;
-		font-size: 16px;
-		line-height: 25px;
-		background-color: rgba(0,0,0,0);
-	}
 }
 .spark_icon {
 	position: relative;

@@ -34,13 +34,13 @@ function Get_notice_posts(callback) {
 }
 // 공지사항 Component 구성
 function insert_notice() {
-	/*Get_notice_posts(function(result) {
+	Get_notice_posts(function(result) {
 		if (result) {
 			console.log(result);
 		} else {
 			// 에러 난 경우
 			No_posts($("#posts_target"));
 		}
-	});*/
+	});
 	No_posts($("#posts_target")); // 임시 파일
 }

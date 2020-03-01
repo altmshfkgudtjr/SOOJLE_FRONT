@@ -39,6 +39,15 @@
 		}
 	</script>
 	<link href="/static/css/main.css" rel="stylesheet">
+	<script type="text/javascript">
+		if (mobile_ver) {
+			let link_main = document.createElement('link');
+			link_main.rel = 'stylesheet';
+			link_main.type = 'text/css';
+			link_main.href = '/static/css/main_m.css';
+			document.getElementsByTagName('HEAD')[0].appendChild(link_main);
+		}
+	</script>
 	<style type="text/css">
 		::-webkit-scrollbar {
 		    width: 0px;  /* Remove scrollbar space */
