@@ -396,9 +396,7 @@ Date.prototype.SetTime = function()
 }
 // 3000년 게시글인지 확인 : Custom 기능
 function IsContest(dt) {
-	if (!dt || !dt.$date) return false;
 	let d = new Date(dt);
-	if (d == "Invalid Date") d = new Date(dt.$date);
 	if (d.getFullYear() == 3000) return false;
 	return true;
 }
@@ -431,9 +429,10 @@ function creating_post(target_tag, posts, now_creating_state = "", is_fav_cnt = 
 }
 // 모바일 태그 만들기
 function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback) {
-	let check;
+	let check, contest_check = false;
 	let id, fav_cnt, title, date, end_date, url, domain, img, subimg, tag, post_one, fav_cnt_block, contest_block;
 	for (post_one of posts) {
+		contest_check = false;
 		check = 0;
 		if (post_one['_id'].$oid) id = post_one['_id'].$oid;
 		else id = post_one['_id'];
@@ -445,6 +444,7 @@ function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback)
 			if (post_one['end_date'].$date) end_date = post_one['end_date'].$date;
 			else end_date = post_one['end_date'];
 			if (IsContest(end_date)) {					// 공모전 게시글 판별
+				contest_check = true;
 				date = change_date_realative(end_date);
 			} else {
 				date = change_date_realative(date);
@@ -460,6 +460,15 @@ function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback)
 			fav_cnt_block = `<div class="post_like_cnt">${fav_cnt}</div>`;
 		} else {
 			fav_cnt_block = ``;
+		}
+		if (contest_check == true) {
+			if (new Date(end_date) > new Date(Date.now())) {
+				contest_block = `<div class="contest_ing">진행중</div>`;
+			} else {
+				contest_block = `<div class="contest_done">마감</div>`;
+			}
+		} else {
+			contest_block = ``;
 		}
 		if (img.toString().indexOf("everytime") != -1) {
 			img = "./static/image/everytime.jpg";
@@ -478,7 +487,7 @@ function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback)
 					<a href="${url}" target="_blank">
 						<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
 							<div class="post_url">${domain}</div>
-							<div class="post_date">${date}</div>
+							<div class="post_date">${date}${contest_block}</div>
 						</div>
 					</a>
 					<div class="post_block_set_cont_noimg noselect">
@@ -500,7 +509,7 @@ function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback)
 					<a href="${url}" target="_blank">
 						<div class="post_block_cont pointer" onmousedown="post_view($(this))">
 							<div class="post_url">${domain}</div>
-							<div class="post_date">${date}</div>
+							<div class="post_date">${date}${contest_block}</div>
 						</div>
 					</a>
 					<div class="post_block_set_cont noselect">
@@ -521,7 +530,7 @@ function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback)
 }
 // PC 태그 만들기
 function Creating_pc_post(posts = [], target_tag = '', is_fav_cnt, callback) {
-	let check;
+	let check, contest_check = false;
 	let id, fav_cnt, title, date, end_date, url, domain, img, subimg, tag, post_one, fav_cnt_block, contest_block;
 	for (post_one of posts) {
 		check = 0;
@@ -535,6 +544,7 @@ function Creating_pc_post(posts = [], target_tag = '', is_fav_cnt, callback) {
 			if (post_one['end_date'].$date) end_date = post_one['end_date'].$date;
 			else end_date = post_one['end_date'];
 			if (IsContest(end_date)) {					// 공모전 게시글 판별
+				contest_check = true;
 				date = change_date_realative(end_date);
 			} else {
 				date = change_date_realative(date);
@@ -550,6 +560,15 @@ function Creating_pc_post(posts = [], target_tag = '', is_fav_cnt, callback) {
 			fav_cnt_block = `<div class="post_like_cnt">${fav_cnt}</div>`;
 		} else {
 			fav_cnt_block = ``;
+		}
+		if (contest_check == true) {
+			if (new Date(end_date) > new Date(Date.now())) {
+				contest_block = `<div class="contest_ing">진행중</div>`;
+			} else {
+				contest_block = `<div class="contest_done">마감</div>`;
+			}
+		} else {
+			contest_block = ``;
 		}
 		if (img.toString().indexOf("everytime") != -1) {
 			img = "./static/image/everytime.jpg";
@@ -568,7 +587,7 @@ function Creating_pc_post(posts = [], target_tag = '', is_fav_cnt, callback) {
 					<a href="${url}" target="_blank">
 						<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
 							<div class="post_url">${domain}</div>
-							<div class="post_date">${date}</div>
+							<div class="post_date">${date}${contest_block}</div>
 						</div>
 					</a>
 					<div class="post_block_set_cont_noimg noselect">
@@ -590,7 +609,7 @@ function Creating_pc_post(posts = [], target_tag = '', is_fav_cnt, callback) {
 					<a href="${url}" target="_blank">
 						<div class="post_block_cont pointer" onmousedown="post_view($(this))">
 							<div class="post_url">${domain}</div>
-							<div class="post_date">${date}</div>
+							<div class="post_date">${date}${contest_block}</div>
 						</div>
 					</a>
 					<div class="post_block_set_cont noselect">

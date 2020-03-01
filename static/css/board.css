@@ -2342,3 +2342,26 @@ span.selectbox_choose {
 .signup_check_img_ok {
 	color: #22bf06;
 }
+
+.contest_ing {
+	position: relative;
+	display: inline-block;
+	width: 55px;
+	height: 20px;
+	line-height: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #0071e3;
+	text-align: center;
+}
+.contest_done {
+	position: relative;
+	display: inline-block;
+	width: 45px;
+	height: 20px;
+	line-height: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #C30E2E;
+	text-align: center;
+}
