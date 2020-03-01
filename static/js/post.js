@@ -533,6 +533,7 @@ function Creating_pc_post(posts = [], target_tag = '', is_fav_cnt, callback) {
 	let check, contest_check = false;
 	let id, fav_cnt, title, date, end_date, url, domain, img, subimg, tag, post_one, fav_cnt_block, contest_block;
 	for (post_one of posts) {
+		contest_check = false;
 		check = 0;
 		if (post_one['_id'].$oid) id = post_one['_id'].$oid;
 		else id = post_one['_id'];
