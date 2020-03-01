@@ -1261,7 +1261,8 @@ html, body {
 	position: relative;
 	width: 100%;
 	color: black;
-	font-size: 16px;
+	font-size: 20px;
+	font-weight: bold;
 	margin-bottom: 10px;
 }
 .sr_domain_ct {
@@ -2364,4 +2365,13 @@ span.selectbox_choose {
 	font-weight: bold;
 	color: #C30E2E;
 	text-align: center;
+}
+
+.notice_post_container {
+	position: relative;
+	width: 100%;
+	height: 200px;
+	border: 2px solid #EBEBEB;
+	border-radius: 3px 30px 30px 3px;
+	transition: .1s ease-in-out;
 }

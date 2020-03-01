@@ -499,7 +499,7 @@ function more_posts(target_num, is_fav_cnt = 1) {
 	else if (Number(target_num) == 2) {target_name = "행사&모임";}
 	else if (Number(target_num) == 3) {target_name = "일반";}
 	else {target_name = "커뮤니티";}
-	let more_left_tag = `<img src="/static/icons/back.png" class="sr_more_to_before noselect" onclick="before_posts();">${target_name}`;
+	let more_left_tag = `<img src="/static/icons/back.png" class="sr_more_to_before noselect">${target_name}`;
 	$("#board_info_text").empty();
 	$("#board_info_text").append(more_left_tag);
 	if (a_jax_posts[target_num] != undefined && a_jax_posts[target_num].length == 0) return 1;	// 아무 포스트가 없음
