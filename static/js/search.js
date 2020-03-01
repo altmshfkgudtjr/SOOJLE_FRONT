@@ -304,7 +304,7 @@ function Get_Search_Posts(sendData, now_creating_state) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	$.when(A_JAX("http://"+host_ip+"/category_search/행사_모임/200", "POST", null, sendData)).done(function (data) {
+	$.when(A_JAX("http://"+host_ip+"/category_search/공모전_행사/200", "POST", null, sendData)).done(function (data) {
 		let json = data;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(2, json["search_result"]);
@@ -314,7 +314,7 @@ function Get_Search_Posts(sendData, now_creating_state) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	$.when(a_jax3 = A_JAX("http://"+host_ip+"/category_search/일반/200", "POST", null, sendData)).done(function (data) {
+	$.when(a_jax3 = A_JAX("http://"+host_ip+"/category_search/대학교/200", "POST", null, sendData)).done(function (data) {
 		let json = data;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(3, json["search_result"]);
@@ -324,7 +324,7 @@ function Get_Search_Posts(sendData, now_creating_state) {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	$.when(a_jax4 = A_JAX("http://"+host_ip+"/category_search/커뮤니티/200", "POST", null, sendData)).done(function (data) {
+	$.when(a_jax4 = A_JAX("http://"+host_ip+"/category_search/자유/200", "POST", null, sendData)).done(function (data) {
 		let json = data;
 		if (json['result'] == 'success') {
 			let output = remove_duplicated(4, json["search_result"]);
