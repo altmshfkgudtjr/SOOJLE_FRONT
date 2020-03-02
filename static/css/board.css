@@ -1165,7 +1165,7 @@ html, body {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0,0,0,.4);
+	background-color: rgba(0,0,0,.5);
 	z-index: 200;
 	transition: .4s ease-in-out;
 }
@@ -1181,33 +1181,44 @@ html, body {
 	margin-bottom: auto;
 	width: 400px;
 	height: 300px;
-	border-radius: 30px;
 	background-color: white;
 	box-shadow: 0 3px 20px rgba(0,0,0,.1),
 				0 0 20px rgba(0,0,0,.15) inset;
 	transition: .1s ease-in-out;
 }
+.post_menu_title {
+	position: relative;
+	width: 100%;
+	height: 80px;
+	box-sizing: border-box;
+	line-height: 80px;
+	padding: 0 20px;
+	font-size: 22px;
+}
 .post_menu_content {
 	position: relative;
-	width: 150px;
-	height: 50px;
+	width: 200px;
+	height: 40px;
+	margin: 5px 0;
 	padding: 0 20px;
-	line-height: 50px;
-	font-size: 30px;
+	line-height: 40px;
+	font-size: 18px;
 	text-align: center;
-	border-radius: 50px;
 	border: none;
-	border: 2px solid rgba(0,0,0,0);
-	margin: 60px;
 	margin-left: auto;
 	margin-right: auto;
-	transition: .2s ease-in-out;
 	cursor: pointer;
 	color: rgba(0,0,0,.6);
-
+	border: 1px solid rgba(0,0,0,0);
 }
 .post_menu_content:hover {
-	color: #c30e2e;
+	font-weight: bold;
+}
+.post_menu_content_kakao:hover {
+	font-weight: normal;
+	background-color: #ffeb00;
+	border-color: #f4d400;
+	color: black;
 }
 .mobile_controller {
 	display: none;

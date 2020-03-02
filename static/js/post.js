@@ -241,6 +241,11 @@ function post_url_copy(tag) {
 	output.remove();
 	post_menu_close();
 }
+// 포스트 카카오톡 공유
+function Share_kakao(tag) {
+	let url = tag.parent('div').parent('div').attr("p-url");
+	
+}
 
 
 // 좋아요 애니메이션 동작함수

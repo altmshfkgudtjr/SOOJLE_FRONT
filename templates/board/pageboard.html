@@ -58,6 +58,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js" integrity="sha256-arMsf+3JJK2LoTGqxfnuJPFTU4hAK57MtIPdFpiHXOU=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
 	<!--Header-->
@@ -432,6 +433,8 @@
 	<!--Post Menu Modal-->
 	<div id="post_menu_modal_container" class="post_menu_modal_container display_none" p-id="0" p-url="0">
 		<div id="post_menu_modal" class="post_menu_modal display_none wow animated" data-wow-duration="0.2s">
+			<div class="post_menu_title">게시글 부가기능</div>
+			<div class="post_menu_content post_menu_content_kakao" onclick="Share_kakao($(this))">카카오톡 공유</div>
 			<div class="post_menu_content" onclick="post_url_copy($(this))">URL 복사</div>
 			<div class="post_menu_content" onclick="post_menu_close()">취소</div>
 		</div>
