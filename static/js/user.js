@@ -449,20 +449,20 @@ function Get_UserInfo(callback) {
     }
     let output = {};
 	a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
-	$.when(a_jax).done(function () {
-		if (a_jax.responseJSON['result'] == 'success') {
+	$.when(a_jax).done(function (data) {
+		if (data['result'] == 'success') {
 			output = a_jax.responseJSON;
 			//## ======== ##//
 			// 콜백함수, 인자로 User Information을 넣어준다.
 			if (typeof(callback) == 'function') {
 				callback(output);
 			}
-		} else if (a_jax.responseJSON['result'] == 'No member') {
+		} else if (data['result'] == 'No member') {
 			Snackbar("회원정보가 없습니다.");
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
 			return;
-		} else if (a_jax.responseJSON['result'] == 'bad token') {
+		} else if (data['result'] == 'bad token') {
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
 			return false;
