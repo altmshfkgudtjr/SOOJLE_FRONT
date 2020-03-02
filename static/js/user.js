@@ -444,7 +444,7 @@ function Get_UserInfo(callback) {
 	let token = sessionStorage.getItem('sj-state');
     if (token == null || token == undefined || token == 'undefined') {
     	sessionStorage.removeItem('sj-state');
-		localStorage.removeItem('sj-state');
+    	localStorage.removeItem('sj-state');
     	return false;
     }
     let output = {};

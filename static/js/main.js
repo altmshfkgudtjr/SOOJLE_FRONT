@@ -210,6 +210,10 @@ function last_page() {
 
 // 메인 페이지 로그인=========================================================
 $(window).ready(function() {
+	token = localStorage.getItem('sj-state');
+	if (token != null && token != undefined && token != 'undefined') {
+		sessionStorage.setItem('sj-state', token);
+	}
 	Get_UserInfo(function(result) {	// result == 유저정보
 		if (result) {
 			$("#main_user_btn").css("color", "#0071e3");

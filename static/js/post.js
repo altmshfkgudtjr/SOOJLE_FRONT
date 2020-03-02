@@ -64,6 +64,11 @@ function get_recommend_posts(is_first = 0) {
 		} else {
 			Snackbar("다시 접속해주세요!");
 		}
+	}).catch(function(e) {						//////////////////////
+		alert("다시 로그인해주세요.");			/*	    실패 시		*/
+		sessionStorage.removeItem('sj-state');	//////////////////////
+		localStorage.removeItem('sj-state');
+		window.location.reload();
 	});
 }
 // 인기 뉴스피드 불러오기 함수
