@@ -388,6 +388,18 @@ function change_date_realative(dt) {
 	}
 	return result.formatted;
 }
+function change_date_absolute(dt) {
+	let d = new Date(dt);
+	let result = {
+		'raw': d.getFullYear() + '-' + 
+		(d.getMonth() + 1 > 9 ? '' : '0') + (d.getMonth() + 1) + '-' + 
+		(d.getDate() > 9 ? '' : '0') +  d.getDate() + ' ' + 
+		(d.getHours() > 9 ? '' : '0') +  d.getHours() + ':' + 
+		(d.getMinutes() > 9 ? '' : '0') +  d.getMinutes() + ':'  + 
+		(d.getSeconds() > 9 ? '' : '0') +  d.getSeconds()
+	}
+	return result.raw;
+}
 // yyyyMMddHHmmss 형태로 포멧팅하여 날짜 반환
 Date.prototype.SetTime = function()
 {
@@ -498,7 +510,7 @@ function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback)
 					<a href="${url}" target="_blank">
 						<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
 							<div class="post_url">${domain}</div>
-							<div class="post_date">${date}${contest_block}</div>
+							<div class="post_date"><i class="far fa-clock"></i> ${date}${contest_block}</div>
 						</div>
 					</a>
 					<div class="post_block_set_cont_noimg noselect">
@@ -520,7 +532,7 @@ function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback)
 					<a href="${url}" target="_blank">
 						<div class="post_block_cont pointer" onmousedown="post_view($(this))">
 							<div class="post_url">${domain}</div>
-							<div class="post_date">${date}${contest_block}</div>
+							<div class="post_date"><i class="far fa-clock"></i> ${date}${contest_block}</div>
 						</div>
 					</a>
 					<div class="post_block_set_cont noselect">
@@ -599,7 +611,7 @@ function Creating_pc_post(posts = [], target_tag = '', is_fav_cnt, callback) {
 					<a href="${url}" target="_blank">
 						<div class="post_block_cont_noimg pointer" onmousedown="post_view($(this))">
 							<div class="post_url">${domain}</div>
-							<div class="post_date">${date}${contest_block}</div>
+							<div class="post_date"><i class="far fa-clock"></i> ${date}${contest_block}</div>
 						</div>
 					</a>
 					<div class="post_block_set_cont_noimg noselect">
@@ -621,7 +633,7 @@ function Creating_pc_post(posts = [], target_tag = '', is_fav_cnt, callback) {
 					<a href="${url}" target="_blank">
 						<div class="post_block_cont pointer" onmousedown="post_view($(this))">
 							<div class="post_url">${domain}</div>
-							<div class="post_date">${date}${contest_block}</div>
+							<div class="post_date"><i class="far fa-clock"></i> ${date}${contest_block}</div>
 						</div>
 					</a>
 					<div class="post_block_set_cont noselect">

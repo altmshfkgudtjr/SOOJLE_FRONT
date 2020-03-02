@@ -78,7 +78,7 @@ async function URL_Select() {
 		get_recommend_posts(1);
 		Login_open();
 	}
-	else if (url_target == "dvnote") {
+	else if (url_target.startsWith("dvnote")) {
 		menu_open = 1;
 		Go_dvnote();
 	}

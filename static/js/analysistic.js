@@ -44,10 +44,9 @@ function set_analysistic() {
 			$("#posts_creating_loading").addClass("display_none");
 			insert_greeting_div();			// 소개
 			insert_time_div();				// 시간
-			//insert_weather_div();			// 날씨
 			insert_realtimesearch_div();	// 실시간 검색어
 			//insert_hall();				// 명예의 전당
-			//insert_visitor_div();			// 방문자 분석
+			insert_visitor_div();			// 방문자 분석
 			insert_post_div();				// 게시글 분석
 			//insert_outlink_div();			// 외부사이트 분석
 			insert_device_div();			// 디바이스 분석
@@ -62,13 +61,13 @@ function insert_greeting_div() {
 	let view_num = analysis_data['total_view'];
 	let div =	`<div id="anlt_greeting_wrapper" class="anlt_greeting_wrapper">
 					<div class="anlt_greeting_text noselect">
-						사용자는 <span style="font-weight:500; color: #c30e2e;">${number_unit(posts_num)}</span> 개의 포스트에서 정보를 찾아볼 수 있습니다.
+						사용자는 <span style="font-weight:500; color: #12b886;">${number_unit(posts_num)}</span> 개의 포스트에서 정보를 찾아볼 수 있습니다.
 					</div>\
 					<div class="anlt_greeting_text noselect">
-						사용자와 SOOJLE은 하루 평균 <span style="font-weight:500; color: #c30e2e;">${number_unit(actions_num)}</span> 번의 소통을 하고있습니다.
+						사용자와 SOOJLE은 하루 평균 <span style="font-weight:500; color: #12b886;">${number_unit(actions_num)}</span> 번의 소통을 하고있습니다.
 					</div>\
 					<div class="anlt_greeting_text noselect">
-						사용자들은 SOOJLE을 통해서 <span style="font-weight:500; color: #c30e2e;">${number_unit(view_num)}</span> 번의 정보를 찾았습니다.
+						사용자들은 SOOJLE을 통해서 <span style="font-weight:500; color: #12b886;">${number_unit(view_num)}</span> 번의 정보를 찾았습니다.
 					</div>\
 				</div>`;
 	let m_div = `<div id="anlt_greeting_wrapper" class="anlt_greeting_wrapper">
@@ -152,26 +151,6 @@ function set_analysistic_time_event(month, date) {
 	}
 	else
 		$("#anlt_time_event").empty();
-}
-
-// 날씨 div Insert-----------------------------------------------------
-function insert_weather_div() {
-	let div = `<div id="anlt_weather_wrap" class="anlt_weather_wrap"></div>`;
-	$("#anlt_time_weather_wrap").append(div);
-	//set_weather();
-}
-function set_weather() {
-	let weather_ajax = A_JAX("http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData?\
-								ServiceKey=0A5sn7QJHavj4KHM7abOIxdnDC7zPEADwdXcrhEuo7%2BILrC1Fb%2Bf4ni0pHcKAKd1gErcsUqqgYUGCqL9cKk7Cg%3D%3D\
-								&base_date=20191226\
-								&base_time=1430\
-								&nx=62\
-								&ny=126\
-								&_type=json"
-							, "Get", null, null);
-	$.when(weather_ajax).done(function () {
-		let json = weather_ajax.responseJSON;
-	});
 }
 
 // 실시간 검색어 div Insert---------------------------------------------
@@ -297,18 +276,8 @@ function insert_visitor_div() {
 							<div class="anlt_visitor_box_title_big noselect">사용 시간대 분석</div>
 							<canvas id="visitor_distribution" class="anlt_visitor_chart_element" width="auto" height="auto"></canvas>
 						</div>\
-						<div class="anlt_visitor_chart_box">
-							<div class="anlt_visitor_box_title_big noselect">학번별 방문수</div>
-							<canvas id="visitor_number_distribution" class="anlt_visitor_chart_element" width="auto" height="auto"></canvas>
-						</div>\
 					</div>
 				`;
-				/*
-						<div class="anlt_visitor_chart_box">
-							<div class="anlt_visitor_box_title_big noselect">학과별 방문수</div>
-							<canvas id="visitor_major_distribution" class="anlt_visitor_chart_element" width="auto" height="auto"></canvas>
-						</div>\
-				*/
 	$("#posts_target").append(div);
 	set_visitor_data();
 }
@@ -379,25 +348,10 @@ function set_visitor_data() {
 					visitor_time_data_array2
 				],
 			);
-			get_bar("visitor_number_distribution",
-				[	// date label
-					visitor_time_date1,
-					visitor_time_date2
-				],	// student label
-				visitor_student_label,
-				[	// student data
-					visitor_student_data1,
-					visitor_student_data2
-				]
-			);
 		} else {
 			Snackbar("방문자 데이터를 가져오지 못하였습니다.");
 		}
 	});
-	/*get_bar("visitor_major_distribution",
-		['컴퓨터공학과', '무용학과', '호텔관광경영학과', '데이터사이언스학과', '지능기전공학부', '물리학과', "패션디자인학과"],
-		[5, 4, 10, 8, 1, 3, 9]
-	);*/
 }
 
 // 게시글 분석 div Insert------------------------------------------------
