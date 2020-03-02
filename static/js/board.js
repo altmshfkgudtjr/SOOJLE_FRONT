@@ -190,7 +190,6 @@ async function auto_login() {
 	if (token == null || token == undefined || token == 'undefined') {
 		sessionStorage.removeItem('sj-state');
 		token = localStorage.getItem('sj-state');
-		console.log(token);
 		if (token == null || token == undefined || token == 'undefined') {
 			localStorage.removeItem('sj-state');
 			if (window.location.href.search("#search?") != -1) {

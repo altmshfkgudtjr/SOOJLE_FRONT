@@ -317,7 +317,6 @@ body {
 	transition: .2s ease;
 	-webkit-transition: .2s ease;
 	z-index: 40;
-
 	display: none !important /*수정 사항 : 임시*/
 }
 @media screen and (max-width: 1200px) {
@@ -326,23 +325,6 @@ body {
 		left: 50%;
 		-webkit-transform: translate(-50%, 0);
 		transform: translate(-50%, 0);
-	}
-}
-@media screen and (max-width: 450px) {
-	.SJ_main_page1_search_list_box {
-		position: absolute;
-		width: 100%;
-		max-width: 700px;
-		height: auto;
-		min-height: auto;
-		border: none;
-		border-radius: 0;
-		left: 50%;
-		transform: translate(-50%, 0);
-		-webkit-transform: translate(-50%, 0);
-		background-color: rgba(0,0,0,0);
-		z-index: 50;
-		margin-top: 0;
 	}
 }
 .SJ_main_page1_search_list_p {
@@ -515,38 +497,6 @@ body {
 		margin-bottom: 400px;
 	}
 }
-@media screen and (max-width: 450px) {
-	.SJ_info_blank {
-		height: 100px;
-	}
-	.SJ_info_title {
-		position: relative;
-		width: auto;
-		height: auto;
-		left: 50%;
-		transform: translate(-50%, 0);
-		-webkit-transform: translate(-50%, 0);
-		font-size: 60px;
-		font-weight: 800;
-		line-height: 80px;
-		color: white;
-		text-align: center;
-		margin-bottom: 0;
-	}
-	.Sj_info_subtitle {
-		position: relative;
-		width: auto;
-		height: auto;
-		left: 50%;
-		transform: translate(-50%, 0);
-		-webkit-transform: translate(-50%, 0);
-		font-size: 16px;
-		font-weight: 800;
-		line-height: 20px;
-		color: rgba(255,255,255,.5);
-		text-align: center;
-	}
-}
 .SJ_info_link {
 	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 	position: relative;
@@ -568,12 +518,6 @@ body {
 }
 .SJ_info_link:hover, .SJ_info_link:active {
 	color: #0060c2;
-}
-@media screen and (max-width: 450px) {
-	.SJ_info_link {
-		font-size: 18px;
-		width: auto;
-	}
 }
 .mobile_search_modal {
 	position: absolute;
@@ -1166,18 +1110,7 @@ ol { margin-left: 15px; }
 	text-decoration: underline;
 	text-underline-position: under;
 }
-@media screen and (max-width: 800px) {
-	.main_user_controller {
-		height: 40px;
-		padding: 0 10px;
-		font-size: 14px;
-	}
-	.main_user_controller_board {
-		margin-top: 10px;
-		font-size: 14px;
-	}
-	.main_user_controller_user {
-		margin-top: 10px;
-		font-size: 14px;
-	}
+
+.mobile_search_info_view {
+	display: none;
 }

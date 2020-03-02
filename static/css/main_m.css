@@ -9,19 +9,92 @@
 		width: 550px;
 		height: 50px;
 	}
+	.mobile_search_info_view {
+		display: initial;
+		position: absolute;
+		width: 60%;
+		max-width: 250px;
+		height: auto;
+		left: 50%;
+		transform: translate(-50%, 0);
+		top: 150px;
+		opacity: .7;
+	}
 }
 
 /*=============================================================================*/
 /*                                    840px                                    */
 /*=============================================================================*/
 @media screen and (max-width: 840px) {
-
+	.main_user_controller {
+		height: 40px;
+		padding: 0 10px;
+		font-size: 14px;
+	}
+	.main_user_controller_board {
+		margin-top: 10px;
+		font-size: 14px;
+	}
+	.main_user_controller_user {
+		min-width: 60px;
+		margin-top: 10px;
+		font-size: 14px;
+	}
 }
 
 /*=============================================================================*/
 /*                                    450px                                    */
 /*=============================================================================*/
 @media screen and (max-width: 450px) {
+	.SJ_main_page1_search_list_box {
+		position: absolute;
+		width: 100%;
+		max-width: 700px;
+		height: auto;
+		min-height: auto;
+		border: none;
+		border-radius: 0;
+		left: 50%;
+		transform: translate(-50%, 0);
+		-webkit-transform: translate(-50%, 0);
+		background-color: rgba(0,0,0,0);
+		z-index: 50;
+		margin-top: 0;
+	}
+	.SJ_info_blank {
+		height: 100px;
+	}
+	.SJ_info_title {
+		position: relative;
+		width: auto;
+		height: auto;
+		left: 50%;
+		transform: translate(-50%, 0);
+		-webkit-transform: translate(-50%, 0);
+		font-size: 60px;
+		font-weight: 800;
+		line-height: 80px;
+		color: white;
+		text-align: center;
+		margin-bottom: 0;
+	}
+	.Sj_info_subtitle {
+		position: relative;
+		width: auto;
+		height: auto;
+		left: 50%;
+		transform: translate(-50%, 0);
+		-webkit-transform: translate(-50%, 0);
+		font-size: 16px;
+		font-weight: 800;
+		line-height: 20px;
+		color: rgba(255,255,255,.5);
+		text-align: center;
+	}
+	.SJ_info_link {
+		font-size: 18px;
+		width: auto;
+	}
 	.mobile_search_header {
 		position: relative;
 		display: inline-block;
