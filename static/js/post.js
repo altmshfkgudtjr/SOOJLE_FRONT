@@ -241,10 +241,15 @@ function post_url_copy(tag) {
 	output.remove();
 	post_menu_close();
 }
-// 포스트 카카오톡 공유
-function Share_kakao(tag) {
+// 포스트 페이스북 공유
+function Share_facebook(tag) {
 	let url = tag.parent('div').parent('div').attr("p-url");
-	
+	window.open('http://www.facebook.com/sharer/sharer.php?u='+url, '_blank');
+}
+// 포스트 트위터 공유
+function Share_twitter(tag) {
+	let url = tag.parent('div').parent('div').attr("p-url");
+	window.open('https://twitter.com/home?status='+url, '_blank');
 }
 
 

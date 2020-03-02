@@ -416,13 +416,13 @@ function insert_search_post(target_num, posts, now_creating_state = "", is_fav_c
 	else if (Number(target_name) == 4) {target_name = "진로&구인";}
 	else if (Number(target_name) == 5) {target_name = "자유";}
 	else {target_name = "일반";}
-	let target_tag = `<div class="sr_title">${target_name}</div>`;
+	let target_tag = `<div class="sr_title noselect">${target_name}</div>`;
 	creating_post($("#search_posts_target"), posts, now_creating_state, is_fav_cnt, function(tag_str) {
 		let line = `<div class="sr_line"></div>`;
 		let more;
 		if (posts_len == 0) { return; }
 		else if (posts_len < 6) {more = ``;}
-		else {more = `<div class="sr_more" onclick="more_posts(${target_num})">더 보기</div>`;}
+		else {more = `<div class="sr_more" onclick="more_posts(${target_num})">더 보기 <i class="far fa-arrow-alt-circle-right"></i></div>`;}
 		tag_str = target_tag + tag_str + more + line;
 		if (now_creating_state == now_state){
 			target.append($(tag_str));

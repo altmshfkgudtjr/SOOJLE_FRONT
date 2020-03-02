@@ -72,13 +72,13 @@ function insert_greeting_div() {
 				</div>`;
 	let m_div = `<div id="anlt_greeting_wrapper" class="anlt_greeting_wrapper">
 					<div class="anlt_greeting_text noselect">
-						SOOJLE 정보량 <span style="font-weight:500; color: #c30e2e;">${number_unit(posts_num)}</span>
+						SOOJLE 정보량 <span style="font-weight:500; color: #12b886;">${number_unit(posts_num)}</span>
 					</div>\
 					<div class="anlt_greeting_text noselect">
-						SOOJLE과의 1초 평균 <span style="font-weight:500; color: #c30e2e;">${number_unit(actions_num)}</span> 번의 소통
+						SOOJLE과의 1초 평균 <span style="font-weight:500; color: #12b886;">${number_unit(actions_num)}</span> 번의 소통
 					</div>\
 					<div class="anlt_greeting_text noselect">
-						<span style="font-weight:500; color: #c30e2e;">${number_unit(view_num)}</span> 번의 정보 이용
+						<span style="font-weight:500; color: #12b886;">${number_unit(view_num)}</span> 번의 정보 이용
 					</div>\
 				</div>`;
 	if (mobilecheck()) $("#posts_target").append(m_div);

@@ -275,7 +275,7 @@
 		width: auto;
 		top: 0;
 		opacity: 1;
-		margin-bottom: 40px;
+		margin-bottom: 30px;
 	}
 	.SJ_footer_item:last-child {
 		top: 0;
@@ -765,7 +765,8 @@
 		line-height: 20px;
 		color: rgba(0,0,0,.2);
 		cursor: pointer;
-		transform: .1s ease-in-out
+		transform: .1s ease-in-out;
+		padding: 5px;
 	}
 	.post_menu:active {
 		color: rgba(0,0,0,.8);
@@ -956,6 +957,7 @@
 		overflow-x: scroll;
 		white-space:nowrap;
 		border-bottom: 1px solid #ebebeb;
+		margin-top: 10px;
 		margin-bottom: 15px;
 	}
 	.setting_blacklist_wrapper {
@@ -1258,35 +1260,44 @@
 		margin-right: auto;
 		margin-top: auto;
 		margin-bottom: auto;
-		width: 200px;
-		height: 180px;
-		border-radius: 30px;
+		width: 85%;
+		max-width: 400px;
+		height: 300px;
 		background-color: white;
 		box-shadow: 0 3px 20px rgba(0,0,0,.1),
 					0 0 20px rgba(0,0,0,.15) inset;
 		transition: .1s ease-in-out;
-	}
+		}
 	.post_menu_content {
 		position: relative;
-		width: 160px;
+		width: 200px;
 		height: 40px;
+		margin: 5px 0;
 		padding: 0 20px;
 		line-height: 40px;
-		font-size: 24px;
+		font-size: 18px;
 		text-align: center;
-		border-radius: 50px;
 		border: none;
-		border: 2px solid rgba(0,0,0,0);
-		margin: 30px;
 		margin-left: auto;
 		margin-right: auto;
-		transition: .2s ease-in-out;
 		cursor: pointer;
 		color: rgba(0,0,0,.6);
-
+		border: 1px solid rgba(0,0,0,0);
 	}
 	.post_menu_content:active {
-		color: #c30e2e;
+		font-weight: bold;
+	}
+	.post_menu_content_facebook:active {
+		font-weight: normal;
+		background-color: #4267b2;
+		border-color: #29487d;
+		color: white;
+	}
+	.post_menu_content_twitter:active {
+		font-weight: normal;
+		background-color: #0098F4;
+		border-color: #0098F4;
+		color: white;
 	}
 	.post_title {
 		line-height: 22px;
@@ -1602,6 +1613,7 @@
 		transition: .1s ease-in-out;
 		left: 50%;
 		transform: translate(-50%, 0);
+		padding-bottom: 5px;
 	}
 	.sr_recommend {
 		margin-left: 10px;
@@ -1615,6 +1627,14 @@
 	.sr_more {
 		width: 96%;
 		margin-right: 10px;
+		text-align: center;
+	}
+	.sr_line {
+		position: relative;
+		width: 100%;
+		height: 40px;
+		background-color: #f2f2f2;
+		margin: 15px 0;
 	}
 	.setting_box {
 		position: relative;
