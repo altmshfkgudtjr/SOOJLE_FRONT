@@ -331,7 +331,8 @@ $(document).ready(function(){
 	});
 });
 function post_view(tag) {
-	if (mobilecheck() && tag.parent('a').attr("href").indexOf("educe") != -1) {
+	if ((mobilecheck() && tag.parent('a').attr("href").indexOf("educe") != -1) ||
+		(mobilecheck() && tag.parent('a').attr("href").indexOf("thinkcontest") != -1)) {
 		alert("해당 사이트는 모바일에서 정상적인 접속이 되지않을 수도 있습니다.")
 			window.open(tag.parent('a').attr("href"), '_blank');	
 	}
