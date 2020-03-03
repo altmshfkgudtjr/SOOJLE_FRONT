@@ -57,102 +57,13 @@ function insert_management() {
 						이 곳은 SOOJLE 서비스의 관리를 담당하는 곳입니다.
 					</div>
 				</div>
-				<div class="setting_subtitle noselect">블랙리스트</div>
-				<div class="setting_subtitle_info noselect">SOOJLE 이용자의 학번 또는 IP를 블랙합니다.</div>
-				<div id="setting_blacklist_wrapper" class="setting_blacklist_wrapper"></div>
 				<div class="setting_subtitle noselect">공지사항 작성</div>
 				<div class="setting_subtitle_info noselect">공지사항 및 일반 게시글을 작성합니다.</div>
 				<div id="setting_writing_post_wrapper" class="setting_writing_post_wrapper"></div>
 				`;
 	$("#posts_target").append(div);
 	$("#posts_creating_loading").addClass("display_none");
-	insert_blacklist_div();
 	insert_wrting_div();
-}
-// 블랙리스트 Div 생성
-function insert_blacklist_div() {
-	let target = $("#setting_blacklist_wrapper");
-	let div =	`<input type="text" id="setting_blacklist_input" class="setting_blacklist_input" autocomplete="off" placeholder="입력">\
-				<div class="setting_blacklist_btn_ok pointer" onclick="write_blacklist();">추가</div>
-				<div class="setting_blacklist_btn_cancel pointer" onclick="cancel_blacklist();">삭제</div>
-				<div class="setting_blacklist_box">
-					<div id="setting_blacklist_black_box" class="setting_blacklist_black_box"></div>
-				</div>
-				`;
-	target.append(div);
-	set_blacklist();
-}
-function set_blacklist() {
-	$("#setting_blacklist_input").val("");
-	$.when(
-		A_JAX("http://"+host_ip+"/get_blacklist", "GET", null, null)
-	).done(function(data) {
-		if (data["result"] == 'success') {
-			$("#setting_blacklist_black_box").empty();
-			let user = "";
-			for (let i in data['blacklist']) {
-				user =	`<div class="setting_blacklist_user pointer" onclick="click_blacklist(this)">${data['blacklist'][i]['user_id']}</div>`;
-				$("#setting_blacklist_black_box").append(user);
-			}
-		} else {
-			$("#setting_blacklist_black_box").empty();
-			alert("관리자 인증에 실패하였습니다.");
-			location.href = "/";
-		}
-	});
-}
-function click_blacklist(tag) {
-	let text = $(tag).text().trim();
-	$("#setting_blacklist_input").val(text);
-}
-// 블랙리스트 추가 API
-function write_blacklist() {
-	check_managet_qualification_reload(function() {
-		let target = $("#setting_blacklist_input").val();
-		if (target == "") {
-			Snackbar("대상을 입력해주세요.");
-			$("#setting_blacklist_input").focus();
-			return;
-		}
-		$.when(
-			A_JAX("http://"+host_ip+"/push_blacklist/"+target, "GET", null, null)
-		).done(function(data) {
-			if (data["result"] == 'success') {
-				Snackbar(target+" 님을 블랙하였습니다.");
-				set_blacklist();
-			} else if (data["result"] == "Not found") {
-				Snackbar(target+" 님이 존재하지않습니다.");
-				$("#setting_blacklist_input").focus();
-			} else {
-				Snackbar("블랙리스트 추가에 실패하였습니다.");
-			}
-		});
-	});
-}
-// 블랙리스트 취소 API
-function cancel_blacklist() {
-	check_managet_qualification_reload(function() {
-		let target = $("#setting_blacklist_input").val();
-		if (target == "") {
-			Snackbar("대상을 입력해주세요.");
-			$("#setting_blacklist_input").focus();
-			return;
-		}
-		$.when(
-			A_JAX("http://"+host_ip+"/pop_blacklist/"+target, "GET", null, null)
-		).done(function(data) {
-			if (data["result"] == 'success') {
-				set_blacklist();
-				Snackbar(target+" 님을 석방시켰습니다.");
-				set_blacklist();
-			} else if (data["result"] == "Not found") {
-				Snackbar(target+" 님이 존재하지않습니다.");
-				$("#setting_blacklist_input").focus();
-			} else {
-				Snackbar("블랙리스트 추가에 실패하였습니다.");
-			}
-		});
-	});
 }
 
 // 게시글 작성 Div 생성

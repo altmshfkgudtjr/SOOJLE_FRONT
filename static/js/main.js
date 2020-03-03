@@ -191,12 +191,7 @@ function Go_Club() { window.location.href = "/board#topic?동아리&모임"; }
 function Go_Contest() { window.location.href = "/board#topic?공모전&행사"; }
 function Go_Job() { window.location.href = "/board#topic?진로&구인"; }
 
-// 로딩=====================================================================
-/*
-$(window).ready(function() {
-	$("#loading").css({"top": $(document).scrollTop()});
-});
-*/
+
 setTimeout(function() {
 	$("body").removeAttr("style");
 	$("#loading").addClass("display_none");
