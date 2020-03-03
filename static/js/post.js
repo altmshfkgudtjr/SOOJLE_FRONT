@@ -57,6 +57,8 @@ function get_recommend_posts(is_first = 0) {
 	$.when(A_JAX("http://"+host_ip+"/get_recommendation_newsfeed", "GET", null, null)).done(function (data) {
 		if (data['result'] == 'success') {
 			let output = JSON.parse(data["newsfeed"]);
+			if (output.length == 0)
+				No_posts($("#posts_target"));
 			save_posts = output.slice(30);
 			output = output.slice(0, 30);
 			creating_post($("#posts_target"), output, "추천");
