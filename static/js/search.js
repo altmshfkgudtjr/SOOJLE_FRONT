@@ -235,7 +235,7 @@ function search_text(text) {
 							<div id="category4" class="category_tab pointer" onclick="category_select($(this))">공모전&행사</div>\
 							<div id="category5" class="category_tab pointer" onclick="category_select($(this))">진로&구인</div>\
 							<div id="category6" class="category_tab pointer" onclick="category_select($(this))">자유</div>\
-							<div id="category7" class="category_tab pointer" onclick="category_select($(this))">일반</div>\
+							<div id="category7" class="category_tab category_tab_last pointer" onclick="category_select($(this))">일반</div>\
 							<div class="search_option_btn pointer" onclick="Search_Option()"><i class="fas fa-ellipsis-h"></i></div>\
 						</div>`;
 	$("#posts_target").append(category_tabs);
@@ -363,7 +363,13 @@ function insert_domain_post(posts, now_creating_state = "") {
 	for (post_one of posts) {
 		url = post_one["url"];
 		title = post_one["title"];
+		if (title.length > 45) {
+			title = title.slice(0,45) + " ...";
+		}
 		phara = post_one["post"];
+		if (phara.length > 70) {
+			phara = phara.slice(0,70) + " ...";
+		}
 		domain_block = `
 			<div class="sr_domain_ct" p-id="0">
 				<a href = ${url} target="_blank">

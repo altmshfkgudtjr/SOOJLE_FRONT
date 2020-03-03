@@ -476,6 +476,9 @@ function Creating_mobile_post(posts = [], target_tag = '', is_fav_cnt, callback)
 		else id = post_one['_id'];
 		fav_cnt = post_one['fav_cnt'];
 		title = post_one['title'];
+		if (title.length > 45) {
+			title = title.slice(0,45) + " ...";
+		}
 		if (post_one['date'].$date) date = post_one['date'].$date;
 		else date = post_one['date'];
 		if (post_one['end_date']) {
@@ -579,6 +582,9 @@ function Creating_pc_post(posts = [], target_tag = '', is_fav_cnt, callback) {
 		else id = post_one['_id'];
 		fav_cnt = post_one['fav_cnt'];
 		title = post_one['title'];
+		if (title.length > 50) {
+			title = title.slice(0,50) + " ...";
+		}
 		if (post_one['date'].$date) date = post_one['date'].$date;
 		else date = post_one['date'];
 		if (post_one['end_date']) {
