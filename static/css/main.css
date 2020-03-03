@@ -174,6 +174,60 @@ body {
 	padding-top: 200px;
 	z-index: 10;
 }
+.SJ_main_page1_menu_container {
+	position: relative;
+	width: 100%;
+	max-width: 1200px;
+	height: auto;
+	min-height: 50px;
+	margin: auto;
+	margin-top: 40px;
+	text-align: center;
+}
+.SJ_main_page1_menu_icons_box {
+	position: relative;
+	display: inline-block;
+	width: 10%;
+	min-width: 120px;
+	max-width: 200px;
+	height: auto;
+	text-align: center;
+	margin-right: 10px;
+	border-radius: 50%;
+	transition: .1s ease-in-out;
+}
+.SJ_main_page1_menu_icons_box:last-child {
+	margin-right: 0;
+}
+.SJ_main_page1_menu_icons_box:after {
+	content: '';
+	display: block;
+	padding-bottom: 100%;
+}
+.SJ_main_page1_menu_icons_box:hover {
+	background-color: #f1f1f1;
+}
+.SJ_main_page1_menu_icon {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	margin-bottom: 20px;
+	opacity: .7;
+	top: 20%;
+	left: 50%;
+	transform: translate(-50%, 0);
+	-webkit-transform: translate(-50%, 0);
+}
+.SJ_main_page1_menu_text {
+	position: absolute;
+	width: 100%;
+	height: 20px;
+	bottom: 20%;
+	line-height: 20px;
+	color: 20px;
+	columns: #303030;
+	text-align: center;
+}
 .SJ_main_page1_logo_container {
 	position: relative;
 	left: 50%;

@@ -23,6 +23,18 @@
 	.header_guideline {
 		border-bottom: 4px solid #ebebeb;
 	}
+	.SJ_main_page1_menu_icons_box {
+		position: relative;
+		display: inline-block;
+		width: 20%;
+		min-width: 120px;
+		max-width: 150px;
+		height: auto;
+		text-align: center;
+		margin-right: 10px;
+		border-radius: 50%;
+		transition: .1s ease-in-out;
+	}
 }
 
 /*=============================================================================*/
@@ -121,6 +133,16 @@
 }
 
 /*=============================================================================*/
+/*                                    400px                                    */
+/*=============================================================================*/
+@media screen and (max-width: 400px) {
+	.SJ_main_page1_menu_icons_box {
+		min-width: 100px;
+	}
+}
+
+
+/*=============================================================================*/
 /*                                    350px                                    */
 /*=============================================================================*/
 @media screen and (max-width: 350px) {
@@ -132,5 +154,26 @@
 		height: 50px;
 		box-sizing: border-box;
 		padding-right: 10px;
+	}
+	.SJ_main_page1_menu_icons_box  {
+		min-width: 90px;
+	}
+}
+
+
+/*=============================================================================*/
+/*                                Height 650px                                 */
+/*=============================================================================*/
+@media screen and (max-height: 650px) {
+	.SJ_main_page1_menu_container {
+		margin-top: 20px;
+	}
+	.SJ_main_page1_menu_icons_box:nth-child(n+4) {
+		display: none;
+	}
+}
+@media screen and (max-height: 550px) {
+	.SJ_main_page1_menu_icons_box {
+		display: none;
 	}
 }

@@ -184,6 +184,12 @@ function Gohome(){ window.location.href = "/"; }
 function Goboard() { window.location.href = "/board"; }
 function GoLogin() { window.location.href = "/board#signinup"; }
 function GoSetting() { window.location.href = "/board#setting"; }
+function Go_Recommend() { window.location.href = "/board#recommend"; }
+function Go_Popularity() { window.location.href = "/board#popularity"; }
+function Go_College() { window.location.href = "/board#topic?대학교"; }
+function Go_Club() { window.location.href = "/board#topic?동아리&모임"; }
+function Go_Contest() { window.location.href = "/board#topic?공모전&행사"; }
+function Go_Job() { window.location.href = "/board#topic?진로&구인"; }
 
 // 로딩=====================================================================
 /*
