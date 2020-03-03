@@ -724,55 +724,35 @@ function Search_Option_Sort() {
 5: 자유
 6: 예외
 */
-// 검색 디버깅 함수
-function test_search() {
-	send_data = {search: "최유경 교수"};
-	$.when(
-		$.when(A_JAX("http://"+host_ip+"/category_search/대학/200", "POST", null, send_data)).done(function (data) {
-			if (data['result'] == "success") {
-				console.log("대학교, ", data["search_result"].length);
-			} else {
-				console.log("대학교 Failed");
+// 머지소트 테스트
+function Create_trend_posts_merge_test() {
+	let index = [0], max = 0, cnt = 0, all_posts = [], st = new Date().getTime();
+	for (let i = 1; i < a_jax_posts.length; i++)
+		index.push(0)
+	while (cnt < 200) {
+		target = 0;
+		for (let i = 1; i < a_jax_posts.length; i++) {
+			if (a_jax_posts[i][index[i]] == undefined) continue;
+			if (a_jax_posts[i][index[i]]['similarity'] > max) {
+				target = i;
+				max = a_jax_posts[i][index[i]]['similarity'];
 			}
-		}).catch(function(e) {
-			console.log("fail");
-		}),
-		$.when(A_JAX("http://"+host_ip+"/category_search/동아리&모임/200", "POST", null, send_data)).done(function (data) {
-			if (data['result'] == "success") {
-				console.log("동아리&모임, ", data["search_result"].length);
-			} else {
-				console.log("동아리&모임 Failed");
-			}
-		}),
-		$.when(A_JAX("http://"+host_ip+"/category_search/공모전&행사/200", "POST", null, send_data)).done(function (data) {
-			if (data['result'] == "success") {
-				console.log("공모전&행사, ", data["search_result"].length);
-			} else {
-				console.log("공모전&행사 Failed");
-			}
-		}),
-		$.when(A_JAX("http://"+host_ip+"/category_search/진로&구인/200", "POST", null, send_data)).done(function (data) {
-			if (data['result'] == "success") {
-				console.log("진로&구인, ", data["search_result"].length);
-			} else {
-				console.log("진로&구인 Failed");
-			}
-		}),
-		$.when(A_JAX("http://"+host_ip+"/category_search/자유/200", "POST", null, send_data)).done(function (data) {
-			if (data['result'] == "success") {
-				console.log("자유, ", data["search_result"].length);
-			} else {
-				console.log("자유 Failed");
-			}
-		}),
-		$.when(A_JAX("http://"+host_ip+"/category_search/예외/200", "POST", null, send_data)).done(function (data) {
-			if (data['result'] == "success") {
-				console.log("예외, ", data["search_result"].length);
-			} else {
-				console.log("예외 Failed");
-			}
-		})
-	).then(function() {
-		console.log("all done");
-	})
+		}
+		index[target] += 1;
+		all_posts.push(a_jax_posts[target][index[target]]);
+		cnt++;
+	}
+	console.log("Merge : ", new Date().getTime() - st);
+}
+// 정렬 테스트
+function Create_trend_posts_test() {
+	let all_posts = [], st = new Date().getTime();
+	for (let category of a_jax_posts) {
+		all_posts = all_posts.concat(category);
+	}
+	all_posts.sort(function(a, b) {
+		return b['similarity'] - a['similarity'];
+	});
+	all_posts = all_posts.slice(0, 200);
+	console.log("Sort : ", new Date().getTime() - st);
 }

@@ -495,10 +495,6 @@ function Check_ManagerInfo(callback) {
 			if (typeof(callback) == "function") {
 				callback();
 			}
-		} else {
-			$('#AdminMenu').remove();
-			alert("관리자 인증에 실패하였습니다.");
-			location.href = "/";
 		}
 	});
 }
