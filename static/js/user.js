@@ -519,7 +519,7 @@ function Get_Recently_View_Post(callback) {
 			alert("다시 로그인해주세요.");	//////////////////////
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
-			window.location.reload();
+			window.location.replace("/board");
 		}
 	});
 }
@@ -544,7 +544,7 @@ function Get_Like_Post(callback) {
 			alert("다시 로그인해주세요.");	//////////////////////
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
-			window.location.reload();
+			window.location.replace("/board");
 		}
 	});
 }

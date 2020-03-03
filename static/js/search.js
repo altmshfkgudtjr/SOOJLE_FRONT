@@ -571,6 +571,23 @@ function Create_trend_posts() {
 		return b['similarity'] - a['similarity'];
 	});
 	a_jax_posts[0] = all_posts.slice(0, 200);
+	// let index = [0], max = 0, cnt = 0, all_posts = [];
+	// for (let i = 1; i < a_jax_posts.length; i++)
+	// 	index.push(0)
+	// while (cnt < 200) {
+	// 	target = 0;
+	// 	for (let i = 1; i < a_jax_posts.length; i++) {
+	// 		if (a_jax_posts[i][index[i]] == undefined) continue;
+	// 		if (a_jax_posts[i][index[i]]['similarity'] > max) {
+	// 			target = i;
+	// 			max = a_jax_posts[i][index[i]]['similarity'];
+	// 		}
+	// 	}
+	// 	if (target == 0) break;
+	// 	index[target] += 1;
+	// 	a_jax_posts[0].push(a_jax_posts[target][index[target]]);
+	// 	cnt++;
+	// }
 }
 // 통합 검색 결과 0개
 function result_search_zero() {
@@ -738,6 +755,7 @@ function Create_trend_posts_merge_test() {
 				max = a_jax_posts[i][index[i]]['similarity'];
 			}
 		}
+		if (target == 0) break;
 		index[target] += 1;
 		all_posts.push(a_jax_posts[target][index[target]]);
 		cnt++;
