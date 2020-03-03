@@ -1,47 +1,34 @@
 // 관리자 Check Auto
 function check_manager_qualification() {
-	let lst = sessionStorage.getItem('sj-state');
-	if (lst != null && lst != undefined && lst != 'undefined') {
-		$.when(
-			A_JAX("http://"+host_ip+"/check_admin", "GET", null, null)
-		).done(function(data) {
-			if (data["result"] == 'success') {
-				$('#AdminMenu').remove();
-				let menu =	`<div id="AdminMenu" class="menu_container_button pointer" onclick="Go_management()">
-								<img src="/static/image/shortcut_mobile.png" class="menu_container_button_icon noselect">
-								<div class="menu_container_button_text noselect">관리자 도구</div>
-							</div>`;
-				$("#sm_target").before(menu);
-			}
-		});
-	}
+	// 관리자 Check API
+	Check_ManagerInfo(function() {
+		$('#AdminMenu').remove();
+		let menu =	`<div id="AdminMenu" class="menu_container_button pointer" onclick="Go_management()">
+						<img src="/static/image/shortcut_mobile.png" class="menu_container_button_icon noselect">
+						<div class="menu_container_button_text noselect">관리자 도구</div>
+					</div>`;
+		$("#sm_target").before(menu);
+	});
 }
 // 관리자 Check
 function check_managet_qualification_reload(callback) {
 	let lst = sessionStorage.getItem('sj-state');
 	if (lst != null && lst != undefined && lst != 'undefined') {
-		$.when(
-			A_JAX("http://"+host_ip+"/check_admin", "GET", null, null)
-		).done(function(data) {
-			if (data["result"] == 'success') {
-				$('#AdminMenu').remove();
-				let menu =	`<div id="AdminMenu" class="menu_container_button pointer" onclick="Go_management()">
-								<img src="/static/image/shortcut_mobile.png" class="menu_container_button_icon noselect">
-								<div class="menu_container_button_text noselect">관리자 도구</div>
-							</div>`;
-				$("#sm_target").before(menu);
-				if (typeof(callback) == "function") {
-					callback();
-				}
-			} else {
-				$('#AdminMenu').remove();
-				alert("관리자 인증에 실패하였습니다.");
-				location.href = "/";
+		Check_ManagerInfo(function() {
+			$('#AdminMenu').remove();
+			let menu =	`<div id="AdminMenu" class="menu_container_button pointer" onclick="Go_management()">
+							<img src="/static/image/shortcut_mobile.png" class="menu_container_button_icon noselect">
+							<div class="menu_container_button_text noselect">관리자 도구</div>
+						</div>`;
+			$("#sm_target").before(menu);
+			if (typeof(callback) == "function") {
+				callback();
 			}
-		});
+		})
 	} else {
 		location.replace("/board#recommend");
 	}
+
 }
 // 관리자 도구 이동
 function Go_management() {

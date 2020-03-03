@@ -1,3 +1,14 @@
+const NOTICE_PLACEHOLDER = 
+`내용을 입력해주세요.
+
+공지사항을 작성 시, 다음 규칙을 확인하고 올려주세요.
+
+[공지사항 작성 유의사항]
+1. 욕설, 비하, 음란물, 개인정보가 포함된 게시물 게시.
+2. 특정인이나 단체/지역을 비방하는 행위.
+3. 기타 현행법에 어긋나는 행위.
+`;
+
 // 공지사항 클릭
 function Click_dvnote() {
 	location.href = "/board#dvnote";
@@ -129,47 +140,147 @@ function Notice_menu_btn() {
 function insert_notice_one(id) {
 	let target = $("#posts_target");
 	target.empty();
-	Get_notice_postOne(id, function(result) {
-		if (result) {
-			let oid, title, phara, date, view, tag, activation = 0, activation_tag = ``;
-			oid = result['_id']['$oid'];
-			title = result['title'];
-			phara = result['post'];
-			view = result['view'];
-			date = change_date_absolute(result['date']['$date']);
-			activation = result['activation'];
-			if (activation == 1) {
-				activation_tag = `<span class="notice_post_activation noselect">[활성화] </span>`;
-			}
-			tag =	`
-						<div class="notice_page_container" data-id=${oid}>
-							<div class="notice_page_upper_cont">
-								<div class="notice_page_icon"></div>
-								<div class="notice_page_title_cont">
-									<div class="notice_page_title">${activation_tag} ${title}</div>
-									<div class="notice_page_date"><i class="far fa-clock"></i> ${date} 작성됨</div>
+	new Promise(function(resolve, reject) {
+		Get_notice_postOne(id, function(result) {
+			if (result) {
+				let oid, title, phara, date, view, tag, activation = 0, activation_tag = ``;
+				oid = result['_id']['$oid'];
+				title = result['title'];
+				phara = result['post'];
+				view = result['view'];
+				date = change_date_absolute(result['date']['$date']);
+				activation = result['activation'];
+				if (activation == 1) {
+					activation_tag = `<span class="notice_post_activation noselect">[활성화] </span>`;
+				}
+				tag =	`
+							<div id="notice_page_container" class="notice_page_container" data-id=${oid}>
+								<div class="notice_page_upper_cont">
+									<div class="notice_page_icon"></div>
+									<div class="notice_page_title_cont">
+										<div class="notice_page_title">${activation_tag} ${title}</div>
+										<div class="notice_page_date"><i class="far fa-clock"></i> ${date} 작성됨</div>
+									</div>
 								</div>
+								<div class="notice_page_view noselect">
+								VIEW ${view}</div>
+								<div id="notice_page_post" class="notice_page_post"><span style="font-weight:bold; font-size:22px;">${title}</span>\n\n${phara}</div>
+								<div class="notice_menu_btn pointer" onclick="Notice_menu_btn()"><i class="fas fa-bars"></i> 목록보기</div>
 							</div>
-							<div class="notice_page_view noselect">
-							VIEW ${view}</div>
-							<div class="notice_page_post"><span style="font-weight:bold; font-size:22px;">${title}</span>
+							<div id="notice_page_editor" class="notice_page_editor display_none"></div>
+						`;
+				target.append(tag);
+			} else {
+				No_posts($("#posts_target"));
+			}
+			$("#mobile_controller_none").addClass("display_none");
+			$("#board_loading_modal").addClass("board_loading_modal_unvisible");
+			$(".mobile_controller").removeAttr("style");
+			$("#none_click").addClass("display_none");
 
-${phara}</div>
-							<div class="notice_menu_btn pointer" onclick="Notice_menu_btn()"><i class="fas fa-bars"></i> 목록보기</div>
+			$("#menu_container").removeClass("menu_container_fixed");
+			$("#posts_creating_loading").addClass("display_none");
+			$("#board_container").removeClass("board_container_fixed");
+			resolve();
+		});
+	}).then(function() {
+		Check_ManagerInfo(function() {
+			let tag = 	`
+						<div class="notice_page_controll_cont">
+							<div id="notice_page_edit" class="notice_page_edit pointer" onclick="Notice_Edit()">수정</div>
+							<div id="notice_page_delete" class="notice_page_delete pointer" onclick="Notice_Delete()">삭제</div>
 						</div>
-					`;
-			target.append(tag);
-		} else {
-			No_posts($("#posts_target"));
-		}
-		$("#mobile_controller_none").addClass("display_none");
-		$("#board_loading_modal").addClass("board_loading_modal_unvisible");
-		$(".mobile_controller").removeAttr("style");
-		$("#none_click").addClass("display_none");
-
-		$("#menu_container").removeClass("menu_container_fixed");
-		$("#posts_creating_loading").addClass("display_none");
-		$("#board_container").removeClass("board_container_fixed");
+						`;
+			$("#notice_page_post").after(tag);
+		});
 	});
 }
 
+// 단일 공지사항 수정
+function Notice_Edit() {
+	Check_ManagerInfo(function() {
+		$("#notice_page_container").addClass("display_none");
+		$("#notice_page_editor").removeClass("display_none");
+		let id = $("#notice_page_container").attr('data-id');
+		let target = $("#notice_page_editor"), tag = ``;
+		target.empty();
+		Get_notice_postOne(id, function(result) {
+			if (result) {
+				tag = 	`
+							<input id="notice_page_edit_title" class="notice_page_edit_title" placeholder="제목을 입력해주세요.">
+							<textarea id="notice_page_edit_post" class="notice_page_edit_post" placeholder="${NOTICE_PLACEHOLDER}"></textarea>
+							<div class="notice_page_controll_cont">
+								<span class="activation_title noselect">공지 </span>
+								<input type="checkbox" id="activation_toggle" name="activation_toggle">
+								<div class="setting_toggle">
+									<label for="activation_toggle"></label>
+								</div>
+								<div class="activatioin_info">공지를 선택할 시, 뉴스피드 상단에 노출됩니다.</div>
+							</div>
+							<div class="notice_page_controll_cont_edit">
+								<div id="notice_page_edit_done" class="notice_page_edit_done pointer" onclick="Notice_Edit_Done()">완료</div>
+								<div id="notice_page_edit_cancel" class="notice_page_edit_cancel pointer" onclick="Notice_Edit_Cancel()">취소</div>
+							</div>
+						`;
+				target.append(tag);
+				$("#notice_page_edit_title").val(result['title']);
+				$("#notice_page_edit_post").val(result['post']);
+				// 활성화 Check 유무
+				if (result['activation'] == 1) {
+					$("#activation_toggle").prop("checked", true);
+				} else {
+					$("#activation_toggle").prop("checked", false);
+				}
+			}
+		});
+	});
+}
+// 단일 공지사항 삭제
+function Notice_Delete() {
+	Check_ManagerInfo(function() {
+		if (confirm("해당 게시글을 삭제하시겠습니까?")) {
+			let id = $("#notice_page_container").attr("data-id");
+			$.when(A_JAX("http://"+host_ip+"/remove_notice/"+id, "POST", null, null))
+			.done(function(data) {
+				if (data['result'] == "success") {
+					alert("삭제 완료하였습니다.");
+					location.replace("/board#dvnote");
+				} else {
+					Snackbar("잠시 후에 다시 시도해주세요!");
+					return;
+				}
+			});
+		} 
+	});
+}
+// 단일 공지사항 수정 완료
+function Notice_Edit_Done() {
+	Check_ManagerInfo(function() {
+		let id = $("#notice_page_container").attr('data-id');
+		let title = $("#notice_page_edit_title");
+		let post = $("#notice_page_edit_post");
+		let actiavation_check = 0
+		if ($("#activation_toggle").is(":checked"))
+			actiavation_check = 1;
+		let sendData = {
+			'title': title,
+			'post': post,
+			'activation': actiavation_check
+		};
+		$.when(A_JAX("http://"+host_ip+"/update_notice/"+id, "POST", null, sendData))
+		.done(function(data) {
+			if (data['result'] == "success") {
+				alert("수정 완료하였습니다.");
+				location.reload();
+			} else {
+				Snackbar("잠시 후에 다시 시도해주세요!");
+				return;
+			}
+		});
+	});
+}
+// 단일 공지사항 수정 취소
+function Notice_Edit_Cancel() {
+	$("#notice_page_container").removeClass("display_none");
+	$("#notice_page_editor").addClass("display_none");
+}

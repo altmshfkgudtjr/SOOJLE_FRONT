@@ -484,6 +484,24 @@ function Get_UserInfo(callback) {
 	});
 	return output;
 }
+// 관리자 확인 반환 (callback(<userdata>))
+function Check_ManagerInfo(callback) {
+	let token = sessionStorage.getItem('sj-state');
+	if (token == null || token == undefined || token == 'undefined') return;
+	let a_jax_manager = A_JAX("http://"+host_ip+"/check_admin", "GET", null, null);
+	$.when(a_jax_manager)
+	.done(function(data) {
+		if (data["result"] == 'success') {
+			if (typeof(callback) == "function") {
+				callback();
+			}
+		} else {
+			$('#AdminMenu').remove();
+			alert("관리자 인증에 실패하였습니다.");
+			location.href = "/";
+		}
+	});
+}
 // 최근 본 게시글 반환 (callback(<userdata>))
 function Get_Recently_View_Post(callback) {
 	let a_jax = A_JAX("http://"+host_ip+"/get_specific_userinfo/"+2, "GET", null, null);
