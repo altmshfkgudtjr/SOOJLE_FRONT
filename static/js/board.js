@@ -332,7 +332,7 @@ function Login() {
 function Logout() {
 	localStorage.removeItem("sj-state");
 	sessionStorage.removeItem("sj-state");
-	location.reload();
+	location.replace("/board");
 }
 function pageUp() {
 	scroll(0,0);

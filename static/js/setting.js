@@ -1,6 +1,12 @@
 function Click_setting() {
+	let token = sessionStorage.getItem('sj-state');
+	if (token == null || token == undefined || token == 'undefined') {
+		if (menu_open == 1) menu_modal_onoff();
+		Snackbar("로그인이 필요합니다.");
+		Login_open();
+		return;
+	}
 	location.href = "/board#setting";
-	//location.replace("/board#setting");
 	if (menu_open == 1) {
 		menu_modal_onoff();
 	}
@@ -9,7 +15,6 @@ function Click_setting() {
 // Setting Page 구성 함수
 function Go_setting() {
 	out_of_search();
-	//window.scroll(0,0);
 	$('body,html').animate({ scrollTop: 0, }, 0);
 	$("#menu_container").removeClass("menu_container_fixed");
 	$("#posts_creating_loading").addClass("display_none");
@@ -24,6 +29,8 @@ function Go_setting() {
 	where_topic = "SOOJLE";
 	now_state = now_topic;
 	if (token == null || token == undefined || token == 'undefined') {
+		Snackbar("로그인이 필요합니다.");
+		Login_open();
 	} else {
 		Get_UserInfo(function(result) {	// result == 유저정보
 			if (result) {

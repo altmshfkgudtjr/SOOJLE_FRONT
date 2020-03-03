@@ -563,31 +563,24 @@ function remove_duplicated(target, posts) {
 }
 // 트렌드 게시물 제작
 function Create_trend_posts() {
-	let all_posts = []
-	for (let category of a_jax_posts) {
-		all_posts = all_posts.concat(category);
+	let index = [0], max = 0, cnt = 0;
+	for (let i = 1; i < a_jax_posts.length; i++)
+		index.push(0)
+	while (cnt < 200) {
+		target = 0;
+		max = 0;
+		for (let i = 1; i < a_jax_posts.length; i++) {
+			if (a_jax_posts[i][index[i]] == undefined) continue;
+			if (a_jax_posts[i][index[i]]['similarity'] > max) {
+				target = i;
+				max = a_jax_posts[i][index[i]]['similarity'];
+			}
+		}
+		if (target == 0) break;
+		a_jax_posts[0].push(a_jax_posts[target][index[target]]);
+		index[target] += 1;
+		cnt++;
 	}
-	all_posts.sort(function(a, b) {
-		return b['similarity'] - a['similarity'];
-	});
-	a_jax_posts[0] = all_posts.slice(0, 200);
-	// let index = [0], max = 0, cnt = 0, all_posts = [];
-	// for (let i = 1; i < a_jax_posts.length; i++)
-	// 	index.push(0)
-	// while (cnt < 200) {
-	// 	target = 0;
-	// 	for (let i = 1; i < a_jax_posts.length; i++) {
-	// 		if (a_jax_posts[i][index[i]] == undefined) continue;
-	// 		if (a_jax_posts[i][index[i]]['similarity'] > max) {
-	// 			target = i;
-	// 			max = a_jax_posts[i][index[i]]['similarity'];
-	// 		}
-	// 	}
-	// 	if (target == 0) break;
-	// 	index[target] += 1;
-	// 	a_jax_posts[0].push(a_jax_posts[target][index[target]]);
-	// 	cnt++;
-	// }
 }
 // 통합 검색 결과 0개
 function result_search_zero() {
@@ -726,51 +719,4 @@ function Search_Option_Sort() {
 	} else if (target == "일반") {
 		category_select($("#category7"));
 	} 
-}
-
-
-
-
-
-/*
-0: 트렌드
-1: 대학교
-2: 동아리&모임
-3: 공모전&행사
-4: 진로&구인
-5: 자유
-6: 예외
-*/
-// 머지소트 테스트
-function Create_trend_posts_merge_test() {
-	let index = [0], max = 0, cnt = 0, all_posts = [], st = new Date().getTime();
-	for (let i = 1; i < a_jax_posts.length; i++)
-		index.push(0)
-	while (cnt < 200) {
-		target = 0;
-		for (let i = 1; i < a_jax_posts.length; i++) {
-			if (a_jax_posts[i][index[i]] == undefined) continue;
-			if (a_jax_posts[i][index[i]]['similarity'] > max) {
-				target = i;
-				max = a_jax_posts[i][index[i]]['similarity'];
-			}
-		}
-		if (target == 0) break;
-		index[target] += 1;
-		all_posts.push(a_jax_posts[target][index[target]]);
-		cnt++;
-	}
-	console.log("Merge : ", new Date().getTime() - st);
-}
-// 정렬 테스트
-function Create_trend_posts_test() {
-	let all_posts = [], st = new Date().getTime();
-	for (let category of a_jax_posts) {
-		all_posts = all_posts.concat(category);
-	}
-	all_posts.sort(function(a, b) {
-		return b['similarity'] - a['similarity'];
-	});
-	all_posts = all_posts.slice(0, 200);
-	console.log("Sort : ", new Date().getTime() - st);
 }

@@ -516,7 +516,7 @@ function Get_Recently_View_Post(callback) {
 		return output;
 	}).fail(function(xhr, status, err) {	//////////////////////
 		if(err == "UNAUTHORIZED") {			/*	    실패 시		*/
-			alert("다시 로그인해주세요.");	//////////////////////
+			alert("로그인이 필요합니다.");	//////////////////////
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
 			window.location.replace("/board");
@@ -541,7 +541,7 @@ function Get_Like_Post(callback) {
 		return output;
 	}).fail(function(xhr, status, err) {	//////////////////////
 		if(err == "UNAUTHORIZED") {			/*	    실패 시		*/
-			alert("다시 로그인해주세요.");	//////////////////////
+			alert("로그인이 필요합니다.");	//////////////////////
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
 			window.location.replace("/board");
