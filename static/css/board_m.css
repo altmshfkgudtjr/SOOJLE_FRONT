@@ -1157,6 +1157,29 @@
 	.notice_menu_btn:active {
 		background-color: #ebebeb;
 	}
+	.notice_page_edit_title {
+		width: 96%;
+		height: 60px;
+		margin: 20px 2% 30px 2%;
+		padding: 5px 0 5px 30px;
+		box-sizing: border-box;
+		border: none;
+		border-left: 5px solid #12b886;
+		font-size: 26px;
+		line-height: 30px;
+		font-weight: bold;
+	}
+	.notice_page_edit_post {
+		height: 300px;
+	}
+	.notice_page_controll_cont {
+		width: 96%;
+		margin: 10px 2%;
+	}
+	.activation_title {
+		font-size: 20px;
+		line-height: 30px;
+	}
 }
 /*=============================================================================*/
 /*                                    840px                                    */
