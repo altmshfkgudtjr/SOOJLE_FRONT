@@ -187,7 +187,7 @@ let similarity_words;
 let domain_posts = [];
 let a_jax_posts = [];
 /*
-0: 트렌드
+0: 최근 트렌드
 1: 대학교
 2: 동아리&모임
 3: 공모전&행사
@@ -261,18 +261,15 @@ function search_text(text) {
 	}
 	Get_Search_Posts(send_data, now_creating_state);	// 검색 API 호출
 	Search_Option_on();									// 검색 옵션 오픈
-	// 연관검색어 임시 중단
-	//let a_jax_recommend = A_JAX("http://"+host_ip+"/get_similarity_words", "POST", null, send_data);
 	// 연관검색어 임시중지
-	/*$.when(a_jax_recommend).done(function () {
-		let json = a_jax_recommend.responseJSON;
-		if (json['result'] == "success") {
-			similarity_words = json['similarity_words'];
-			insert_recommend_words(json['similarity_words'], now_creating_state);
-		} else {
-			Snackbar("다시 접속해주세요!");
-		}
-	});*/
+	// $.when(A_JAX("http://"+host_ip+"/get_similarity_words", "POST", null, send_data)).done(function (data) {
+	// 	if (data['result'] == "success") {
+	// 		similarity_words = data['similarity_words'];
+	// 		insert_recommend_words(data['similarity_words'], now_creating_state);
+	// 	} else {
+	// 		Snackbar("다시 접속해주세요!");
+	// 	}
+	// });
 }
 // 검색 API 호출
 function Get_Search_Posts(sendData, now_creating_state) {
@@ -428,12 +425,11 @@ function insert_search_post(target_num, posts, now_creating_state = "", is_fav_c
 			target.append($(tag_str));
 		}
 	});
-
-	if (!mobilecheck()) {
-		setTimeout(function() {$("#menu_container").css({"transition": ".2s ease-in-out"});}, 200);
-	}
+	// if (!mobilecheck()) {
+	// 	setTimeout(function() {$("#menu_container").css({"transition": ".2s ease-in-out"});}, 200);
+	// }
 }
-// Recommend words inserting
+// 연관 검색어 삽입
 function insert_recommend_words(words_dict, now_creating_state = "") {
 	let target = $("#sr_recommend");
 	let recommends = [];
@@ -486,7 +482,7 @@ function recommend_word_click(tag) {
 function more_posts(target_num, is_fav_cnt = 1) {
 	$(".category_checked").removeClass("category_checked");
 	$(`#category${target_num + 1}`).addClass("category_checked");
-	let target_name;
+	let target_name = target_num;
 	if (Number(target_name) == 0) {target_name = "최근 트렌드";}
 	else if (Number(target_name) == 1) {target_name = "대학교";}
 	else if (Number(target_name) == 2) {target_name = "동아리&모임";}
@@ -494,10 +490,10 @@ function more_posts(target_num, is_fav_cnt = 1) {
 	else if (Number(target_name) == 4) {target_name = "진로&구인";}
 	else if (Number(target_name) == 5) {target_name = "자유";}
 	else {target_name = "일반";}
-	let more_left_tag = `<img src="/static/icons/back.png" class="sr_more_to_before noselect">${target_name}`;
+	let more_left_tag = `<img src="/static/icons/back.png" class="sr_more_to_before noselect" onclick="Click_before_posts_pc()">${target_name}`;
 	$("#board_info_text").empty();
 	$("#board_info_text").append(more_left_tag);
-	if (a_jax_posts[target_num] != undefined && a_jax_posts[target_num].length == 0) return 1;	// 아무 포스트가 없음
+	if (a_jax_posts[target_num] != undefined && a_jax_posts[target_num].length == 0) return false;	// 아무 포스트가 없음
 	let now_creating_state = now_state;
 	window.scroll(0, 0);
 	$("#menu_container").removeAttr("style");
@@ -514,8 +510,8 @@ function more_posts(target_num, is_fav_cnt = 1) {
 		}
 	}, 1000);
 }
-// 검색 카테고리페이지에서 뒤로가기 클릭
-function before_posts(is_fav_cnt = 1) {
+// 검색 카테고리 페이지에서 뒤로가기 클릭
+function before_posts() {
 	$(".category_checked").removeClass("category_checked");
 	$("#category0").addClass("category_checked");
 	$("#posts_creating_loading").removeClass("display_none");
@@ -528,18 +524,22 @@ function before_posts(is_fav_cnt = 1) {
 	$("#board_info_board").text("SOOJLE 엔진");
 	//search_container_set();
 	// 연관검색어 임시중지
-	//insert_recommend_words(similarity_words, now_state);
+	insert_recommend_words(similarity_words, now_state);
 	insert_domain_post(domain_posts, now_state);
-	for (let i = 0; i< 5; i++) {
+	for (let i = 0; i< 7; i++) {
 		if (sum[i] != 0){
 			insert_search_post(index[i], a_jax_posts[index[i]], now_state);
-		} else {
 		}
 	}
 	result_search_zero();	// 통합 검색 결과 0개
 	Do_Like_Sign();			// 로딩 제거
 	is_searching = 0;
 	$("#posts_creating_loading").addClass("display_none");
+}
+// PC 검색 카테고리 페이지에서 뒤로가기 클릭
+function Click_before_posts_pc() {
+	if (mobilecheck()) return;
+	else before_posts();
 }
 // 중복게시글 삭제
 function remove_duplicated(target, posts) {
@@ -583,30 +583,6 @@ function result_search_zero() {
 }
 
 
-/*
-is_posts_done.registerListener(function(val) {
-	if (val == 6) {
-		setTimeout(function() {
-			check_search_results_sort();
-		}, 100);
-	}
-});
-is_posts_there.registerListener(function(val) {
-	if (val == 6) {
-		$("#posts_creating_loading").addClass("display_none");
-		let target = $("#search_posts_target");
-		let imoticon = imoticons[Math.floor(Math.random() * imoticons.length)];
-		//<img src="./static/image/none_posts.png" class="sr_none_posts_img">
-		let no_posts_tag = `
-			<div class="sr_none_posts_cont">
-				<div class="sr_none_posts_img noselect">${imoticon}</div>
-				<div class="sr_none_posts_text">포스트가 존재하지 않습니다!</div>
-			</div>`;
-		target.append(no_posts_tag);
-	}
-});
-*/
-
 function similarity_sort(index, sum) {
 	let i, j, max, tmp;
 	for (i = 0; i< 5; i++) {
@@ -648,11 +624,10 @@ function check_search_results_sort() {
 function category_select(tag) {
 	let id = tag.attr('id');
 	if (id == 'category0') {
-		if (tag.hasClass('category0')) return;
-		else before_posts(id.slice(Number(8) - 1));
+		if (tag.hasClass('category_checkd')) return;
+		else before_posts();
 	} else {
-		let ok_post = more_posts(Number(id.slice(8)) - 1);
-		if (ok_post == 1) {
+		if (more_posts(Number(id.slice(8)) - 1) == false) {
 			No_posts($("#search_posts_target"));
 		}
 	}

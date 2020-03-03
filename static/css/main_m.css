@@ -20,6 +20,9 @@
 		top: 150px;
 		opacity: .2;
 	}
+	.header_guideline {
+		border-bottom: 4px solid #ebebeb;
+	}
 }
 
 /*=============================================================================*/
