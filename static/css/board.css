@@ -753,7 +753,7 @@ html, body {
 .menu_container_button_small_info {
 	position: relative;
 	float: right;
-	width: 100%;
+	width: 50%;
 	height: 40px;
 	right: 0;
 	margin-bottom: 10px;
