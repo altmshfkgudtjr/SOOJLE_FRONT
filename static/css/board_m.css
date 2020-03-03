@@ -455,7 +455,7 @@
 	.board_mobile_login_bar {
 		position: relative;
 		display: inline-block;
-		float: left;
+		float: right;
 		width: 1px;
 		height: 30px;
 		margin-top: 10px;
@@ -478,13 +478,17 @@
 	.board_mobile_login_name {
 		position: relative;
 		display: inline-block;
-		float: left;
+		float: right;
 		width: auto;
+		max-width: 80%;
 		height: 50px;
 		border: none;
 		font-size: 16px;
 		line-height: 50px;
 		opacity: 0.8;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	.body_guideline {
 		position: relative;
@@ -1620,6 +1624,7 @@
 		display: inline-block;
 		float: right;
 		width: auto;
+		max-width: 50%;
 		height: 50px;
 		padding-right: 15px;
 	}
