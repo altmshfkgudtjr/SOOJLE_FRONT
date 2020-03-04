@@ -240,7 +240,7 @@ function Notice_Delete() {
 	Check_ManagerInfo(function() {
 		if (confirm("해당 게시글을 삭제하시겠습니까?")) {
 			let id = $("#notice_page_container").attr("data-id");
-			$.when(A_JAX("http://"+host_ip+"/remove_notice/"+id, "POST", null, null))
+			$.when(A_JAX("http://"+host_ip+"/remove_notice/"+id, "GET", null, null))
 			.done(function(data) {
 				if (data['result'] == "success") {
 					alert("삭제 완료하였습니다.");
@@ -257,8 +257,8 @@ function Notice_Delete() {
 function Notice_Edit_Done() {
 	Check_ManagerInfo(function() {
 		let id = $("#notice_page_container").attr('data-id');
-		let title = $("#notice_page_edit_title");
-		let post = $("#notice_page_edit_post");
+		let title = $("#notice_page_edit_title").val();
+		let post = $("#notice_page_edit_post").val();
 		let actiavation_check = 0
 		if ($("#activation_toggle").is(":checked"))
 			actiavation_check = 1;
