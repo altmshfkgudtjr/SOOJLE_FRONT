@@ -1049,6 +1049,9 @@ html, body {
 	line-height: 30px;
 	margin-right: 15px;
 }
+.post_title:hover {
+	text-decoration: underline;
+}
 .post_block_cont {
 	position: relative;
 	float: left;
@@ -1310,6 +1313,9 @@ html, body {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	color: #0071e3;
+}
+.sr_domain_title:hover {
+	text-decoration: underline;
 }
 .sr_domain_url {
 	position: relative;
@@ -1646,7 +1652,7 @@ html, body {
 	resize: vertical;
 }
 .feedback_box:focus {
-	border: 1.5px solid black;
+	border: 1.5px solid #12b886;
 }
 .feedback_send_btn {
 	position: relative;
@@ -1655,7 +1661,7 @@ html, body {
 	margin-top: 30px;
 	margin-left: auto;
 	margin-right: auto;
-	color: #c30e2e;
+	color: black;
 	font-size: 20px;
 	line-height: 40px;
 	text-align: center;
@@ -1663,7 +1669,8 @@ html, body {
 	font-weight: bold;
 }
 .feedback_send_btn:hover {
-	color: black;
+	background-color: #12b886;
+	color: white;
 }
 .feedback_email {
 	position: relative;
@@ -1910,6 +1917,7 @@ span.selectbox_choose {
 	text-align: left
 }
 .selectbox_dropdown .selectbox_select {
+	color: #12b886;
 	cursor: pointer;
 	display: block;
 	padding: 10px
@@ -1935,6 +1943,7 @@ span.selectbox_choose {
 	background-color: #f8f8f8
 }
 .selectbox_dropdown.selectbox_active .selectbox_select > i {
+	color: #12b886;
 	transform: rotate(-90deg)
 }
 .selectbox_dropdown-menu::-webkit-scrollbar {

@@ -212,6 +212,9 @@ function get_posts_more(before_state, target) {
 function post_menu_open(tag) {
 	let id = tag.parent('div').parent('div').attr("p-id");
 	let url = tag.parent('div').children('a').attr("href");
+	if (url == undefined) {
+		url = tag.parent('div').parent('div').children('a').attr("href");
+	}
 	$("body").css("overflow", "hidden");
 	$("#post_menu_modal_container").attr("p-id", id);
 	$("#post_menu_modal_container").attr("p-url", url);
