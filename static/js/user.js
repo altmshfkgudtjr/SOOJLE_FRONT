@@ -108,7 +108,7 @@ function Sign_in() {									// 로그인 완료 버튼
 		let user_pw = $("#user_pw").val();
 		let send_data = {id: user_id, pw: user_pw};
 		$("#loading_modal").removeClass("loading_modal_unvisible");
-		$.when(A_JAX("http://"+host_ip+"/sign_in", "POST", null, send_data)).done(function (data) {
+		$.when(A_JAX(host_ip+"/sign_in", "POST", null, send_data)).done(function (data) {
 			$("#loading_modal").addClass("loading_modal_unvisible");
 			if (data['result'] == 'success') {
 				let token = data['access_token'];
@@ -406,7 +406,7 @@ function Sign_Up_Send() {	// 회원가입 API 호출
 	sendData['nickname'] = $("#signup_nickname").val();
 	sendData['pw'] = $("#signup_pw").val();
 	sendData['pw_check'] = $("#signup_pw_check").val();
-	$.when(A_JAX("http://"+host_ip+"/sign_up", "POST", null, sendData)).done(function (data) {
+	$.when(A_JAX(host_ip+"/sign_up", "POST", null, sendData)).done(function (data) {
 		if (data['result'] == 'success') {
 			let token = data['access_token'];
 			sessionStorage.setItem('sj-state', token);
@@ -447,7 +447,7 @@ function Get_UserInfo(callback) {
     	return false;
     }
     let output = {};
-	a_jax = A_JAX("http://"+host_ip+"/get_userinfo", "GET", null, null);
+	a_jax = A_JAX(host_ip+"/get_userinfo", "GET", null, null);
 	$.when(a_jax).done(function (data) {
 		if (data['result'] == 'success') {
 			output = a_jax.responseJSON;
@@ -488,7 +488,7 @@ function Get_UserInfo(callback) {
 function Check_ManagerInfo(callback) {
 	let token = sessionStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') return;
-	let a_jax_manager = A_JAX("http://"+host_ip+"/check_admin", "GET", null, null);
+	let a_jax_manager = A_JAX(host_ip+"/check_admin", "GET", null, null);
 	$.when(a_jax_manager)
 	.done(function(data) {
 		if (data["result"] == 'success') {
@@ -500,7 +500,7 @@ function Check_ManagerInfo(callback) {
 }
 // 최근 본 게시글 반환 (callback(<userdata>))
 function Get_Recently_View_Post(callback) {
-	let a_jax = A_JAX("http://"+host_ip+"/get_specific_userinfo/"+2, "GET", null, null);
+	let a_jax = A_JAX(host_ip+"/get_specific_userinfo/"+2, "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
 		let output = [];
@@ -525,7 +525,7 @@ function Get_Recently_View_Post(callback) {
 }
 // 좋아요 게시글 반환 (callback(<userdata>))
 function Get_Like_Post(callback) {
-	let a_jax = A_JAX("http://"+host_ip+"/get_specific_userinfo/"+1, "GET", null, null);
+	let a_jax = A_JAX(host_ip+"/get_specific_userinfo/"+1, "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
 		let output = [];

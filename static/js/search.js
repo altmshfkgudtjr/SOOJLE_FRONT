@@ -262,7 +262,7 @@ function search_text(text) {
 	Get_Search_Posts(send_data, now_creating_state);	// 검색 API 호출
 	Search_Option_on();									// 검색 옵션 오픈
 	// 연관검색어 임시중지
-	// $.when(A_JAX("http://"+host_ip+"/get_similarity_words", "POST", null, send_data)).done(function (data) {
+	// $.when(A_JAX(host_ip+"/get_similarity_words", "POST", null, send_data)).done(function (data) {
 	// 	if (data['result'] == "success") {
 	// 		similarity_words = data['similarity_words'];
 	// 		insert_recommend_words(data['similarity_words'], now_creating_state);
@@ -274,7 +274,7 @@ function search_text(text) {
 // 검색 API 호출
 function Get_Search_Posts(sendData, now_creating_state) {
 	a_jax_posts[0] = [];
-	$.when(A_JAX("http://"+host_ip+"/domain_search", "POST", null, sendData)).done(function (data) {
+	$.when(A_JAX(host_ip+"/domain_search", "POST", null, sendData)).done(function (data) {
 		let json = data;
 		if (json['result'] == 'success') {
 			domain_posts = json["search_result"];
@@ -282,7 +282,7 @@ function Get_Search_Posts(sendData, now_creating_state) {
 		}
 	});
 	$.when(
-		$.when(A_JAX("http://"+host_ip+"/category_search/대학교/200", "POST", null, sendData)).done(function (data) {
+		$.when(A_JAX(host_ip+"/category_search/대학교/200", "POST", null, sendData)).done(function (data) {
 			if (data['result'] == "success") {
 				let output = remove_duplicated(1, data["search_result"]);
 				a_jax_posts[1] = output;
@@ -290,7 +290,7 @@ function Get_Search_Posts(sendData, now_creating_state) {
 		}).catch(function(e) {
 			// Ajax fail
 		}),
-		$.when(A_JAX("http://"+host_ip+"/category_search/동아리&모임/200", "POST", null, sendData)).done(function (data) {
+		$.when(A_JAX(host_ip+"/category_search/동아리&모임/200", "POST", null, sendData)).done(function (data) {
 			if (data['result'] == "success") {
 				let output = remove_duplicated(2, data["search_result"]);
 				a_jax_posts[2] = output;
@@ -298,7 +298,7 @@ function Get_Search_Posts(sendData, now_creating_state) {
 		}).catch(function(e) {
 			// Ajax fail
 		}),
-		$.when(A_JAX("http://"+host_ip+"/category_search/공모전&행사/200", "POST", null, sendData)).done(function (data) {
+		$.when(A_JAX(host_ip+"/category_search/공모전&행사/200", "POST", null, sendData)).done(function (data) {
 			if (data['result'] == "success") {
 				let output = remove_duplicated(3, data["search_result"]);
 				a_jax_posts[3] = output;
@@ -306,7 +306,7 @@ function Get_Search_Posts(sendData, now_creating_state) {
 		}).catch(function(e) {
 			// Ajax fail
 		}),
-		$.when(A_JAX("http://"+host_ip+"/category_search/진로&구인/200", "POST", null, sendData)).done(function (data) {
+		$.when(A_JAX(host_ip+"/category_search/진로&구인/200", "POST", null, sendData)).done(function (data) {
 			if (data['result'] == "success") {
 				let output = remove_duplicated(4, data["search_result"]);
 				a_jax_posts[4] = output;
@@ -314,7 +314,7 @@ function Get_Search_Posts(sendData, now_creating_state) {
 		}).catch(function(e) {
 			// Ajax fail
 		}),
-		$.when(A_JAX("http://"+host_ip+"/category_search/자유/200", "POST", null, sendData)).done(function (data) {
+		$.when(A_JAX(host_ip+"/category_search/자유/200", "POST", null, sendData)).done(function (data) {
 			if (data['result'] == "success") {
 				let output = remove_duplicated(5, data["search_result"]);
 				a_jax_posts[5] = output;
@@ -322,7 +322,7 @@ function Get_Search_Posts(sendData, now_creating_state) {
 		}).catch(function(e) {
 			// Ajax fail
 		}),
-		$.when(A_JAX("http://"+host_ip+"/category_search/예외/200", "POST", null, sendData)).done(function (data) {
+		$.when(A_JAX(host_ip+"/category_search/예외/200", "POST", null, sendData)).done(function (data) {
 			if (data['result'] == "success") {
 				let output = remove_duplicated(6, data["search_result"]);
 				a_jax_posts[6] = output;

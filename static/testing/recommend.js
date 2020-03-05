@@ -189,7 +189,7 @@ recommend();
 function recommend() {
 	let index = Math.round(Math.random() * (USER_ID.length - 1));
 	let user_id = USER_ID[index];
-	let a_jax = A_JAX("http://"+host_ip+"/simulation_get_user_measurement/" + user_id, "GET", null, null);
+	let a_jax = A_JAX(host_ip+"/simulation_get_user_measurement/" + user_id, "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
 		if (json['result'] == 'success') {
@@ -207,7 +207,7 @@ function recommend() {
 			Snackbar("다시 접속해주세요!");
 		}
 	});
-	let a_jax_token = A_JAX_TOKEN("http://"+host_ip+"/get_recommendation_newsfeed", "GET", USER_TOKEN[index], null);
+	let a_jax_token = A_JAX_TOKEN(host_ip+"/get_recommendation_newsfeed", "GET", USER_TOKEN[index], null);
 	$.when(a_jax_token).done(function () {
 		let json = a_jax_token.responseJSON;
 		if (json['result'] == 'success') {

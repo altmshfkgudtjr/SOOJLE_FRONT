@@ -54,7 +54,7 @@ function get_recommend_posts(is_first = 0) {
 		menu_modal_onoff(2);
 	else
 		menu_modal_onoff();
-	$.when(A_JAX("http://"+host_ip+"/get_recommendation_newsfeed", "GET", null, null)).done(function (data) {
+	$.when(A_JAX(host_ip+"/get_recommendation_newsfeed", "GET", null, null)).done(function (data) {
 		if (data['result'] == 'success') {
 			let output = JSON.parse(data["newsfeed"]);
 			if (output.length == 0)
@@ -95,7 +95,7 @@ function get_popularity_posts() {
 	$("#board_info_text").text("인기");
 	$("#board_info_board").empty();
 	$("#board_info_board").text("뉴스피드");
-	let a_jax = A_JAX("http://"+host_ip+"/get_popularity_newsfeed", "GET", null, null);
+	let a_jax = A_JAX(host_ip+"/get_popularity_newsfeed", "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
 		if (json['result'] == 'success') {
@@ -139,7 +139,7 @@ function get_topic_posts(tag) {
 	$("#board_info_text").text(topic);
 	$("#board_info_board").empty();
 	$("#board_info_board").text("뉴스피드");
-	let a_jax = A_JAX("http://"+host_ip+"/get_newsfeed_of_topic/"+topic, "GET", null, null);
+	let a_jax = A_JAX(host_ip+"/get_newsfeed_of_topic/"+topic, "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
 		if (json['result'] == 'success') {
@@ -295,7 +295,7 @@ function post_like(id, tag) {
 		Snackbar("로그인이 필요합니다.");
 		return;
 	}
-	let a_jax = A_JAX("http://"+host_ip+"/post_like/"+id, "GET", null, null);
+	let a_jax = A_JAX(host_ip+"/post_like/"+id, "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
 		if (json['result'] == 'success') {
@@ -320,7 +320,7 @@ function post_dislike(id, tag) {
 		Snackbar("로그인이 필요합니다.");
 		return;
 	}
-	let a_jax = A_JAX("http://"+host_ip+"/post_unlike/"+id, "GET", null, null);
+	let a_jax = A_JAX(host_ip+"/post_unlike/"+id, "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
 		if (json['result'] == 'success') {
@@ -359,7 +359,7 @@ function post_view(tag) {
 		let id = tag.parent('a').parent('div').attr("p-id");
 		let e = mouse_which;
 		if (e == 1 || e == 2) {
-			let a_jax = A_JAX("http://"+host_ip+"/post_view/"+id, "GET", null, null);
+			let a_jax = A_JAX(host_ip+"/post_view/"+id, "GET", null, null);
 		}
 	}, 400);
 }

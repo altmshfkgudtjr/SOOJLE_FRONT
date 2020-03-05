@@ -143,10 +143,10 @@ function insert_user_information_setting() {
 function change_autologin_st(){
 	if($("#autologin_toggle").is(":checked")) {
 		localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
-		a_jax = A_JAX("http://"+host_ip+"/update_auto_login/" + 1, "GET", null, null);
+		a_jax = A_JAX(host_ip+"/update_auto_login/" + 1, "GET", null, null);
 	} else {
 		localStorage.removeItem('sj-state');
-		a_jax = A_JAX("http://"+host_ip+"/update_auto_login/" + 0, "GET", null, null);
+		a_jax = A_JAX(host_ip+"/update_auto_login/" + 0, "GET", null, null);
 	}
 }
 
@@ -176,7 +176,7 @@ function Change_nickname() {
 	}
 	let sendData = {};
 	sendData['new_nickname'] = nickname;
-	$.when(a_jax = A_JAX("http://"+host_ip+"/change_nickname", "POST", null, sendData)).done(function (data) {
+	$.when(a_jax = A_JAX(host_ip+"/change_nickname", "POST", null, sendData)).done(function (data) {
 		if (data['result'] == 'success') {
 			$("#setting_nickname_guideline").text(nickname);
 			Menu_User_Info_Change(nickname);
@@ -228,7 +228,7 @@ function user_data_reset_button_ok() {
 		$("#user_data_delete_input").focus();
 		return;
 	}
-	let user_data_delete_ajax = A_JAX("http://"+host_ip+"/reset_user_measurement", "GET", null, null);
+	let user_data_delete_ajax = A_JAX(host_ip+"/reset_user_measurement", "GET", null, null);
 	$.when(user_data_delete_ajax).done(function() {
 		if(user_data_delete_ajax.responseJSON['result'] == 'success') {
 			Snackbar("관심도가 초기화 되었습니다.");
@@ -255,7 +255,7 @@ function user_data_delete_button_ok() {
 		$("#user_data_delete_input").focus();
 		return;
 	}
-	let user_data_delete_ajax = A_JAX("http://"+host_ip+"/remove_mine", "GET", null, null);
+	let user_data_delete_ajax = A_JAX(host_ip+"/remove_mine", "GET", null, null);
 	$.when(user_data_delete_ajax).done(function() {
 		if(user_data_delete_ajax.responseJSON['result'] == 'success') {
 			Snackbar("계정이 삭제되었습니다.");

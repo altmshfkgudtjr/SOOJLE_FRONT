@@ -41,7 +41,7 @@ function Fail_notice_postOne() {
 }
 // 공지사항 단일 포스트 반환 API
 function Get_notice_postOne(id, callback) {
-	a_jax = A_JAX("http://"+host_ip+"/get_notice/"+id, "GET", null, null);
+	a_jax = A_JAX(host_ip+"/get_notice/"+id, "GET", null, null);
 	$.when(a_jax).done(function () {
 		if (a_jax.responseJSON['result'] == 'success') {
 			output =  JSON.parse(a_jax.responseJSON['notice']);
@@ -65,7 +65,7 @@ function Get_notice_postOne(id, callback) {
 }
 // 공지사항 포스트 요청 API
 function Get_notice_posts(callback) {
-	a_jax = A_JAX("http://"+host_ip+"/get_all_notice", "GET", null, null);
+	a_jax = A_JAX(host_ip+"/get_all_notice", "GET", null, null);
 	$.when(a_jax).done(function () {
 		if (a_jax.responseJSON['result'] == 'success') {
 			output = a_jax.responseJSON;
@@ -240,7 +240,7 @@ function Notice_Delete() {
 	Check_ManagerInfo(function() {
 		if (confirm("해당 게시글을 삭제하시겠습니까?")) {
 			let id = $("#notice_page_container").attr("data-id");
-			$.when(A_JAX("http://"+host_ip+"/remove_notice/"+id, "GET", null, null))
+			$.when(A_JAX(host_ip+"/remove_notice/"+id, "GET", null, null))
 			.done(function(data) {
 				if (data['result'] == "success") {
 					alert("삭제 완료하였습니다.");
@@ -267,7 +267,7 @@ function Notice_Edit_Done() {
 			'post': post,
 			'activation': actiavation_check
 		};
-		$.when(A_JAX("http://"+host_ip+"/update_notice/"+id, "POST", null, sendData))
+		$.when(A_JAX(host_ip+"/update_notice/"+id, "POST", null, sendData))
 		.done(function(data) {
 			if (data['result'] == "success") {
 				alert("수정 완료하였습니다.");

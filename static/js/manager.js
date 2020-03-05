@@ -109,7 +109,7 @@ function writing_notice_admin() {
 							"post": pharagh
 						};
 		$.when(
-		A_JAX("http://"+host_ip+"/insert_notice", "POST", null, send_data)
+		A_JAX(host_ip+"/insert_notice", "POST", null, send_data)
 		).done(function(data) {
 			if (data["result"] == 'success') {
 				writing_notice_reset();

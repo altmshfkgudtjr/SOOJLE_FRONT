@@ -99,7 +99,7 @@ function feedback_send() {
 	send_data["type"] = selectbox_input;
 	send_data["post"] = phragh;
 	
-	let a_jax = A_JAX("http://"+host_ip+"/send_feedback", "POST", null, send_data);
+	let a_jax = A_JAX(host_ip+"/send_feedback", "POST", null, send_data);
 	$.when(a_jax).done(function () {
 		if (a_jax.responseJSON['result'] = 'success') {
 			Snackbar("피드백을 전송하였습니다.");
