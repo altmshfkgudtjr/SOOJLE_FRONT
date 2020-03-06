@@ -22,13 +22,13 @@
 /*NanumvBarunGothic Font*/
 @font-face { 
 	font-family: 'NanumBarunGothic';
-	src: url('../fonts/NanumBarunGothic/NanumBarunGothic.eot');
+	src: url('../fonts/NanumBarunGothic/NanumBarunGothic.ttf');
 	src: url('../fonts/NanumBarunGothic/NanumBarunGothic.eot') format('embedded-opentype'),
 	url('../fonts/NanumBarunGothic.woff') format('woff');
 }
 @font-face { 
 	font-family: 'NanumBarunGothicBold';
-	src: url('../fonts/NanumBarunGothic/NanumBarunGothicBold.eot');
+	src: url('../fonts/NanumBarunGothic/NanumBarunGothicBold.ttf');
 	src: url('../fonts/NanumBarunGothic/NanumBarunGothicBold.eot') format('embedded-opentype'),
 	url('../fonts/NanumBarunGothicBold.woff') format('woff');
 }
