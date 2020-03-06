@@ -205,7 +205,7 @@ body {
 	padding-bottom: 100%;
 }
 .SJ_main_page1_menu_icons_box:hover {
-	background-color: #f1f1f1;
+	background-color: rgba(18, 184, 134, .2);
 }
 .SJ_main_page1_menu_icon {
 	position: absolute;
@@ -224,8 +224,7 @@ body {
 	height: 20px;
 	bottom: 20%;
 	line-height: 20px;
-	color: 20px;
-	columns: #303030;
+	color: #303030;
 	text-align: center;
 }
 .SJ_main_page1_logo_container {
@@ -316,7 +315,7 @@ body {
 	position: relative;
 	width: 24px;
 	height: 24px;
-	opacity: 0.8;
+	opacity: 1;
 	padding: 6px 5px 6px 10px;
 }
 @media screen and (max-width: 800px) {

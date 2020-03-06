@@ -217,7 +217,7 @@ $(window).ready(function() {
 	}
 	Get_UserInfo(function(result) {	// result == 유저정보
 		if (result) {
-			$("#main_user_btn").css("color", "#0071e3");
+			$("#main_user_btn").css("color", "#12b886");
 			$("#main_user_btn").text(result['user_nickname']+'');
 			$("#main_user_btn").removeClass("display_none");
 			$("#main_login_btn").addClass("display_none");

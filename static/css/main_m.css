@@ -35,6 +35,12 @@
 		border-radius: 50%;
 		transition: .1s ease-in-out;
 	}
+	.SJ_main_page1_menu_icons_box:hover {
+		background-color: rgba(0,0,0,0);
+	}
+	.SJ_main_page1_menu_icons_box:active {
+		background-color: rgba(18, 184, 134, .2);
+	}
 }
 
 /*=============================================================================*/
