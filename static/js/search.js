@@ -272,15 +272,10 @@ function search_text(text) {
 	// 	}
 	// });
 }
+// 검색 로깅 API 호출
 function Search_logging(text) {
 	let sendData = {'search': text};
-	$.when(A_JAX(host_ip+"/search_logging", "POST", null, sendData))
-	.done(function (data) {
-		if (data['result'] == "success") {}
-		else {
-			console.log("search error");
-		}
-	});
+	A_JAX(host_ip+"/search_logging", "POST", null, sendData);
 }
 // 검색 API 호출
 function Get_Search_Posts(sendData, now_creating_state) {

@@ -229,7 +229,7 @@ function get_notices_more() {
 
 // 포스트 메뉴 열기
 function post_menu_open(tag) {
-	let id = tag.parent('div').parent('div').attr("p-id");
+	let id = tag.parent('div').attr("p-id");
 	let url = tag.parent('div').children('a').attr("href");
 	if (url == undefined) {
 		url = tag.parent('div').parent('div').children('a').attr("href");
@@ -255,12 +255,15 @@ function post_menu_close() {
 function post_url_copy(tag) {
 	Snackbar("URL 복사가 완료되었습니다!");
 	let url = tag.parent('div').parent('div').attr("p-url");
-	let output = $(`<input type="text" class="copy_input" value="${url}">`)
+	let id = tag.parent('div').parent('div').attr("p-id");
+	let output = $(`<input type="text" class="copy_input" value="${url}">`);
 	$("body").append(output);
 	output.select();
 	document.execCommand('Copy');
 	output.remove();
 	post_menu_close();
+	// API 호출
+	A_JAX(host_ip+"/post_view/"+id, "GET", null, null);
 }
 // 포스트 페이스북 공유
 function Share_facebook(tag) {
@@ -378,7 +381,7 @@ function post_view(tag) {
 		let id = tag.parent('a').parent('div').attr("p-id");
 		let e = mouse_which;
 		if (e == 1 || e == 2) {
-			let a_jax = A_JAX(host_ip+"/post_view/"+id, "GET", null, null);
+			A_JAX(host_ip+"/post_view/"+id, "GET", null, null);
 		}
 	}, 400);
 }
