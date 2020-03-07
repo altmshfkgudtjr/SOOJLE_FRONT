@@ -259,6 +259,7 @@ function search_text(text) {
 	send_data["opiton"] = {
 		"sort": 'trend'
 	}
+	Search_logging(send_data["search"]);				// 검색 Logging API 호출
 	Get_Search_Posts(send_data, now_creating_state);	// 검색 API 호출
 	Search_Option_on();									// 검색 옵션 오픈
 	// 연관검색어 임시중지
@@ -270,6 +271,16 @@ function search_text(text) {
 	// 		Snackbar("다시 접속해주세요!");
 	// 	}
 	// });
+}
+function Search_logging(text) {
+	let sendData = {'search': text};
+	$.when(A_JAX(host_ip+"/search_logging", "POST", null, sendData))
+	.done(function (data) {
+		if (data['result'] == "success") {}
+		else {
+			console.log("search error");
+		}
+	});
 }
 // 검색 API 호출
 function Get_Search_Posts(sendData, now_creating_state) {
@@ -504,7 +515,7 @@ function more_posts(target_num, is_fav_cnt = 1) {
 	window.scroll(0, 0);
 	$("#menu_container").removeAttr("style");
 	$("#search_posts_target").empty();
-	
+
 	save_posts = a_jax_posts[target_num];	///////////////////
 	let posts = save_posts.slice(0,30);		/*	 30개 분할   */
 	save_posts = save_posts.slice(30);		//////////////////
