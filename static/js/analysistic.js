@@ -290,10 +290,9 @@ function set_visitor_data() {
 		if (json['result'] == 'success') {
 			let visitor_time_data_array1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]; 
 			let visitor_time_data_array2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];
-			let visitor_time_data1, visitor_time_data2, visitor_number_data1, visitor_number_data2, visitor_time_date1, visitor_time_date2;
+			let visitor_time_data1, visitor_time_data2, visitor_time_date1, visitor_time_date2;
 			if (json['analysis'][0] != undefined) {
 				visitor_time_data1 = json['analysis'][0]['today_time_visitor'];
-				visitor_number_data1 = json['analysis'][0]['today_student_visitor'];
 				visitor_time_date1 = json['analysis'][0]['date'];
 				let now_time = new Date(visitor_time_date1);
 				visitor_time_date1 = `${now_time.getMonth() + 1}월 ${now_time.getDate()}일`;
@@ -302,42 +301,11 @@ function set_visitor_data() {
 			}
 			if (json['analysis'][1] != undefined) {
 				visitor_time_data2 = json['analysis'][1]['today_time_visitor'];
-				visitor_number_data2 = json['analysis'][1]['today_student_visitor'];
 				visitor_time_date2 = json['analysis'][1]['date'];
 				let now_time = new Date(visitor_time_date2);
 				visitor_time_date2 = `${now_time.getMonth() + 1}월 ${now_time.getDate()}일`;
 				for (let st in visitor_time_data2)
 					visitor_time_data_array2[visitor_time_data2[st]['time'] - 1] = visitor_time_data2[st]['visitor'];
-			}
-			let visitor_student_label = new Array();
-			if (visitor_number_data1 != undefined) {
-				visitor_number_data1.forEach(function(data) {
-					if (visitor_student_label.indexOf(data['student_num']) == -1)
-						visitor_student_label.push(data['student_num']);
-				})
-			}
-			if (visitor_number_data2 != undefined) {
-				visitor_number_data2.forEach(function(data) {
-					if (visitor_student_label.indexOf(data['student_num']) == -1)
-						visitor_student_label.push(data['student_num']);
-				})
-			}
-			let visitor_student_data1 = new Array(), visitor_student_data2 = new Array();
-			for (let i in visitor_student_label) {
-				visitor_student_data1[i] = 0;
-				visitor_student_data2[i] = 0;
-			}
-			if (visitor_number_data1 != undefined) {
-				visitor_number_data1.forEach(function(data) {
-					let index = visitor_student_label.indexOf(data['student_num']);
-					visitor_student_data1[index] += data['count'];
-				});
-			}
-			if (visitor_number_data2 != undefined) {
-				visitor_number_data2.forEach(function(data) {
-					let index = visitor_student_label.indexOf(data['student_num']);
-					visitor_student_data2[index] += data['count'];
-				});	
 			}
 			get_line("visitor_distribution",
 				[	// visitor date
