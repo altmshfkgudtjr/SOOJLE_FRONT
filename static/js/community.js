@@ -90,41 +90,48 @@ function insert_notice() {
 		if (result) {
 			let oid, title, phara, date, tag, activation = 0, activation_tag = ``;
 			result = JSON.parse(result['notice_list']);
-			for (let post of result) {
-				oid = post['_id']['$oid'];
-				title = post['title'];
-				phara = post['post'];
-				date = change_date_realative(post['date']['$date']);
-				activation = post['activation'];
-				if (activation == 1) {
-					activation_tag = `<span class="notice_post_activation noselect">[활성화] </span>`;
-				}
-				tag =	`
-							<div class="notice_post_container pointer" data-id=${oid} onclick="Click_post($(this))">
-								<div class="notice_post_title_cont">
-									<div class="notice_post_icon"></div>
-									<div class="notice_post_title">${activation_tag} ${title}</div>
-								</div>
-								<div class="notice_post_date"><i class="far fa-clock"></i> ${date}</div>
-								<div class="notice_post_post">${phara}</div>
-							</div>
-						`;
-				target.append(tag);
-			}
+			save_posts = result.slice(30);
+			result = result.slice(0, 30);
+			Making_notice_block(result);	// 포스트 생성 및 삽입
 		} else {
 			// 에러 난 경우
 			No_posts($("#posts_target"));
 		}
-		$("#mobile_controller_none").addClass("display_none");
-		$("#board_loading_modal").addClass("board_loading_modal_unvisible");
-		$(".mobile_controller").removeAttr("style");
-		$("#none_click").addClass("display_none");
-
-		$("#menu_container").removeClass("menu_container_fixed");
-		$("#posts_creating_loading").addClass("display_none");
-		$("#board_container").removeClass("board_container_fixed");
 	});
 }
+function Making_notice_block(posts) {
+	let target = $("#posts_target");
+	for (let post of posts) {
+		oid = post['_id']['$oid'];
+		title = post['title'];
+		phara = post['post'];
+		date = change_date_realative(post['date']['$date']);
+		activation = post['activation'];
+		if (activation == 1) {
+			activation = `<span class="notice_post_activation noselect">[활성화] </span>`;
+		} else activation = ``;
+		tag =	`
+					<div class="notice_post_container pointer" data-id=${oid} onclick="Click_post($(this))">
+						<div class="notice_post_title_cont">
+							<div class="notice_post_icon"></div>
+							<div class="notice_post_title">${activation}${title}</div>
+						</div>
+						<div class="notice_post_date"><i class="far fa-clock"></i> ${date}</div>
+						<div class="notice_post_post">${phara}</div>
+					</div>
+				`;
+		target.append(tag);
+	}
+	$("#mobile_controller_none").addClass("display_none");
+	$("#board_loading_modal").addClass("board_loading_modal_unvisible");
+	$(".mobile_controller").removeAttr("style");
+	$("#none_click").addClass("display_none");
+
+	$("#menu_container").removeClass("menu_container_fixed");
+	$("#posts_creating_loading").addClass("display_none");
+	$("#board_container").removeClass("board_container_fixed");
+}
+
 
 // 공지사항 포스트 클릭
 function Click_post(tag) {

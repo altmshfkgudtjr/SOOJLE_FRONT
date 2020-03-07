@@ -182,8 +182,10 @@ $(document).scroll(function() {
 		$("#menu_container").removeAttr("style").css("transition", ".2s ease-in-out");
 		header_scrolling = 0;
 	}
-	if (where_topic == "뉴스피드" || (where_topic == "SOOJLE 엔진"
-	 && $("#board_info_text").text() != "검색 결과입니다!")){
+	if (where_topic == "뉴스피드" 
+		|| (where_topic == "SOOJLE 엔진" && $("#board_info_text").text() != "검색 결과입니다!")
+		|| where_topic == "개발자노트"){
+
 		if ($(window).scrollTop() + $(window).height() >= $(document).height() - 50){
 			if (save_posts.length == 0) return;
 			if (now_creating == 0) {
@@ -193,6 +195,8 @@ $(document).scroll(function() {
 				setTimeout(function() {
 					if (where_topic == "뉴스피드")
 						get_posts_more(now_state, $("#posts_target"));
+					else if (where_topic == "개발자노트")
+						get_notices_more();
 					else
 						get_posts_more(now_state, $("#search_posts_target"));
 					setTimeout(function() {
@@ -210,6 +214,15 @@ function get_posts_more(before_state, target) {
 		let output = save_posts.slice(0,30);
 		save_posts = save_posts.slice(30);
 		creating_post(target, output, before_state);
+	}, 500);
+}
+// 공지사항 더보기
+function get_notices_more() {
+	if (save_posts.length == 0) return;
+	setTimeout(function() {
+		let output = save_posts.slice(0,30);
+		save_posts = save_posts.slice(30);
+		Making_notice_block(output);
 	}, 500);
 }
 
@@ -836,7 +849,6 @@ function Insert_Notice_Posts() {
 			result = JSON.parse(result['notice_list']);
 			result = result.reverse();
 			let oid, title, post, div;
-			console.log(result);
 			for (post of result) {
 				oid = post['_id']['$oid'];
 				title = post['title'];
