@@ -51,6 +51,10 @@ def before_request():
 def teardown_request(exception):
 	close_db()
 
+@application.errorhandler(404)
+def page_not_found(error):
+	return render_template('etc/404.html')
+
 main_app()
 
 if __name__ == '__main__':
