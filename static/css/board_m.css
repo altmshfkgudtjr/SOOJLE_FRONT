@@ -1205,6 +1205,23 @@
 	.activation_title {
 		font-size: 20px;
 	}
+	.board_notice_cont {
+		max-width: 95%;
+		margin-left: 2%;
+		padding: 3px 20px;
+		font-size: 16px;
+		line-height: 30px;
+	}
+	.board_notice_cont:hover {
+		box-shadow: 0 2px 6px rgba(0,0,0,.16);
+		color: initial;
+		background-color: initial;
+	}
+	.board_notice_cont:active {
+		box-shadow: 0 2px 8px rgba(0,0,0,0);
+		color: white;
+		background-color: #12b886;
+	}
 }
 /*=============================================================================*/
 /*                                    840px                                    */

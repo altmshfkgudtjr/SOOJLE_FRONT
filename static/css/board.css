@@ -2046,9 +2046,8 @@ span.selectbox_choose {
 }
 .realtime_searchwords_table_title {
 	position: relative;
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: bold;
-	font-style: italic;
 	margin-bottom: 20px;
 }
 .realtime_searchwords_table_word {
@@ -2657,4 +2656,28 @@ span.selectbox_choose {
 	margin-top: 10px;
 	margin-bottom: 40px;
 	color: #666;
+}
+
+.board_notice_cont {
+	position: relative;
+	display: inline-block;
+	width: auto;
+	max-width: 100%;
+	height: auto;
+	margin-bottom: 10px;
+	border-radius: 30px;
+	box-shadow: 0 2px 6px rgba(0,0,0,.16);
+	padding: 3px 30px;
+	font-size: 18px;
+	line-height: 30px;
+	box-sizing: border-box;
+	transition: .1s ease-in-out;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.board_notice_cont:hover {
+	box-shadow: 0 2px 8px rgba(0,0,0,0);
+	color: white;
+	background-color: #12b886;
 }

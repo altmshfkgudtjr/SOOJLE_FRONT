@@ -54,6 +54,8 @@ function get_recommend_posts(is_first = 0) {
 		menu_modal_onoff(2);
 	else
 		menu_modal_onoff();
+	// 공지사항 삽입하기
+	Insert_Notice_Posts();
 	$.when(A_JAX(host_ip+"/get_recommendation_newsfeed", "GET", null, null)).done(function (data) {
 		if (data['result'] == 'success') {
 			let output = JSON.parse(data["newsfeed"]);
@@ -95,6 +97,8 @@ function get_popularity_posts() {
 	$("#board_info_text").text("인기");
 	$("#board_info_board").empty();
 	$("#board_info_board").text("뉴스피드");
+	// 공지사항 삽입하기
+	Insert_Notice_Posts();
 	let a_jax = A_JAX(host_ip+"/get_popularity_newsfeed", "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
@@ -139,6 +143,8 @@ function get_topic_posts(tag) {
 	$("#board_info_text").text(topic);
 	$("#board_info_board").empty();
 	$("#board_info_board").text("뉴스피드");
+	// 공지사항 삽입하기
+	Insert_Notice_Posts();
 	let a_jax = A_JAX(host_ip+"/get_newsfeed_of_topic/"+topic, "GET", null, null);
 	$.when(a_jax).done(function () {
 		let json = a_jax.responseJSON;
@@ -818,6 +824,33 @@ function get_user_view_posts() {
 			save_posts = posts.slice(30);
 			posts = posts.slice(0, 30);
 			creating_post($("#posts_target"), posts, now_creating_state, 0);
+		}
+	});
+}
+
+// 공지사항 상단에 추가하기
+function Insert_Notice_Posts() {
+	let target = $("#posts_target");
+	Get_notice_posts(function(result) {
+		if (result) {
+			result = JSON.parse(result['notice_list']);
+			result = result.reverse();
+			let oid, title, post, div;
+			console.log(result);
+			for (post of result) {
+				oid = post['_id']['$oid'];
+				title = post['title'];
+				activation = post['activation'];
+				if (activation == 1) {
+					div = 	`
+								<div class="board_notice_cont pointer" data-id="${oid}" onclick="Click_post($(this))">
+									<span class="notice_post_activation">[공지] </span>
+									${title}
+								</div>
+							`;
+					target.prepend(div);
+				}
+			}
 		}
 	});
 }
