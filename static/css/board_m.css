@@ -965,6 +965,7 @@
 		position: relative;
 		width: auto;
 		height: 28px;
+		overflow-y: hidden;
 		overflow-x: scroll;
 		white-space:nowrap;
 		border-bottom: 1px solid #ebebeb;
@@ -1045,6 +1046,7 @@
 	.search_option_btn {
 		display: inline-block;
 		position: fixed;
+		-webkit-transform: translateZ(0);
 		right: 0;
 		background-color: white;
 		padding: 0 15px;
