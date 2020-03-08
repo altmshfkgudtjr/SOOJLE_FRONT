@@ -54,14 +54,10 @@ function search_focus(keyCode, tag) {
 			search_target = search_cache;
 		} else if (tag.val() == "") {
 			search_target = "";
-			if (mobilecheck()) {
-				$("#mobile_search_remcommend_box_container").addClass("display_none");
-				$(".search_result").remove();
-			} else {
+			if (!mobilecheck()) {
 				$("#search_remcommend_box_container").addClass("display_none");
 				$(".search_result").remove();
 			}
-			
 			let line = '<div id="search_loading" class="search_loading pointer noselect">\
 							<i class="fas fa-grip-lines"></i>\
 						</div>';
@@ -81,28 +77,25 @@ function search_click() {
 function search_blur() {
 	if (mobilecheck()) {
 		$("body").removeAttr("style");
+		$("#mobile_search_input").blur();
 		$("#mobile_search_remcommend_box_container").addClass("display_none");
 	} else {
+		$("#pc_search_input").blur();
 		$("#search_remcommend_box_container").addClass("display_none");
 	}
 }
-$("#mobile_search_input").focusout(() => {
-	search_blur();
-})
+
 /*search 클릭 작업============================================================*/
 function search_button() {	// 검색작업 data = 글자
 	let data;
 	if (mobilecheck()) {
 		data = $("#mobile_search_input").val();
-		$("#mobile_search_input").blur();
 		search_blur();
 		$("body").removeAttr("style");
 		search_open = 0;
 	} else {
 		data = $("#pc_search_input").val();
-		$("#pc_search_input").blur();
 	}
-	$("#mobile_search_remcommend_box_container").addClass("display_none");
 	if (data == ""){
 		Snackbar("검색어를 입력해주세요.");
 		is_searching = 0;
@@ -131,8 +124,9 @@ function mobile_search_modal_open() {
 		}
 	} else {
 		if (mobilecheck() && $("#mobile_search_input").val() != "") {
-			$("#mobile_search_input").focus();
-			$("#mobile_search_remcommend_box_container").removeClass("display_none");
+			mobile_search_modal_close();
+			// $("#mobile_search_input").focus();
+			// $("#mobile_search_remcommend_box_container").removeClass("display_none");
 		}
 		else if (mobilecheck()) {
 			mobile_search_modal_close();
@@ -162,13 +156,12 @@ $(document).on('touchend', function(e) {
 			$(e.target.classList)[0] == 'mobile_search_button_modal' ||
 			$(e.target.classList)[0] == 'result_target' ||
 			$(e.target.classList)[0] == 'mobile_search_input' ||
-			$(e.target.classList)[0] == 'mobile_search_icon_modal') {
+			$(e.target.classList)[0] == 'mobile_search_icon_modal' ||
+			$(e.target.classList)[0] == 'search_recommend_box' ||
+			$(e.target.classList)[0] == 'search_result') {
 		} else if (mobilecheck() && $("#mobile_search_input").val() != "") {
-			//search_open = 0;
 			$("body").removeAttr("style");
 			$("#mobile_search_input").blur();
-		} else {
-			mobile_search_modal_close();
 		}
 	}
 });

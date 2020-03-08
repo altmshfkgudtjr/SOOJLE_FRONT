@@ -206,7 +206,7 @@ async function auto_login() {
 								"transform": "translate(0, 0)",
 								"-webkit-transform": "translate(0, 0)"});
 				$("#mobile_search").removeClass("display_none");
-				search_open = 1;
+				//search_open = 1;
 				$("#mobile_search_recommend_box").removeClass("display_none");
 				await search_text(text);
 			} else if (window.location.href.search("#") != -1) {
