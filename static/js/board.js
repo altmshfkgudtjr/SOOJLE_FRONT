@@ -363,7 +363,7 @@ const user_recently_searchword = {
 		});
 	},
 	getter: () => {
-		return search_list;
+		return this.search_list;
 	}
 }
 user_recently_searchword.setter();
