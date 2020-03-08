@@ -58,7 +58,7 @@ function search_focus(keyCode, tag) {
 				$("#search_remcommend_box_container").addClass("display_none");
 				$(".search_result").remove();
 			}
-			let line = '<div id="search_loading" class="search_loading pointer noselect">\
+			let line = '<div class="search_loading pointer noselect" onclick="search_blur()">\
 							<i class="fas fa-grip-lines"></i>\
 						</div>';
 			$("#mobile_search_recommend_box").append(line);
@@ -80,7 +80,7 @@ function search_blur() {
 		$("#mobile_search_input").blur();
 		$("#mobile_search_remcommend_box_container").addClass("display_none");
 	} else {
-		$("#pc_search_input").blur();
+		$("#pc_search_input").focusout();
 		$("#search_remcommend_box_container").addClass("display_none");
 	}
 }
@@ -104,7 +104,7 @@ function search_button() {	// 검색작업 data = 글자
 	data = data.replace(/ /g, "+");
 	window.location.href = "/board#search?" + data + '/'
 }
-var search_open = 0;
+let search_open = 0;
 function mobile_search_modal_open() {
 	if (search_open == 0) {
 		if (grid_open == 1)

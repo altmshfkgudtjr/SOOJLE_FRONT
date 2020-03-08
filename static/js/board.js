@@ -402,7 +402,7 @@ function Insert_user_recently_searchword(target) {
 			}
 		})
 	}
-	target.append(`<div id="search_loading" class="search_loading pointer noselect">
+	target.append(`<div class="search_loading pointer noselect" onclick="search_blur()">
 						<i class="fas fa-grip-lines"></i>
 					</div>`);
 }
