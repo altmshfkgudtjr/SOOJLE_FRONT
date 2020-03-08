@@ -66,7 +66,7 @@
 			<img id="board_logo" src="/static/image/SOOJLE_LOGO_BIG.png" class="board_logo pointer noselect" onclick="Goboard()">
 			<div id="pc_search" class="pc_search">
 				<div class="pc_search_container">
-					<input id="pc_search_input" type="text" class="pc_search_input result_target" onkeyup="search_focus(event.keyCode, $(this))" onclick="search_click()" onblur="search_blur()" autocomplete="off">
+					<input id="pc_search_input" type="text" class="pc_search_input result_target" onkeyup="search_focus(event.keyCode, $(this))" onblur="search_blur()" autocomplete="off" onfocus="search_focuson()">
 					<div class="pc_search_button pointer" onclick="search_button()">
 						<img src="/static/icons/search.png" class="pc_search_icon noselect">
 					</div>
@@ -77,7 +77,7 @@
 					<div class="mobile_search_button_modal pointer" onclick="search_button($(this))">
 						<img src="/static/icons/search.png" class="mobile_search_icon_modal">
 					</div>
-					<input id="mobile_search_input" type="text" class="mobile_search_input result_target" onkeyup="search_focus(event.keyCode, $(this))" onfocus="search_focus(0, $(this))" autocomplete="off">
+					<input id="mobile_search_input" type="text" class="mobile_search_input result_target" onkeyup="search_focus(event.keyCode, $(this))" onfocus="search_focus(0, $(this)); search_focuson();" autocomplete="off">
 				</div>
 			</div>
 		</div>
@@ -407,13 +407,15 @@
 		</div>
 	</div>
 	<!--Search Recommend Box Modal-->
-	<div class="search_remcommend_box_container">
-		<div id="search_recommend_box" class="search_recommend_box display_none">
+	<div id="search_remcommend_box_container" class="search_remcommend_box_container display_none">
+		<div id="search_recommend_box" class="search_recommend_box">
 			<div id="search_loading" class="search_loading pointer noselect">
 				<i class="fas fa-grip-lines"></i>
 			</div>
 		</div>
-		<div id="mobile_search_recommend_box" class="search_recommend_box display_none">
+	</div>
+	<div id="mobile_search_remcommend_box_container" class="search_remcommend_box_container display_none">
+		<div id="mobile_search_recommend_box" class="search_recommend_box">
 			<div id="search_loading" class="search_loading pointer noselect">
 				<i class="fas fa-grip-lines"></i>
 			</div>

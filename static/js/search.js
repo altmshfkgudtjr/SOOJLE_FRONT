@@ -4,15 +4,21 @@ let search_cache = "";	// 이전 검색어
 let search_target = "";	// 목표 검색어
 let now = 0;	// 현재 화살표로 선택한 div 위치
 let all = 0;	// 검색결과 수
-function search_focus(keyCode, tag) {
+function search_focuson() {
 	let target = $("#search_recommend_box");
 	if (mobilecheck()) {
 		target = $("#mobile_search_recommend_box");
-		target.removeClass("display_none");
+		$("#mobile_search_remcommend_box_container").removeClass("display_none");
 		$("body").css("overflow", "hidden");
 	} else {
-		target.removeClass("display_none");
+		$("#search_remcommend_box_container").removeClass("display_none");
 	}
+	// 최근 검색어 표출
+	Insert_user_recently_searchword(target);
+}
+function search_focus(keyCode, tag) {
+	let target = $("#search_recommend_box");
+	if (mobilecheck())target = $("#mobile_search_recommend_box")
 	// 최근 검색어 표출
 	Insert_user_recently_searchword(target);
 
@@ -48,10 +54,10 @@ function search_focus(keyCode, tag) {
 		} else if (tag.val() == "") {
 			search_target = "";
 			if (mobilecheck()) {
-				$("#mobile_search_recommend_box").addClass("display_none");
+				$("#mobile_search_remcommend_box_container").addClass("display_none");
 				$(".search_result").remove();
 			} else {
-				$("#search_recommend_box").addClass("display_none");
+				$("#search_remcommend_box_container").addClass("display_none");
 				$(".search_result").remove();
 			}
 			
@@ -65,16 +71,18 @@ function search_focus(keyCode, tag) {
 }
 function search_click() {
 	if (mobilecheck()) {
-		$("#mobile_search_recommend_box").removeClass("display_none");
+		$("body").removeAttr("style");
+		$("#mobile_search_remcommend_box_container").removeClass("display_none");
 	} else {
-		$("#search_recommend_box").removeClass("display_none");
+		$("#search_remcommend_box_container").removeClass("display_none");
 	}
 }
 function search_blur() {
 	if (mobilecheck()) {
-		$("#mobile_search_recommend_box").addClass("display_none");
+		$("body").removeAttr("style");
+		$("#mobile_search_remcommend_box_container").addClass("display_none");
 	} else {
-		$("#search_recommend_box").addClass("display_none");
+		$("#search_remcommend_box_container").addClass("display_none");
 	}
 }
 $("#mobile_search_input").focusout(() => {
@@ -83,7 +91,6 @@ $("#mobile_search_input").focusout(() => {
 /*search 클릭 작업============================================================*/
 function search_button() {	// 검색작업 data = 글자
 	let data;
-	let w = $(document).width();
 	if (mobilecheck()) {
 		data = $("#mobile_search_input").val();
 		$("#mobile_search_input").blur();
@@ -94,7 +101,7 @@ function search_button() {	// 검색작업 data = 글자
 		data = $("#pc_search_input").val();
 		$("#pc_search_input").blur();
 	}
-	$("#mobile_search_recommend_box").addClass("display_none");
+	$("#mobile_search_remcommend_box_container").addClass("display_none");
 	if (data == ""){
 		Snackbar("검색어를 입력해주세요.");
 		is_searching = 0;
@@ -105,7 +112,6 @@ function search_button() {	// 검색작업 data = 글자
 }
 var search_open = 0;
 function mobile_search_modal_open() {
-	let w = $(document).width();
 	if (search_open == 0) {
 		if (grid_open == 1)
 			grid_modal_off();
@@ -120,12 +126,12 @@ function mobile_search_modal_open() {
 			$("#mobile_search").removeClass("display_none");
 			$("#mobile_search_input").focus();
 			search_open = 1;
-			$("#mobile_search_recommend_box").removeClass("display_none");
+			$("#mobile_search_remcommend_box_container").removeClass("display_none");
 		}
 	} else {
 		if (mobilecheck() && $("#mobile_search_input").val() != "") {
 			$("#mobile_search_input").focus();
-			$("#mobile_search_recommend_box").removeClass("display_none");
+			$("#mobile_search_remcommend_box_container").removeClass("display_none");
 		}
 		else if (mobilecheck()) {
 			mobile_search_modal_close();
@@ -135,7 +141,7 @@ function mobile_search_modal_open() {
 function mobile_search_modal_close() {
 	search_open = 0;
 	$("body").removeAttr("style");
-	$("#mobile_search_recommend_box").addClass("display_none");
+	$("#mobile_search_remcommend_box_container").addClass("display_none");
 	$("#board_logo").removeAttr("style");
 	$("#mobile_search").addClass("display_none");
 }
