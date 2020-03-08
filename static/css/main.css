@@ -370,7 +370,6 @@ body {
 	transition: .2s ease;
 	-webkit-transition: .2s ease;
 	z-index: 40;
-	display: none !important /*수정 사항 : 임시*/
 }
 @media screen and (max-width: 1200px) {
 	.SJ_main_page1_search_list_box {

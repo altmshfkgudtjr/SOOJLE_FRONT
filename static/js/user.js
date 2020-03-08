@@ -548,3 +548,17 @@ function Get_Like_Post(callback) {
 		}
 	});
 }
+
+// 사용자 최근 검색어 반환
+function Get_recently_searchword(callback) {
+	let token = sessionStorage.getItem('sj-state');
+	if (token == null || token == undefined || token == 'undefined') return;
+	$.when(A_JAX(host_ip+"/get_user_lately_search/"+10, "GET", null, null))
+	.done(function(data) {
+		if (data['result'] == "success") {
+			if (typeof(callback) == 'function') {
+				callback(data["lately_search_list"]);
+			}
+		}
+	})
+}

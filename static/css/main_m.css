@@ -9,17 +9,6 @@
 		width: 550px;
 		height: 50px;
 	}
-	.mobile_search_info_view {
-		display: initial;
-		position: absolute;
-		width: 60%;
-		max-width: 250px;
-		height: auto;
-		left: 50%;
-		transform: translate(-50%, 0);
-		top: 150px;
-		opacity: .2;
-	}
 	.header_guideline {
 		border-bottom: 4px solid #ebebeb;
 	}
@@ -80,7 +69,7 @@
 		-webkit-transform: translate(-50%, 0);
 		background-color: rgba(0,0,0,0);
 		z-index: 50;
-		margin-top: 0;
+		margin-top: 10px;
 	}
 	.SJ_info_blank {
 		height: 100px;

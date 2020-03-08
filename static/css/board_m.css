@@ -111,15 +111,17 @@
 		background-color: rgba(0,0,0,0);
 		color: #232833;
 	}
+	.search_result:nth-child(2n) {
+		background-color: rgba(0,0,0,.05);
+	}
 	.search_result:hover {
 		background-color: rgba(0,0,0,.1);
 	}
 	.search_target {
-		background-color: rgba(0,0,0,.05);
+		background-color: rgba(0,0,0,.1) !important;
 	}
 	.search_result_icon {
-		height: 15px;
-		opacity: 0.5;
+		height: 20px;
 		padding-right: 10px;
 	}
 	.search_loading {

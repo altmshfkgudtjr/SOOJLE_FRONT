@@ -242,8 +242,6 @@ html, body {
 	-webkit-transform: translate(-50%, 0);
 	background-color: rgba(0,0,0,0);
 	z-index: 20;
-
-	display: none !important /*수정사항 임시*/
 }
 .search_recommend_box {
 	position: absolute;
@@ -270,12 +268,14 @@ html, body {
 	z-index: 40;
 }
 .search_result:hover {
-	background-color: rgba(0,0,0,.1);
+	background-color: rgba(0,0,0,.05);
+}
+.search_result > img, .search_result > span {
+	float: left;
 }
 .search_result_icon {
-	height: 15px;
-	opacity: 0.5;
-	padding-right: 10px;
+	height: 18px;
+	padding: 10px 10px 0 0;
 }
 .search_loading {
 	position: relative;
@@ -289,7 +289,7 @@ html, body {
 	line-height: 40px;
 }
 .search_target {
-	background-color: rgba(0,0,0,.05);
+	background-color: rgba(0,0,0,.1);
 }
 .SJ_board_footer {
 	position: relative;

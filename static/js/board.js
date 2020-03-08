@@ -338,3 +338,51 @@ function pageUp() {
 	scroll(0,0);
 	$("#pc_search_input").focus();
 }
+
+
+
+// 사용자 검색 키워드 객체
+const user_recently_searchword = {
+	search_list: [],
+	setter: () => {
+		Get_recently_searchword(function(result) {
+			let output = []
+			for (let i = 0; i < result.length; i++) {
+				let is_possible = true;
+				for (let j = i - 1; j >= 0; j--) {
+					if (result[i]['original'] == result[j]['original']){
+						is_possible = false;
+						break;
+					}
+				}
+				if (is_possible) {
+					output.push(result[i]);
+				}
+			}
+			this.search_list = output.splice(0,5).reverse();
+		});
+	},
+	getter: () => {
+		return search_list;
+	}
+}
+user_recently_searchword.setter();
+
+// 사용자 최근 검색어 넣기
+function Insert_user_recently_searchword(target) {
+	target.empty();
+	let div = ``;
+	let output = user_recently_searchword.getter();
+	for (let search_word of output) {
+		div = 	`
+					<div class="search_result noselect" onmousedown="search_result_click($(this))">
+						<img src="/static/icons/time.png" class="search_result_icon">
+						<span>${search_word['original']}</span>
+					</div>
+				`;
+		target.prepend(div);
+	}
+	target.append(`<div id="search_loading" class="search_loading pointer noselect">
+						<i class="fas fa-grip-lines"></i>
+					</div>`);
+}
