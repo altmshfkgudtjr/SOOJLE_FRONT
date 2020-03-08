@@ -135,6 +135,14 @@ function Making_notice_block(posts) {
 
 // 공지사항 포스트 클릭
 function Click_post(tag) {
+	save_posts = [];
+	now_topic = "개발자노트";
+	where_topic = "개발자노트";
+	now_state = "개발자노트";
+	$("#board_info_board").text("SOOJLE");
+	$("#board_info_text").text("개발자노트");
+	$("#posts_target").empty();
+
 	let target = tag.attr('data-id');
 	location.href = "/board#dvnote?"+target;
 }
