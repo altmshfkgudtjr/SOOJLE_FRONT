@@ -181,7 +181,7 @@ function set_realtimesearch() {
 			let target, div, i;
 			for (i = 1; i <= realtime_words_list.length; i++) {
 				let word;
-				if (realtime_words_list[i - 1] != undefined)
+				if (realtime_words_list[i - 1] != undefined) {
 					word = realtime_words_list[i - 1][0];
 					if (i == 1) {
 						div = `<div class="anlt_realtime_word pointer" onclick="realtime_word_search($(this))">\
@@ -198,6 +198,7 @@ function set_realtimesearch() {
 					if (i < 6) target = $('#anlt_reatime_word_1to5');
 					else target = $("#anlt_reatime_word_6to10");
 					target.append(div);
+				}
 			}
 		} else {
 			Snackbar("실시간 검색어를 불러오지 못하였습니다.");

@@ -40,11 +40,8 @@ function search_focus(keyCode, tag) {
 		mobile_search_modal_open();
 		return;
 	}
-	if (mobilecheck()) Insert_user_recently_searchword($("#mobile_search_recommend_box"));
-	else {
+	if (!mobilecheck())
 		$("#search_recommend_box").removeClass("display_none");
-		Insert_user_recently_searchword($("#search_recommend_box"));
-	}
 	if (keyCode == 13) {							// 엔터일 떄
 		search_button();
 		search_blur();
@@ -223,7 +220,7 @@ const user_recently_searchword = {
 		});
 	},
 	getter: () => {
-		return search_list;
+		return this.search_list;
 	}
 }
 user_recently_searchword.setter();
@@ -241,6 +238,26 @@ function Insert_user_recently_searchword(target) {
 					</div>
 				`;
 		target.prepend(div);
+	}
+	if (output.length == 0) {
+		$.when(A_JAX(host_ip+"/get_search_realtime", "GET", null, null)).done(function(data) {
+			if (data['result'] == 'success') {
+				realtime_words_list = data['search_realtime'].splice(0, 5).reverse();
+				for (i = 1; i <= realtime_words_list.length; i++) {
+					let word;
+					if (realtime_words_list[i - 1] != undefined){
+						word = realtime_words_list[i - 1][0];
+						div = 	`
+									<div class="search_result noselect" onmousedown="search_result_click($(this))">
+										<img src="/static/icons/search.png" class="search_result_icon">
+										<span>${word}</span>
+									</div>
+								`;
+						target.prepend(div);
+					}
+				}
+			}
+		})
 	}
 	target.append(`<div id="search_loading" class="search_loading pointer noselect">
 						<i class="fas fa-grip-lines"></i>

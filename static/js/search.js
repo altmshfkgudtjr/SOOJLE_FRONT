@@ -5,6 +5,7 @@ let search_target = "";	// 목표 검색어
 let now = 0;	// 현재 화살표로 선택한 div 위치
 let all = 0;	// 검색결과 수
 function search_focuson() {
+	now = 0;
 	let target = $("#search_recommend_box");
 	if (mobilecheck()) {
 		target = $("#mobile_search_recommend_box");
@@ -20,7 +21,7 @@ function search_focus(keyCode, tag) {
 	let target = $("#search_recommend_box");
 	if (mobilecheck())target = $("#mobile_search_recommend_box")
 	// 최근 검색어 표출
-	Insert_user_recently_searchword(target);
+	//Insert_user_recently_searchword(target);
 
 	if (keyCode == 13) {
 		search_button();
