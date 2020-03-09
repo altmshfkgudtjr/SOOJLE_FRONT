@@ -108,7 +108,8 @@ function Sign_in() {									// 로그인 완료 버튼
 		let user_pw = $("#user_pw").val();
 		let send_data = {id: user_id, pw: user_pw};
 		$("#loading_modal").removeClass("loading_modal_unvisible");
-		$.when(A_JAX(host_ip+"/sign_in", "POST", null, send_data)).done(function (data) {
+		$.when(A_JAX(host_ip+"/sign_in", "POST", null, send_data))
+		.done(function (data) {
 			$("#loading_modal").addClass("loading_modal_unvisible");
 			if (data['result'] == 'success') {
 				let token = data['access_token'];
@@ -453,6 +454,7 @@ function Get_UserInfo(callback) {
 			output = a_jax.responseJSON;
 			//## ======== ##//
 			// 콜백함수, 인자로 User Information을 넣어준다.
+			//console.log(output);
 			if (typeof(callback) == 'function') {
 				callback(output);
 			}

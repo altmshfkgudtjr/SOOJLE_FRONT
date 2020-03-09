@@ -238,7 +238,7 @@ async function auto_login() {
 }
 
 
-// After login, setting user information.
+// 로그인 후, 사용자 정보 수정
 function Menu_User_Info_Change(nickname) {
 	let hello = greetings[Math.floor(Math.random() * greetings.length)];
 	nickname = nickname + "님, " + hello;

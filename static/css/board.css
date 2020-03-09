@@ -2539,8 +2539,8 @@ span.selectbox_choose {
 	min-height: 100px;
 	box-sizing: border-box;
 	border-radius: 6px;
-	border-top: 4px solid #ebebeb;
-	border-bottom: 4px solid #ebebeb;
+	border-top: 1px solid #ebebeb;
+	border-bottom: 1px solid #ebebeb;
 	margin: 0 0 20px 0;
 	padding: 30px 20px;
 	font-size: 16px;

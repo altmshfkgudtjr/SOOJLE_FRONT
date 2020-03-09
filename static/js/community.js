@@ -65,13 +65,12 @@ function Get_notice_postOne(id, callback) {
 }
 // 공지사항 포스트 요청 API
 function Get_notice_posts(callback) {
-	a_jax = A_JAX(host_ip+"/get_all_notice", "GET", null, null);
-	$.when(a_jax).done(function () {
-		if (a_jax.responseJSON['result'] == 'success') {
-			output = a_jax.responseJSON;
+	$.when(A_JAX(host_ip+"/get_all_notice", "GET", null, null))
+	.done(function (data) {
+		if (data['result'] == 'success') {
 			// 콜백함수, 인자로 User Information을 넣어준다.
 			if (typeof(callback) == 'function') {
-				callback(output);
+				callback(data);
 			}
 		} else if (a_jax['status'].toString().startsWith('4')) {
 			Snackbar("통신이 원활하지 않습니다.");
