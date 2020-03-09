@@ -213,10 +213,7 @@ function set_realtimesearch() {
 function realtime_word_search(tag) {
 	let text = tag.text().trim().slice(4);
 	//search_text(text);
-	location.replace(`/board#search?${text}/`);
-	if (mobilecheck()) {
-		mobile_search_modal_open();
-	}
+	window.location.href = `/board#search?${text}/`;
 }
 
 // 명예의 전당 div Insert-------------------------------------------------

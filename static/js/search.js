@@ -559,6 +559,7 @@ function remove_duplicated(target, posts) {
 }
 // 트렌드 게시물 제작
 function Create_trend_posts() {
+	a_jax_posts[0] = [];
 	let index = [0], max = 0, cnt = 0;
 	for (let i = 1; i < a_jax_posts.length; i++)
 		index.push(0)
