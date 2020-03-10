@@ -967,8 +967,11 @@ html, body {
 	text-align: center;
 	font-size: 16px;
 }
-.menu_container_button_ss:hover {
+.menu_container_button_ss:hover > img {
 	filter: invert(9%) sepia(72%) saturate(6871%) hue-rotate(341deg) brightness(94%) contrast(98%);
+}
+.menu_container_button_ss:hover > div {
+	color: #c30e2e;
 }
 .menu_container_button_ss_icon {
 	position: absolute;
