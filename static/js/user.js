@@ -202,6 +202,7 @@ function Enter_login(event) {								// 로그인 키 입력
 }
 function CapsLock_Check(event) {						// CapsLock 검사
 	let key = event.key, shiftKey = event.shiftKey;
+	if (key == undefined) return;
 	if (((key.match(/^[A-Z]$/)) && !shiftKey)
 	 || ((key.match(/^[a-z]$/)) && shiftKey)) {
 	 	if (event.target.id == "user_pw")
