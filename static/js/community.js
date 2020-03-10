@@ -193,7 +193,7 @@ function insert_notice_one(id) {
 			$("#none_click").addClass("display_none");
 
 			$("#menu_container").removeClass("menu_container_fixed");
-			$("#posts_creating_loading").addClass("display_none");
+			$("#posts_creating_lodaing").addClass("display_none");
 			$("#board_container").removeClass("board_container_fixed");
 			resolve();
 		});
