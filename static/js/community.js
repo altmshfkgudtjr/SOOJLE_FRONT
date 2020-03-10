@@ -187,13 +187,14 @@ function insert_notice_one(id) {
 			} else {
 				No_posts($("#posts_target"));
 			}
+			console.log("나와라");
 			$("#mobile_controller_none").addClass("display_none");
 			$("#board_loading_modal").addClass("board_loading_modal_unvisible");
 			$(".mobile_controller").removeAttr("style");
 			$("#none_click").addClass("display_none");
 
 			$("#menu_container").removeClass("menu_container_fixed");
-			$("#posts_creating_lodaing").addClass("display_none");
+			$("#posts_creating_loading").addClass("display_none");
 			$("#board_container").removeClass("board_container_fixed");
 			resolve();
 		});
@@ -276,6 +277,24 @@ function Notice_Edit_Done() {
 		let actiavation_check = 0
 		if ($("#activation_toggle").is(":checked"))
 			actiavation_check = 1;
+		if (title.length == 0) {
+			Snackbar("제목을 입력해주세요.");
+			$("#notice_page_edit_title").focus();
+			return;
+		} else if (title.length > 50) {
+			Snackbar("제목 길이 한계를 초과하였습니다.");
+			$("#notice_page_edit_title").focus();
+			return;
+		}
+		if (post.length == 0) {
+			Snackbar("내용을 입력해주세요.");
+			$("#notice_page_edit_post").focus();
+			return;
+		} else if (post.length > 500) {
+			Snackbar("내용 길이 한계를 초과하였습니다.");
+			$("#notice_page_edit_post").focus();
+			return;
+		}
 		let sendData = {
 			'title': title,
 			'post': post,

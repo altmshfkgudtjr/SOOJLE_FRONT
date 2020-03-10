@@ -97,13 +97,21 @@ function writing_notice_admin() {
 			Snackbar("제목을 입력해주세요.");
 			$("#setting_writing_post_title").focus();
 			return;
-		}
+		} else if (title.length > 50) {
+      Snackbar("제목 길이 한계를 초과하였습니다.");
+      $("#setting_writing_post_title").focus();
+      return;
+    }
 		let pharagh = $("#setting_writing_post_pharagh").val();
-		if (title == "") {
+		if (pharagh == "") {
 			Snackbar("내용을 입력해주세요.");
 			$("#setting_writing_post_pharagh").focus();
 			return;
-		}
+		} else if (pharagh.length > 500) {
+      Snackbar("내용 길이 한계를 초과하였습니다.");
+      $("#setting_writing_post_pharagh").focus();
+      return;
+    }
 		let send_data = {
 							"title": title, 
 							"post": pharagh

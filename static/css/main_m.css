@@ -151,7 +151,8 @@
 		padding-right: 10px;
 	}
 	.SJ_main_page1_menu_icons_box  {
-		min-width: 90px;
+		min-width: 88px;
+		margin-right: 0;
 	}
 }
 
@@ -159,15 +160,30 @@
 /*=============================================================================*/
 /*                                Height 650px                                 */
 /*=============================================================================*/
-@media screen and (max-height: 650px) {
+@media screen and (max-height: 550px) {
 	.SJ_main_page1_menu_container {
-		margin-top: 20px;
+		margin-top: 10px;
+	}
+}
+
+
+/*=============================================================================*/
+/*                                Height 500px                                 */
+/*=============================================================================*/
+@media screen and (max-height: 500px) {
+	.SJ_main_page1_menu_container {
+		margin-top: 10px;
 	}
 	.SJ_main_page1_menu_icons_box:nth-child(n+4) {
 		display: none;
 	}
 }
-@media screen and (max-height: 550px) {
+
+
+/*=============================================================================*/
+/*                                Height 400px                                 */
+/*=============================================================================*/
+@media screen and (max-height: 400px) {
 	.SJ_main_page1_menu_icons_box {
 		display: none;
 	}

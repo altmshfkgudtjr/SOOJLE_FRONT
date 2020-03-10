@@ -183,6 +183,7 @@ body {
 	margin: auto;
 	margin-top: 40px;
 	text-align: center;
+	transition: .1s ease-in-out;
 }
 .SJ_main_page1_menu_icons_box {
 	position: relative;

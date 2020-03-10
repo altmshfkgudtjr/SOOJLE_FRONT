@@ -100,7 +100,15 @@ function search_button() {	// 검색작업 data = 글자
 		Snackbar("검색어를 입력해주세요.");
 		is_searching = 0;
 		return;
-	} 
+	} else if (data.length > 200) {
+		Snackbar("검색어가 제한 길이를 초과하였습니다.");
+		if (mobilecheck()) {
+			$("#mobile_search_input").focus();
+		} else {
+			$("#pc_search_input").focus();
+		}
+		return;
+	}
 	data = data.replace(/ /g, "+");
 	window.location.href = "/board#search?" + data + '/'
 }
