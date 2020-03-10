@@ -183,15 +183,12 @@ function SignIn_pw_Check(tag) {							// 로그인 PW 검사
 	}
 	return false;
 }
-function Enter_login() {								// 로그인 키 입력
+function Enter_login(event) {								// 로그인 키 입력
 	SignIn_id_Check($("#user_id"));
 	SignIn_pw_Check($("#user_pw"));
-	if (window.event.getModifierState("CapsLock")		// CapsLock
-	 && window.event.target.id == "user_pw") {
-		CapsLock_Check($(window.event.target));
-	}
+	CapsLock_Check(event);									// CapsLock 검사
 	// Enter 누를 시
-	if (window.event.keyCode == 13) {
+	if (event.keyCode == 13) {
         if ($("#user_id").val() == "") {
         	Snackbar("아이디를 입력해주세요.");
         	$("#user_id").focus();
@@ -203,11 +200,16 @@ function Enter_login() {								// 로그인 키 입력
         }
     }
 }
-function CapsLock_Check(tag) {							// CapsLock 검사
-	Snackbar("CapsLock이 켜져있습니다.");	// 임시 코드
+function CapsLock_Check(event) {						// CapsLock 검사
+	let key = event.key, shiftKey = event.shiftKey;
+	if (((key.match(/^[A-Z]$/)) && !shiftKey)
+	 || ((key.match(/^[a-z]$/)) && shiftKey)) {
+	 	if (event.target.id == "user_pw")
+			Snackbar("CapsLock이 켜져있습니다.");			// 임시 코드
+	}
 }
-$("#user_id, #user_pw").keyup(function() {
-	Enter_login();
+$("#user_id, #user_pw").keydown(function(event) {
+	Enter_login(event);
 });
 
 // 회원가입=========================================================================
