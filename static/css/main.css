@@ -205,8 +205,11 @@ body {
 	display: block;
 	padding-bottom: 100%;
 }
-.SJ_main_page1_menu_icons_box:hover {
+/*.SJ_main_page1_menu_icons_box:hover {
 	background-color: rgba(18, 184, 134, .1);
+}*/
+.SJ_main_page1_menu_icons_box:hover {
+	box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 .SJ_main_page1_menu_icon {
 	position: absolute;
@@ -406,7 +409,7 @@ body {
 }
 @media screen and (max-width: 1500px) {
 	.SJ_main_page1_logo_container_box {
-		padding-top: 180px;
+		padding-top: 160px;
 	}
 }
 @media screen and (max-width: 900px) {
@@ -1166,4 +1169,18 @@ ol { margin-left: 15px; }
 
 .mobile_search_info_view {
 	display: none;
+}
+
+.main_info_message_btn {
+	position: relative;
+	float: left;
+	width: 44px;
+	height: 44px;
+	margin: 10px 0 0 4px;
+	padding: 0 5px;
+	border-radius: 10px;
+	transition: .2s ease-in-out;
+}
+.main_info_message_btn:hover {
+	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }

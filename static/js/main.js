@@ -277,15 +277,7 @@ function Insert_recommendation_searchword() {
 	// nothing
 }
 
-/*
-$("#SJ_main_page1_search_bar").addClass("SJ_main_page1_search_bar_checked");
-	$("#SJ_main_page1_search_list_box").css({"width": $("#SJ_main_page1_search_box").width()});
-	$("#SJ_main_page1_search_list_box").removeClass("display_none");
-	if (mobilecheck()) {
-		$("#SJ_main_page1_search_box").css({"border-radius": "25px 25px 0 0"});
-		let top = $("#SJ_main_page1_search_container").position().top;
-		$("html, body").scrollTop(top);
-	} else {
-		$("#SJ_main_page1_search_box").css({"border-radius": "25px 25px 0 0"});
-	}
-*/
+// 메인 페이지 소개 메세지 버튼
+function Main_Info_Message_Btn() {
+	Snackbar("개발 중인 기능입니다.");
+}
