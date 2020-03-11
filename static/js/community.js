@@ -187,7 +187,6 @@ function insert_notice_one(id) {
 			} else {
 				No_posts($("#posts_target"));
 			}
-			console.log("나와라");
 			$("#mobile_controller_none").addClass("display_none");
 			$("#board_loading_modal").addClass("board_loading_modal_unvisible");
 			$(".mobile_controller").removeAttr("style");
