@@ -214,7 +214,7 @@ function get_posts_more(before_state, target) {
 		let output = save_posts.slice(0,30);
 		save_posts = save_posts.slice(30);
 		creating_post(target, output, before_state);
-	}, 500);
+	}, 0);
 }
 // 공지사항 더보기
 function get_notices_more() {
@@ -223,7 +223,7 @@ function get_notices_more() {
 		let output = save_posts.slice(0,30);
 		save_posts = save_posts.slice(30);
 		Making_notice_block(output);
-	}, 500);
+	}, 0);
 }
 
 
