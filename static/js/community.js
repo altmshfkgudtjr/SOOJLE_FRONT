@@ -289,7 +289,7 @@ function Notice_Edit_Done() {
 			Snackbar("내용을 입력해주세요.");
 			$("#notice_page_edit_post").focus();
 			return;
-		} else if (post.length > 500) {
+		} else if (post.length > 1000) {
 			Snackbar("내용 길이 한계를 초과하였습니다.");
 			$("#notice_page_edit_post").focus();
 			return;

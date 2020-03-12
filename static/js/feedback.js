@@ -95,6 +95,10 @@ function feedback_send() {
 		Snackbar("내용을 입력해주세요.");
 		$("#feedback_box").focus();
 		return;
+	} else if (phragh.length >= 1000) {
+		Snackbar("제한 길이를 초과하였습니다.");
+		$("#feedback_box").focus();
+		return;
 	}
 	send_data["type"] = selectbox_input;
 	send_data["post"] = phragh;

@@ -107,7 +107,7 @@ function writing_notice_admin() {
 			Snackbar("내용을 입력해주세요.");
 			$("#setting_writing_post_pharagh").focus();
 			return;
-		} else if (pharagh.length > 500) {
+		} else if (pharagh.length > 1000) {
       Snackbar("내용 길이 한계를 초과하였습니다.");
       $("#setting_writing_post_pharagh").focus();
       return;
