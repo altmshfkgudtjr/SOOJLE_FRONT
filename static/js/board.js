@@ -240,8 +240,6 @@ async function After_login() {
 	$("#view_button").removeClass("display_none");
 	$("#like_button").removeClass("display_none");
 	$("#logout_button").removeClass("display_none");
-	let w = $(document).width();
-	//if (w < 1200) {
 	if (mobilecheck()) {
 		$("#user_login_mobile").addClass("display_none");
 		$("#user_info_mobile").removeClass("display_none");
@@ -265,7 +263,6 @@ async function After_login() {
 		$("#mobile_search").removeClass("display_none");
 		search_open = 1;
 		$("#mobile_search_recommend_box").removeClass("display_none");
-		//window.location.href = "/board#";
 		text = text.split("/")[0];
 		text = text.replace(/\+/g, " ");
 		await search_text(text);
@@ -325,7 +322,6 @@ function pageUp() {
 	scroll(0,0);
 	$("#pc_search_input").focus();
 }
-
 
 
 // 사용자 검색 키워드 객체

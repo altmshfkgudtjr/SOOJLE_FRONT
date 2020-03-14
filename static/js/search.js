@@ -144,7 +144,6 @@ function mobile_search_modal_close() {
 }
 function search_result_click(tag) {
 	let data = tag.children("span").text().trim();
-	let w = $(document).width();
 	if (mobilecheck()) {
 		$("#mobile_search_input").val(data);
 	} else {

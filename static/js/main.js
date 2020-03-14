@@ -105,7 +105,6 @@ function mobile_search_modal_open() {
 }
 function search_button() {	// 검색작업 data = 글자
 	let data;
-	let w = $(document).width();
 	if (mobilecheck()) {
 		data = $("#mobile_search_input").val();
 		$("#mobile_search_input").blur();
@@ -130,7 +129,6 @@ function search_button() {	// 검색작업 data = 글자
 }
 function search_result_click(tag) {
 	let data = tag.children("span").text().trim();
-	let w = $(document).width();
 	if (mobilecheck()) {
 		$("#mobile_search_input").val(data);
 	} else {

@@ -1,14 +1,3 @@
-let now_w = $(document).width();
-/*
-$(window).resize(function() {
-	let w = $(document).width();
-	if (w < 1200 && now_w >= 1200) {
-		location.reload();
-	} else if (w >= 1200 && now_w < 1200) {
-		location.reload();
-	}
-	now_w = w;
-});*/
 let save_posts = [];
 let posts_update = 1;
 var now_topic;

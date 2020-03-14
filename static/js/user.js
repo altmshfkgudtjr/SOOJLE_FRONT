@@ -12,7 +12,6 @@ function agreement() {
 		$("#license_block").append(privacy_1);
 	} else {
 		agreement_open = !agreement_open;
-		//$("body").removeAttr("style");
 		$("#user_agreement_modal").addClass("fadeOutDown");
 		setTimeout(function() {
 			$("#user_agreement_modal").removeClass("fadeOutDown animated");
@@ -473,9 +472,8 @@ function Get_UserInfo(callback) {
 function Check_ManagerInfo(callback) {
 	let token = sessionStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') return;
-	$.when(A_JAX(host_ip+"/check_admin", "GET", null, null))
-	.done(function(data) {
-		if (data["result"] == 'success') {
+	Get_UserInfo((result) => {
+		if (result["admin"] == 1) {
 			if (typeof(callback) == "function") {
 				callback();
 			}
