@@ -39,8 +39,6 @@ $(document).ready( function() {
 // Grid modal on off function
 let grid_open = 0;
 function grid_modal_onoff() {
-	let w = $(document).width();
-	//if (w < 1200) {
 	if (mobilecheck()) {
 		if (menu_open == 1) menu_modal_onoff();
 	}
@@ -66,8 +64,6 @@ function grid_modal_onoff() {
 	}
 }
 function grid_modal_off() {
-	let w = $(document).width();
-	//if (w < 1200){
 	if (mobilecheck()) {
 		$("#grid").removeAttr("style");
 		$("body").removeAttr("style");
@@ -90,8 +86,6 @@ function menu_modal_onoff(is_menu_open = menu_open) {
 		menu_open = 0;
 		return;
 	}
-	let w = $(document).width();
-	//if (w < 1200) {
 	if (mobilecheck()) {
 		if (grid_open == 1) grid_modal_onoff();
 	}
@@ -114,8 +108,6 @@ function menu_modal_onoff(is_menu_open = menu_open) {
 	}
 }
 function menu_modal_off() {
-	let w = $(document).width();
-	//if (w < 1200){
 	if (mobilecheck()) {
 		$("body").removeAttr("style");
 		$("#menu_modal").addClass("fadeOutDown");
@@ -224,11 +216,6 @@ async function auto_login() {
 			if (result['result'] == 'success') {
 				After_login(result);
 				Menu_User_Info_Change(result['user_nickname']);	// 좌측 메뉴 닉네임 변경
-			} else if (result['result'] == 'blacklist user') {
-				sessionStorage.removeItem('sj-state');
-				localStorage.removeItem('sj-state');
-				alert("블랙리스트된 사용자입니다.");
-				location.reload();	
 			} else {
 				Menu_User_Info_Change("사용자");	// 좌측 메뉴 닉네임 변경
 				Snackbar("서버와의 연결이 원활하지 않습니다.");
@@ -383,7 +370,8 @@ function Insert_user_recently_searchword(target) {
 		target.prepend(div);
 	}
 	if (output.length == 0) {
-		$.when(A_JAX(host_ip+"/get_search_realtime", "GET", null, null)).done(function(data) {
+		$.when(A_JAX(host_ip+"/get_search_realtime", "GET", null, null))
+		.done(function(data) {
 			if (data['result'] == 'success') {
 				realtime_words_list = data['search_realtime'].splice(0, 5).reverse();
 				for (i = 1; i <= realtime_words_list.length; i++) {

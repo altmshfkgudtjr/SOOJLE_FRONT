@@ -41,10 +41,10 @@ function Fail_notice_postOne() {
 }
 // 공지사항 단일 포스트 반환 API
 function Get_notice_postOne(id, callback) {
-	a_jax = A_JAX(host_ip+"/get_notice/"+id, "GET", null, null);
-	$.when(a_jax).done(function () {
-		if (a_jax.responseJSON['result'] == 'success') {
-			output =  JSON.parse(a_jax.responseJSON['notice']);
+	$.when(A_JAX(host_ip+"/get_notice/"+id, "GET", null, null))
+	.done(function (data) {
+		if (data['result'] == 'success') {
+			output =  JSON.parse(data['notice']);
 			// 콜백함수, 인자로 User Information을 넣어준다.
 			if (output == null) {
 				Fail_notice_postOne();
@@ -52,15 +52,16 @@ function Get_notice_postOne(id, callback) {
 			if (typeof(callback) == 'function') {
 				callback(output);
 			}
-		} else if (a_jax['status'].toString().startsWith('4')) {
-			Snackbar("통신이 원활하지 않습니다.");
-			return false;
 		} else {
-			Snackbar("통신이 원활하지 않습니다.");
+			Snackbar("잠시 후 다시 시도해주세요.");
 			return false;
 		}
-	}).catch(function() {
+	}).catch((data) => {
 		Fail_notice_postOne();
+		if (data.statue == 400) {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
+			return false;
+		}
 	});
 }
 // 공지사항 포스트 요청 API
@@ -72,11 +73,13 @@ function Get_notice_posts(callback) {
 			if (typeof(callback) == 'function') {
 				callback(data);
 			}
-		} else if (a_jax['status'].toString().startsWith('4')) {
-			Snackbar("통신이 원활하지 않습니다.");
-			return false;
 		} else {
-			Snackbar("통신이 원활하지 않습니다.");
+			Snackbar("잠시 후 다시 시도해주세요.");
+			return false;
+		}
+	}).catch((data) => {
+		if(data.status == 400) {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
 			return false;
 		}
 	});
@@ -263,6 +266,18 @@ function Notice_Delete() {
 					Snackbar("잠시 후에 다시 시도해주세요!");
 					return;
 				}
+			}).catch((data) => {
+				if (data.status == 400) {
+					Snackbar("잘못된 요청입니다.");
+					return false;
+				} else if (data.status == 403) {
+					Snackbar("권한이 없습니다.");
+					window.location.reload();
+					return false;
+				} else {
+					Snackbar("서버와의 연결이 원활하지 않습니다.");
+					return false;
+				}
 			});
 		} 
 	});
@@ -306,7 +321,19 @@ function Notice_Edit_Done() {
 				location.reload();
 			} else {
 				Snackbar("잠시 후에 다시 시도해주세요!");
-				return;
+				return false;
+			}
+		}).catch((data) => {
+			if (data.status == 400) {
+				Snackbar("잘못된 요청입니다.");
+				return false;
+			} else if (data.status == 403) {
+				Snackbar("권한이 없습니다.");
+				window.location.reload();
+				return false;
+			} else {
+				Snackbar("서버와의 연결이 원활하지 않습니다.");
+				return false;
 			}
 		});
 	});

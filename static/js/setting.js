@@ -143,10 +143,30 @@ function insert_user_information_setting() {
 function change_autologin_st(){
 	if($("#autologin_toggle").is(":checked")) {
 		localStorage.setItem("sj-state", sessionStorage.getItem('sj-state'));
-		a_jax = A_JAX(host_ip+"/update_auto_login/" + 1, "GET", null, null);
+		$.when(A_JAX(host_ip+"/update_auto_login/" + 1, "GET", null, null))
+		.done((data) => {})
+		.catch((data) => {
+			if (data.status == 400) {
+				Snackbar("잘못된 요청입니다.");
+			} else if (data.status == 401) {
+				Snackbar("다시 로그인 해주세요.");
+			} else {
+				Snackbar("서버와의 연결이 원활하지 않습니다.");
+			}
+		});
 	} else {
 		localStorage.removeItem('sj-state');
-		a_jax = A_JAX(host_ip+"/update_auto_login/" + 0, "GET", null, null);
+		$.when(A_JAX(host_ip+"/update_auto_login/" + 0, "GET", null, null))
+		.done((data) => {})
+		.catch((data) => {
+			if (data.status == 400) {
+				Snackbar("잘못된 요청입니다.");
+			} else if (data.status == 401) {
+				Snackbar("다시 로그인 해주세요.");
+			} else {
+				Snackbar("서버와의 연결이 원활하지 않습니다.");
+			}
+		});
 	}
 }
 
@@ -182,12 +202,16 @@ function Change_nickname() {
 			Menu_User_Info_Change(nickname);
 			Snackbar("닉네임이 변경되었습니다.");
 			Cancel_nickname();
-		} else if (data['result'] == 'rewrite_nickname') {
-			Snackbar("닉네임 최대길이를 초과하였습니다.");
-			return false;
+		} else {
+			Snackbar("잠시 후 다시 시도해주세요.");
+		}
+	}).catch((data) => {
+		if (data['status'] == 400) {
+			Snackbar("잘못된 요청입니다.");
+		} else if (data['status'] == 401) {
+			Snackbar("다시 로그인 해주세요.");
 		} else {
 			Snackbar("서버와의 통신이 원활하지 않습니다.");
-			return false;
 		}
 	});
 	return true;
@@ -228,13 +252,23 @@ function user_data_reset_button_ok() {
 		$("#user_data_delete_input").focus();
 		return;
 	}
-	let user_data_delete_ajax = A_JAX(host_ip+"/reset_user_measurement", "GET", null, null);
-	$.when(user_data_delete_ajax).done(function() {
-		if(user_data_delete_ajax.responseJSON['result'] == 'success') {
+	$.when(A_JAX(host_ip+"/reset_user_measurement", "GET", null, null))
+	.done((data) => {
+		if(data['result'] == 'success') {
 			Snackbar("관심도가 초기화 되었습니다.");
 			user_data_modal_cancel();
 		} else {
-			Snackbar("통신이 원활하지 않습니다.");
+			Snackbar("잠시 후 다시 시도해주세요.");
+		}
+	}).catch((data) => {
+		if (data.status == 401) {
+			Snackbar("다시 로그인 해주세요.");
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+			window.location.reload();
+		} else {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
+			return false;
 		}
 	});
 }
@@ -255,18 +289,28 @@ function user_data_delete_button_ok() {
 		$("#user_data_delete_input").focus();
 		return;
 	}
-	let user_data_delete_ajax = A_JAX(host_ip+"/remove_mine", "GET", null, null);
-	$.when(user_data_delete_ajax).done(function() {
-		if(user_data_delete_ajax.responseJSON['result'] == 'success') {
+	$.when(A_JAX(host_ip+"/delete_user", "GET", null, null))
+	.done((data) => {
+		if(data['result'] == 'success') {
 			Snackbar("계정이 삭제되었습니다.");
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
 			location.replace("/board#recommend");
 			location.reload();
 		} else {
-			Snackbar("통신이 원활하지 않습니다.");
+			Snackbar("잠시 후 다시 시도해주세요.");
 		}
-	});
+	}).catch((data) => {
+		if (data.status == 401) {
+			Snackbar("다시 로그인 해주세요.");
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+			window.location.reload();
+		} else {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
+			return false;
+		}
+	});;
 }
 // 사용자 정보 모달 취소 버튼
 function user_data_modal_cancel() {

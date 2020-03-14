@@ -317,21 +317,26 @@ function post_like(id, tag) {
 		Snackbar("로그인이 필요합니다.");
 		return;
 	}
-	let a_jax = A_JAX(host_ip+"/post_like/"+id, "GET", null, null);
-	$.when(a_jax).done(function () {
-		let json = a_jax.responseJSON;
-		if (json['result'] == 'success') {
+	$.when(A_JAX(host_ip+"/post_like/"+id, "GET", null, null))
+	.done((data) => {
+		if (data['result'] == 'success') {
 			tag.css("color", "#f00730");
 			let cnt = Number(tag.next('div').text());
 			cnt += 1;
 			tag.next('div').empty();
 			tag.next('div').text(cnt.toString());
-		} else if (json['result'] == 'bad request') {
-			Snackbar("새로 로그인해주세요!");
-		} else if (json['result'] == 'fail') {
-			Snackbar("잘못된 접근입니다.");
 		} else {
-			Snackbar("다시 접속해주세요!");
+			Snackbar("잠시 후 다시 시도해주세요.");
+		}
+	}).catch((data) => {
+		if (data.status == 400) {
+			Snackbar("잠시 후 다시 시도해주세요.");
+		} else if (data.status == 401) {
+			Snackbar("다시 로그인 해주세요.");
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+		} else {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
 		}
 	});
 }
@@ -342,21 +347,26 @@ function post_dislike(id, tag) {
 		Snackbar("로그인이 필요합니다.");
 		return;
 	}
-	let a_jax = A_JAX(host_ip+"/post_unlike/"+id, "GET", null, null);
-	$.when(a_jax).done(function () {
-		let json = a_jax.responseJSON;
-		if (json['result'] == 'success') {
+	$.when(A_JAX(host_ip+"/post_unlike/"+id, "GET", null, null))
+	.done((data) => {
+		if (data['result'] == 'success') {
 			tag.removeAttr("style");
 			let cnt = Number(tag.next('div').text());
 			cnt -= 1;
 			tag.next('div').empty();
 			tag.next('div').text(cnt.toString());
-		} else if (json['result'] == 'bad request') {
-			Snackbar("새로 로그인해주세요!");
-		} else if (json['result'] == 'fail') {
-			Snackbar("잘못된 접근입니다.");
 		} else {
-			Snackbar("다시 접속해주세요!");
+			Snackbar("잠시 후 다시 시도해주세요.");
+		}
+	}).catch((data) => {
+		if (data.status == 400) {
+			Snackbar("잠시 후 다시 시도해주세요.");
+		} else if (data.status == 401) {
+			Snackbar("다시 로그인 해주세요.");
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+		} else {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
 		}
 	});
 }
@@ -470,7 +480,7 @@ function creating_post(target_tag, posts, now_creating_state = "", is_fav_cnt = 
 		$("#posts_creating_loading").removeClass("display_none");
 		if (mobilecheck()) Creating_mobile_post(posts, '', is_fav_cnt, function(result){ resolve(result); });
 		else Creating_pc_post(posts, '', is_fav_cnt, function(result){ resolve(result); });
-	}).then(function(result) {
+	}).then((result) => {
 		if (now_creating_state == now_state){
 			if (typeof(callback) == 'function') {
 				callback(result);					// For Search Functin
@@ -479,7 +489,7 @@ function creating_post(target_tag, posts, now_creating_state = "", is_fav_cnt = 
 				Do_Like_Sign();
 			}
 		}
-	}).then(function() {
+	}).then(() => {
 		$("#mobile_controller_none").addClass("display_none");
 		$("#board_loading_modal").addClass("board_loading_modal_unvisible");
 		$(".mobile_controller").removeAttr("style");
@@ -710,7 +720,7 @@ function Do_Like_Sign() {
 				let posts = $(".post_block");
 				let post_one;
 				for (post_one of posts) {
-					for (let fav_post of a_jax.responseJSON["user_fav_list"]) {
+					for (let fav_post of result["user_fav_list"]) {
 						if ($(post_one).attr("p-id") == fav_post["_id"]) {
 							$(post_one).children('div').children('div.post_like').css("color", "#f00730");
 							$(post_one).children('div').children('div.post_like').attr("ch", "1");

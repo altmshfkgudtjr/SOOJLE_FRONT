@@ -266,67 +266,73 @@ function Search_logging(text) {
 // 검색 API 호출
 function Get_Search_Posts(sendData, now_creating_state) {
 	a_jax_posts[0] = [];
-	$.when(A_JAX(host_ip+"/domain_search", "POST", null, sendData)).done(function (data) {
-		let json = data;
-		if (json['result'] == 'success') {
-			domain_posts = json["search_result"];
-			insert_domain_post(json["search_result"], now_creating_state);
+	$.when(A_JAX(host_ip+"/domain_search", "POST", null, sendData))
+	.done(function (data) {
+		if (data['result'] == 'success') {
+			domain_posts = data["search_result"];
+			insert_domain_post(data["search_result"], now_creating_state);
 		}
 	});
 	$.when(
-		$.when(A_JAX(host_ip+"/category_search/대학교/200", "POST", null, sendData)).done(function (data) {
+		$.when(A_JAX(host_ip+"/category_search/대학교/200", "POST", null, sendData))
+		.done((data) => {
 			if (data['result'] == "success") {
 				let output = remove_duplicated(1, data["search_result"]);
 				a_jax_posts[1] = output;
 			}
-		}).catch(function(e) {
+		}).catch((e) => {
 			// Ajax fail
 		}),
-		$.when(A_JAX(host_ip+"/category_search/동아리&모임/200", "POST", null, sendData)).done(function (data) {
+		$.when(A_JAX(host_ip+"/category_search/동아리&모임/200", "POST", null, sendData))
+		.done(function (data) {
 			if (data['result'] == "success") {
 				let output = remove_duplicated(2, data["search_result"]);
 				a_jax_posts[2] = output;
 			}
-		}).catch(function(e) {
+		}).catch((e) => {
 			// Ajax fail
 		}),
-		$.when(A_JAX(host_ip+"/category_search/공모전&행사/200", "POST", null, sendData)).done(function (data) {
+		$.when(A_JAX(host_ip+"/category_search/공모전&행사/200", "POST", null, sendData))
+		.done(function (data) {
 			if (data['result'] == "success") {
 				let output = remove_duplicated(3, data["search_result"]);
 				a_jax_posts[3] = output;
 			}
-		}).catch(function(e) {
+		}).catch((e) => {
 			// Ajax fail
 		}),
-		$.when(A_JAX(host_ip+"/category_search/진로&구인/200", "POST", null, sendData)).done(function (data) {
+		$.when(A_JAX(host_ip+"/category_search/진로&구인/200", "POST", null, sendData))
+		.done(function (data) {
 			if (data['result'] == "success") {
 				let output = remove_duplicated(4, data["search_result"]);
 				a_jax_posts[4] = output;
 			}
-		}).catch(function(e) {
+		}).catch((e) => {
 			// Ajax fail
 		}),
-		$.when(A_JAX(host_ip+"/category_search/자유/200", "POST", null, sendData)).done(function (data) {
+		$.when(A_JAX(host_ip+"/category_search/자유/200", "POST", null, sendData))
+		.done(function (data) {
 			if (data['result'] == "success") {
 				let output = remove_duplicated(5, data["search_result"]);
 				a_jax_posts[5] = output;
 			}
-		}).catch(function(e) {
+		}).catch((e) => {
 			// Ajax fail
 		}),
-		$.when(A_JAX(host_ip+"/category_search/예외/200", "POST", null, sendData)).done(function (data) {
+		$.when(A_JAX(host_ip+"/category_search/예외/200", "POST", null, sendData))
+		.done(function (data) {
 			if (data['result'] == "success") {
 				let output = remove_duplicated(6, data["search_result"]);
 				a_jax_posts[6] = output;
 			}
-		}).catch(function(e) {
+		}).catch((e) => {
 			// Ajax fail
 		})
-	).then(function() {
+	).then(() => {
 		// 각 카테고리 게시물에서 similarity가 가장 높은 200개 Trend로 선정
 		Create_trend_posts();
 		check_search_results_sort();
-	}).then(function() {
+	}).then(() => {
 		$("#posts_creating_loading").addClass("display_none");
 		Do_Like_Sign();			// 좋아요 표시
 		result_search_zero();	// 검색결과 0개일경우
@@ -423,9 +429,6 @@ function insert_search_post(target_num, posts, now_creating_state = "", is_fav_c
 			target.append($(tag_str));
 		}
 	});
-	// if (!mobilecheck()) {
-	// 	setTimeout(function() {$("#menu_container").css({"transition": ".2s ease-in-out"});}, 200);
-	// }
 }
 // 연관 검색어 삽입
 function insert_recommend_words(words_dict, now_creating_state = "") {
@@ -591,7 +594,7 @@ function result_search_zero() {
 	}
 }
 
-
+// 연산
 function similarity_sort(index, sum) {
 	let i, j, max, tmp;
 	for (i = 0; i< 5; i++) {

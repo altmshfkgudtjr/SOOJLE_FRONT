@@ -2090,6 +2090,7 @@ span.selectbox_choose {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	text-transform: capitalize;
 }
 .realtime_searchwords_table_text:hover {
 	text-decoration: underline;

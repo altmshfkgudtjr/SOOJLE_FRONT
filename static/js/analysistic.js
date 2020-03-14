@@ -37,8 +37,9 @@ function Go_analysistic() {
 }
 
 function set_analysistic() {
-	$.when(A_JAX(host_ip+"/get_analysis", "GET", null, null)).done(function(data) {
-		if (data['result'] == 'success'){
+	$.when(A_JAX(host_ip+"/get_analysis", "GET", null, null))
+	.done(function(data) {
+		if (data['result'] == 'success') {
 			analysis_data = data['analysis'];
 			let div = `<div id="anlt_time_weather_wrap" class="anlt_time_weather_wrap"></div>`;
 			$("#posts_target").append(div);
@@ -173,11 +174,10 @@ function insert_realtimesearch_div() {
 }
 function set_realtimesearch() {
 	let realtime_words_list;
-	let realtime_ajax = A_JAX(host_ip+"/get_search_realtime", "GET", null, null);
-	$.when(realtime_ajax).done(function () {
-		let json = realtime_ajax.responseJSON;
-		if (json['result'] == 'success') {
-			realtime_words_list = json['search_realtime'];
+	$.when(A_JAX(host_ip+"/get_search_realtime", "GET", null, null))
+	.done(function (data) {
+		if (data['result'] == 'success') {
+			realtime_words_list = data['search_realtime'];
 			let target, div, i;
 			for (i = 1; i <= realtime_words_list.length; i++) {
 				let word;
@@ -282,24 +282,23 @@ function insert_visitor_div() {
 }
 function set_visitor_data() {
 	let visitor_time_data, visitor_number_data, vistior_time;
-	let visitor_ajax = A_JAX(host_ip+"/get_everyday_analysis_days_ago/"+2, "GET", null, null);
-	$.when(visitor_ajax).done(function () {
-		let json = visitor_ajax.responseJSON;
-		if (json['result'] == 'success') {
+	$.when(A_JAX(host_ip+"/get_everyday_analysis_days_ago/"+2, "GET", null, null))
+	.done(function (data) {
+		if (data['result'] == 'success') {
 			let visitor_time_data_array1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]; 
 			let visitor_time_data_array2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];
 			let visitor_time_data1, visitor_time_data2, visitor_time_date1, visitor_time_date2;
-			if (json['analysis'][0] != undefined) {
-				visitor_time_data1 = json['analysis'][0]['today_time_visitor'];
-				visitor_time_date1 = json['analysis'][0]['date'];
+			if (data['analysis'][0] != undefined) {
+				visitor_time_data1 = data['analysis'][0]['today_time_visitor'];
+				visitor_time_date1 = data['analysis'][0]['date'];
 				let now_time = new Date(visitor_time_date1);
 				visitor_time_date1 = `${now_time.getMonth() + 1}월 ${now_time.getDate()}일`;
 				for (let st in visitor_time_data1)
 					visitor_time_data_array1[visitor_time_data1[st]['time'] - 1] = visitor_time_data1[st]['visitor'];
 			}
-			if (json['analysis'][1] != undefined) {
-				visitor_time_data2 = json['analysis'][1]['today_time_visitor'];
-				visitor_time_date2 = json['analysis'][1]['date'];
+			if (data['analysis'][1] != undefined) {
+				visitor_time_data2 = data['analysis'][1]['today_time_visitor'];
+				visitor_time_date2 = data['analysis'][1]['date'];
 				let now_time = new Date(visitor_time_date2);
 				visitor_time_date2 = `${now_time.getMonth() + 1}월 ${now_time.getDate()}일`;
 				for (let st in visitor_time_data2)
@@ -393,7 +392,8 @@ function insert_device_div() {
 	set_device_data();
 }
 function set_device_data() {
-	$.when(A_JAX(host_ip+"/get_device", "GET", null, null)).done(function(data) {
+	$.when(A_JAX(host_ip+"/get_device", "GET", null, null))
+	.done(function(data) {
 		if (data['result'] == 'success'){
 			get_doughnut("anlt_user_device_distribution",
 				["PC", "Tablet", "Mobile"],
@@ -633,11 +633,7 @@ function Detection_Device() {
 	    device = "device_mobile";
 	}
 	if (Check_Visite_Today()) {
-		$.when(A_JAX(host_ip+"/insert_device/"+device, "GET", null, null)).done(function (data) {
-			if (data['result'] != 'success') {
-				Snackbar("통신이 원활하지 않습니다.");
-			}
-		});
+		A_JAX(host_ip+"/insert_device/"+device, "GET", null, null);
 	}
 }
 
@@ -650,13 +646,12 @@ function menu_realtime_searchword() {
 	target.css("top", "0");
 	setTimeout(function() {
 		menu_realtime_init = 0;
-		let realtime_ajax = A_JAX(host_ip+"/get_search_realtime", "GET", null, null);
-		$.when(realtime_ajax).done(function () {
-			let json = realtime_ajax.responseJSON;
-			if (json['result'] == 'success') {
+		$.when(A_JAX(host_ip+"/get_search_realtime", "GET", null, null))
+		.done(function (data) {
+			if (data['result'] == 'success') {
 				target.empty();
 				target2.empty();
-				let realtime_words_list = json['search_realtime'];
+				let realtime_words_list = data['search_realtime'];
 				let div, i;
 				if (realtime_words_list.length == 0) {
 					div = `<div class="menu_realtime_word noselect">\

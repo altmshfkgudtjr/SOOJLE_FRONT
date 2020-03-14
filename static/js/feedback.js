@@ -95,7 +95,7 @@ function feedback_send() {
 		Snackbar("내용을 입력해주세요.");
 		$("#feedback_box").focus();
 		return;
-	} else if (phragh.length >= 1000) {
+	} else if (phragh.length > 1000) {
 		Snackbar("제한 길이를 초과하였습니다.");
 		$("#feedback_box").focus();
 		return;
@@ -103,13 +103,23 @@ function feedback_send() {
 	send_data["type"] = selectbox_input;
 	send_data["post"] = phragh;
 	
-	let a_jax = A_JAX(host_ip+"/send_feedback", "POST", null, send_data);
-	$.when(a_jax).done(function () {
-		if (a_jax.responseJSON['result'] = 'success') {
+	$.when(A_JAX(host_ip+"/send_feedback", "POST", null, send_data))
+	.done(function (data) {
+		if (data['result'] = 'success') {
 			Snackbar("피드백을 전송하였습니다.");
 			$("#feedback_box").val("");
 		} else {
-			Snackbar("통신이 원활하지 않습니다.");
+			Snackbar("잠시 후 다시 시도해주세요.");
+		}
+	}).catch((data) => {
+		if (data.status == 400) {
+			Snackbar("잘못된 요청입니다.");
+		} else if (data.status == 401) {
+			Snackbar("다시 로그인 해주세요.");
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+		} else {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
 		}
 	});
 }

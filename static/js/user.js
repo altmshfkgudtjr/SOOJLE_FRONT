@@ -116,7 +116,7 @@ function Sign_in() {									// 로그인 완료 버튼
 				sessionStorage.setItem('sj-state', token);
 				window.location.replace("/board#recommend");
 				Get_UserInfo(function(result) {
-					nickname = "사용자"
+					nickname = "사용자";
 					if (result) {
 						nickname = result["user_nickname"];
 						login_modal_onoff();
@@ -132,28 +132,19 @@ function Sign_in() {									// 로그인 완료 버튼
 					}
 					Menu_User_Info_Change(nickname);
 				});
-			} else if (data['result'] == 'not sejong') {
-				Snackbar("올바르지 않은 계정입니다.");
-				localStorage.removeItem('sj-state');
-				sessionStorage.removeItem('sj-state');
-
-			} else if (data['result'] == 'incorrect pw') {
+			} else if (data['result'] == 'Incorrect pw') {
 				Snackbar("비밀번호를 다시 입력해주세요.");
 				localStorage.removeItem('sj-state');
 				sessionStorage.removeItem('sj-state');
-			} else if (data['result'] == 'api error') {
-				Snackbar("세종대학교 전산서비스 오류입니다.");
-			} else if (data['result'] == 'blacklist user') {
-				sessionStorage.removeItem('sj-state');
-				localStorage.removeItem('sj-state');
-				Snackbar("블랙리스트된 사용자입니다.");
-			} else if (data['result'] == 'No member') {
-				sessionStorage.removeItem('sj-state');
-				localStorage.removeItem('sj-state');
+			} else if (data['result'] == 'Not found') {
 				Snackbar("존재하지 않는 회원입니다.");
+				sessionStorage.removeItem('sj-state');
+				localStorage.removeItem('sj-state');
 			} else {
-				Snackbar("서버와의 연결이 원활하지 않습니다.");
+				Snackbar("잠시 후 다시 시도해주세요.");
 			}
+		}).catch((data) => {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
 		});
 	}
 	return false;
@@ -417,13 +408,18 @@ function Sign_Up_Send() {	// 회원가입 API 호출
 			localStorage.setItem('sj-state', token);
 			window.location.replace("/board#recommend");
 			location.reload();
-		} else if (data['result'] == 'already id') {
+		} else if (data['result'] == 'Exist') {
 			Snackbar("이미 존재하는 아이디입니다.");
 			$("#signup_id").select().focus();
-			return;
+		} else {
+			Snackbar("잠시 후 다시 시도해주세요.");
+		}
+	}).catch((data) => {
+		if (data['status'] == 400) {
+			Snackbar("잘못된 요청입니다.");
+			$("#signup_pw_check").select().focus();
 		} else {
 			Snackbar("서버와의 연결이 원활하지 않습니다.");
-			return;
 		}
 	});
 }
@@ -451,40 +447,24 @@ function Get_UserInfo(callback) {
     	return false;
     }
     let output = {};
-	a_jax = A_JAX(host_ip+"/get_userinfo", "GET", null, null);
-	$.when(a_jax).done(function (data) {
+	$.when(A_JAX(host_ip+"/get_userinfo", "GET", null, null)).done(function (data) {
 		if (data['result'] == 'success') {
-			output = a_jax.responseJSON;
-			//## ======== ##//
-			// 콜백함수, 인자로 User Information을 넣어준다.
-			//console.log(output);
 			if (typeof(callback) == 'function') {
-				callback(output);
+				callback(data);
 			}
-		} else if (data['result'] == 'No member') {
-			Snackbar("회원정보가 없습니다.");
-			sessionStorage.removeItem('sj-state');
-			localStorage.removeItem('sj-state');
-			return;
-		} else if (data['result'] == 'bad token') {
-			sessionStorage.removeItem('sj-state');
-			localStorage.removeItem('sj-state');
-			return false;
-		} else if (a_jax['status'].toString().startsWith('4')) {
-			Snackbar("통신이 원활하지 않습니다.");
-			sessionStorage.removeItem('sj-state');
-			localStorage.removeItem('sj-state');
-			return false;
 		} else {
-			Snackbar("통신이 원활하지 않습니다.");
+			Snackbar("잠시 후 다시 시도해주세요.");
 			return false;
 		}
-	}).fail(function(xhr, status, err) {	//////////////////////
-		if(err == "UNAUTHORIZED") {			/*	    실패 시		*/
-			alert("다시 로그인해주세요.");	//////////////////////
+	}).catch((data) => {
+		if (data.status == 401) {
+			Snackbar("다시 로그인 해주세요.");
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
 			window.location.reload();
+		} else {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
+			return false;
 		}
 	});
 	return output;
@@ -493,8 +473,7 @@ function Get_UserInfo(callback) {
 function Check_ManagerInfo(callback) {
 	let token = sessionStorage.getItem('sj-state');
 	if (token == null || token == undefined || token == 'undefined') return;
-	let a_jax_manager = A_JAX(host_ip+"/check_admin", "GET", null, null);
-	$.when(a_jax_manager)
+	$.when(A_JAX(host_ip+"/check_admin", "GET", null, null))
 	.done(function(data) {
 		if (data["result"] == 'success') {
 			if (typeof(callback) == "function") {
@@ -505,51 +484,55 @@ function Check_ManagerInfo(callback) {
 }
 // 최근 본 게시글 반환 (callback(<userdata>))
 function Get_Recently_View_Post(callback) {
-	let a_jax = A_JAX(host_ip+"/get_specific_userinfo/"+2, "GET", null, null);
-	$.when(a_jax).done(function () {
-		let json = a_jax.responseJSON;
+	$.when(A_JAX(host_ip+"/get_specific_userinfo/"+2, "GET", null, null))
+	.done(function (data) {
 		let output = [];
-		if (json['result'] == 'success') {
-			output = JSON.parse(json["user"]);
+		if (data['result'] == 'success') {
+			output = JSON.parse(data["user"]);
 			output = output['view_list'];
 			if (typeof(callback) == 'function') {
 				callback(output);
 			}
 		} else {
-			Snackbar("다시 접속해주세요!");
+			Snackbar("잠시 후 다시 시도해주세요.");
 		}
 		return output;
-	}).fail(function(xhr, status, err) {	//////////////////////
-		if(err == "UNAUTHORIZED") {			/*	    실패 시		*/
-			alert("로그인이 필요합니다.");	//////////////////////
+	}).catch((data) => {
+		if (data.status == 401) {
+			Snackbar("다시 로그인 해주세요.");
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
-			window.location.replace("/board");
+			window.location.reload();
+		} else {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
+			return false;
 		}
 	});
 }
 // 좋아요 게시글 반환 (callback(<userdata>))
 function Get_Like_Post(callback) {
-	let a_jax = A_JAX(host_ip+"/get_specific_userinfo/"+1, "GET", null, null);
-	$.when(a_jax).done(function () {
-		let json = a_jax.responseJSON;
+	$.when(A_JAX(host_ip+"/get_specific_userinfo/"+1, "GET", null, null))
+	.done(function (data) {
 		let output = [];
-		if (json['result'] == 'success') {
-			output = JSON.parse(json["user"]);
+		if (data['result'] == 'success') {
+			output = JSON.parse(data["user"]);
 			output = output['fav_list'];
 			if (typeof(callback) == 'function') {
 				callback(output);
 			}
 		} else {
-			Snackbar("다시 접속해주세요!");
+			Snackbar("잠시 후 다시 시도해주세요.");
 		}
 		return output;
-	}).fail(function(xhr, status, err) {	//////////////////////
-		if(err == "UNAUTHORIZED") {			/*	    실패 시		*/
-			alert("로그인이 필요합니다.");	//////////////////////
+	}).catch((data) => {
+		if (data.status == 401) {
+			Snackbar("다시 로그인 해주세요.");
 			sessionStorage.removeItem('sj-state');
 			localStorage.removeItem('sj-state');
-			window.location.replace("/board");
+			window.location.reload();
+		} else {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
+			return false;
 		}
 	});
 }
@@ -570,5 +553,15 @@ function Get_recently_searchword(callback) {
 				callback(data["lately_search_list"]);
 			}
 		}
-	})
+	}).catch((data) => {
+		if (data.status == 401) {
+			Snackbar("다시 로그인 해주세요.");
+			sessionStorage.removeItem('sj-state');
+			localStorage.removeItem('sj-state');
+			window.location.reload();
+		} else {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
+			return false;
+		}
+	});
 }

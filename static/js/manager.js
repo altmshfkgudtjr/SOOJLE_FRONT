@@ -116,17 +116,27 @@ function writing_notice_admin() {
 							"title": title, 
 							"post": pharagh
 						};
-		$.when(
-		A_JAX(host_ip+"/insert_notice", "POST", null, send_data)
-		).done(function(data) {
+		$.when(A_JAX(host_ip+"/insert_notice", "POST", null, send_data))
+    .done(function(data) {
 			if (data["result"] == 'success') {
 				writing_notice_reset();
 				Snackbar("게시글이 정상적으로 업로드되었습니다.");
-
 			} else {
-				Snackbar("업로드를 실패하였습니다.");
+				Snackbar("잠시 후 다시 시도해주세요.");
 			}
-		});
+		}).catch((data) => {
+      if (data.status == 400) {
+        Snackbar("잘못된 요청입니다.");
+        return false;
+     } else if (data.status == 403) {
+        Snackbar("권한이 없습니다.");
+        window.location.reload();
+        return false;
+      } else {
+        Snackbar("서버와의 연결이 원활하지 않습니다.");
+        return false;
+      }
+    });
 	});
 }
 
