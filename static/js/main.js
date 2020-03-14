@@ -275,3 +275,4 @@ function Insert_recommendation_searchword() {
 function Main_Info_Message_Btn() {
 	Snackbar("개발 중인 기능입니다.");
 }
+
