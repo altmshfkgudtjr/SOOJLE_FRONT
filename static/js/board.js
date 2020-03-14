@@ -377,7 +377,7 @@ function Insert_user_recently_searchword(target) {
 		div = 	`
 					<div class="search_result noselect" onmousedown="search_result_click($(this))">
 						<img src="/static/icons/time.png" class="search_result_icon">
-						<span>${search_word['original']}</span>
+						<span class="text_overflow_none">${search_word['original']}</span>
 					</div>
 				`;
 		target.prepend(div);
@@ -393,7 +393,7 @@ function Insert_user_recently_searchword(target) {
 						div = 	`
 									<div class="search_result noselect" onmousedown="search_result_click($(this))">
 										<img src="/static/icons/search.png" class="search_result_icon">
-										<span>${word}</span>
+										<span class="text_overflow_none">${word}</span>
 									</div>
 								`;
 						target.prepend(div);

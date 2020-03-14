@@ -30,6 +30,12 @@ html, body {
 	height: auto;
 	z-index: 10;
 }
+.text_overflow_none {
+	width: 80%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 .grid {
 	position: absolute;
 	top: 5px;
@@ -266,6 +272,7 @@ html, body {
 	line-height: 40px;
 	background-color: rgba(0,0,0,0);
 	z-index: 40;
+	overflow: hidden;
 }
 .search_result:hover {
 	background-color: rgba(0,0,0,.05);
@@ -2080,6 +2087,9 @@ span.selectbox_choose {
 	font-size: 18px;
 	padding-left: 33px;
 	box-sizing: border-box;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .realtime_searchwords_table_text:hover {
 	text-decoration: underline;

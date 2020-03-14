@@ -122,13 +122,7 @@ function search_button() {	// 검색작업 data = 글자
 		is_searching = 0;
 		return;
 	} else if (data.length > 200) {
-		Snackbar("검색어가 제한 길이를 초과하였습니다.");
-		if (mobilecheck()) {
-			$("#mobile_search_input").focus();
-		} else {
-			$("#pc_search_input").focus();
-		}
-		return;
+		data = data.slice(0, 200);
 	}
 	search_text(data);	// 검색 함수 실행
 
@@ -242,7 +236,7 @@ function Insert_user_recently_searchword(target) {
 		div = 	`
 					<div class="search_result noselect" onmousedown="search_result_click($(this))">
 						<img src="/static/icons/time.png" class="search_result_icon">
-						<span>${search_word['original']}</span>
+						<span class="text_overflow_none">${search_word['original']}</span>
 					</div>
 				`;
 		target.prepend(div);
@@ -258,7 +252,7 @@ function Insert_user_recently_searchword(target) {
 						div = 	`
 									<div class="search_result noselect" onmousedown="search_result_click($(this))">
 										<img src="/static/icons/search.png" class="search_result_icon">
-										<span>${word}</span>
+										<span class="text_overflow_none">${word}</span>
 									</div>
 								`;
 						target.prepend(div);
