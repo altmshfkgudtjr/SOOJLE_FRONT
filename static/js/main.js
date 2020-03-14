@@ -196,8 +196,6 @@ $(window).ready(function() {
 });
 
 
-
-
 // 사용자 검색 키워드 객체
 const user_recently_searchword = {
 	search_list: [],
@@ -270,7 +268,48 @@ function Insert_recommendation_searchword() {
 }
 
 // 메인 페이지 소개 메세지 버튼
+let Message_animating = false;
 function Main_Info_Message_Btn() {
-	Snackbar("개발 중인 기능입니다.");
+	if (Message_animating) return;
+	let tag = $("#main_info_message_btn");
+	let target = $("#main_info_message_area");
+	if (target.hasClass("display_none")) {
+		tag.attr("src", "/static/icons/message_green.png");
+		Message_animating = !Message_animating;
+		tag.addClass("main_info_message_btn_selected");
+		// AJAX 요청
+		let messages = [{'post': "세종대학교 정보통합솔루션!"}, {'post': "수즐이 드디어 OPEN 했습니다!"}];
+		target.removeClass("display_none");
+		new Promise((resolve, reject) => {
+			for (let i in messages) {
+				let div = `<div class="main_info_message_box pointer wow animated fadeInLeft" onclick="Drop_Main_Info_Message_Btn(this)">${messages[i].post}</div>`;
+				setTimeout(function(i) {
+					target.append(div);
+				}, 500*i);
+			}
+			resolve();
+		}).then(() => {
+			Message_animating = !Message_animating;
+		});
+	} else {
+		tag.attr("src", "/static/icons/message_black.png");
+		Message_animating = !Message_animating;
+		tag.removeClass("main_info_message_btn_selected");
+		$(".main_info_message_box").removeClass("fadeInLeft");
+		$(".main_info_message_box").css("animation-name", "fadeOutLeft");
+		setTimeout(function() {
+			target.empty();
+			target.addClass("display_none");
+			Message_animating = !Message_animating;
+		}, 1000);
+	}
 }
+if (!mobilecheck()) Main_Info_Message_Btn();
 
+function Drop_Main_Info_Message_Btn(tag) {
+	$(tag).removeClass("fadeInLeft");
+	$(tag).css("animation-name", "fadeOutLeft");
+	setTimeout(function() {
+		$(tag).remove();
+	}, 1000);
+}

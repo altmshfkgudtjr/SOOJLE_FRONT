@@ -59,11 +59,15 @@
 	<!--메인 첫페이지-->
 	<div class="page_section">
 		<div class="main_user_controller">
-			<img src="/static/icons/message_black.png" class="main_info_message_btn pointer" onclick="Main_Info_Message_Btn()">
+			<img src="/static/icons/message_black.png" id="main_info_message_btn" class="main_info_message_btn pointer" onclick="Main_Info_Message_Btn()">
 			<div id="main_login_btn" class="main_user_controller_user" onclick="GoLogin()">
 				로그인
 			</div>
 			<div id="main_user_btn" class="main_user_controller_user display_none" onclick="GoSetting()"></div>
+		</div>
+		<!--Main INFO Message Box-->
+		<div id="main_info_message_area" class="main_info_message_area display_none">
+			
 		</div>
 		<div class="SJ_main_page1_logo_container_box">
 			<img src="/static/image/SOOJLE_LOGO_BIG.png" class="SJ_main_page1_logo_container noselect pointer" onclick="Goboard();">
@@ -228,14 +232,3 @@
 <script src="/static/js/main.js"></script>
 <script src="/static/js/footer.js"></script>
 </html>
-
-<!-- 주 색상표
-:root {
-	--sj_deepdark_color: #2A2A2A;
-	--sj_litedark_color: #EDEDED;
-	--sj_mediumdark_color: #E0E0E0;
-	--sj_accentdark_color: #050505;
-	--sj_deepred_color: #c30e2e;
-	--sj_litered_color: #DF0101;
-}
--->
