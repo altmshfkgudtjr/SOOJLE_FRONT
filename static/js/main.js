@@ -311,5 +311,15 @@ function Drop_Main_Info_Message_Btn(tag) {
 	$(tag).css("animation-name", "fadeOutLeft");
 	setTimeout(function() {
 		$(tag).remove();
+		Check_Main_Info_Message();
 	}, 1000);
+}
+
+function Check_Main_Info_Message() {
+	if ($(".main_info_message_box").length == 0) {
+		let tag = $("#main_info_message_btn");
+		tag.attr("src", "/static/icons/message_black.png");
+		tag.removeClass("main_info_message_btn_selected");
+		$("#main_info_message_area").addClass("display_none");
+	}
 }
