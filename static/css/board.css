@@ -775,6 +775,9 @@ html, body {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+#user_info {
+	width: 100%;
+}
 .menu_container_button_small {
 	position: relative;
 	float: right;
@@ -1602,7 +1605,7 @@ html, body {
 	transition: .1s ease-in-out;
 }
 .setting_writing_post_title:focus {
-	border: 2px solid black;
+	border: 2px solid #12b886;
 }
 .setting_writing_post_pharagh {
 	position: relative;
@@ -1619,7 +1622,7 @@ html, body {
 	white-space: pre-wrap;
 }
 .setting_writing_post_pharagh:focus {
-	border: 2px solid black;
+	border: 2px solid #12b886;
 }
 .setting_writing_post_checkbox_info {
 	position: relative;
@@ -2698,4 +2701,42 @@ span.selectbox_choose {
 	box-shadow: 0 2px 8px rgba(0,0,0,0);
 	color: white;
 	background-color: #12b886;
+}
+
+.setting_info_message_cont {
+	position: relative;
+	width: 100%;
+	height: auto;
+	margin-bottom: 40px;
+}
+.setting_info_message_box {
+	position: relative;
+	width: 100%;
+	margin-bottom: 10px;
+}
+.setting_info_message_box_input {
+	position: relative;
+	display: block;
+	background: #12b886;
+    margin-left: 25px;
+    margin: 20px 0 0 10px;
+    border: 3px solid #12b886;
+    border-radius: 0 15px 15px 15px;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px;
+    width: 200px;
+    height: 24px;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    resize: none;
+    overflow-y: hidden;
+    white-space: pre-wrap;
+}
+.setting_info_message_box_input::placeholder {
+	color: #eee;
+}
+.setting_info_message_box_editBtn {
+	position: relative;
+	width: 
 }

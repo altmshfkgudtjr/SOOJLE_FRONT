@@ -277,19 +277,23 @@ function Main_Info_Message_Btn() {
 		tag.attr("src", "/static/icons/message_green.png");
 		Message_animating = !Message_animating;
 		tag.addClass("main_info_message_btn_selected");
-		// AJAX 요청
-		let messages = [{'post': "세종대학교 정보통합솔루션!"}, {'post': "수즐이 드디어 OPEN 했습니다!"}];
-		target.removeClass("display_none");
-		new Promise((resolve, reject) => {
-			for (let i in messages) {
-				let div = `<div class="main_info_message_box pointer wow animated fadeInLeft" onclick="Drop_Main_Info_Message_Btn(this)">${messages[i].post}</div>`;
-				setTimeout(function(i) {
-					target.append(div);
-				}, 500*i);
-			}
-			resolve();
-		}).then(() => {
-			Message_animating = !Message_animating;
+		$.when(A_JAX(host_ip+"/get_main_info", "GET", null, null))
+		.done((data) => {
+			target.removeClass("display_none");
+			messages = data['main_info'];
+			new Promise((resolve, reject) => {
+				for (let i in messages) {
+					let div = `<div class="main_info_message_box pointer wow animated fadeInLeft" onclick="Drop_Main_Info_Message_Btn(this)">${messages[i]}</div>`;
+					setTimeout(function(i) {
+						target.append(div);
+					}, 500*i);
+				}
+				resolve();
+			}).then(() => {
+				Message_animating = !Message_animating;
+			});
+		}).catch((data) => {
+			Snackbar("서버와의 연결이 원활하지 않습니다.");
 		});
 	} else {
 		tag.attr("src", "/static/icons/message_black.png");

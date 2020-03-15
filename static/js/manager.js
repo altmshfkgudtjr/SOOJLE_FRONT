@@ -52,18 +52,17 @@ function Go_management() {
 function insert_management() {
 	$("#posts_target").empty();
 	let div = 	`<div class="setting_subject_wrap">
-					<div class="setting_title noselect">관리자 도구</div>
-					<div class="setting_title_info noselect">
-						이 곳은 SOOJLE 서비스의 관리를 담당하는 곳입니다.
-					</div>
-				</div>
-				<div class="setting_subtitle noselect">공지사항 작성</div>
-				<div class="setting_subtitle_info noselect">공지사항 및 일반 게시글을 작성합니다.</div>
-				<div id="setting_writing_post_wrapper" class="setting_writing_post_wrapper"></div>
-				`;
+      					<div class="setting_title noselect">관리자 도구</div>
+      					<div class="setting_title_info noselect">
+      						이 곳은 SOOJLE 서비스의 관리를 담당하는 곳입니다.
+      					</div>
+      				</div>
+      				`;
 	$("#posts_target").append(div);
 	$("#posts_creating_loading").addClass("display_none");
-	insert_wrting_div();
+
+  insert_message_div();  // 한줄메세지 생성
+	insert_wrting_div();   // 게시글작성 생성 
 }
 
 // 게시글 작성 Div 생성
@@ -78,11 +77,16 @@ function insert_wrting_div() {
 2. 특정인이나 단체/지역을 비방하는 행위.
 3. 기타 현행법에 어긋나는 행위.
 `;
-	let target = $("#setting_writing_post_wrapper");
-	let div =	`<input type="text" id="setting_writing_post_title" class="setting_writing_post_title" placeholder="제목을 입력해주세요.">
-				<textarea id="setting_writing_post_pharagh" class="setting_writing_post_pharagh" placeholder="${pharagh_placeholder}"></textarea>
-				<div class="setting_writing_post_btn_ok pointer" onclick="writing_notice_admin()">작성하기</div>
-				`;
+	let target = $("#posts_target");
+	let div =	 `
+                <div class="setting_subtitle noselect">공지사항 작성</div>
+                <div class="setting_subtitle_info noselect">공지사항 및 일반 게시글을 작성합니다.</div>
+                <div id="setting_writing_post_wrapper" class="setting_writing_post_wrapper">
+                  <input type="text" id="setting_writing_post_title" class="setting_writing_post_title" placeholder="제목을 입력해주세요.">
+                  <textarea id="setting_writing_post_pharagh" class="setting_writing_post_pharagh" placeholder="${pharagh_placeholder}"></textarea>
+                  <div class="setting_writing_post_btn_ok pointer" onclick="writing_notice_admin()">작성하기</div>
+                </div>
+      			 `;
 	target.append(div);
 }
 
@@ -141,7 +145,84 @@ function writing_notice_admin() {
 }
 
 
+// 한줄 메세지 작성 Div 생성
+function insert_message_div() {
+  let target = $("#posts_target");
+  let div =   `
+              <div class="setting_subtitle noselect">한줄 메세지 작성</div>
+              <div class="setting_subtitle_info noselect">메인화면에 표시되는 한줄 메세지를 작성합니다.</div>
+              <div class="setting_info_message_cont">
+                <div class="setting_info_message_box">
+                  <textarea id="setting_info_message_box_input1" class="setting_info_message_box_input" placeholder="한줄 메세지를 입력해주세요."></textarea>
+                  <textarea id="setting_info_message_box_input2" class="setting_info_message_box_input" placeholder="한줄 메세지를 입력해주세요."></textarea>
+                </div>
+                <div class="setting_writing_post_btn_ok pointer" onclick="Send_info_message_div()">수정하기</div>
+              </div>
+              `;
+  target.append(div);
+  Binding_message_height();
+  Setting_info_message_div();
+}
+// 한줄 메세지 Textarea 자동 높이 조절
+function Binding_message_height() {
+  $('.setting_info_message_box_input').on({
+    "keyup": (e) => {
+      let tag = e.target;
+      $(tag).css('height', 'auto' );
+      $(tag).height(tag.scrollHeight-24);
+    }
+  });
+}
+// 한줄 메세지 Setting
+function Setting_info_message_div() {
+  $.when(A_JAX(host_ip+"/get_main_info", "GET", null, null))
+  .done((data) => {
+    if (data['result'] == 'success') {
+      $("#setting_info_message_box_input1").val(data.main_info[0]);
+      $("#setting_info_message_box_input2").val(data.main_info[1]);
+    } else {
+      Snackbar("잠시 후 다시 시도해주세요.");
+    } 
+  }).catch((data) => {
+    Snackbar("서버와의 연결이 원활하지 않습니다.");
+  });
+}
+// 한줄 메세지 적용
+function Send_info_message_div() {
+  let send_data = {};
+  if ($("#setting_info_message_box_input1").val().length > 50) {
+    Snackbar("제한 길이를 초과하였습니다.");
+    $("#setting_info_message_box_input1").focus();
+    return; 
+  }
+  if ($("#setting_info_message_box_input2").val().length > 50) {
+    Snackbar("제한 길이를 초과하였습니다.");
+    $("#setting_info_message_box_input2").focus();
+    return; 
+  }
+  send_data['new_info_1'] = $("#setting_info_message_box_input1").val();
+  send_data['new_info_2'] = $("#setting_info_message_box_input2").val();
+   $.when(A_JAX(host_ip+"/update_main_info", "POST", null, send_data))
+  .done((data) => {
+    if (data['result'] == 'success') {
+      Snackbar("성공적으로 변경하였습니다.");
+    } else {
+      Snackbar("잠시 후 다시 시도해주세요.");
+    }
+  }).catch((data) => {
+    if (data.status == 400) {
+      Snackbar("잘못된 요청입니다.");
+    } else if (data.statue == 403) {
+      Snackbar("권한이 없습니다.");
+      window.location.reload();
+    } else {
+      Snackbar("서버와의 연결이 원활하지 않습니다.");
+    }
+  });
+}
 
+
+// 축하 SVG 생성
 function Congratulations() {
 	let congratulations_text = `Happy Birthday!`;
 	let cake_div_container = `<div id="congratulations_wrapper" class="congratulations_wrapper pointer" onclick="Congratulations_close()">`;
@@ -320,3 +401,5 @@ function Congratulations_close() {
 		$("#congratulations_wrapper").remove();
 	}, 1200);
 }
+
+
